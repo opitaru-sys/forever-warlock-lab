@@ -1,24 +1,51 @@
-import sys, importlib, os
+"""What one talent point is worth in seconds per kill, for the page planner's builds (v8).
+
+Run from the repo root: python analysis/talent_point_values.py
+For a talent in the build: take all its points out (if the build stays legal) and report how much slower each point
+leaves you. For a talent not in the build: add its points on top (a what-if, ignoring the level's point budget).
+Best rotation from evaluate() (modifiers included), averaged over mob HP x0.8 to x1.2, Voidwalker, SP 1.0.
+"""
+import os
+import sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "models"))
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-import leveling_sim as ls
-import character as model
-model.seconds_per_kill = None
-from character import make_char, POLICIES
-def dmg30(L, tal, pol):
-    s = ls.simulate(make_char(L, tal, 1.0), 1e9, dict(POLICIES[pol], amp=False), max_time=120)
-    return sum(s['dmg'].values()), s['mana_spent'] - s['lt_mana'], s['healed']
-for L, base, pol in [(30, {'ImprovedCorruption':5,'Suppression':3}, 'DoTs+Wand'),
-                     (45, {'ImprovedCorruption':5,'Suppression':3,'SiphonLife':1,'ImprovedDrains':3}, 'DoTs+DrainLife'),
-                     (60, {'ImprovedCorruption':5,'Suppression':3,'SiphonLife':1,'ImprovedDrains':3,'SoulSiphon':3,'Malediction':5,'ShadowMastery':5}, 'DoTs+DrainLife')]:
-    b, mana, heal = dmg30(L, base, pol)
-    print(f"\nL{L} {pol}: 30s damage {b:.0f} net mana {mana:.0f} healed {heal:.0f}")
-    for k, n in [('Malediction',5),('ShadowMastery',5),('Pandemic',3),('Malevolence',5),('ImprovedBoA',2),('Nightfall',2),
-                 ('SoulSiphon',3),('ImprovedDrains',3),('UnholyPower',5),('DemonicKnowledge',3),('SiphonLife',1),('SoulHarvesting',2),('ImprovedLifeTap',2)]:
-        t = dict(base)
-        if t.get(k, 0) + n > model.AFF.get(k, model.DEMO.get(k, (0, 99)))[1]:
-            continue
-        t[k] = t.get(k,0)+n
-        v, m2, h2 = dmg30(L, t, pol)
-        print(f"  +{n} {k:18s} dmg {100*(v-b)/b:+5.2f}%  ({100*(v-b)/b/n:+.2f}%/pt)  net-mana {m2-mana:+5.0f} heal {h2-heal:+5.0f}")
+from character import valid, AFF, DEMO, DESTRO
+from leveling_paths import page_build, spk_many
+
+MAX = {k: m for tree in (AFF, DEMO, DESTRO) for k, (r, m) in tree.items()}
+PROBE = ['Malediction', 'ShadowMastery', 'Pandemic', 'Malevolence', 'ImprovedBoA', 'Nightfall', 'SoulSiphon', 'ImprovedDrains',
+         'UnholyPower', 'DemonicKnowledge', 'SiphonLife', 'SoulHarvesting', 'ImprovedLifeTap', 'Suppression', 'AmplifyCurse',
+         'DemonicEmbrace', 'FelVitality', 'Wrack', 'Bane', 'Cataclysm', 'Aftermath', 'MoltenSkin']
+
+
+def variants(base):
+    out = []
+    for k in PROBE:
+        if base.get(k):
+            t = {j: v for j, v in base.items() if j != k}
+            if valid(t):
+                out.append((k, t, -base[k]))
+        else:
+            t = dict(base, **{k: MAX[k]})
+            if valid(t):
+                out.append((k, t, MAX[k]))
+    return out
+
+
+if __name__ == "__main__":
+    for L in (30, 45, 60):
+        base = page_build(L)
+        vs = variants(base)
+        res = spk_many([(L, base, 1.0, {})] + [(L, t, 1.0, {}) for _, t, _ in vs])
+        b = res[0][0]
+        rows = []
+        for (k, _, n), (a, rot) in zip(vs, res[1:]):
+            per = (b / a - 1) * 100 / n if n > 0 else (a / b - 1) * 100 / -n
+            rows.append((per, k, n, a, rot))
+        print(f'\n### Level {L}, page planner build ({b:.2f} s per kill, {res[0][1]}): % faster per point\n')
+        print('| talent | points | seconds per kill | % per point | rotation |')
+        print('|---|---|---|---|---|')
+        for per, k, n, a, rot in sorted(rows, reverse=True):
+            print(f"| {k} | {'+' if n > 0 else ''}{n} | {a:.2f} | {per:+.2f}% | {rot} |")

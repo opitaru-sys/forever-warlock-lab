@@ -162,6 +162,10 @@ input[type=number],select{font:inherit;font-size:16px;width:100%;padding:6px 8px
 select{font-family:var(--body)}
 .check{display:inline-flex;gap:10px;align-items:center;font-size:15px;min-height:40px}
 .check input{accent-color:var(--accent);width:20px;height:20px}
+.fightset .check{display:flex;min-height:36px}
+fieldset .hint{font-size:13.5px;color:var(--muted)}
+.bar-row.dead{opacity:.6}
+.bar-row.dead .bar-track{background:repeating-linear-gradient(135deg,var(--track) 0 6px,transparent 6px 12px)}
 @media (max-width:560px){.seg button{min-height:44px}.seg.compact button{min-height:40px}}
 
 /* your warlock */
@@ -361,7 +365,6 @@ tr.top th{font-weight:700}
 .tal::after{content:"";position:absolute;top:5px;right:5px;width:7px;height:7px;border-radius:50%}
 .tal.s-yes::after{background:var(--tc)}
 .tal.s-utility::after{box-shadow:inset 0 0 0 1.5px var(--muted)}
-.tal.s-later::after{background:var(--amber)}
 .tal.some{border-color:var(--tc);background:var(--tcs)}
 .tal.max{border-color:var(--tc);background:var(--tc);color:#fff}
 .tal.max .tr{color:rgba(255,255,255,.85)}
@@ -445,7 +448,7 @@ h2::before{content:"";display:inline-block;width:11px;height:11px;transform:rota
 
 <header class="hero-band" data-watermark="">
 <div class="wrap hero">
-  <span class="eyebrow">WoW: Forever · Warlock · beta data · v7 · 29 Sep 2026</span>
+  <span class="eyebrow">WoW: Forever · Warlock · beta data · v8 · 29 Sep 2026</span>
   <div class="title-row"><img class="ico l" data-icon="classicon_warlock" alt="Warlock class icon"><h1>Forever Warlock Lab</h1></div>
   <p class="lede">What to press, which talents to take and which race to play, at every level from 1 to 60. Checked against the Forever beta's own spell data, with calculators you can play with.</p>
   <p class="trust">Built with Claude and checked by a second, adversarial Claude session. Open source. <a href="#method">How it was checked</a> · <a href="#changelog">What changed</a></p>
@@ -496,11 +499,11 @@ h2::before{content:"";display:inline-block;width:11px;height:11px;transform:rota
   </div>
   <div class="panel">
     <ul class="verdict">
-      <li id="v-lvl1"><span class="k">Levels 10 to 33</span><span><b>Affliction, instant Corruption first, then wand as your filler.</b> Not Shadow Bolt, not Drain Life yet. Talents barely matter here: every sane build lands within 3% of the best.<br><a class="go" href="#lvl-20">Open the planner at level 20</a></span></li>
-      <li id="v-lvl2"><span class="k">Levels 34 to 55</span><span><b>Drain Life becomes the filler the moment Soul Siphon is done.</b> Keep leveling Affliction-first.<br><a class="go" href="#lvl-40">Open the planner at level 40</a></span></li>
-      <li id="v-solo"><span class="k">Solo from 56</span><span><b>Switch to a Demonic Knowledge splash, 28/23/0.</b> It kills 5 to 7% faster than deep Affliction or the wowforeverbuilds drain-tank build, and held up when spell power tripled and pet damage halved.<br><a class="go" href="#specs">See the solo spec</a></span></li>
-      <li id="v-group"><span class="k">Group at 60</span><span><b>Destruction built around Incinerate, not Shadow Bolt.</b> 4 to 7% ahead of the wowforeverbuilds Shadow Bolt build. Your Succubus decides the rest: sacrifice her under about 8% of your damage, keep her out above that, Demonology only above about 17 to 20%.<br><a class="go" href="#raid">Try the raid calculator</a></span></li>
-      <li id="v-race"><span class="k">Race</span><span><b>Undead levels fastest and edges out the raid damage too.</b> Touch of the Grave adds about 2%, a Human with a caster sword about 1.5%. Every racial is small, so pick the race you like.<br><a class="go" href="#you">Compare the races</a></span></li>
+      <li id="v-lvl1"><span class="k">Levels 10 to 29</span><span><b>Affliction, instant Corruption first, then wand as your filler.</b> Not Shadow Bolt, not Drain Life yet. Talents matter little before 28: every build tested lands within 4% of the best.<br><a class="go" href="#lvl-20">Open the planner at level 20</a></span></li>
+      <li id="v-lvl2"><span class="k">Levels 30 to 55</span><span><b>Drain Life becomes the filler as Soul Siphon comes in.</b> Keep leveling Affliction-first. Destruction builds kill faster but rest longer, and lose overall.<br><a class="go" href="#lvl-40">Open the planner at level 40</a></span></li>
+      <li id="v-solo"><span class="k">Solo from 56</span><span><b>A Demonic Knowledge splash, 28/23/0, is optional.</b> It kills about 3 to 4.5% faster than deep Affliction or the wowforeverbuilds drain-tank build. If you followed this page's order, it only breaks even, so the respec is optional.<br><a class="go" href="#specs">See the solo spec</a></span></li>
+      <li id="v-group"><span class="k">Group at 60</span><span><b>Deep Demonology, 0/35/16.</b> Sacrifice the Imp, keep the Succubus out, and use Searing Pain to keep Demonic Brand on the boss. About 3% ahead of Destruction and Pact at the calculator defaults. If Brand turns out to deal no damage, it ties them within 1%. Fire Destruction built around Incinerate is the pick when your Succubus cannot stay on the boss.<br><a class="go" href="#raid">Try the raid calculator</a></span></li>
+      <li id="v-race"><span class="k">Race</span><span><b>Undead levels fastest and edges out the raid damage too.</b> Touch of the Grave makes it about 4% faster while leveling and adds about 1.6% in raids, against 1.5% for a Human with a caster sword. Every racial is small, so pick the race you like.<br><a class="go" href="#you">Compare the races</a></span></li>
       <li id="v-dng"><span class="k">Dungeons</span><span><b>The first ones open at level 13.</b> Every dungeon sits on one level line, filtered to your faction, with the ones that fit your level marked.<br><a class="go" href="#dungeons">See every dungeon by level</a></span></li>
     </ul>
   </div>
@@ -615,7 +618,7 @@ h2::before{content:"";display:inline-block;width:11px;height:11px;transform:rota
       <p class="note" id="bInfoLock" style="color:var(--amber)"></p>
       <div class="btns"><button type="button" id="bMinus" aria-label="Remove a point from the selected talent">−</button><button type="button" id="bPlus" aria-label="Add a point to the selected talent">+</button></div>
     </div>
-    <div class="blegend"><span><i style="background:var(--accent)"></i>Counts in the score</span><span><i style="box-shadow:inset 0 0 0 1.5px var(--muted)"></i>Utility, not scored</span><span><i style="background:var(--amber)"></i>Destruction, not scored for leveling yet</span></div>
+    <div class="blegend"><span><i style="background:var(--accent)"></i>Counts in the score</span><span><i style="box-shadow:inset 0 0 0 1.5px var(--muted)"></i>Utility, not scored</span></div>
   </div>
 </section>
 
@@ -631,8 +634,9 @@ h2::before{content:"";display:inline-block;width:11px;height:11px;transform:rota
       <ul>
         <li>Improved Corruption 5, Suppression 3, Improved Life Tap 1</li>
         <li>Improved Drains 3, Malediction 5</li>
-        <li>Improved Bane of Agony 2, Pandemic 3, Nightfall 2</li>
+        <li>Improved Bane of Agony 2, Pandemic 1, Amplify Curse 1</li>
         <li>Siphon Life 1, Soul Siphon 3</li>
+        <li>Shadow Mastery 3</li>
         <li>Demonic Embrace 5, Unholy Power 5</li>
         <li>Demonic Aegis 2, Improved Voidwalker 3, Fel Vitality 3, Demonic Energies 2</li>
         <li>Demonic Knowledge 3</li>
@@ -640,27 +644,29 @@ h2::before{content:"";display:inline-block;width:11px;height:11px;transform:rota
       <span class="grey">Pet: Voidwalker. Demonic Energies heals it off your damage and hands it your Life Tap mana.</span>
     </div>
     <div class="tt">
-      <div class="name-row"><img class="ico" data-icon="spell_shadow_rainoffire" alt="Destruction"><span class="name">Codex of the Pale Flame</span></div>
+      <div class="name-row"><img class="ico" data-icon="spell_shadow_summonsuccubus" alt="Demonology"><span class="name">Grimoire of the Branded Pact</span></div>
       <span class="sub">Group spec · dungeons and raids</span>
-      <span class="split">Affliction 9 · Demonology 11 · Destruction 31</span>
-      <span class="use">Use: Summon the Succubus. Sacrifice her for +15% Fire damage only if she does under about 8% of your damage.</span>
+      <span class="split">Affliction 0 · Demonology 35 · Destruction 16</span>
+      <span class="use">Use: Sacrifice the Imp, keep the Succubus out through Demonic Pact, and keep Demonic Brand on the boss with Searing Pain.</span>
       <ul>
-        <li>Improved Life Tap 2, Suppression 5, Malediction 2</li>
-        <li>Demonic Embrace 5, Demonic Aegis 2, Fel Vitality 3, Demonic Sacrifice 1</li>
-        <li>Destructive Reach 1, Bane 5, Aftermath 5, Cataclysm 3</li>
-        <li>Ruin 5, Shadowburn 1, Conflagrate 1, Agonizing Flames 3</li>
-        <li>Bane of Havoc 1, Shadow and Flame 5, Incinerate 1</li>
+        <li>Unholy Power 5, Improved Imp 3</li>
+        <li>Fel Vitality 3, Demonic Energies 2</li>
+        <li>Improved Sayaad 3, Demonic Sacrifice 1, Master Summoner 2</li>
+        <li>Decimation 2, Fel Domination 1, Demonic Brand 3</li>
+        <li>Soul Link 1, Demonic Knowledge 3</li>
+        <li>Master Demonologist 5, Demonic Pact 1</li>
+        <li>Improved Shadow Bolt 5, Bane 5, Cataclysm 1, Ruin 5</li>
       </ul>
-      <span class="grey">Keep up Immolate, Corruption and Bane of Doom. Conflagrate and Shadowburn on cooldown. Fill with Incinerate.</span>
+      <span class="grey">Keep up Corruption, Bane of Doom and Immolate. Searing Pain whenever Demonic Brand runs out, about every 5 seconds, with Shadow Bolt as the filler. Under 35%, keep going: Decimation adds 6% to both. Mana potion and rune on cooldown.</span>
     </div>
   </div>
-  <p class="note">The group spec takes Aftermath 5 in place of the wowforeverbuilds pick of Improved Shadow Bolt 5, because this version never casts Shadow Bolt.</p>
+  <p class="note">The group spec leans on Demonic Brand dealing damage, which nobody has tested yet (<a href="#t7">test 7</a>). If it deals nothing, the build still ties Pact and Fire Destruction within 1%. If your Succubus cannot stay on the boss because of cleave, movement or deaths, play Fire Destruction 9/11/31 instead: keep up Immolate, Corruption and Bane of Doom, Conflagrate and Shadowburn on cooldown, and fill with Incinerate. On a boss immune to Fire, Demonology with Pact edges ahead.</p>
 </section>
 
 <section id="raid">
   <div class="wrap intro">
     <h2>Raid calculator</h2>
-    <p>Single target at level 60. Life Tap funds all mana, the same limit for every build, and each build uses whichever Bane scores higher. Change anything and the ranking updates.</p>
+    <p>By default: one target at level 60, a mana potion and a rune on cooldown, then Life Tap for the rest, the same budget for every build. Each build uses whichever Bane scores higher. Change anything and the ranking updates.</p>
   </div>
   <div class="wrap wide raid-grid">
     <div class="panel raid-controls" role="group" aria-label="Calculator settings">
@@ -671,17 +677,27 @@ h2::before{content:"";display:inline-block;width:11px;height:11px;transform:rota
       <div class="ctrl"><label for="crit">Crit chance, %</label><input type="range" id="crit" min="5" max="25" step="1" value="10"><input type="number" id="critN" min="5" max="25" step="1" inputmode="numeric" aria-label="Crit chance, typed"></div>
       <div class="ctrl"><label for="ghit">Hit from gear, %</label><input type="range" id="ghit" min="0" max="16" step="1" value="11"><input type="number" id="ghitN" min="0" max="16" step="1" inputmode="numeric" aria-label="Hit from gear, typed"><span class="hint">Boss cap is 16%. Suppression adds 5% in the Affliction and Destruction builds. Demonology has none.</span></div>
       <div class="ctrl"><label for="pet">Succubus damage per second</label><input type="range" id="pet" min="0" max="160" step="5" value="50"><input type="number" id="petN" min="0" max="160" step="5" inputmode="numeric" aria-label="Succubus damage, typed"><span class="hint">50 is a placeholder. <a href="#t2">Measure yours</a>.</span></div>
-      <div class="ctrl"><label for="bod">Bane of Doom spell power bonus</label><input type="range" id="bod" min="1.5" max="4" step="0.1" value="4"><input type="number" id="bodN" min="1.5" max="4" step="0.1" inputmode="decimal" aria-label="Bane of Doom bonus, typed"><span class="hint">Datamine says ×4.0. Below about ×2.9, Affliction should stay on Agony.</span></div>
+      <div class="ctrl"><label for="bod">Bane of Doom spell power bonus</label><input type="range" id="bod" min="1.5" max="4" step="0.1" value="4"><input type="number" id="bodN" min="1.5" max="4" step="0.1" inputmode="decimal" aria-label="Bane of Doom bonus, typed"><span class="hint">Datamine says ×4.0. Below about ×3.3, Affliction should stay on Agony. Demonology flips near ×2.1 and the Shadow Destruction build near ×1.8.</span></div>
       <fieldset><legend>Improved Shadow Bolt debuff lasts</legend><div class="seg compact" id="isbSeg"><button type="button" data-v="12" aria-pressed="true">12 sec</button><button type="button" data-v="60" aria-pressed="false">60 sec</button></div></fieldset>
-      <fieldset><legend>Life Tap converts</legend><div class="seg compact" id="ltSeg"><button type="button" data-v="840" aria-pressed="true">840 flat</button><button type="button" data-v="spirit" aria-pressed="false">430 + Spirit</button></div></fieldset>
+      <fieldset><legend>Life Tap converts</legend><div class="seg compact" id="ltSeg"><button type="button" data-v="spirit" aria-pressed="true">430 + Spirit</button><button type="button" data-v="840" aria-pressed="false">840 flat</button></div><span class="hint">The tooltip and the beta client both read 430 + Spirit. <a href="#t1">Test 1</a> checks it in game.</span></fieldset>
       <div class="ctrl" id="spiritRow" hidden><label for="spirit">Spirit</label><input type="range" id="spirit" min="50" max="300" step="5" value="100"><input type="number" id="spiritN" min="50" max="300" step="5" inputmode="numeric" aria-label="Spirit, typed"></div>
+      <fieldset class="fightset"><legend>The fight</legend>
+        <label class="check"><input type="checkbox" id="optCons" checked> Mana potion and Demonic Rune on cooldown</label>
+        <label class="check"><input type="checkbox" id="optSburn" checked> Shadowburn on cooldown, a Soul Shard each</label>
+        <label class="check"><input type="checkbox" id="optExec" checked> Execute phase: Decimation's +6% under 35%</label>
+        <label class="check"><input type="checkbox" id="optFire"> Boss is immune to Fire</label>
+        <label class="check"><input type="checkbox" id="optTwo"> Two targets, Bane of Havoc</label>
+        <label class="check"><input type="checkbox" id="optCoe"> Curse of the Elements on the boss</label>
+      </fieldset>
+      <fieldset><legend>Demonic Brand extra pet hits</legend><div class="seg compact" id="brandSeg"><button type="button" data-v="0" aria-pressed="false">None</button><button type="button" data-v="3" aria-pressed="true">3, tooltip</button><button type="button" data-v="6" aria-pressed="false">6, client</button></div><span class="hint">Untested, and it decides deep Demonology's place. It does nothing on a boss immune to Fire. <a href="#t7">Test 7</a> settles it.</span></fieldset>
+      <div class="ctrl"><label for="mp5">Mana per 5 sec from gear and buffs</label><input type="range" id="mp5" min="0" max="300" step="5" value="0"><input type="number" id="mp5N" min="0" max="300" step="5" inputmode="numeric" aria-label="Mana per 5 seconds, typed"></div>
     </div>
     <div class="raid-results">
       <div class="legend"><span><span class="sw aff"></span>Affliction</span><span><span class="sw demo"></span>Demonology</span><span><span class="sw destro"></span>Destruction</span><span><span class="sw pet"></span>Striped: Succubus</span><span>Gap is versus the leader</span></div>
       <div class="bars" id="bars"></div>
       <p class="tie" id="tieNote" hidden>The top two builds are within 1% of each other, which is closer than this model can call. Pick either.</p>
       <p class="verdict-line" id="raidVerdict"></p>
-      <p class="note">Bane of Doom's scaling and Incinerate's top rank come from datamines only. Each 1% of hit short of the cap costs about 1% of damage.</p>
+      <p class="note">Bane of Doom's scaling and Incinerate's top rank come from datamines only. Deep Demonology's lead rests on Demonic Brand, which nobody has tested yet. Each 1% of hit short of the cap costs about 1% of damage.</p>
     </div>
   </div>
 </section>
@@ -733,80 +749,92 @@ h2::before{content:"";display:inline-block;width:11px;height:11px;transform:rota
 
   <h3 id="claims">Claims we checked</h3>
   <div class="claims">
-    <p class="group-h"><span class="chip c-proof">Checked by the model · 6</span></p>
-    <details id="c-totg"><summary>Undead Touch of the Grave is the biggest raid racial</summary><div class="dbody"><p>Casters get their own version (Wowhead Forever spell 1260201, for Priest, Mage and Warlock): each spell or attack has a 10% chance to drain 5% of your max health from the target, at most once per second. Warriors, Paladins and Rogues get a 5% version. A raid Warlock makes about half a damaging cast per second, so at 4,500 health that is about 10 damage per second, 1.6 to 2.3% of raid damage depending on your health. The model counts every cast, including each DoT you apply, but not the ticks. A reader tested exactly that in the beta: applying a DoT triggers it, ticks don't. The same reader caught that this page first used the 5% version.</p></div></details>
-    <details id="c-sword"><summary>Human Sword Specialization works on spells</summary><div class="dbody"><p>Forever's version reads "+2% crit with all spells and attacks while you have a sword equipped", and Warlocks can train swords. With Ruin or Pandemic doubling crit damage, that is 1.6 to 2.2% more raid damage, one of the two biggest racials for a Warlock next to Undead's Touch of the Grave. It only counts if a caster sword is your best weapon.</p></div></details>
+    <p class="group-h"><span class="chip c-proof">Checked by the model · 10</span></p>
+    <details id="c-destro"><summary>Destruction leveling builds kill faster but rest longer, and lose</summary><div class="dbody"><p>A reader asked about Improved Corruption 5, Bane 5 and Aftermath 5 with Immolate at the center, so the leveling model now has every Destruction spell and talent. From 10 to 60 that build was 0 to 11% slower than even the page's previous order, and the new order is faster still. The common 17/0/34 Destruction build was 0 to 17% slower. At 50 to 60 the Immolate build kills about 30% faster but rests four times as long: Immolate, Incinerate and Shadow Bolt cost mana that the Drain Life plan heals back. If food and water restored twice as fast as assumed, it would win by about 1 to 6% from level 50. The closest mix is speedrun-style, Destruction to Shadowburn and then Affliction for Soul Harvesting: within 0.3 to 3% of the solo spec at 60, but not ahead.</p></div></details>
+    <details id="c-coe"><summary>Curse of the Elements rarely pays while leveling</summary><div class="dbody"><p>Forever made it +4 to 10% to all magic damage from level 20, in its own slot next to Banes. On a 20-second fight, a global cooldown and 50 to 200 mana at the pull do not pay it back, and it leaves your Voidwalker's damage alone. With this page's orders it won none of 42 level checks. In a raid it is a different story: see the calculator.</p></div></details>
+    <details id="c-lifetap"><summary>Life Tap converts 430 plus Spirit, not 840</summary><div class="dbody"><p>The current Wowhead tooltip and the beta client both read (430 + Spirit) at rank 6. The older reading of 840 flat is in no current source, so the calculator now defaults to 430 plus Spirit. With 100 Spirit that is 530 mana a tap. It lowers every raid build by 3 to 7% and leaves the top four in the same order. <a href="#t1">Test 1</a> checks it in game.</p></div></details>
+    <details id="c-fire"><summary>On a boss immune to Fire, play Demonology</summary><div class="dbody"><p>Fire Destruction cannot be played at all there: no Immolate means no Conflagrate and no Incinerate bonus. Demonology with Pact leads, deep Demonology is 0.4% behind, and everything else trails by about 16%. In Classic, several raid bosses were immune to Fire, Onyxia among them, and Onyxia's Lair is one of Forever's first raids. A reader raised this. Tick the Fire box in the calculator.</p></div></details>
+    <details id="c-totg"><summary>Undead Touch of the Grave is the biggest raid racial</summary><div class="dbody"><p>Casters get their own version (Wowhead Forever spell 1260201, for Priest, Mage and Warlock): each spell or attack has a 10% chance to drain 5% of your max health from the target, at most once per second. Warriors, Paladins and Rogues get a 5% version. A raid Warlock makes a bit under half a damaging cast per second, so at 4,500 health that is about 9 damage per second. That is 0.9 to 3.3% of raid damage, depending on your build and your health from 3,000 to 8,000. The model counts every cast, including each DoT you apply, but not the ticks. A reader tested exactly that in the beta: applying a DoT triggers it, ticks don't. The same reader caught that this page first used the 5% version.</p></div></details>
+    <details id="c-sword"><summary>Human Sword Specialization works on spells</summary><div class="dbody"><p>Forever's version reads "+2% crit with all spells and attacks while you have a sword equipped", and Warlocks can train swords. With Ruin or Pandemic doubling crit damage, that is 1.5% more raid damage on the top build and up to 2.1% on Pact, one of the two biggest racials for a Warlock next to Undead's Touch of the Grave. It only counts if a caster sword is your best weapon.</p></div></details>
     <details id="c-bod"><summary>Bane of Doom beats Bane of Agony at 60</summary><div class="dbody"><p>Per second, both scale identically with spell power (4.0 over 60 s equals 1.6 over 24 s). Doom has more base damage per second and needs a global cooldown once a minute instead of every 24 seconds. <b>Rule: cast Doom while at least a minute of the fight remains, then Agony.</b> The result rests on the datamined 4.0 scaling. <a href="#bod">Drag the Bane of Doom slider</a> to see where it flips.</p></div></details>
-    <details id="c-incin"><summary>Incinerate beats Shadow Bolt as the Destruction filler</summary><div class="dbody"><p>With Bane 5/5 and Immolate up, Incinerate does 26 to 29% more per second of casting than Shadow Bolt before school buffs, which is 4 to 7% across the whole rotation. Forever reversed the sacrifice buffs from Classic: Imp now gives Shadow, Succubus gives Fire. One risk: if Improved Shadow Bolt lasts 60 seconds instead of 12, the gap closes to about 1%. <a href="#isbSeg">Try the toggle</a>.</p></div></details>
-    <details id="c-dk"><summary>Demonic Knowledge is the best point-for-point talent in the class</summary><div class="dbody"><p>It adds flat spell damage equal to your level, for you and your demon, while a demon is out. Flat bonuses are worth most when gear is weakest, which is solo play. It costs 20 Demonology points of mostly survival talents to reach, so it pays off from about level 56.</p></div></details>
-    <details id="c-nf"><summary>Nightfall is underrated once you drain</summary><div class="dbody"><p>It can proc on every Corruption tick and every Drain Life and Wrack tick, once per second while channeling. At 60 it is worth about 3% per point, even after paying the global cooldown for the instant Shadow Bolt.</p></div></details>
+    <details id="c-incin"><summary>Incinerate beats Shadow Bolt as the Destruction filler</summary><div class="dbody"><p>With Bane 5/5 and Immolate up, Incinerate does 28 to 29% more per second of casting than Shadow Bolt before school buffs, which is 5 to 7% across the whole rotation. Forever reversed the sacrifice buffs from Classic: Imp now gives Shadow, Succubus gives Fire. One risk: if Improved Shadow Bolt lasts 60 seconds instead of 12, the gap closes to about 1%, and at 20% crit Shadow Bolt wins by 2%. <a href="#isbSeg">Try the toggle</a>.</p></div></details>
+    <details id="c-dk"><summary>Demonic Knowledge is one of the best points in the class</summary><div class="dbody"><p>It adds flat spell damage equal to your level, for you and your demon, while a demon is out: about 2% faster kills per point at 60. Soul Siphon and Improved Life Tap are worth a little more per point. It costs 20 Demonology points of mostly survival talents to reach, so it never pays off before 56, and from 56 it only breaks even with this page's leveling order.</p></div></details>
+    <details id="c-nf"><summary>Nightfall is worth little while leveling</summary><div class="dbody"><p>It can proc on every Corruption tick and every Drain Life and Wrack tick. At 60 each point adds about 1.4% damage in a long fight, but one leveling kill builds up less than one proc, so it is worth under 1% per point in kill speed. The page's orders skip it.</p></div></details>
 
-    <p class="group-h"><span class="chip c-test">Needs an in-game test · 3</span></p>
-    <details id="c-brand"><summary>A Succubus leveling build, if she can hold aggro</summary><div class="dbody"><p>A 5/31/0 build with the Imp sacrificed through Demonic Pact and the Succubus out ties the Affliction route at 45 and kills 4 to 7% faster from 50. The swing is who takes the hits. If the Succubus holds the mob, it becomes about 15 to 19% faster than anything else tested, because your resting drops away. Demonic Brand is built for exactly that: Searing Pain brands the target, and your pet's next 3 attacks on it generate high threat. The Voidwalker is a bit slower in this build and the Felhunter slowest. Suggested by a reader. <a href="#t6">This is test 6</a>.</p></div></details>
-    <details id="c-pact"><summary>Stacking sacrifices with Demonic Pact</summary><div class="dbody"><p>Demonic Pact only says a sacrifice is not cancelled by summoning a different demon. Nothing says a second sacrifice removes the first. If they stack, sacrificing the Imp, Felhunter and Voidwalker in turn and keeping the Succubus is about 9% faster solo. That assumes the damage Soul Link moves onto the Succubus costs nothing. If you must heal her back up, it is 13% slower. A curiosity, not a plan. <a href="#t4">This is test 4</a>.</p></div></details>
+    <p class="group-h"><span class="chip c-test">Needs an in-game test · 5</span></p>
+    <details id="c-multi"><summary>Pulling several mobs at once barely pays</summary><div class="dbody"><p>The leveling model fights one mob at a time, so a separate, rougher model checked pulls of 2 to 5 same-level mobs. Spreading DoTs over 2 or 3 mobs is 3 to 9% faster only at levels 10 to 20, and pulls of 3 or more get you killed from about level 30, or from 20 when you use area spells. Fear-kiting a second mob never wins. The one real gain is pairs tanked by the Voidwalker while you channel Hellfire, about 3% faster at 30 to 35; a survival-heavy Demonology build could stretch that to about 7%, mainly at 35, but one changed assumption flips it. It all rests on how well the Voidwalker holds several mobs, which nobody has measured. <a href="#t8">This is test 8</a>.</p></div></details>
+    <details id="c-deep"><summary>Deep Demonology is the top raid spec, if Demonic Brand deals damage</summary><div class="dbody"><p>A reader's pick, 0/35/16: Demonology down to Demonic Pact, plus Improved Shadow Bolt and Ruin. Demonic Brand turns out to be more than a threat talent: after your Searing Pain, your Succubus's next hits on that target deal extra damage that scales with spell power. The tooltip says 3 hits, the client data 6. At the calculator defaults that puts the build about 3% ahead of Pact and Destruction, and 7% ahead with 6 hits. If Brand deals nothing, or scales with your demon's spell power instead of yours, it ties them within 1%, so it is a safe pick either way. It needs her on the boss: under about 36 damage per second from her, Fire Destruction pulls ahead. The reader's plan to swap to the Imp under 35% loses about 4%, so keep the Succubus. <a href="#t7">This is test 7</a>.</p></div></details>
+    <details id="c-brand"><summary>A Succubus leveling build, if she can hold aggro</summary><div class="dbody"><p>A 5/31/0 build with the Imp sacrificed through Demonic Pact and the Succubus out stays within 4% of the Affliction route from 45 to 60, sometimes ahead, sometimes behind. The swing is who takes the hits. If the Succubus holds the mob, it becomes 9 to 16% faster, because your resting drops away. Demonic Brand is built for exactly that: Searing Pain brands the target, and your pet's next attacks on it generate high threat. The Voidwalker is 2 to 10% slower in this build and the Felhunter slowest. Suggested by a reader. <a href="#t6">This is test 6</a>.</p></div></details>
+    <details id="c-pact"><summary>Stacking sacrifices with Demonic Pact</summary><div class="dbody"><p>Demonic Pact only says a sacrifice is not cancelled by summoning a different demon. Nothing says a second sacrifice removes the first. If they stack, sacrificing the Imp, Felhunter and Voidwalker in turn and keeping the Succubus is about 9 to 11% faster solo. That assumes the damage Soul Link moves onto the Succubus costs nothing. If you heal her back with your own health, the edge shrinks to 1 to 3%. A curiosity, not a plan. <a href="#t4">This is test 4</a>.</p></div></details>
     <details id="c-siphon"><summary>Do curses count for Soul Siphon?</summary><div class="dbody"><p>Soul Siphon grows Drain Life by 12% per other Affliction effect on the target, up to three. Curses now sit in their own slot next to Banes. If a curse counts, Corruption, a Bane and Curse of Weakness max it out without Siphon Life. <a href="#t3">This is test 3</a>.</p></div></details>
 
     <p class="group-h"><span class="chip c-bust">Busted · 2</span></p>
-    <details id="c-sb"><summary>Shadow Bolt as a leveling filler</summary><div class="dbody"><p>It costs the most mana per damage of anything you have, so the resting it causes cancels the faster kills. It won 0 of 612 level-by-level scans.</p></div></details>
-    <details id="c-troll"><summary>Troll Warlock as a raid pick</summary><div class="dbody"><p>Berserking is casting speed, and in the beta haste does not speed up DoTs or channels. It adds about 0.2% raid damage. Rapid Regeneration is a 6-second channel that breaks on any action or damage, so in PvE it is between-fights healing. In PvP it shines behind a Fear: the target runs, you channel 50% of your health back.</p></div></details>
+    <details id="c-sb"><summary>Shadow Bolt as a leveling filler</summary><div class="dbody"><p>It costs the most mana per damage of anything you have, so the resting it causes cancels the faster kills. For the page's build it won 0 of 459 level-by-level scans. It wins only inside a 17/0/34 Shadow Bolt build from level 47, and that build is about 10 to 13% slower than the plan.</p></div></details>
+    <details id="c-troll"><summary>Troll Warlock as a raid pick</summary><div class="dbody"><p>Berserking is casting speed, and in the beta haste does not speed up DoTs or channels. It adds about 0.1% raid damage. Rapid Regeneration is a 6-second channel that breaks on any action or damage, so in PvE it is between-fights healing. In PvP it shines behind a Fear: the target runs, you channel 50% of your health back.</p></div></details>
 
     <p class="group-h"><span class="chip c-known">Known and confirmed · 1</span></p>
-    <details id="c-demo"><summary>Demonic Pact: sacrifice the Imp, then summon the Succubus</summary><div class="dbody"><p>The wowforeverbuilds Demonology guide already uses this. It tops the raid calculator once the Succubus carries about 17 to 20% of your damage, or about 8% if your gear caps hit. The BlizzCon demo credited her with 23 to 25% at level 38, so this is a live contender.</p></div></details>
+    <details id="c-demo"><summary>Demonic Pact: sacrifice the Imp, then summon the Succubus</summary><div class="dbody"><p>The wowforeverbuilds Demonology guide already uses this. It passes Fire Destruction once the Succubus carries about 12% of your damage, or about 5% if your gear caps hit. The deep Demonology build adds Demonic Brand on top and leads it by about 3% at the calculator defaults. The BlizzCon demo credited her with 23 to 25% at level 38, so this is a live contender.</p></div></details>
   </div>
 
   <details id="talents">
     <summary>What each talent point is worth</summary>
     <div class="dbody">
-      <p>Extra damage over 120 seconds from adding a talent to a solid base build, at that level's best rotation. This is where "talents barely matter while leveling" comes from.</p>
+      <p>How much faster you kill per talent point, added to or taken from this page's build at that level, with that level's best rotation. This is where "talents matter little while leveling" comes from.</p>
       <p class="note swipe">Swipe the table sideways for all columns.</p>
       <div class="tbl scrollx" role="region" aria-label="Talent point values" tabindex="0"><table>
-        <thead><tr><th scope="col">Talent</th><th scope="col" class="r">Lvl 30, wand</th><th scope="col" class="r">Lvl 45, Drain Life</th><th scope="col" class="r">Lvl 60, Drain Life</th></tr></thead>
+        <thead><tr><th scope="col">Talent</th><th scope="col" class="r">Lvl 30</th><th scope="col" class="r">Lvl 45</th><th scope="col" class="r">Lvl 60</th></tr></thead>
         <tbody>
-          <tr class="top"><th scope="row">Demonic Knowledge (Demonology, 20 deep)</th><td class="r">+2.3%/pt</td><td class="r">+3.4%/pt</td><td class="r">+3.1%/pt</td></tr>
-          <tr class="top"><th scope="row">Soul Siphon</th><td class="r"><span class="na">0, no drains yet</span></td><td class="r">+2.6%/pt</td><td class="r"><span class="na">in base build</span></td></tr>
-          <tr class="top"><th scope="row">Nightfall</th><td class="r">+0.4%/pt</td><td class="r">+1.5%/pt</td><td class="r">+3.0%/pt</td></tr>
-          <tr><th scope="row">Siphon Life (1 point)</th><td class="r">+2.5%</td><td class="r"><span class="na">in base build</span></td><td class="r"><span class="na">in base build</span></td></tr>
-          <tr><th scope="row">Improved Bane of Agony</th><td class="r">+0.8%/pt</td><td class="r">+0.7%/pt</td><td class="r">+0.9%/pt</td></tr>
-          <tr><th scope="row">Malediction, Shadow Mastery</th><td class="r">+0.3%/pt</td><td class="r">+0.8%/pt</td><td class="r"><span class="na">in base build</span></td></tr>
-          <tr><th scope="row">Pandemic</th><td class="r">+0.3%/pt</td><td class="r">+0.6%/pt</td><td class="r">+0.7%/pt</td></tr>
-          <tr><th scope="row">Unholy Power</th><td class="r">+0.5%/pt</td><td class="r">+0.5%/pt</td><td class="r">+0.4%/pt</td></tr>
-          <tr><th scope="row">Malevolence</th><td class="r">+0.2%/pt</td><td class="r">+0.4%/pt</td><td class="r">+0.4%/pt</td></tr>
-          <tr><th scope="row">Soul Harvesting</th><td class="r"><span class="na">about 0</span></td><td class="r"><span class="na">about 0</span></td><td class="r"><span class="na">about 0</span></td></tr>
+          <tr class="top"><th scope="row">Soul Siphon</th><td class="r">+0.1%/pt</td><td class="r">+2.6%/pt</td><td class="r"><span class="na">in the build</span></td></tr>
+          <tr class="top"><th scope="row">Siphon Life (1 point)</th><td class="r">0</td><td class="r">+2.4%</td><td class="r"><span class="na">in the build</span></td></tr>
+          <tr class="top"><th scope="row">Demonic Knowledge (Demonology, 20 deep)</th><td class="r"><span class="na">out of reach</span></td><td class="r"><span class="na">out of reach</span></td><td class="r">+2.0%/pt</td></tr>
+          <tr class="top"><th scope="row">Amplify Curse (1 point)</th><td class="r">+0.5%</td><td class="r">+1.9%</td><td class="r"><span class="na">in the build</span></td></tr>
+          <tr><th scope="row">Improved Drains</th><td class="r"><span class="na">in the build</span></td><td class="r">+1.8%/pt</td><td class="r"><span class="na">in the build</span></td></tr>
+          <tr><th scope="row">Improved Life Tap</th><td class="r"><span class="na">in the build</span></td><td class="r">+1.8%/pt</td><td class="r"><span class="na">in the build</span></td></tr>
+          <tr><th scope="row">Improved Bane of Agony</th><td class="r"><span class="na">in the build</span></td><td class="r">+1.1%/pt</td><td class="r"><span class="na">in the build</span></td></tr>
+          <tr><th scope="row">Pandemic, Suppression</th><td class="r"><span class="na">in the build</span></td><td class="r">+0.9%/pt</td><td class="r"><span class="na">in the build</span></td></tr>
+          <tr><th scope="row">Malevolence</th><td class="r">+0.4%/pt</td><td class="r">+0.9%/pt</td><td class="r">+0.3%/pt</td></tr>
+          <tr><th scope="row">Malediction, Shadow Mastery</th><td class="r"><span class="na">in the build</span></td><td class="r">+0.6%/pt</td><td class="r">+0.6%/pt</td></tr>
+          <tr><th scope="row">Unholy Power</th><td class="r">+0.4%/pt</td><td class="r">+0.3%/pt</td><td class="r"><span class="na">in the build</span></td></tr>
+          <tr><th scope="row">Bane (Destruction)</th><td class="r">+0.2%/pt</td><td class="r">0</td><td class="r">0</td></tr>
+          <tr><th scope="row">Nightfall, Soul Harvesting, Wrack</th><td class="r">0</td><td class="r">0</td><td class="r">0</td></tr>
         </tbody>
       </table></div>
-      <p class="note">Soul Harvesting doubles Spirit-based mana regen for 10 seconds after a Drain Soul kill. At 60 that is roughly 300 mana, a third of one Life Tap, and it forces a slow Drain Soul finish.</p>
+      <p class="note">Nightfall reads 0 because one leveling kill builds up less than one proc; carried over between kills it would be worth about 0.6% per point at 60. Soul Harvesting only pays when the best rotation finishes with Drain Soul, which it rarely does. If its regen also speeds up drinking, which nobody has tested, it saves about half a second to a second a kill.</p>
     </div>
   </details>
 </section>
 
 <section id="tests" class="wrap">
   <h2>Help test these</h2>
-  <p>These six checks decide the open questions. Tick them off as you go. Your ticks stay in this browser only. <span id="reportLine"></span></p>
+  <p>These eight checks decide the open questions. Tick them off as you go. Your ticks stay in this browser only. <span id="reportLine"></span></p>
   <ul class="tests" id="testList">
-    <li id="t1"><label><input type="checkbox" id="t1c"><span><span class="when">Any level · beta</span><br><b>Life Tap ratio.</b> Write down health and mana, tap once, compare. Sources disagree on whether it converts 430 plus Spirit or 840. If Spirit adds to it, Human and high-Spirit gear buff every tap.</span></label></li>
-    <li id="t2"><label><input type="checkbox" id="t2c"><span><span class="when">Level 20 and up · beta</span><br><b>Succubus share.</b> Run a damage meter over five minutes of normal play with the Succubus out, then put her damage per second into the raid calculator's Succubus slider.</span></label></li>
-    <li id="t3"><label><input type="checkbox" id="t3c"><span><span class="when">Level 30 · beta cap</span><br><b>Soul Siphon and curses.</b> With Soul Siphon, compare a Drain Life tick with Corruption and Agony on the target, then again after adding Curse of Weakness. A 12% jump means curses count.</span></label></li>
-    <li id="t4"><label><input type="checkbox" id="t4c"><span><span class="when">Level 40 · after launch</span><br><b>Pact stacking.</b> With 31 Demonology points, sacrifice the Imp, summon and sacrifice the Felhunter, then check your buff bar for both buffs.</span></label></li>
-    <li id="t6"><label><input type="checkbox" id="t6c"><span><span class="when">Level 25 and up · beta</span><br><b>Succubus aggro with Demonic Brand.</b> With 15 Demonology points and Demonic Brand, open with Searing Pain, send the Succubus in, then DoT and drain. Note whether she keeps the mob off you through the whole fight.</span></label></li>
-    <li id="t5"><label><input type="checkbox" id="t5c"><span><span class="when">Level 60 · after launch</span><br><b>Bane of Doom scaling.</b> Cast it on a training dummy in two gear sets with different spell power. The hit should move by four times the spell power difference.</span></label></li>
+    <li id="t1"><label><input type="checkbox" id="t1c"><span><span class="when">Test 1 · Any level · beta</span><br><b>Life Tap ratio.</b> Write down health, mana and Spirit, tap once, compare. The tooltip and the beta client read 430 plus Spirit at rank 6; an older reading said 840 flat. The calculator now uses 430 plus Spirit.</span></label></li>
+    <li id="t2"><label><input type="checkbox" id="t2c"><span><span class="when">Test 2 · Level 20 and up · beta</span><br><b>Succubus share.</b> Run a damage meter over five minutes of normal play with the Succubus out, then put her damage per second into the raid calculator's Succubus slider.</span></label></li>
+    <li id="t3"><label><input type="checkbox" id="t3c"><span><span class="when">Test 3 · Level 30 · beta cap</span><br><b>Soul Siphon and curses.</b> With Soul Siphon, compare a Drain Life tick with Corruption and Agony on the target, then again after adding Curse of Weakness. A 12% jump means curses count.</span></label></li>
+    <li id="t4"><label><input type="checkbox" id="t4c"><span><span class="when">Test 4 · Level 40 · after launch</span><br><b>Pact stacking.</b> With 31 Demonology points, sacrifice the Imp, summon and sacrifice the Felhunter, then check your buff bar for both buffs.</span></label></li>
+    <li id="t6"><label><input type="checkbox" id="t6c"><span><span class="when">Test 6 · Level 25 and up · beta</span><br><b>Succubus aggro with Demonic Brand.</b> With 15 Demonology points and Demonic Brand, open with Searing Pain, send the Succubus in, then DoT and drain. Note whether she keeps the mob off you through the whole fight.</span></label></li>
+    <li id="t7"><label><input type="checkbox" id="t7c"><span><span class="when">Test 7 · Level 25 and up · beta</span><br><b>Demonic Brand damage.</b> With Demonic Brand, cast Searing Pain on a target your Succubus is hitting. Count how many of her next hits deal extra Fire or Shadow damage, and note that damage at two spell power values. The tooltip says 3 hits, the client data 6. It decides whether deep Demonology is the top raid spec.</span></label></li>
+    <li id="t8"><label><input type="checkbox" id="t8c"><span><span class="when">Test 8 · Level 30 and up · beta</span><br><b>Voidwalker pairs with Hellfire.</b> Pull two mobs, send the Voidwalker in, and channel Hellfire. Note whether it holds both, then time ten pairs against twenty single pulls in the same area.</span></label></li>
+    <li id="t5"><label><input type="checkbox" id="t5c"><span><span class="when">Test 5 · Level 60 · after launch</span><br><b>Bane of Doom scaling.</b> Cast it on a training dummy in two gear sets with different spell power. The hit should move by four times the spell power difference.</span></label></li>
   </ul>
 </section>
 
 <section id="method" class="wrap">
   <h2>How this was checked</h2>
-  <p class="callout"><b>Limits.</b> The beta is capped at level 30, so nobody has played a finished tree. Pet damage, mob health and damage, wand damage and rest speed are assumptions that were stress-tested, not measured. The raid model ignores mana regen, potions and raid buffs, which would help Destruction and Demonology a little more than Affliction. Numbers will move before 4 November. Corrections are welcome.</p>
+  <p class="callout"><b>Limits.</b> The beta is capped at level 30, so nobody has played a finished tree. Pet damage, mob health and damage, wand damage and rest speed are assumptions that were stress-tested, not measured. The leveling sim fights one mob at a time; a separate, rougher model covers pulls of several mobs. The Destruction leveling verdicts lean on rest speed: if food and water restore twice as fast as assumed, the Immolate build wins from level 50. The raid model counts a mana potion and a rune on cooldown, but not raid buffs. More mana regen helps every build about the same: another 100 mp5 adds 3 to 4%. Numbers will move before 4 November. Corrections are welcome.</p>
   <details>
     <summary>Method, data and review</summary>
     <div class="dbody">
-      <p>Spell data came from Wowhead's Forever spell pages, including per-tick spell power scaling, cross-checked against two beta client datamines, ForeverChanges and the ElliotWood Forever sim. Talent values came from the Wowhead calculator's rank tooltips, cross-checked against five talent sites. Racial values came from Wowhead's Forever spell data. Dungeon levels came from zockify.com and lfcarry.com.</p>
-      <p>Leveling runs through an expected-value fight simulator. It folds hit and crit into every tick, applies buffs live because Forever removed snapshotting, ramps Agony the way the tooltip says, enforces talent row requirements, and scores seconds per kill including rest. A hill-climbing optimizer searched both trees at levels 20 to 60. The raid calculator is a steady-state spell-budget model that balances mana with Life Tap.</p>
-      <p>The research, models and this page were built with Claude, Anthropic's AI model. A separate Claude session then reviewed the work adversarially, starting from its own code: it rebuilt the raid math in its own script plus a turn-by-turn rotation simulation. The two agreed within 0.3%. It confirmed every headline with caveats, corrected three thresholds and one unfair comparison, and checked the solo claims under tripled spell power and halved pet damage. The calculator on this page is a direct port of the reviewed model and reproduces it exactly across 54 test cases. <span id="codeLine"></span></p>
+      <p>Spell data came from Wowhead's Forever spell pages, including per-tick spell power scaling, cross-checked against two beta client datamines, ForeverChanges and the ElliotWood Forever sim. Since v8, base damage and spell power coefficients come straight from the beta client's spell effect table (build 1.60.1.69893), which settled Immolate's coefficients and Life Tap's 430 plus Spirit. Talent values came from the Wowhead calculator's rank tooltips, cross-checked against five talent sites. Racial values came from Wowhead's Forever spell data. Dungeon levels came from zockify.com and lfcarry.com.</p>
+      <p>Leveling runs through an expected-value fight simulator. It folds hit and crit into every tick, applies buffs live because Forever removed snapshotting, ramps Agony the way the tooltip says, enforces talent row requirements, and scores seconds per kill including rest. Since v8 it covers every Destruction spell and talent, Curse of the Elements, Death Coil and finishers, and averages each result over mob health from 80 to 120% so a single DoT tick cannot hide a talent. A talent search across all three trees built the planner's order. The raid calculator is a steady-state spell-budget model that balances mana with Life Tap.</p>
+      <p>The research, models and this page were built with Claude, Anthropic's AI model. A separate Claude session then reviewed the work adversarially, starting from its own code: it rebuilt the raid math in its own script plus a turn-by-turn rotation simulation. The two agreed within 0.3%. It confirmed every headline with caveats, corrected three thresholds and one unfair comparison, and checked the solo claims under tripled spell power and halved pet damage. The calculator and the level planner on this page are direct ports of the Python models and reproduce them exactly: 54 raid cases, 943 raid option checks and 816 leveling cases. <span id="codeLine"></span></p>
     </div>
   </details>
   <details id="changelog">
     <summary>What changed</summary>
     <div class="dbody">
       <ul class="src">
+        <li><b>v8, 29 Sep 2026.</b> Closed every modeling gap readers found. The leveling model now has every Destruction spell and talent, Curse of the Elements, Death Coil and finishers, with base damage and coefficients from the beta client; Destruction builds kill faster but rest longer, and lose. A new leveling order, about 2% faster, and an optional solo respec. The raid calculator gained deep Demonology, now the recommended group spec, plus Fire-immune bosses, an execute phase, mana consumables, two targets, Curse of the Elements and mana regen, and Life Tap now reads 430 plus Spirit. A first model of multi-mob pulls. Corrected: Undead leveling 3 to 6% (was 5 to 11%), Troll about 1%, Nightfall under 1% a point, Pact stacking 1 to 3% when you heal the Succubus.</li>
         <li><b>v7, 29 Sep 2026.</b> Undead's Touch of the Grave now counts in the raid calculator. Casters get a 10% version, not the 5% one this page used, which makes Undead the top raid race by a small margin. New max health slider for Undead. Reported in the Reddit thread, where the same reader tested that applying a DoT triggers it but ticks don't, which is what the model counts.</li>
         <li><b>v6, 29 Sep 2026.</b> Game icons throughout: talent cells styled like the in-game talent window, race portraits, rotation icons in the level planner, tree icons on specs, raid bars and stat weights. The race now themes the whole page, with a race badge in the section nav. Dungeons got their own section: every dungeon on one level line, filtered to your faction.</li>
         <li><b>v5, 29 Sep 2026.</b> A talent builder that scores any leveling build next to the page plan, with shareable build links. Race themes that re-tint the page, and colors per talent tree in the builder and the raid chart. Asked for in the Reddit thread.</li>
@@ -840,34 +868,143 @@ h2::before{content:"";display:inline-block;width:11px;height:11px;transform:rota
 <div class="sr-only" role="status" id="srStatus"></div>
 
 <script>
-/* Forever Warlock raid model (level 60, single target, steady state).
- * Port of the reviewed Python model (review_check.py). Expected values, no RNG.
+/* Forever Warlock raid model (level 60, steady state). Expected values, no RNG.
+ * Port of models/raid_model.py, the reference (tests/parity_test.js, tests/raid_options_test.js).
  * Budget: DoT/cooldown cast time + Nightfall Shadow Bolts + Life Tap time + filler time = 1 second.
- * Mana: everything is funded by Life Tap (no regen, no potions): the same limit for every spec.
+ * Mana: Life Tap funds whatever mana regen (mp5) does not cover.
+ * Spell values: beta client 1.60.1.69893 (SpellEffect table), max ranks.
+ *
+ * Options on o, all off by default (the reviewed numbers do not move):
+ *   fireImmune  for bosses immune to Fire. Other specs drop their Fire spells. rank() keeps the two Fire
+ *               Destruction specs but lists them last with viable: false, a reason, and zero damage;
+ *               specTotal() returns 0 for them.
+ *   execute     true (the boss spends the last 35% of the fight under 35% health) or a share from 0 to 1.
+ *               Only the Decimation specs (demo-pact, demo-deep) change.
+ *   coe         Curse of the Elements on the main target: +10% magic damage taken. The Succubus gains it
+ *               on Lash of Pain only, about 10% of her damage; her melee is Physical.
+ *   mp5         mana per 5 seconds from gear and buffs.
+ *   consumables a Major Mana Potion and a Demonic or Dark Rune on cooldown from the pull, spread over a
+ *               300 s fight as extra mana per second (30, the same as 150 mp5); stacks with mp5. The
+ *               rune's life cost is treated like Life Tap's health: healed by the raid.
+ *   targets     1 or 2. On 2, each spec takes its best second-target plan (a DoT and Bane spread, or
+ *               Destruction's Bane of Havoc). Damage is the total over both targets.
+ *   impDps      deep Demonology's Imp under 35%, damage per second before talents (default about 41:
+ *               Firebolt 45 to 50 every 2 s plus Demonic Knowledge's +60 pet spell power).
+ * And three with a non-off default:
+ *   shadowburn  true (default): Destruction casts Shadowburn on cooldown. false: never, because each
+ *               cast costs a Soul Shard; the Fire builds then also lose Shadow and Flame's +10% Fire.
+ *   brandHits   branded pet attacks per Demonic Brand in deep Demonology: 6 (default, client rank
+ *               text), 3 (Wowhead tooltip) or 0 (the brand deals no damage, threat only).
+ *   brandScaling 'lock' (default): brand damage scales with your spell power; 'pet': with the demon's
+ *               (Demonic Knowledge, +60).
  */
 (function (root) {
   const GCD = 1.5;
   const ev = (c, bonus) => 1 + c * bonus;
+  const dmg = (spell, sp) => spell[0] + spell[1] * sp;
 
-  function solve(periodic, filler, lt, nf, ampFrac, shadowDotNames) {
+  // [base damage, spell power coefficient] over the full duration, max rank.
+  const CORRUPTION = [438, 1.2], AGONY = [552, 1.596], SIPHON_LIFE = [410, 0.5];
+  const IMMOLATE_HIT = [158, 0.2], IMMOLATE_DOT = [275, 0.65], SHADOW_BOLT = [268, 0.857];
+  const WRACK = [216, 0.858], CONFLAGRATE = [282, 0.429], SHADOWBURN = [266, 0.429];
+  const INCINERATE = [217, 0.714], SOUL_FIRE = [431, 1.0], SEARING_PAIN = [114, 0.429];
+  const BRAND_HIT = [66.5, 0.078];          // Demonic Brand, per branded pet attack at level 60
+  const doom = o => [1742, typeof o.bodCoef === 'number' ? o.bodCoef : 4.0];
+  const DRAINS = 1.20 * 1.36;               // Improved Drains 3/3, Soul Siphon 3/3
+
+  const EXEC_SHARE = 0.35, COE = 1.10, LASH_SHARE = 0.10, HAVOC_COPY = 0.15;
+  const HAVOC = [0, 300, GCD, 65];          // 5 min Bane, one GCD, 5% of base mana (about 1,300 assumed)
+  const DECIMATION = 1.06;                  // Shadow Bolt and Searing Pain +6% on a target under 35%
+  const SOUL_FIRE_EXEC = [2.4, 6.0];        // Decimation Soul Fire: cast s, cooldown s
+  const BRAND_ATTACKS = 6, BRAND_S = 10;    // Demonic Brand 3/3: pet attacks per brand, brand duration
+  const SUCC_RATE = 0.5 + 1 / 12, IMP_RATE = 0.5;   // pet attacks per second (Succubus melee 2.0 s assumed)
+  const SUCC_FULL = 50;     // Succubus dps that means she is on the boss all fight; below it her attack rate scales down (assumption)
+  const PET_HIT = 0.86;     // pet attacks that land on a raid boss (about 14% miss or dodge, assumed); a miss still uses a brand charge
+  const PET_SP = 60;                       // demon spell power from Demonic Knowledge 3/3
+  const IMP_BASE = (47 + 0.571 * PET_SP) / 2;  // Imp dps before talents: Firebolt 11763, 2 s cast
+  const FIGHT_S = 300, SWAP = [3.0, 570];   // one-off execute pet swap: two GCDs, 44% of base mana
+  const POTION_MANA = (1350 + 2250) / 2, RUNE_MANA = (900 + 1500) / 2;   // items 13444, 12662 / 20520, 2 min each
+  const CONSUMABLE_REGEN = (Math.floor(FIGHT_S / 120) + 1) * (POTION_MANA + RUNE_MANA) / FIGHT_S;   // 30 mana per s
+  // Succubus talents: [Soul Link x Unholy Power, Master Demonologist, Improved Sayaad]. Master Demonologist (+10% Shadow)
+  // and Improved Sayaad (+30% Lash of Pain) reach only her Lash of Pain share (LASH_SHARE); her melee is Physical.
+  const SUCC_PLAIN = [1, 1, 1], SUCC_PACT = [1.03 * 1.02, 1.10, 1.30], SUCC_DEEP = [1.03 * 1.10, 1.10, 1.30];
+  const DEEP_IMP_PET = 1.03 * 1.10 * 1.10 * 1.30, BRAND_PET = 1.03 * 1.10 * 1.10;
+  const SECOND = ' (2nd)';
+  const NAMES = { Corruption: 'Corruption', BoA: 'Bane of Agony', BoD: 'Bane of Doom', SiphonLife: 'Siphon Life',
+                  Immolate: 'Immolate', Havoc: 'Bane of Havoc' };
+  const FIRE_REASON = 'Not viable on a boss immune to Fire: Immolate, Conflagrate and Incinerate deal nothing. Use Destruction, Shadow.';
+
+  const execShare = o => o.execute === true ? EXEC_SHARE
+    : (typeof o.execute === 'number' ? Math.min(1, Math.max(0, o.execute)) : 0);
+  const regen = o => (typeof o.mp5 === 'number' ? o.mp5 : 0) / 5 + (o.consumables ? CONSUMABLE_REGEN : 0);   // items are off the GCD
+  const coeMult = o => o.coe ? COE : 1;
+  const succMult = (o, t) => t[0] * ((1 - LASH_SHARE) + LASH_SHARE * t[1] * t[2] * coeMult(o));
+  const impDps = o => typeof o.impDps === 'number' ? o.impDps : IMP_BASE;
+  const brandHits = o => typeof o.brandHits === 'number' ? o.brandHits : BRAND_ATTACKS;
+
+  function solve(periodic, filler, lt, nf, ampFrac, ampNames, regenRate) {
     let A = 0, M = 0;
     for (const k in periodic) { const [, T, t, m] = periodic[k]; A += t / T; M += m / T; }
     const [dF, cF, mF, tps] = filler;
+    const rg = regenRate || 0;
     let r0 = 0, r1 = 0, sbd = 0, sbm = 0;
     if (nf) { const [p, corrTps, d, m] = nf; r0 = p * corrTps; r1 = p * tps; sbd = d; sbm = m; }
     const k = GCD / lt;
-    const f = (1 - A - GCD * r0 - k * (M + sbm * r0)) / (1 + GCD * r1 + k * (sbm * r1 + mF / cF));
+    let f = (1 - A - GCD * r0 - k * (M + sbm * r0 - rg)) / (1 + GCD * r1 + k * (sbm * r1 + mF / cF));
+    if ((M + sbm * (r0 + r1 * f) + f * mF / cF - rg) / lt < 0) f = (1 - A - GCD * r0) / (1 + GCD * r1);  // no Life Tap needed
     const parts = {};
     let shadowDots = 0;
     for (const n in periodic) {
       const [D, T] = periodic[n];
       parts[n] = D / T;
-      if ((shadowDotNames || []).includes(n)) shadowDots += D / T;
+      if ((ampNames || []).includes(n)) shadowDots += D / T;
     }
     parts.Filler = f * (dF / cF + (ampFrac || 0) * shadowDots);
     if (nf) parts['Nightfall'] = (r0 + r1 * f) * sbd;
     const dps = Object.values(parts).reduce((a, b) => a + b, 0);
     return { dps, parts, f };
+  }
+
+  // Curse of the Elements on the main target, then the Bane of Havoc copy of main-target damage.
+  function finish(res, coe, copy) {
+    if (!coe && !copy) return res;
+    const parts = {};
+    for (const n in res.parts) parts[n] = coe && !n.endsWith(SECOND) ? res.parts[n] * COE : res.parts[n];
+    if (copy) {
+      let main = 0;
+      for (const n in parts) if (!n.endsWith(SECOND)) main += parts[n];
+      parts['Havoc copy'] = copy * main;
+    }
+    return { dps: Object.values(parts).reduce((a, b) => a + b, 0), parts, f: res.f };
+  }
+
+  // Time-weighted mix of two phases: r1 for (1 - x) of the fight, r2 for x.
+  function blend(r1, r2, x) {
+    const parts = {};
+    new Set(Object.keys(r1.parts).concat(Object.keys(r2.parts))).forEach(n => {
+      parts[n] = (1 - x) * (r1.parts[n] || 0) + x * (r2.parts[n] || 0);
+    });
+    return { dps: (1 - x) * r1.dps + x * r2.dps, parts, f: (1 - x) * r1.f + x * r2.f };
+  }
+
+  // Second-target plans: every subset of the optional DoTs with each Bane choice (null = none).
+  function plans(targets, optional, banes) {
+    if (targets !== 2) return [[]];
+    const out = [];
+    banes.forEach(bane => {
+      for (let mask = 0; mask < 1 << optional.length; mask++) {
+        const plan = optional.filter((n, i) => (mask >> i) & 1);
+        out.push(bane ? plan.concat([bane]) : plan);
+      }
+    });
+    return out;
+  }
+  // Highest damage among feasible rotations: null marks an infeasible option, a negative filler share a rotation
+  // that needs more than 100% of the time. Falls back to the best of all only if none fits.
+  function best(list) {
+    const all = list.filter(x => x !== null);
+    const ok = all.filter(x => x.res.f >= 0);
+    return (ok.length ? ok : all).reduce((a, b) => (a === null || b.res.dps > a.res.dps ? b : a), null);
   }
 
   // race: { crit, spMult, castSpeed, eureka, totg }
@@ -914,7 +1051,7 @@ h2::before{content:"";display:inline-block;width:11px;height:11px;transform:rota
   function withTotg(res, periodic, filler, rm, o, extraCasts, hitM) {
     if (!rm.totg) return res;
     let casts = res.f / filler[1] + (extraCasts || 0);
-    for (const k in periodic) casts += 1 / periodic[k][1];
+    for (const k in periodic) if (periodic[k][2] > 0) casts += 1 / periodic[k][1];
     const pl = rm.totg * casts;
     const extra = pl / (1 + pl) * 0.05 * (o.maxHp || 4500) * (hitM || 1);   // renewal rate with a 1 s dead time
     res.parts.Racial = (res.parts.Racial || 0) + extra;
@@ -926,111 +1063,233 @@ h2::before{content:"";display:inline-block;width:11px;height:11px;transform:rota
     const rm = raceMods(o.race, o);
     const sp = o.sp * rm.spMult, c = o.crit + rm.crit, cs = c + 0.05;
     const sh = (keepSuccubus ? 1.0 : 1.15) * 1.05, mal = 1.05, dc = ev(cs, 1.0);
-    const P = {};
-    P.Corruption = [(438 + 1.2 * sp) * sh * mal * 1.10 * dc, 18, GCD, 340];
-    if (bane === 'BoA') P['Bane of Agony'] = [(552 + 1.596 * sp) * sh * mal * 1.10 * dc, 24, GCD, 215];
-    else P['Bane of Doom'] = [(1742 + o.bodCoef * sp) * sh * mal * dc, 60, GCD, 300];
-    P['Siphon Life'] = [(420 + 0.5 * sp) * sh * mal * dc, 30, GCD, 365];
-    P.Immolate = [(159 + 0.2 * sp) * ev(c, 0.5) + (280 + 0.65 * sp) * mal * ev(c, 0.5), 15, 2.0, 380];
-    const sb = (268 + 0.857 * sp) * sh * ev(cs, 0.5);
-    const drains = 1.20 * 1.36;
-    const F = [(222 + 0.858 * sp) * sh * mal * drains * dc, 6.0, 200, 1.0];   // Wrack
-    const res = solve(P, F, lifeTap(o, rm, false), [0.04, 1 / 3, sb, 380], 0.10,
-      ['Corruption', 'Bane of Agony', 'Bane of Doom', 'Siphon Life']);
-    const nfCasts = 0.04 / 3 + 0.04 * F[3] * res.f;
-    return scaleHit(withTotg(withEureka(res, F[0], rm), P, F, rm, o, nfCasts), hitMult(o, 0.05));
+    const fireOk = !o.fireImmune;
+    const dot = n => {
+      if (n === 'Corruption') return [dmg(CORRUPTION, sp) * sh * mal * 1.10 * dc, 18, GCD, 340];
+      if (n === 'BoA') return [dmg(AGONY, sp) * sh * mal * 1.10 * dc, 24, GCD, 215];
+      if (n === 'BoD') return [dmg(doom(o), sp) * sh * mal * dc, 60, GCD, 300];
+      if (n === 'SiphonLife') return [dmg(SIPHON_LIFE, sp) * sh * mal * dc, 30, GCD, 365];
+      return [dmg(IMMOLATE_HIT, sp) * ev(c, 0.5) + dmg(IMMOLATE_DOT, sp) * mal * ev(c, 0.5), 15, 2.0, 380];
+    };
+    const sb = dmg(SHADOW_BOLT, sp) * sh * ev(cs, 0.5);
+    const F = [dmg(WRACK, sp) * sh * mal * DRAINS * dc, 6.0, 200, 1.0];   // Wrack
+    const lt = lifeTap(o, rm, false);
+    const main = ['Corruption', bane, 'SiphonLife'].concat(fireOk ? ['Immolate'] : []);
+    const optional = ['Corruption', 'SiphonLife'].concat(fireOk ? ['Immolate'] : []);
+    const pick = best(plans(o.targets, optional, [null, 'BoA', 'BoD']).map(plan => {
+      const P = {};
+      main.forEach(n => { P[NAMES[n]] = dot(n); });
+      plan.forEach(n => { P[NAMES[n] + SECOND] = dot(n); });
+      const nf = [0.04, (1 + (plan.includes('Corruption') ? 1 : 0)) / 3, sb, 380];
+      // Wrack's +10% reaches Corruption and Bane of Agony only (client class mask), on its own target.
+      const res = finish(solve(P, F, lt, nf, 0.10, ['Corruption', 'Bane of Agony'], regen(o)), o.coe);
+      return { res, P, nfCasts: nf[0] * nf[1] + nf[0] * F[3] * res.f };
+    }));
+    const res = withTotg(withEureka(pick.res, F[0] * coeMult(o), rm), pick.P, F, rm, o, pick.nfCasts);
+    return scaleHit(res, hitMult(o, 0.05));
   }
 
   function destro(o, bane, version) {
     // version: 'sb' = Imp sac + Shadow Bolt (+Shadowburn); 'incin' = Succubus sac + Incinerate; 'keep' = Succubus out
+    if (o.fireImmune && version !== 'sb') return { dps: 0, parts: {}, f: 0, viable: false, reason: FIRE_REASON };
     const rm = raceMods(o.race, o);
     const sp = o.sp * rm.spMult, c = o.crit + rm.crit;
+    const fireOk = !o.fireImmune;
     const aftermath = version !== 'sb';
-    const sh = (version === 'sb' ? 1.15 : 1.0) * 1.10;
-    const fi = (version === 'incin' ? 1.15 : 1.0) * 1.10;
+    const sh = (version === 'sb' ? 1.15 : 1.0) * (fireOk ? 1.10 : 1.0);   // S&F Shadow needs Conflagrate, so Immolate
+    const burn = o.shadowburn !== false;                          // each Shadowburn costs a Soul Shard
+    const fi = (version === 'incin' ? 1.15 : 1.0) * (burn ? 1.10 : 1.0);   // S&F Fire comes from Shadowburn
     const AF = 1.10, mal = 1.02, cat = 0.9, dstr = ev(c, 1.0), dotc = ev(c, 0.5);
-    const lt = lifeTap(o, rm, true);
-    function build(isb) {
+    const lt = lifeTap(o, rm, true), castSb = 2.5 / rm.castSpeed;
+    const direct = dmg(IMMOLATE_HIT, sp) * (aftermath ? 1.5 : 1.0);
+    const dot = (n, isb) => {
+      if (n === 'Corruption') return [dmg(CORRUPTION, sp) * sh * mal * dotc * isb, 18, 2.0, 340];
+      if (n === 'BoA') return [dmg(AGONY, sp) * sh * mal * dotc * isb, 24, GCD, 215];
+      if (n === 'BoD') return [dmg(doom(o), sp) * sh * mal * dotc * isb, 60, GCD, 300];
+      if (n === 'Havoc') return HAVOC;
+      return [(direct + dmg(IMMOLATE_DOT, sp) * mal) * fi * AF * dstr, 15, 1.5, 380 * cat];
+    };
+    function build(isb, plan) {
       const P = {};
-      P.Corruption = [(438 + 1.2 * sp) * sh * mal * dotc * isb, 18, 2.0, 340];
-      if (bane === 'BoA') P['Bane of Agony'] = [(552 + 1.596 * sp) * sh * mal * dotc * isb, 24, GCD, 215];
-      else P['Bane of Doom'] = [(1742 + o.bodCoef * sp) * sh * mal * dotc * isb, 60, GCD, 300];
-      const direct = (159 + 0.2 * sp) * (aftermath ? 1.5 : 1.0);
-      P.Immolate = [(direct + (280 + 0.65 * sp) * mal) * fi * AF * dstr, 15, 1.5, 380 * cat];
-      P.Conflagrate = [(282 + 0.429 * sp) * fi * AF * dstr, 10, GCD, 255 * cat];
-      P.Shadowburn = [(266 + 0.429 * sp) * sh * AF * dstr * isb, 15, GCD, 365 * cat];
+      P.Corruption = dot('Corruption', isb);
+      P[NAMES[bane]] = dot(bane, isb);     // Havoc takes the second target's Bane slot only (one Bane per target)
+      if (fireOk) {
+        P.Immolate = dot('Immolate', 1);
+        P.Conflagrate = [dmg(CONFLAGRATE, sp) * fi * AF * dstr, 10, GCD, 255 * cat];
+      }
+      if (burn) P.Shadowburn = [dmg(SHADOWBURN, sp) * sh * AF * dstr * isb, 15, GCD, 365 * cat];
+      plan.forEach(n => { P[NAMES[n] + SECOND] = dot(n, 1); });
       const F = version === 'sb'
-        ? [(268 + 0.857 * sp) * sh * AF * dstr * isb, 2.5 / rm.castSpeed, 380 * cat, 0]
-        : [(217 + 0.714 * sp) * 1.25 * fi * AF * dstr, 2.0 / rm.castSpeed, 325 * cat, 0];
+        ? [dmg(SHADOW_BOLT, sp) * sh * AF * dstr * isb, castSb, 380 * cat, 0]
+        : [dmg(INCINERATE, sp) * 1.25 * fi * AF * dstr, 2.0 / rm.castSpeed, 325 * cat, 0];
       return [P, F];
     }
-    let [P, F] = build(1.0);
-    let res = solve(P, F, lt);
-    if (version === 'sb') {
-      const n = o.isbDuration * res.f / (2.5 / rm.castSpeed);
-      const u = 1 - Math.pow(1 - c, n);
-      [P, F] = build(1 + 0.2 * u);
-      res = solve(P, F, lt);
-    }
-    return scaleHit(withTotg(withEureka(res, F[0], rm), P, F, rm, o), hitMult(o, 0.05));
+    const optional = ['Corruption'].concat(fireOk ? ['Immolate'] : []);
+    const pick = best(plans(o.targets, optional, [null, 'BoA', 'BoD', 'Havoc']).map(plan => {
+      let [P, F] = build(1.0, plan);
+      let res = solve(P, F, lt, null, 0, null, regen(o));
+      if (version === 'sb') {
+        const u = 1 - Math.pow(1 - c, o.isbDuration * res.f / castSb);
+        [P, F] = build(1 + 0.2 * u, plan);
+        res = solve(P, F, lt, null, 0, null, regen(o));
+      }
+      return { res: finish(res, o.coe, plan.includes('Havoc') ? HAVOC_COPY : 0), P, F };
+    }));
+    return scaleHit(withTotg(withEureka(pick.res, pick.F[0] * coeMult(o), rm), pick.P, pick.F, rm, o), hitMult(o, 0.05));
   }
 
-  function demo(o, bane) {
-    const rm = raceMods(o.race, o);
-    const sp = o.sp * rm.spMult + 60, c = o.crit + rm.crit;    // Demonic Knowledge +60
-    const sh = 1.15 * 1.10;                                     // Imp sac + Master Demonologist
-    const allm = 1.03 * hitMult(o, 0);                          // Soul Link; no Suppression in this build
-    const dstr = ev(c, 1.0), dotc = ev(c, 0.5), cat = 0.9;
-    const lt = lifeTap(o, rm, false);
-    function build(isb) {
+  // One phase of a Demonology rotation. q: sp2, c, lt, bane, allm, sh, fire, cat, immolate, decim, fil,
+  // soulFire [cast, cooldown] | null, brand [period, bonus] | null, fixed {name: periodic} | null, hitM.
+  // Soul Fire and the Searing Pain brand weave are cast only when they raise damage.
+  function demoPhase(o, rm, q) {
+    const dstr = ev(q.c, 1.0), dotc = ev(q.c, 0.5), castSb = 2.5 / rm.castSpeed;
+    const spain = dmg(SEARING_PAIN, q.sp2) * q.fire * q.allm * dstr * q.decim;
+    const dot = (n, isb) => {
+      if (n === 'Corruption') return [dmg(CORRUPTION, q.sp2) * q.sh * q.allm * dotc * isb, 18, 2.0, 340];
+      if (n === 'BoA') return [dmg(AGONY, q.sp2) * q.sh * q.allm * dotc * isb, 24, GCD, 215];
+      if (n === 'BoD') return [dmg(doom(o), q.sp2) * q.sh * q.allm * dotc * isb, 60, GCD, 300];
+      return [(dmg(IMMOLATE_HIT, q.sp2) + dmg(IMMOLATE_DOT, q.sp2)) * q.fire * q.allm * dstr, 15, 1.5, 380 * q.cat];
+    };
+    function build(isb, plan, sf, br) {
       const P = {};
-      P.Corruption = [(438 + 1.2 * sp) * sh * allm * dotc * isb, 18, 2.0, 340];
-      if (bane === 'BoA') P['Bane of Agony'] = [(552 + 1.596 * sp) * sh * allm * dotc * isb, 24, GCD, 215];
-      else P['Bane of Doom'] = [(1742 + o.bodCoef * sp) * sh * allm * dotc * isb, 60, GCD, 300];
-      P.Immolate = [((159 + 0.2 * sp) + (280 + 0.65 * sp)) * allm * dstr, 15, 1.5, 380 * cat];
-      const F = [(268 + 0.857 * sp) * sh * allm * dstr * isb, 2.5 / rm.castSpeed, 380 * cat, 0];
+      P.Corruption = dot('Corruption', isb);
+      P[NAMES[q.bane]] = dot(q.bane, isb);
+      if (q.immolate) P.Immolate = dot('Immolate', 1);
+      plan.forEach(n => { P[NAMES[n] + SECOND] = dot(n, 1); });
+      if (sf) P['Soul Fire'] = [dmg(SOUL_FIRE, q.sp2) * q.fire * q.allm * dstr, sf[1], sf[0] / rm.castSpeed, 335 * q.cat];
+      if (br) P['Searing Pain (Brand)'] = [spain + br[1], br[0], GCD, 168 * q.cat];
+      Object.assign(P, q.fixed || {});
+      const F = q.fil === 'SB'
+        ? [dmg(SHADOW_BOLT, q.sp2) * q.sh * q.allm * dstr * isb * q.decim, castSb, 380 * q.cat, 0]
+        : [spain, 1.5, 168 * q.cat, 0];
       return [P, F];
     }
-    let [P, F] = build(1.0);
-    const f0 = solve(P, F, lt).f;
-    const u = 1 - Math.pow(1 - c, o.isbDuration * f0 / (2.5 / rm.castSpeed));
-    [P, F] = build(1 + 0.2 * u);
-    return withTotg(withEureka(solve(P, F, lt), F[0], rm), P, F, rm, o, 0, hitMult(o, 0));
+    function evaluate(plan, sf, br) {
+      let [P, F] = build(1.0, plan, sf, br);
+      let res = solve(P, F, q.lt, null, 0, null, regen(o));
+      if (res.f < 0) return null;                                  // does not fit in the time
+      const casts = res.f / F[1];
+      // Decimation needs a Shadow Bolt or Searing Pain every 10 s, or Soul Fire is slow and costs a shard
+      if (sf && q.decim > 1 && casts + (br ? 1 / br[0] : 0) < 1 / BRAND_S) return null;
+      if (q.fil === 'SB') {
+        const u = 1 - Math.pow(1 - q.c, o.isbDuration * res.f / castSb);
+        [P, F] = build(1 + 0.2 * u, plan, sf, br);
+        res = solve(P, F, q.lt, null, 0, null, regen(o));
+      }
+      if (q.filBrand) {                                             // the Searing Pain filler brands the Imp's attacks
+        const [charges, rate, perAttack] = q.filBrand;
+        const branded = Math.min(charges * casts, rate, rate * BRAND_S * casts);
+        res.parts['Demonic Brand (Imp)'] = branded * perAttack;
+        res.dps += branded * perAttack;
+      }
+      return { res: finish(res, o.coe), P, F };
+    }
+    const combos = [];
+    (q.soulFire ? [null, q.soulFire] : [null]).forEach(sf => (q.brand ? [null, q.brand] : [null]).forEach(br => combos.push([sf, br])));
+    const optional = ['Corruption'].concat(q.immolate ? ['Immolate'] : []);
+    const pick = best([].concat(...plans(o.targets, optional, [null, 'BoA', 'BoD']).map(plan =>
+      combos.map(([sf, br]) => evaluate(plan, sf, br)))));
+    return withTotg(withEureka(pick.res, pick.F[0] * coeMult(o), rm), pick.P, pick.F, rm, o, 0, q.hitM);
+  }
+
+  // Demonology 0/31/20 (Pact): Imp sacrificed, Succubus out, Shadow Bolt. Decimation 2/2 under 35%.
+  function demo(o, bane) {
+    const rm = raceMods(o.race, o);
+    const hitM = hitMult(o, 0);                                 // no Suppression in this build
+    const q = { sp2: o.sp * rm.spMult + 60, c: o.crit + rm.crit, lt: lifeTap(o, rm, false), bane,   // Demonic Knowledge +60
+      allm: 1.03 * hitM, sh: 1.15 * 1.10, fire: 1.0, cat: 0.9, immolate: !o.fireImmune,             // Soul Link; Imp sac + Master Demonologist
+      decim: 1.0, fil: 'SB', soulFire: null, brand: null, fixed: null, hitM };
+    const p1 = demoPhase(o, rm, q);
+    const x = execShare(o);
+    if (!x) return p1;
+    return blend(p1, demoPhase(o, rm, Object.assign({}, q, { decim: DECIMATION, soulFire: o.fireImmune ? null : SOUL_FIRE_EXEC })), x);
+  }
+
+  // Deep Demonology 0/35/16, a reader's build. Above 35%: as Pact, plus a Searing Pain every 10 s for
+  // Demonic Brand when it pays. Under 35% it takes whichever plan does more damage, demons included, and
+  // says which in execPlan: 'imp' (the reader's: Fel Domination Imp, which cancels the Imp sacrifice, Soul
+  // Link recast, Searing Pain filler that brands the Imp's attacks as often as it lands, Decimation Soul Fire) or 'succubus' (keep
+  // her out: Shadow Bolt, the brand weave and Decimation Soul Fire when they pay).
+  function demoDeep(o, bane) {
+    const rm = raceMods(o.race, o);
+    const hitM = hitMult(o, 0);
+    const sp2 = o.sp * rm.spMult + 60;
+    const hits = brandHits(o), branding = hits > 0 && !o.fireImmune;   // 0 hits: Demonic Brand is threat only
+    // the brand needs your Searing Pain to land (hitM) and the pet's attack to land (PET_HIT)
+    const perHit = dmg(BRAND_HIT, o.brandScaling === 'pet' ? PET_SP : sp2) * hitM * PET_HIT * BRAND_PET;
+    const succRate = SUCC_RATE * Math.min(1, Math.max(0, o.petDps) / SUCC_FULL);   // her time on the boss
+    const impRate = IMP_RATE * Math.min(1, Math.max(0, impDps(o)) / IMP_BASE);
+    const period = Math.min(BRAND_S, hits / succRate);
+    const q = { sp2, c: o.crit + rm.crit, lt: lifeTap(o, rm, false), bane, allm: 1.03 * hitM, sh: 1.15 * 1.10,
+      fire: 1.0, cat: 0.97, immolate: !o.fireImmune, decim: 1.0, fil: 'SB', soulFire: null, fixed: null, hitM,
+      brand: !branding || !(succRate > 0) ? null : [period, period * succRate * perHit], filBrand: null };   // a brand needs a demon that attacks
+    const p1 = demoPhase(o, rm, q);
+    const x = execShare(o);
+    if (!x) return Object.assign(p1, { execPlan: null });
+    const keep = demoPhase(o, rm, Object.assign({}, q, { decim: DECIMATION, soulFire: o.fireImmune ? null : SOUL_FIRE_EXEC }));
+    if (o.fireImmune) return Object.assign(blend(p1, keep, x), { execPlan: 'succubus' });   // nothing in the swap plan lands
+    const fixed = { 'Pet swap': [0, x * FIGHT_S, SWAP[0], SWAP[1]] };
+    const filBrand = branding && impRate > 0 ? [hits, impRate, perHit] : null;
+    const swap = demoPhase(o, rm, Object.assign({}, q, { sh: 1.0, fire: 1.10, decim: DECIMATION, fil: 'SearingPain',
+      brand: null, soulFire: SOUL_FIRE_EXEC, fixed, filBrand }));
+    if (keep.dps + deepExecPet(o, 'succubus') >= swap.dps + deepExecPet(o, 'imp')) return Object.assign(blend(p1, keep, x), { execPlan: 'succubus' });
+    return Object.assign(blend(p1, swap, x), { execPlan: 'imp' });
+  }
+  // Demon damage in the execute phase: the Imp for 'imp', else the Succubus.
+  const deepExecPet = (o, plan) => plan === 'imp' ? DEEP_IMP_PET * impDps(o) * coeMult(o) : succMult(o, SUCC_DEEP) * o.petDps;
+  // Demon damage over the fight: the Succubus above 35%, below it the demon of the plan in use.
+  function deepPet(o, plan) {
+    const succ = deepExecPet(o, 'succubus');
+    const x = execShare(o);
+    if (!x || plan !== 'imp' || o.fireImmune) return succ;
+    return (1 - x) * succ + x * deepExecPet(o, 'imp');
   }
 
   const SPECS = [
-    { id: 'destro-fire', name: 'Destruction, Fire', note: 'Succubus sacrificed, Incinerate filler, Aftermath', pet: 0,
+    { id: 'destro-fire', name: 'Destruction, Fire', note: 'Succubus sacrificed, Incinerate filler, Aftermath', pet: 0, fire: true,
       run: (o, b) => destro(o, b, 'incin') },
-    { id: 'destro-keep', name: 'Destruction, Fire + Succubus', note: 'Succubus kept out, Incinerate filler', pet: 1.0,
+    { id: 'destro-keep', name: 'Destruction, Fire + Succubus', note: 'Succubus kept out, Incinerate filler', pet: 1.0, succ: SUCC_PLAIN, fire: true,
       run: (o, b) => destro(o, b, 'keep') },
     { id: 'destro-shadow', name: 'Destruction, Shadow (published)', note: 'Imp sacrificed, Shadow Bolt and Shadowburn', pet: 0,
       run: (o, b) => destro(o, b, 'sb') },
-    { id: 'demo-pact', name: 'Demonology, Pact', note: 'Imp sacrificed, Succubus out, Shadow Bolt', pet: 1.156,
+    { id: 'demo-pact', name: 'Demonology, Pact', note: 'Imp sacrificed, Succubus out, Shadow Bolt', pet: succMult({}, SUCC_PACT), succ: SUCC_PACT,
       run: (o, b) => demo(o, b) },
+    { id: 'demo-deep', name: 'Demonology, deep', note: 'Imp sacrificed, Succubus out, Shadow Bolt, Searing Pain for Demonic Brand',
+      pet: succMult({}, SUCC_DEEP), succ: SUCC_DEEP, petFn: deepPet, run: (o, b) => demoDeep(o, b) },
     { id: 'aff-sac', name: 'Affliction', note: 'Imp sacrificed, Wrack filler, Immolate kept up', pet: 0,
       run: (o, b) => aff(o, b, false) },
-    { id: 'aff-keep', name: 'Affliction + Succubus', note: 'Succubus kept out, Wrack filler', pet: 1.0,
+    { id: 'aff-keep', name: 'Affliction + Succubus', note: 'Succubus kept out, Wrack filler', pet: 1.0, succ: SUCC_PLAIN,
       run: (o, b) => aff(o, b, true) },
   ];
 
+  function evalSpec(o, s) {
+    const head = { id: s.id, name: s.name, note: s.note };
+    if (o.fireImmune && s.fire) {
+      return Object.assign(head, { viable: false, reason: FIRE_REASON, bane: '', lock: 0, pet: 0, total: 0, petShare: 0, parts: {}, filler: 0, execPlan: null });
+    }
+    const a = s.run(o, 'BoA'), d = s.run(o, 'BoD');
+    const petOf = r => s.petFn ? s.petFn(o, r.execPlan) : (s.succ ? succMult(o, s.succ) * o.petDps : 0);
+    const pa = petOf(a), pd = petOf(d);
+    // deep Demonology's execute plan can differ by Bane, so it compares with the demons included
+    const useD = s.petFn ? d.dps + pd >= a.dps + pa : d.dps >= a.dps;
+    const best = useD ? { r: d, bane: 'Bane of Doom', pet: pd } : { r: a, bane: 'Bane of Agony', pet: pa };
+    const pet = best.pet, total = best.r.dps + pet;
+    return Object.assign(head, { viable: true, reason: '', bane: best.bane, lock: best.r.dps, pet, total,
+      petShare: total ? pet / total : 0, parts: best.r.parts, filler: best.r.f, execPlan: best.r.execPlan || null });
+  }
+
+  // Viable specs first, by total damage; non-viable ones (fireImmune) last, flagged, at zero.
+  // execPlan: deep Demonology's execute plan ('imp' | 'succubus'), null for other specs or with execute off.
   function rank(o) {
-    return SPECS.map(s => {
-      const a = s.run(o, 'BoA'), d = s.run(o, 'BoD');
-      const best = d.dps >= a.dps ? { r: d, bane: 'Bane of Doom' } : { r: a, bane: 'Bane of Agony' };
-      const pet = s.pet * o.petDps;
-      const total = best.r.dps + pet;
-      return { id: s.id, name: s.name, note: s.note, bane: best.bane, lock: best.r.dps, pet, total,
-               petShare: total ? pet / total : 0, parts: best.r.parts, filler: best.r.f };
-    }).sort((x, y) => y.total - x.total);
+    return SPECS.map(s => evalSpec(o, s)).sort((x, y) => (y.viable - x.viable) || (y.total - x.total));
   }
 
   function specTotal(o, id) {
-    const s = SPECS.find(x => x.id === id);
-    const a = s.run(o, 'BoA').dps, d = s.run(o, 'BoD').dps;
-    return Math.max(a, d) + s.pet * o.petDps;
+    return evalSpec(o, SPECS.find(x => x.id === id)).total;
   }
 
   // Damage per second gained from +1 spell power, +1% crit, +1% hit, and their spell power equivalents.
+  // Every option on o (fireImmune, execute, coe, mp5, targets) passes through.
   function statWeights(o, id) {
     const f = p => specTotal(Object.assign({}, o, p), id);
     const sp = (f({ sp: o.sp + 10 }) - f({ sp: Math.max(0, o.sp - 10) })) / (o.sp >= 10 ? 20 : 10 + o.sp);
@@ -1051,7 +1310,7 @@ h2::before{content:"";display:inline-block;width:11px;height:11px;transform:rota
     return { base, swapped, diff: swapped - base, pct: base ? (swapped / base - 1) * 100 : 0 };
   }
 
-  const api = { rank, aff, destro, demo, SPECS, statWeights, compareItems, specTotal };
+  const api = { rank, aff, destro, demo, demoDeep, SPECS, statWeights, compareItems, specTotal };
   if (typeof module !== 'undefined') module.exports = api; else root.WarlockModel = api;
 })(this);
 
@@ -1060,32 +1319,62 @@ h2::before{content:"";display:inline-block;width:11px;height:11px;transform:rota
 /* Forever Warlock leveling model: expected-value solo fight simulator.
  * Line-for-line port of models/leveling_sim.py and models/character.py.
  * tests/leveling_parity_test.js checks it against the Python on a grid of builds, levels and pets.
- * Deterministic expected values: hit and crit are folded into every tick, buffs apply live (no snapshotting).
+ * Deterministic expected values: hit and crit are folded into every tick, buffs apply live (no snapshotting),
+ * short procs (Improved Shadow Bolt, Shadow and Flame) enter as the chance they are up.
  */
 (function (root) {
-  // ---------------------------------------------------------------- spell ranks (level, values...)
-  const CORR = [[4, 11, 4, 35], [14, 14, 5, 55], [24, 23, 6, 100], [34, 29, 6, 160], [44, 41, 6, 225], [54, 58, 6, 290], [60, 74, 6, 340]];
+  // ---------------------------------------------------------------- spell ranks (level, values...), client base points
+  const CORR = [[4, 10, 4, 35], [14, 13, 5, 55], [24, 22, 6, 100], [34, 28, 6, 160], [44, 40, 6, 225], [54, 57, 6, 290], [60, 73, 6, 340]];
   const CORR_SP = 0.2;
-  const BOA = [[8, 7, 25], [18, 11, 50], [28, 15, 90], [38, 22, 130], [48, 34, 170], [58, 47, 215]];
+  const BOA = [[8, 6, 25], [18, 10, 50], [28, 14, 90], [38, 21, 130], [48, 33, 170], [58, 46, 215]];
   const BOA_SP = 0.133;
-  const SB = [[1, 14, 1.7, 25, .486], [6, 26, 2.2, 40, .629], [12, 42, 2.8, 70, .8], [20, 57, 3, 110, .857],
-    [28, 79, 3, 160, .857], [36, 102, 3, 210, .857], [44, 142, 3, 265, .857], [52, 192, 3, 315, .857], [60, 269, 3, 380, .857]];
-  const DL = [[14, 11, 55], [22, 15, 85], [30, 23, 135], [38, 29, 185], [46, 40, 240], [54, 52, 300]];
+  const DL = [[14, 10, 55], [22, 14, 85], [30, 22, 135], [38, 28, 185], [46, 39, 240], [54, 51, 300]];
   const DL_SP = 0.1;
-  const SL = [[30, 12, 150], [38, 20, 205], [48, 30, 285], [58, 42, 365]];
+  const SL = [[30, 11, 150], [38, 19, 205], [48, 29, 285], [58, 41, 365]];
   const SL_SP = 0.05;
-  const DS = [[10, 18, 55], [24, 35, 125], [38, 55, 210], [52, 85, 290]];
+  const DS = [[10, 17, 55], [24, 34, 125], [38, 54, 210], [52, 84, 290]];
   const DS_SP = 0.1;
-  const LT = [[6, 30], [16, 75], [26, 140], [36, 220], [46, 310], [56, 430]];
-  const WRACK = [40, 37, 200];
+  const WRACK = [40, 36, 200];
   const WRACK_SP = 0.143;
   const IMPDRAINS = { 0: 0, 1: .07, 2: .14, 3: .20 };
+  const LT = [[6, 30, 16], [16, 75, 26], [26, 140, 36], [36, 220, 46], [46, 310, 56], [56, 430, 66]];
+  // direct damage: the last two fields are EffectRealPointsPerLevel and the rank's MaxLevel (ddAvg)
+  const SB = [[1, 13, 1.7, 25, .486, .3, 5], [6, 25, 2.2, 40, .629, .6, 11], [12, 41, 2.8, 70, .8, .7, 17],
+    [20, 56, 3, 110, .857, .9, 25], [28, 78, 3, 160, .857, 1.2, 33], [36, 101, 3, 210, .857, 1.2, 41],
+    [44, 141, 3, 265, .857, 1.4, 49], [52, 191, 3, 315, .857, 1.6, 57], [60, 268, 3, 380, .857, 1.9, 65]];
+  const IMM = [[1, 8, 25, 3, .7, 5], [10, 17, 45, 6, .8, 15], [20, 32, 90, 12, 1.2, 25], [30, 56, 155, 19, 1.5, 35],
+    [40, 72, 220, 25, 1.6, 45], [50, 106, 295, 38, 1.9, 55], [60, 158, 380, 55, 2.3, 65]];
+  const IMM_SP = 0.2, IMM_TICK_SP = 0.13, IMM_CAST = 2.0;
+  const SEAR = [[18, 23, 45, .6, 24], [26, 33, 68, .7, 32], [34, 44, 91, .8, 40], [42, 62, 118, .9, 48], [50, 85, 141, 1.0, 56], [58, 114, 168, 1.2, 64]];
+  const CONF = [[25, 95, 100, .9, 30], [32, 122, 130, .9, 38], [40, 146, 165, 1.0, 46], [48, 194, 200, 1.1, 54], [54, 239, 230, 1.2, 60], [60, 282, 255, 1.3, 66]];
+  const BURN = [[20, 66, 105, .9, 24], [24, 80, 130, 1.0, 30], [32, 118, 190, 1.3, 38], [40, 148, 245, 1.3, 46], [48, 203, 305, 1.6, 54], [56, 266, 365, 1.8, 62]];
+  const INCIN = [[40, 97, 205, 1.1, 49], [50, 145, 265, 1.3, 59], [60, 217, 325, 1.4, 69]];
+  const SOULFIRE = [[48, 377, 305, 1.7, 54], [56, 431, 335, 1.9, 62]];
+  const DCOIL = [[42, 272, 435, 2.2, 48], [50, 359, 525, 2.6, 56], [58, 454, 600, 3.0, 64]];
+  const COE = [[20, .04, 50], [30, .06, 100], [40, .08, 150], [50, .10, 200]];
+  const SEAR_SP = 0.429, CONF_SP = 0.429, BURN_SP = 0.429;
+  const INCIN_SP = 0.714, SOULFIRE_SP = 1.0, DCOIL_SP = 0.214;
+  // talent per-rank values (src/builder.js)
+  const CATA = [0, .03, .07, .10], AFLAMES = [0, .03, .07, .10], FNB = [0, .08, .17, .25], SH_BONUS = [0, .5, 1.0];
+  const BASE_HIT = { 0: .96, 1: .95, 2: .94, 3: .83 };
+  const ISB_DUR = 12.0, SNF_DUR = 20.0;
   const DT = 0.02;
 
   function rank(table, lvl) {
     let best = null;
     for (const row of table) if (row[0] <= lvl) best = row;
     return best;
+  }
+  // 'base': client base points; 'scaled': + per-level points up to MaxLevel (in game); 'wowhead': at MaxLevel (tooltips)
+  function ddAvg(row, lvl, mode) {
+    const per = row[row.length - 2], top = row[row.length - 1];
+    if (mode === 'scaled') return row[1] + per * Math.max(0, Math.min(lvl, top) - row[0]);
+    if (mode === 'wowhead') return row[1] + per * (top - row[0]);
+    return row[1];
+  }
+  function ltHealth(row, lvl, mode) {
+    if (mode === 'scaled') return row[1] - Math.max(0, row[2] - lvl);
+    return row[1];
   }
 
   // ---------------------------------------------------------------- character (models/character.py)
@@ -1100,10 +1389,17 @@ h2::before{content:"";display:inline-block;width:11px;height:11px;transform:rota
     Decimation: [3, 2], FelDomination: [3, 1], DemonicBrand: [3, 3],
     ImprovedFelhunter: [4, 3], SoulLink: [4, 1], DemonicKnowledge: [4, 3],
     MasterDemonologist: [5, 5], DemonicPact: [6, 1] };
-  const PREREQ = { Wrack: ['SiphonLife', 1], SoulLink: ['DemonicSacrifice', 1], DemonicPact: ['SoulLink', 1], FelDomination: ['MasterSummoner', 2] };
+  const DESTRO = { DestructiveReach: [0, 2], ImprovedShadowBolt: [0, 5], Bane: [0, 5],
+    MoltenSkin: [1, 5], Cataclysm: [1, 3], Aftermath: [1, 5],
+    Ruin: [2, 5], Shadowburn: [2, 1],
+    Intensity: [3, 3], AgonizingFlames: [3, 3], Conflagrate: [3, 1],
+    Pyroclasm: [4, 2], BaneOfHavoc: [4, 1], FireAndBrimstone: [4, 3],
+    ShadowAndFlame: [5, 5], Incinerate: [6, 1] };
+  const PREREQ = { Wrack: ['SiphonLife', 1], SoulLink: ['DemonicSacrifice', 1], DemonicPact: ['SoulLink', 1], FelDomination: ['MasterSummoner', 2],
+    Pyroclasm: ['Intensity', 3], FireAndBrimstone: ['Conflagrate', 1], Incinerate: ['BaneOfHavoc', 1] };
 
   function valid(tal) {
-    for (const tree of [AFF, DEMO]) {
+    for (const tree of [AFF, DEMO, DESTRO]) {
       const rows = [0, 0, 0, 0, 0, 0, 0];
       for (const k in tree) {
         const [r, mx] = tree[k], p = tal[k] || 0;
@@ -1122,152 +1418,360 @@ h2::before{content:"";display:inline-block;width:11px;height:11px;transform:rota
   const PET_BASE = { voidwalker: 0.5, succubus: 1.1, imp: 0.8, felhunter: 0.8, none: 0.0 };
   const PET_TAKEN = { voidwalker: 0.10, succubus: 1.0, imp: 1.0, felhunter: 1.0, none: 1.0 };
 
-  function makeChar(L, tal, spPerLevel, pet) {
+  // lashShare: the share of Succubus damage that is Lash of Pain (Improved Sayaad), unknown, assumed 0.4
+  function makeChar(L, tal, spPerLevel, pet, lashShare) {
     spPerLevel = spPerLevel === undefined ? 1.0 : spPerLevel;
     pet = pet || 'voidwalker';
+    lashShare = lashShare === undefined ? 0.4 : lashShare;
     const t = k => tal[k] || 0;
     let hp = 20 + 28 * L + 0.4 * L * L;
     let mana = 20 + 25 * L + 0.45 * L * L;
     hp *= 1 + 0.02 * t('DemonicEmbrace') * 0.65;
     mana *= 1 + 0.05 * t('FelVitality') * 0.7;
     let petDps = PET_BASE[pet] * L * (1 + .02 * t('UnholyPower'));
-    let shadow = 1.0, felSac = false, vwSac = false;
+    if (pet === 'imp') petDps *= 1 + .10 * t('ImprovedImp');
+    if (pet === 'succubus') petDps *= 1 + .10 * t('ImprovedSayaad') * lashShare;
+    let shadow = 1.0, fire = 1.0, felSac = false, vwSac = false;
     const pact = t('DemonicPact'), sac = tal._sac;
     if (sac && (pact || pet === 'none')) {
       if (sac === 'imp') shadow *= 1.15;
+      if (sac === 'succubus') fire *= 1.15;
       if (sac === 'felhunter') felSac = true;
       if (sac === 'voidwalker') vwSac = true;
     }
     if (pet === 'succubus') shadow *= 1 + .02 * t('MasterDemonologist');
-    if (t('SoulLink') && pet !== 'none') { shadow *= 1.03; petDps *= 1.03; }
-    let taken = PET_TAKEN[pet];
-    if (t('SoulLink') && pet !== 'none') taken *= 0.70;
+    if (pet === 'imp') fire *= 1 + .02 * t('MasterDemonologist');
+    if (t('SoulLink') && pet !== 'none') { shadow *= 1.03; fire *= 1.03; petDps *= 1.03; }
+    const taken = PET_TAKEN[pet];
     return { level: L, sp: spPerLevel * L, crit: 0.05, spirit: 15 + 1.2 * L, maxHp: hp, maxMana: mana,
-      wandDps: 0.9 * L + 3, petDps, talents: tal, shadowMult: shadow, mobLevelDiff: 0,
-      mobDps: 0.035 * L * L, takenFrac: taken, felhunterSac: felSac, voidwalkerSac: vwSac };
+      wandDps: 0.9 * L + 3, petDps, talents: tal, shadowMult: shadow, fireMult: fire, mobLevelDiff: 0,
+      mobDps: 0.035 * L * L, takenFrac: taken * takenScale(tal, pet), felhunterSac: felSac, voidwalkerSac: vwSac,
+      ddMode: 'base', suppAll: true };
+  }
+  // Soul Link sends 30% of your damage taken to the demon; Molten Skin takes 2% a point off the rest
+  function takenScale(tal, pet) {
+    const s = (tal.SoulLink && pet !== 'none') ? 0.70 : 1.0;
+    return s * (1 - .02 * (tal.MoltenSkin || 0));
   }
   const mobHp = L => 18 * L + 0.62 * L * L;
 
+  // base rotations, simplest first (on a tie the first name wins); evaluate() adds the modifiers on the best few
   const POLICIES = [
-    ['DoTs+DrainLife', ['Corruption', 'BoA', 'SiphonLife', 'DrainLife']],
-    ['DoTs+Wrack+DL', ['Corruption', 'BoA', 'SiphonLife', 'Wrack', 'DrainLife']],
-    ['DoTs+ShadowBolt', ['Corruption', 'BoA', 'SiphonLife', 'ShadowBolt']],
-    ['DoTs+Wand', ['Corruption', 'BoA', 'SiphonLife', 'Wand']],
-    ['Corr+SL+DrainLife', ['Corruption', 'SiphonLife', 'DrainLife']],
-    ['Corr+SL+Wand', ['Corruption', 'SiphonLife', 'Wand']],
-    ['Corr+SL+SB', ['Corruption', 'SiphonLife', 'ShadowBolt']],
-    ['Corr+BoA+DrainLife', ['Corruption', 'BoA', 'DrainLife']],
-    ['Corr+BoA+Wand', ['Corruption', 'BoA', 'Wand']],
-    ['Corr+DrainLife', ['Corruption', 'DrainLife']],
     ['Corr+Wand', ['Corruption', 'Wand']],
+    ['Corr+DrainLife', ['Corruption', 'DrainLife']],
+    ['Corr+SB', ['Corruption', 'ShadowBolt']],
+    ['Corr+SP', ['Corruption', 'SearingPain']],
+    ['Corr+BoA+Wand', ['Corruption', 'BoA', 'Wand']],
+    ['Corr+BoA+DrainLife', ['Corruption', 'BoA', 'DrainLife']],
+    ['Corr+BoA+SB', ['Corruption', 'BoA', 'ShadowBolt']],
+    ['Corr+BoA+SP', ['Corruption', 'BoA', 'SearingPain']],
+    ['Corr+SL+Wand', ['Corruption', 'SiphonLife', 'Wand']],
+    ['Corr+SL+DrainLife', ['Corruption', 'SiphonLife', 'DrainLife']],
+    ['Corr+SL+SB', ['Corruption', 'SiphonLife', 'ShadowBolt']],
+    ['Corr+SL+SP', ['Corruption', 'SiphonLife', 'SearingPain']],
+    ['DoTs+Wand', ['Corruption', 'BoA', 'SiphonLife', 'Wand']],
+    ['DoTs+DrainLife', ['Corruption', 'BoA', 'SiphonLife', 'DrainLife']],
+    ['DoTs+ShadowBolt', ['Corruption', 'BoA', 'SiphonLife', 'ShadowBolt']],
+    ['DoTs+SP', ['Corruption', 'BoA', 'SiphonLife', 'SearingPain']],
+    ['DoTs+Wrack+DL', ['Corruption', 'BoA', 'SiphonLife', 'Wrack', 'DrainLife']],
+    ['Imm+Wand', ['Immolate', 'Conflagrate', 'Wand']],
+    ['Imm+DrainLife', ['Immolate', 'Conflagrate', 'DrainLife']],
+    ['Imm+SB', ['Immolate', 'Conflagrate', 'ShadowBolt']],
+    ['Imm+SP', ['Immolate', 'Conflagrate', 'SearingPain']],
+    ['Imm+Incin', ['Immolate', 'Conflagrate', 'Incinerate']],
+    ['Corr+Imm+Wand', ['Corruption', 'Immolate', 'Conflagrate', 'Wand']],
+    ['Corr+Imm+DrainLife', ['Corruption', 'Immolate', 'Conflagrate', 'DrainLife']],
+    ['Corr+Imm+SB', ['Corruption', 'Immolate', 'Conflagrate', 'ShadowBolt']],
+    ['Corr+Imm+SP', ['Corruption', 'Immolate', 'Conflagrate', 'SearingPain']],
+    ['Corr+Imm+Incin', ['Corruption', 'Immolate', 'Conflagrate', 'Incinerate']],
+    ['Corr+BoA+Imm+Wand', ['Corruption', 'BoA', 'Immolate', 'Conflagrate', 'Wand']],
+    ['Corr+BoA+Imm+DrainLife', ['Corruption', 'BoA', 'Immolate', 'Conflagrate', 'DrainLife']],
+    ['Corr+BoA+Imm+SB', ['Corruption', 'BoA', 'Immolate', 'Conflagrate', 'ShadowBolt']],
+    ['Corr+BoA+Imm+SP', ['Corruption', 'BoA', 'Immolate', 'Conflagrate', 'SearingPain']],
+    ['Corr+BoA+Imm+Incin', ['Corruption', 'BoA', 'Immolate', 'Conflagrate', 'Incinerate']],
+    ['DoTs+Imm+Wand', ['Corruption', 'BoA', 'SiphonLife', 'Immolate', 'Conflagrate', 'Wand']],
+    ['DoTs+Imm+DrainLife', ['Corruption', 'BoA', 'SiphonLife', 'Immolate', 'Conflagrate', 'DrainLife']],
+    ['DoTs+Imm+SB', ['Corruption', 'BoA', 'SiphonLife', 'Immolate', 'Conflagrate', 'ShadowBolt']],
+    ['DoTs+Imm+SP', ['Corruption', 'BoA', 'SiphonLife', 'Immolate', 'Conflagrate', 'SearingPain']],
+    ['DoTs+Imm+Incin', ['Corruption', 'BoA', 'SiphonLife', 'Immolate', 'Conflagrate', 'Incinerate']],
+    ['DoTs+Imm+Wrack+DL', ['Corruption', 'BoA', 'SiphonLife', 'Immolate', 'Conflagrate', 'Wrack', 'DrainLife']],
   ];
 
   // ---------------------------------------------------------------- simulator (models/leveling_sim.py)
+  const AFF_DOTS = ['Corruption', 'BoA', 'SiphonLife'];
+  const FILLERS = ['Wand', 'DrainLife', 'ShadowBolt', 'SearingPain', 'Incinerate', 'Wrack'];
+  const CHANNELS = ['DrainLife', 'DrainSoul', 'Wrack'];
+  const INSTANTS = ['Conflagrate', 'Shadowburn', 'DeathCoil'];
+  const NO_NIGHTFALL = AFF_DOTS.concat(['Immolate', 'CoE', 'Conflagrate', 'Shadowburn', 'SoulFire', 'DeathCoil']);
+  const charHit = ch => Math.min(.99, BASE_HIT[ch.mobLevelDiff] + .01 * (ch.talents.Suppression || 0));
+  // the client's Suppression has no spell family mask; suppAll false is the Classic reading (Affliction only)
+  const charHitDestro = ch => (ch.suppAll === false ? Math.min(.99, BASE_HIT[ch.mobLevelDiff]) : charHit(ch));
+
+  function fullPrio(policy) {
+    const prio = policy.prio.slice();
+    let i = prio.findIndex(s => FILLERS.includes(s));
+    if (i < 0) i = prio.length;
+    const mods = (policy.dc ? ['DeathCoil'] : []).concat(policy.fin ? [policy.fin] : []);
+    return (policy.coe ? ['CoE'] : []).concat(prio.slice(0, i), mods, prio.slice(i));
+  }
+
+  function fightRanks(ch) {
+    const L = ch.level, T = k => ch.talents[k] || 0;
+    return { corr: rank(CORR, L), boa: rank(BOA, L), sb: rank(SB, L), dl: rank(DL, L), ds: rank(DS, L),
+      imm: rank(IMM, L), lt: rank(LT, L), sear: rank(SEAR, L), coe: rank(COE, L), dc: rank(DCOIL, L),
+      sl: T('SiphonLife') ? rank(SL, L) : null, conf: T('Conflagrate') ? rank(CONF, L) : null,
+      burn: T('Shadowburn') ? rank(BURN, L) : null, incin: T('Incinerate') ? rank(INCIN, L) : null,
+      sf: T('Decimation') ? rank(SOULFIRE, L) : null, wrack: (T('Wrack') && L >= 40) ? WRACK : null };
+  }
+
+  // the steps of a priority list this character can cast, without a trailing wand; evaluate() skips repeats
+  function usableSteps(prio, ch) {
+    const r = fightRanks(ch);
+    const have = { Corruption: r.corr, BoA: r.boa, SiphonLife: r.sl, Wrack: r.wrack, DrainLife: r.dl, DrainSoul: r.ds,
+      ShadowBolt: r.sb, Immolate: r.imm, Conflagrate: r.conf, SearingPain: r.sear, Incinerate: r.incin, Wand: true };
+    const steps = prio.filter(s => have[s]);
+    while (steps.length && steps[steps.length - 1] === 'Wand') steps.pop();
+    return steps;
+  }
+
+  function fightMults(ch) {
+    const T = k => ch.talents[k] || 0;
+    const critS = ch.crit + .01 * T('Malevolence'), critF = ch.crit;
+    const ruin = 1.5 + .1 * T('Ruin');
+    const pand = 1.5 + 0.5 * T('Pandemic') / 3.0;
+    const af = AFLAMES[T('AgonizingFlames')];
+    const hitD = charHitDestro(ch);
+    return { hit: charHit(ch), hit_d: hitD, sm: 1 + .01 * T('ShadowMastery'), mal: 1 + .01 * T('Malediction'),
+      af: 1 + af, cata: 1 - CATA[T('Cataclysm')], after: 1 + .1 * T('Aftermath'),
+      evc_dot: 1 + critS * (pand - 1),
+      evc_sd: 1 + critS * (ruin - 1),
+      evc_fd: 1 + critF * (ruin - 1),
+      evc_sear: 1 + (critF + af) * (ruin - 1),
+      evc_conf: 1 + (critF + FNB[T('FireAndBrimstone')]) * (ruin - 1),
+      evc_dc: 1 + critS * 0.5,
+      isb: .04 * T('ImprovedShadowBolt'), isb_p: hitD * critS,
+      snf: .02 * T('ShadowAndFlame'), keep: .2 * T('ShadowAndFlame') };
+  }
+
+  const at = (row, i, mult) => (row ? row[i] * (mult === undefined ? 1.0 : mult) : 0.0);
+
+  function fightCosts(k) {
+    const cata = k.cata;
+    return { Corruption: at(k.corr, 3), BoA: at(k.boa, 2), SiphonLife: at(k.sl, 2),
+      DrainLife: at(k.dl, 2), DrainSoul: at(k.ds, 2), Wrack: at(k.wrack, 2),
+      CoE: at(k.coe, 2), ShadowBolt: at(k.sb, 3, cata), Immolate: at(k.imm, 2, cata),
+      SearingPain: at(k.sear, 2, cata), Conflagrate: at(k.conf, 2, cata),
+      Shadowburn: at(k.burn, 2, cata), Incinerate: at(k.incin, 2, cata),
+      SoulFire: at(k.sf, 2, cata * k.p_sf), DeathCoil: at(k.dc, 2, k.p_dc), Wand: 0.0 };
+  }
+
+  function fightCasts(k, bane, ic) {
+    const sf = Math.max(1.5, (6.0 - .4 * bane) * 0.6);
+    return { Corruption: Math.max(0.0, 2.0 - 0.4 * ic), ShadowBolt: Math.max(1.5, k.sb[2] - .1 * bane),
+      Immolate: Math.max(1.5, IMM_CAST - .1 * bane), SearingPain: 1.5, Incinerate: Math.max(1.5, 2.5 - .1 * bane),
+      SoulFire: sf * k.p_sf };
+  }
+
+  function fightHits(k, L, mode) {
+    const sp = k.sp, af = k.af, hitD = k.hit_d;
+    const part = (row, coef) => (row ? ddAvg(row, L, mode) + coef * sp : 0.0);
+    return {
+      ShadowBolt: part(k.sb, k.sb[4]) * af * k.evc_sd * hitD,
+      Shadowburn: part(k.burn, BURN_SP) * af * k.evc_sd * hitD,
+      Immolate: part(k.imm, IMM_SP) * af * k.after * k.evc_fd * hitD,
+      ImmolateTick: (k.imm[3] + IMM_TICK_SP * sp) * af * k.mal * k.evc_fd * hitD,
+      SearingPain: part(k.sear, SEAR_SP) * af * k.evc_sear * hitD,
+      Conflagrate: part(k.conf, CONF_SP) * af * k.evc_conf * hitD,
+      Incinerate: part(k.incin, INCIN_SP) * af * k.evc_fd * hitD,
+      SoulFire: part(k.sf, SOULFIRE_SP) * af * k.evc_fd * hitD * k.p_sf,
+      DeathCoil: part(k.dc, DCOIL_SP) * k.evc_dc * k.hit * k.p_dc };
+  }
+
+  function fightConsts(ch, policy) {
+    const L = ch.level, T = k => ch.talents[k] || 0, mode = ch.ddMode || 'base';
+    const k = Object.assign(fightRanks(ch), fightMults(ch));
+    k.sp = ch.sp + ch.level * T('DemonicKnowledge') / 3.0;
+    k.prio = fullPrio(policy);
+    k.p_amp = T('AmplifyCurse') ? (policy.p_amp === undefined ? (policy.amp ? 1.0 : 0.0) : policy.p_amp) : 0.0;
+    k.p_dc = policy.p_dc === undefined ? 1.0 : policy.p_dc;
+    k.p_sf = policy.p_sf === undefined ? 1.0 : policy.p_sf;
+    k.lt_amt = ltHealth(k.lt, L, mode) + ch.spirit;
+    k.ilt = 1 + .10 * T('ImprovedLifeTap');
+    k.nf = .02 * T('Nightfall');
+    k.dec = !!T('Decimation');
+    k.sf_cd = 60 * (1 - .45 * T('Decimation'));
+    k.coe_mult = k.coe ? 1 + k.coe[1] * k.hit : 1.0;
+    k.cost = fightCosts(k);
+    k.ct = fightCasts(k, T('Bane'), T('ImprovedCorruption'));
+    k.base = fightHits(k, L, mode);
+    return k;
+  }
+
   function simulate(ch, mobHpV, policy, maxTime) {
     maxTime = maxTime === undefined ? 240.0 : maxTime;
-    const T = k => ch.talents[k] || 0;
-    const lvl = ch.level;
-    const sp = ch.sp + ch.level * T('DemonicKnowledge') / 3.0;
-    const hit = Math.min(.99, { 0: .96, 1: .95, 2: .94, 3: .83 }[ch.mobLevelDiff] + .01 * T('Suppression'));
-    const sm = 1 + .01 * T('ShadowMastery');
-    const mal = 1 + .01 * T('Malediction');
-    const crit = ch.crit + .01 * T('Malevolence');
-    const pand = 1.5 + 0.5 * T('Pandemic') / 3.0;
-    const evcDot = 1 + crit * (pand - 1);
-    const evcSb = 1 + crit * 0.5;
-    const corr = rank(CORR, lvl), boa = rank(BOA, lvl), sb = rank(SB, lvl), dl = rank(DL, lvl), ds = rank(DS, lvl);
-    const sl = T('SiphonLife') ? rank(SL, lvl) : null;
-    const wrackOk = !!T('Wrack') && lvl >= 40;
-    const lt = rank(LT, lvl);
-    const nf = .02 * T('Nightfall');
-    const sbHit = (sb[1] + sb[4] * sp) * sm * ch.shadowMult * evcSb * hit;
-
-    const S = { mana_spent: 0.0, lt_mana: 0.0, hp_spent: 0.0, healed: 0.0, casts: {}, dmg: {}, hp_taken: 0 };
-    const st = { hp: mobHpV, t: 0.0, mana: ch.maxMana, php: ch.maxHp, wrack_until: -1.0,
-      amp: !!policy.amp && !!T('AmplifyCurse'), nfc: 0, gcd: 0, wand: false };
+    const k = fightConsts(ch, policy);
+    const T = n => ch.talents[n] || 0;
+    const S = { mana_spent: 0.0, lt_mana: 0.0, hp_spent: 0.0, healed: 0.0, casts: {}, dmg: {}, hp_taken: 0.0, ds_kill: false };
+    const st = { hp: mobHpV, t: 0.0, mana: ch.maxMana, php: ch.maxHp, wrack_until: -1.0, nfc: 0.0, gcd: 0.0, wand: false,
+      amp: k.p_amp, coe: 1.0, coe_on: false, cd: { Conflagrate: 0.0, Shadowburn: 0.0, SoulFire: 0.0 },
+      dec_until: -1.0, dc_done: false };
     const dots = new Map();
     let chan = null, cast = null;
+    const procs = { isb: [], snf_s: [], snf_f: [] };
 
     const dmg = (name, x) => { st.hp -= x; S.dmg[name] = (S.dmg[name] || 0) + x; };
     const heal = x => { st.php = Math.min(ch.maxHp, st.php + x); S.healed += x; };
-    const nAffl = () => Math.min(3, ['Corruption', 'BoA', 'SiphonLife'].filter(k => dots.has(k)).length);
+    const pUp = (evs, dur) => {
+      let q = 1.0;
+      for (const [t0, p] of evs) if (t0 <= st.t && st.t < t0 + dur) q *= 1 - p;
+      return 1 - q;
+    };
+    const shadowNow = () => {
+      let m = k.sm * ch.shadowMult * st.coe;
+      if (k.isb) m *= 1 + k.isb * pUp(procs.isb, ISB_DUR);
+      if (k.snf) m *= 1 + k.snf * pUp(procs.snf_s, SNF_DUR);
+      return m;
+    };
+    const fireNow = () => {
+      let m = ch.fireMult * st.coe;
+      if (k.snf) m *= 1 + k.snf * pUp(procs.snf_f, SNF_DUR);
+      return m;
+    };
+    const nAffl = () => Math.min(3, AFF_DOTS.filter(d => dots.has(d)).length);
     const dotMult = name => {
-      let m = sm * mal * ch.shadowMult * evcDot * hit;
+      let m = shadowNow() * k.mal * k.evc_dot * k.hit;
       if (name === 'Corruption') m *= 1 + .02 * T('ImprovedCorruption');
       if (name === 'BoA') m *= 1 + .05 * T('ImprovedBoA');
       if (st.t < st.wrack_until) m *= 1.10;
       return m;
     };
-    const drainMult = () => sm * mal * ch.shadowMult * evcDot * hit * (1 + IMPDRAINS[T('ImprovedDrains')]) * (1 + .04 * T('SoulSiphon') * nAffl());
+    const drainMult = () => shadowNow() * k.mal * k.evc_dot * k.hit * (1 + IMPDRAINS[T('ImprovedDrains')]) * (1 + .04 * T('SoulSiphon') * nAffl());
     const spend = (name, cost) => { st.mana -= cost; S.mana_spent += cost; S.casts[name] = (S.casts[name] || 0) + 1; };
     const lifeTap = () => {
-      const amt = lt[1] + ch.spirit;
+      const amt = k.lt_amt;
       st.php -= amt; S.hp_spent += amt;
-      const gain = amt * (1 + .10 * T('ImprovedLifeTap'));
+      const gain = amt * k.ilt;
       st.mana += gain; S.lt_mana += gain;
       S.casts.LifeTap = (S.casts.LifeTap || 0) + 1;
     };
     const applyDot = name => {
-      if (name === 'Corruption') dots.set(name, { next: st.t + 3, left: corr[2], per: corr[1] + CORR_SP * sp, period: 3 });
+      const t = st.t, sp = k.sp;
+      if (name === 'Corruption') dots.set(name, { next: t + 3, left: k.corr[2], per: k.corr[1] + CORR_SP * sp, period: 3 });
       else if (name === 'BoA') {
-        let amp = 1.0;
-        if (st.amp) { amp = 1.5; st.amp = false; }
-        dots.set(name, { next: st.t + 2, left: 12, per: (boa[1] + BOA_SP * sp) * amp, period: 2, n: 0 });
-      } else if (name === 'SiphonLife') dots.set(name, { next: st.t + 3, left: 10, per: sl[1] + SL_SP * sp, period: 3 });
+        const amp = 1 + 0.5 * st.amp;
+        st.amp = 0.0;
+        dots.set(name, { next: t + 2, left: 12, per: (k.boa[1] + BOA_SP * sp) * amp, period: 2, n: 0 });
+      } else if (name === 'SiphonLife') dots.set(name, { next: t + 3, left: 10, per: k.sl[1] + SL_SP * sp, period: 3 });
+      else if (name === 'Immolate') dots.set(name, { next: t + 3, left: 5, per: k.base.ImmolateTick, period: 3, q: 1.0 });
+    };
+    const tickDots = t => {
+      for (const name of [...dots.keys()]) {
+        const d = dots.get(name);
+        if (t < d.next - 1e-9) continue;
+        let per = d.per;
+        if ('n' in d) { d.n += 1; per *= d.n <= 4 ? 0.5 : (d.n <= 8 ? 1.0 : 1.5); }
+        const x = per * (name === 'Immolate' ? fireNow() : dotMult(name));
+        dmg(name, x);
+        if (name === 'SiphonLife') heal(x);
+        if (name === 'Corruption' && k.nf) st.nfc += k.nf;
+        d.left -= 1; d.next += d.period;
+        if (d.left <= 0) dots.delete(name);
+      }
+    };
+    const tickChannel = t => {
+      const c = chan;
+      if (!c || t < c.next - 1e-9) return;
+      const x = c.per * drainMult();
+      dmg(c.name, x);
+      if (c.name === 'DrainLife') heal(x);
+      if (k.nf) st.nfc += k.nf;
+      c.left -= 1; c.next += c.period;
+      if (c.left <= 0) chan = null;
+    };
+    const decimate = below => { if (k.dec && below) st.dec_until = st.t + 10.0; };
+    const bolt = name => {
+      const below = st.hp < .35 * mobHpV;
+      dmg(name, k.base.ShadowBolt * shadowNow());
+      if (k.isb) procs.isb.push([st.t, k.isb_p]);
+      decimate(below);
+    };
+    const land = a => {
+      if (a === 'Corruption') applyDot(a);
+      else if (a === 'ShadowBolt') bolt(a);
+      else if (a === 'Immolate') { dmg(a, k.base[a] * fireNow()); applyDot(a); }
+      else if (a === 'SearingPain') {
+        const below = st.hp < .35 * mobHpV;
+        dmg(a, k.base[a] * fireNow());
+        decimate(below);
+      } else if (a === 'Incinerate') {
+        const d = dots.get('Immolate');
+        dmg(a, k.base[a] * (1 + .25 * (d ? d.q : 0.0)) * fireNow());
+      } else if (a === 'SoulFire') { dmg(a, k.base[a] * fireNow()); st.cd[a] = st.t + k.sf_cd; }
+    };
+    const instant = (a, t) => {
+      if (a === 'Conflagrate') {
+        dmg(a, k.base[a] * fireNow());
+        st.cd[a] = t + 10.0;
+        if (k.snf) procs.snf_s.push([t, k.hit_d]);
+        if (k.keep < 1) {
+          const d = dots.get('Immolate'), q = 1 - k.hit_d * (1 - k.keep);
+          d.per *= q; d.q *= q; d.gone = true;
+        }
+      } else if (a === 'Shadowburn') {
+        dmg(a, k.base[a] * shadowNow());
+        st.cd[a] = t + 15.0;
+        if (k.snf) procs.snf_f.push([t, k.hit_d]);
+      } else if (a === 'DeathCoil') {
+        const x = k.base[a] * shadowNow();
+        dmg(a, x); heal(x); st.dc_done = true;
+      }
+    };
+    const channel = (a, t) => {
+      const sp = k.sp;
+      if (a === 'DrainLife') chan = { name: a, next: t + 1, left: 5, period: 1, per: k.dl[1] + DL_SP * sp };
+      else if (a === 'DrainSoul') chan = { name: a, next: t + 3, left: 5, period: 3, per: k.ds[1] + DS_SP * sp };
+      else { chan = { name: a, next: t + 1, left: 6, period: 1, per: WRACK[1] + WRACK_SP * sp }; st.wrack_until = t + 6; }
+    };
+    const start = (a, t) => {
+      if (CHANNELS.includes(a)) channel(a, t);
+      else if (a === 'BoA' || a === 'SiphonLife') applyDot(a);
+      else if (a === 'CoE') { st.coe = k.coe_mult; st.coe_on = true; }
+      else if (INSTANTS.includes(a)) instant(a, t);
+      else if (k.ct[a] > 0) cast = { end: t + k.ct[a], fn: () => land(a) };
+      else land(a);
+    };
+    const act = (a, t) => {
+      if (a !== 'Wand') {
+        st.wand = false;
+        st.gcd = t + 1.5 * (a === 'DeathCoil' ? k.p_dc : (a === 'SoulFire' ? k.p_sf : 1.0));
+      }
+      if (a === 'LifeTap') lifeTap();
+      else if (a === 'Wand') st.wand = true;
+      else if (a === 'NightfallSB') { st.nfc -= 1; spend('ShadowBolt', k.cost.ShadowBolt); bolt('Nightfall'); }
+      else { spend(a, k.cost[a]); start(a, t); }
     };
 
     while (st.hp > 0 && st.t < maxTime) {
       const t = st.t;
-      for (const name of [...dots.keys()]) {
-        const d = dots.get(name);
-        if (t >= d.next - 1e-9) {
-          let per = d.per;
-          if ('n' in d) { d.n += 1; per *= d.n <= 4 ? 0.5 : (d.n <= 8 ? 1.0 : 1.5); }
-          const x = per * dotMult(name);
-          dmg(name, x);
-          if (name === 'SiphonLife') heal(x);
-          if (name === 'Corruption' && nf) st.nfc += nf;
-          d.left -= 1; d.next += d.period;
-          if (d.left <= 0) dots.delete(name);
-        }
-      }
-      if (chan && t >= chan.next - 1e-9) {
-        const x = chan.per * drainMult();
-        dmg(chan.name, x);
-        if (chan.name === 'DrainLife') heal(x);
-        if (nf) st.nfc += nf;
-        chan.left -= 1; chan.next += chan.period;
-        if (chan.left <= 0) chan = null;
-      }
-      if (cast && t >= cast.end - 1e-9) { cast.fn(); cast = null; }
+      const dsOn = chan !== null && chan.name === 'DrainSoul';
+      tickDots(t);
+      tickChannel(t);
+      const kc = cast;
+      if (kc && t >= kc.end - 1e-9) { cast = null; kc.fn(); }
       dmg('Pet', ch.petDps * DT);
-      st.php -= ch.mobDps * ch.takenFrac * DT;
-      S.hp_taken += ch.mobDps * ch.takenFrac * DT;
+      const taken = ch.mobDps * ch.takenFrac * DT;
+      st.php -= taken;
+      S.hp_taken += taken;
       if (ch.felhunterSac) heal(0.03 * ch.maxHp / 4 * DT);
       if (ch.voidwalkerSac) st.mana = Math.min(ch.maxMana * 2, st.mana + 0.02 * ch.maxMana / 4 * DT);
       const busy = chan !== null || cast !== null;
-      if (st.wand && !busy) dmg('Wand', ch.wandDps * DT * hit);
+      if (st.wand && !busy) dmg('Wand', ch.wandDps * DT * k.hit * st.coe);
       if (!busy && t >= st.gcd - 1e-9 && st.hp > 0) {
-        let a = choose(policy, ch, dots, st, mobHpV, corr, boa, sl, dl, ds, sb, wrackOk);
-        if (st.nfc >= 1 && st.mana >= sb[3] && !['Corruption', 'BoA', 'SiphonLife'].includes(a)) a = 'NightfallSB';
-        if (a !== 'Wand') { st.wand = false; st.gcd = t + 1.5; }
-        if (a === 'LifeTap') lifeTap();
-        else if (a === 'Corruption') {
-          spend(a, corr[3]);
-          const ct = Math.max(0.0, 2.0 - 0.4 * T('ImprovedCorruption'));
-          if (ct > 0) cast = { end: t + ct, fn: () => applyDot('Corruption') }; else applyDot('Corruption');
-        } else if (a === 'BoA') { spend(a, boa[2]); applyDot('BoA'); }
-        else if (a === 'SiphonLife') { spend(a, sl[2]); applyDot('SiphonLife'); }
-        else if (a === 'DrainLife') { spend(a, dl[2]); chan = { name: 'DrainLife', next: t + 1, left: 5, period: 1, per: dl[1] + DL_SP * sp }; }
-        else if (a === 'DrainSoul') { spend(a, ds[2]); chan = { name: 'DrainSoul', next: t + 3, left: 5, period: 3, per: ds[1] + DS_SP * sp }; }
-        else if (a === 'Wrack') { spend(a, WRACK[2]); chan = { name: 'Wrack', next: t + 1, left: 6, period: 1, per: WRACK[1] + WRACK_SP * sp }; st.wrack_until = t + 6; }
-        else if (a === 'ShadowBolt') {
-          spend(a, sb[3]);
-          const ct = Math.max(1.5, sb[2] - 0.1 * T('Bane'));
-          cast = { end: t + ct, fn: () => dmg('ShadowBolt', sbHit) };
-        } else if (a === 'NightfallSB') { st.nfc -= 1; spend('ShadowBolt', sb[3]); dmg('Nightfall', sbHit); }
-        else if (a === 'Wand') st.wand = true;
+        let a = choose(policy, ch, dots, st, mobHpV, k);
+        if (st.nfc >= 1 && st.mana >= k.cost.ShadowBolt && !NO_NIGHTFALL.includes(a)) a = 'NightfallSB';
+        act(a, t);
       }
+      if (st.hp <= 0) S.ds_kill = dsOn;
       st.t += DT;
     }
     S.ttk = st.t; S.end_mana = st.mana; S.end_hp = st.php;
@@ -1275,71 +1779,152 @@ h2::before{content:"";display:inline-block;width:11px;height:11px;transform:rota
     return S;
   }
 
-  function choose(policy, ch, dots, st, mobHpV, corr, boa, sl, dl, ds, sb, wrackOk) {
-    const T = k => ch.talents[k] || 0;
+  const immUp = dots => dots.has('Immolate') && !dots.get('Immolate').gone;
+  const pol = (policy, key, dflt) => (policy[key] === undefined ? dflt : policy[key]);
+
+  // whether a priority step can be cast now, mana aside
+  function ready(step, policy, dots, st, frac, k) {
+    const t = st.t;
+    if (step === 'Corruption') return !!k.corr && !dots.has('Corruption') && frac > pol(policy, 'corr_min', 0.15);
+    if (step === 'BoA') return !!k.boa && !dots.has('BoA') && frac > pol(policy, 'boa_min', 0.5);
+    if (step === 'SiphonLife') return !!k.sl && !dots.has('SiphonLife') && frac > pol(policy, 'sl_min', 0.4);
+    if (step === 'Wrack') return !!k.wrack && frac > 0.25 && AFF_DOTS.filter(d => dots.has(d)).length >= 2;
+    if (step === 'DrainLife') return !!k.dl;
+    if (step === 'DrainSoul') return !!k.ds && frac <= pol(policy, 'ds_below', 0.25);
+    if (step === 'Immolate') return !immUp(dots) && frac > pol(policy, 'imm_min', 0.2);
+    if (step === 'Conflagrate') return !!k.conf && immUp(dots) && t >= st.cd.Conflagrate - 1e-9;
+    if (step === 'SearingPain') return !!k.sear;
+    if (step === 'Incinerate') return !!k.incin;
+    if (step === 'Shadowburn') return !!k.burn && t >= st.cd.Shadowburn - 1e-9 && frac <= pol(policy, 'burn_below', 0.2);
+    if (step === 'SoulFire') return !!k.sf && t < st.dec_until && t >= st.cd.SoulFire - 1e-9;
+    if (step === 'DeathCoil') return !!k.dc && !st.dc_done;
+    if (step === 'CoE') return !!k.coe && !st.coe_on;
+    return step === 'ShadowBolt' || step === 'Wand';
+  }
+
+  function choose(policy, ch, dots, st, mobHpV, k) {
     const frac = st.hp / mobHpV;
-    const ltRow = rank(LT, ch.level);
-    const ltGain = (ltRow[1] + ch.spirit) * (1 + .10 * T('ImprovedLifeTap'));
-    if (st.php - (ltRow[1] + ch.spirit) > (policy.tap_above === undefined ? 0.75 : policy.tap_above) * ch.maxHp && st.mana + ltGain <= ch.maxMana) return 'LifeTap';
-    const ltOk = st.php > (policy.lt_hp_floor === undefined ? 0.35 : policy.lt_hp_floor) * ch.maxHp;
-    const mana = st.mana;
-    for (const step of policy.prio) {
-      let cost = null;
-      if (step === 'Corruption') {
-        if (!corr || dots.has('Corruption') || frac <= (policy.corr_min === undefined ? 0.15 : policy.corr_min)) continue;
-        cost = corr[3];
-      } else if (step === 'BoA') {
-        if (!boa || dots.has('BoA') || frac <= (policy.boa_min === undefined ? 0.5 : policy.boa_min)) continue;
-        cost = boa[2];
-      } else if (step === 'SiphonLife') {
-        if (!sl || dots.has('SiphonLife') || frac <= (policy.sl_min === undefined ? 0.4 : policy.sl_min)) continue;
-        cost = sl[2];
-      } else if (step === 'Wrack') {
-        if (!wrackOk || frac <= 0.25 || dots.size < 2) continue;
-        cost = WRACK[2];
-      } else if (step === 'DrainLife') {
-        if (!dl) continue;
-        cost = dl[2];
-      } else if (step === 'DrainSoul') {
-        if (frac > (policy.ds_below === undefined ? 0.25 : policy.ds_below)) continue;
-        cost = ds[2];
-      } else if (step === 'ShadowBolt') cost = sb[3];
-      else if (step === 'Wand') return 'Wand';
-      if (mana >= cost) return step;
+    const ltGain = k.lt_amt * k.ilt;
+    if (st.php - k.lt_amt > pol(policy, 'tap_above', 0.75) * ch.maxHp && st.mana + ltGain <= ch.maxMana) return 'LifeTap';
+    const ltOk = st.php > pol(policy, 'lt_hp_floor', 0.35) * ch.maxHp;
+    for (const step of k.prio) {
+      if (!ready(step, policy, dots, st, frac, k)) continue;
+      if (step === 'Wand') return 'Wand';
+      if (st.mana >= k.cost[step]) return step;
       if (ltOk) return 'LifeTap';
       return 'Wand';
     }
     return 'Wand';
   }
 
-  function secondsPerKill(ch, mobHpV, policy, travel) {
+  // ---------------------------------------------------------------- per-kill economics
+  // Soul Harvest (10 sec after a Drain Soul kill) spent walking adds walkGain; with harvest_drink the player may
+  // drink first instead, at restRate + drinkBoost for up to 10 sec; the better order counts
+  function restSeconds(deficit, restRate, walkGain, drinkBoost) {
+    let rest = Math.max(0.0, deficit - walkGain) / restRate;
+    if (drinkBoost > 0) {
+      const fast = restRate + drinkBoost;
+      const first = deficit <= 10 * fast ? deficit / fast : 10 + (deficit - 10 * fast) / restRate;
+      rest = Math.min(rest, first);
+    }
+    return rest;
+  }
+
+  function secondsPerKill(ch, mobHpV, policy, travel, opts) {
     travel = travel === undefined ? 8.0 : travel;
+    opts = opts || {};
     const L = ch.level;
     const k = 1 + .10 * (ch.talents.ImprovedLifeTap || 0);
-    const restRate = 2.2 * L + 1.2 * L * k;
-    const regenRate = (8 + ch.spirit / 4) / 2 + ch.spirit / 5 * k * 0.5;
+    const drink = 2.2 * L;
+    const restRate = drink + 1.2 * L * k;
+    const manaRegen = (8 + ch.spirit / 4) / 2;
+    const regenRate = manaRegen + ch.spirit / 5 * k * 0.5;
     const s = simulate(ch, mobHpV, policy);
     const net = s.net_mana + k * s.net_hp + regenRate * travel;
-    s.rest = Math.max(0.0, -net) / restRate;
+    const bonus = s.ds_kill ? SH_BONUS[ch.talents.SoulHarvesting || 0] : 0.0;
+    s.rest = restSeconds(Math.max(0.0, -net), restRate, bonus * manaRegen * Math.min(10.0, travel), opts.harvestDrink ? bonus * drink : 0.0);
     s.spk = s.ttk + travel + s.rest;
     return s;
   }
 
-  // Best rotation for a build: the policy with the lowest seconds per kill (first wins ties, as in Python).
+  // modifier groups for the best base rotations; every combination is tried, each group off or one option
+  function modOptions(L, tal) {
+    const fins = [['fin', 'DrainSoul', ' +Drain Soul finish']];
+    if (tal.Shadowburn && L >= 20) fins.push(['fin', 'Shadowburn', ' +Shadowburn finish']);
+    if (tal.Decimation && L >= 48) fins.push(['fin', 'SoulFire', ' +Soul Fire finish']);
+    const groups = L >= 20 ? [[['coe', true, ' +Curse of the Elements']]] : [];
+    groups.push(fins);
+    if (L >= 42) groups.push([['dc', true, ' +Death Coil']]);
+    return groups;
+  }
+
+  // every combination of the modifier groups on one base rotation; a cooldown longer than a kill is ready on
+  // (base kill cycle / cooldown) of pulls: Amplify Curse 3 min, Death Coil 2 min, Soul Fire 60 sec less Decimation
+  function searchMods(L, tal, name, policy, s, run) {
+    const ref = s.spk;
+    const base = Object.assign({}, policy);
+    if (tal.AmplifyCurse && policy.prio.includes('BoA')) base.p_amp = Math.min(1.0, ref / 180.0);
+    let combos = [[base, name]];
+    for (const group of modOptions(L, tal)) {
+      const more = [];
+      for (const [p, n] of combos) for (const [key, val, label] of group) more.push([Object.assign({}, p, { [key]: val }), n + label]);
+      combos = combos.concat(more);
+    }
+    let bestName = null, best = null;
+    for (const [p, n] of combos) {
+      if (p.dc) p.p_dc = Math.min(1.0, ref / 120.0);
+      if (p.fin === 'SoulFire') p.p_sf = Math.min(1.0, ref / (60 * (1 - .45 * (tal.Decimation || 0))));
+      const r = (p === base && base.p_amp === undefined) ? s : run(p);
+      if (best === null || r.spk < best.spk) { best = r; bestName = n; }
+    }
+    return [bestName, best];
+  }
+
+  // Best rotation for a build: the lowest seconds per kill (first wins ties, as in Python). Each base policy the build
+  // can cast runs once, then the best opts.top (3) get the modifier search.
   // opts.aggro: the pet holds the mob like a Voidwalker (a Demonic Brand scenario, not the default).
+  // opts.harvestDrink, opts.ddMode ('base', 'scaled', 'wowhead'), opts.suppAll, opts.lashShare: see the Python.
+  // opts.hpMults: average each rotation over mobs of these HP multiples (kill time snaps to DoT and drain ticks).
   function evaluate(L, tal, pet, spPerLevel, opts) {
     opts = opts || {};
-    let best = null;
+    const top = opts.top === undefined ? 3 : opts.top;
+    const hpMults = opts.hpMults || [1.0];
+    const char = () => {
+      const ch = makeChar(L, tal, spPerLevel, pet, opts.lashShare);
+      if (opts.aggro && pet !== 'voidwalker' && pet !== 'none') ch.takenFrac = 0.10 * takenScale(tal, pet);
+      ch.ddMode = opts.ddMode || 'base';
+      ch.suppAll = opts.suppAll !== false;
+      return ch;
+    };
+    const run = policy => {
+      const rs = hpMults.map(m => secondsPerKill(char(), mobHp(L) * m, policy, undefined, { harvestDrink: !!opts.harvestDrink }));
+      if (rs.length === 1) return rs[0];
+      const out = Object.assign({}, rs[0]);
+      for (const key of ['spk', 'ttk', 'rest', 'healed']) out[key] = rs.reduce((a, r) => a + r[key], 0) / rs.length;
+      return out;
+    };
+    const ch0 = char(), seen = new Set(), base = [];
     for (const [name, prio] of POLICIES) {
-      const ch = makeChar(L, tal, spPerLevel, pet);
-      if (opts.aggro && pet !== 'voidwalker' && pet !== 'none') ch.takenFrac = 0.10 * ((tal.SoulLink && pet !== 'none') ? 0.70 : 1.0);
-      const s = secondsPerKill(ch, mobHp(L), { prio, amp: false });
-      if (best === null || s.spk < best.spk) { best = s; best.policy = name; }
+      const sig = usableSteps(prio, ch0).join(',');
+      if (seen.has(sig)) continue;
+      seen.add(sig);
+      const policy = { prio };
+      base.push([name, policy, run(policy)]);
     }
+    let bestName = null, best = null;
+    for (const [name, , s] of base) if (best === null || s.spk < best.spk) { best = s; bestName = name; }
+    if (opts.mods !== false) {
+      const ranked = base.slice().sort((a, b) => a[2].spk - b[2].spk).slice(0, top);
+      for (const [name, policy, s] of ranked) {
+        const [n2, s2] = searchMods(L, tal, name, policy, s, run);
+        if (s2.spk < best.spk) { best = s2; bestName = n2; }
+      }
+    }
+    best.policy = bestName;
     return best;
   }
 
-  const api = { rank, valid, makeChar, mobHp, simulate, secondsPerKill, evaluate, POLICIES, AFF, DEMO, PREREQ };
+  const api = { rank, valid, makeChar, mobHp, simulate, secondsPerKill, evaluate, POLICIES, AFF, DEMO, DESTRO, PREREQ, ddAvg, usableSteps };
   if (typeof module !== 'undefined') module.exports = api; else root.LevelingModel = api;
 })(this);
 
@@ -1366,7 +1951,8 @@ window.FWL_ICONS = {"ability_deathknight_hemorrhagicfever": "data:image/jpeg;bas
   const TREE_ICON = { aff: 'spell_shadow_deathcoil', demo: 'spell_shadow_metamorphosis', destro: 'spell_shadow_rainoffire' };
   const SPELL_ICON = { Corruption: 'spell_shadow_abominationexplosion', Agony: 'spell_shadow_curseofsargeras', 'Siphon Life': 'spell_shadow_requiem',
     'Drain Life': 'spell_shadow_lifedrain02', 'Shadow Bolt': 'spell_shadow_shadowbolt', Wand: 'ability_shootwand', Imp: 'spell_shadow_summonimp',
-    Voidwalker: 'spell_shadow_summonvoidwalker', Succubus: 'spell_shadow_summonsuccubus', Felhunter: 'spell_shadow_summonfelhunter' };
+    Voidwalker: 'spell_shadow_summonvoidwalker', Succubus: 'spell_shadow_summonsuccubus', Felhunter: 'spell_shadow_summonfelhunter',
+    Immolate: 'spell_fire_immolation' };
   const RACIAL_ICON = { 'Cannibalize': 'ability_racial_cannibalize', 'Blood Fury': 'racial_orc_berserkerstrength', 'Berserking': 'racial_troll_berserk',
     'Eureka!': 'inv_gnometoy', 'Sword Specialization': 'ability_meleedamage', 'Rapid Regeneration': 'ability_racial_regeneratin' };
   document.querySelectorAll('img[data-icon]').forEach(i => { if (ICONS[i.dataset.icon]) i.src = ICONS[i.dataset.icon]; else i.hidden = true; });
@@ -1388,7 +1974,7 @@ window.FWL_ICONS = {"ability_deathknight_hemorrhagicfever": "data:image/jpeg;bas
                 ['Expansive Mind', '+5% max mana.'],
                 ['Escape Artist', 'Break roots and slows, immune for 3 sec. 2 min cooldown.'],
                 ['Engineering Specialization', 'Engineering gadgets fail 20% less often.']],
-      level: 'About 0.5% from Eureka! on the pull', levelPct: 0.5,
+      level: 'About 1% from Eureka! on the pull', levelPct: 1,
       pvp: ['Escape Artist', 'frees you from roots and slows'],
       verdict: 'A solid all-round Alliance pick with no big edge anywhere.',
       tip: 'Press Eureka! on the pull so your opening DoTs get the +10%.' },
@@ -1397,7 +1983,7 @@ window.FWL_ICONS = {"ability_deathknight_hemorrhagicfever": "data:image/jpeg;bas
                 ['Hardiness', 'Stuns on you last 20% shorter.'],
                 ['Shatter Curse', 'Remove and block curses and banes, and take 15% less magic damage for 8 sec. 3 min cooldown.'],
                 ['Axe Specialization', '+1% crit with an axe. Warlocks cannot use axes.']],
-      level: 'About 0.5% from Blood Fury on elites', levelPct: 0.5,
+      level: 'Under 0.5%: Blood Fury covers one pull in four', levelPct: 0,
       pvp: ['Hardiness plus Shatter Curse', 'which shuts down enemy Warlocks'],
       verdict: 'The best Horde PvP race, with a small raid edge.',
       tip: 'Save Blood Fury for elites and big pulls. At low spell power it adds little.' },
@@ -1406,30 +1992,31 @@ window.FWL_ICONS = {"ability_deathknight_hemorrhagicfever": "data:image/jpeg;bas
                 ['Berserking', '+10% casting speed for 10 sec. 3 min cooldown. Does not speed up DoTs or channels in the beta.'],
                 ['Regeneration', '10% of health regen continues in combat.'],
                 ['Beast Slaying', '+5% damage to Beasts.']],
-      level: 'About 3 to 6% faster: Rapid Regeneration replaces some eating and beasts die 5% faster', levelPct: 4.5,
+      level: 'About 1%: beasts die 5% faster, and Rapid Regeneration saves a little eating', levelPct: 1,
       pvp: ['Fear, then Rapid Regeneration', '50% of your health back while the target runs'],
-      verdict: 'A good leveler with a strong PvP heal, and the weakest raid race for a Warlock.',
+      verdict: 'A strong PvP heal, and the weakest raid race for a Warlock. About 1% faster leveling.',
       tip: 'Use Rapid Regeneration between pulls, then Life Tap the health into mana. It cannot heal you mid-fight.' },
     undead: { label: 'Undead', faction: 'Horde',
       racials: [['Cannibalize', 'Regain 35% health and 35% mana over 10 sec from a humanoid or undead corpse. 2 min cooldown.'],
                 ['Touch of the Grave', 'Caster version: each spell or attack has a 10% chance to drain 5% of your max health from the target, at most once per second.'],
                 ['Will of the Forsaken', 'Break charm, fear and sleep. 2 min cooldown.'],
                 ['Underwater Breathing', 'Breath lasts 300% longer.']],
-      level: 'Fastest: about 5 to 11% from level 30 on. Cannibalize removes most resting on humanoids, and Touch of the Grave about half of it on any mob', levelPct: 8,
+      level: 'Fastest: about 3 to 6%, mostly Touch of the Grave on your spells and wand shots. Cannibalize saves food, not time', levelPct: 4,
       pvp: ['Will of the Forsaken breaks fear', 'the Warlock and Priest win condition'],
       verdict: 'The best leveling race, a strong PvP pick, and top raid damage through Touch of the Grave.',
-      tip: 'Cannibalize a humanoid or undead corpse after each pull. It replaces most eating and drinking.' },
+      tip: 'Cannibalize a humanoid or undead corpse when you are low. It saves food and water, not time.' },
   };
 
   // ---------------------------------------------------------------- leveling data
   const seq = pairs => pairs.flatMap(([n, c]) => Array(c).fill(n));
-  const TAL_ORDER = seq([['Improved Corruption', 5], ['Suppression', 3], ['Improved Drains', 3], ['Malediction', 5],
-    ['Improved Bane of Agony', 2], ['Pandemic', 2], ['Siphon Life', 1], ['Soul Siphon', 3], ['Nightfall', 2], ['Shadow Mastery', 5],
-    ['Wrack', 1], ['Pandemic', 1], ['Fel Concentration', 3], ['Improved Life Tap', 2], ['Demonic Embrace', 5], ['Improved Voidwalker', 3]]);
-  const SOLO56 = seq([['Improved Corruption', 5], ['Suppression', 3], ['Improved Drains', 3], ['Malediction', 5],
-    ['Improved Bane of Agony', 2], ['Pandemic', 2], ['Siphon Life', 1], ['Soul Siphon', 3], ['Demonic Embrace', 5], ['Unholy Power', 5],
-    ['Demonic Aegis', 2], ['Improved Voidwalker', 3], ['Fel Vitality', 3], ['Demonic Energies', 2], ['Demonic Knowledge', 3],
-    ['Nightfall', 2], ['Pandemic', 1], ['Improved Life Tap', 1]]);
+  const TAL_ORDER = seq([['Improved Corruption', 5], ['Suppression', 3], ['Malediction', 2], ['Improved Bane of Agony', 2], ['Malediction', 3],
+    ['Improved Life Tap', 1], ['Pandemic', 1], ['Improved Drains', 3], ['Soul Siphon', 3], ['Improved Life Tap', 1], ['Siphon Life', 1],
+    ['Shadow Mastery', 1], ['Amplify Curse', 1], ['Shadow Mastery', 4], ['Pandemic', 2], ['Malevolence', 3], ['Bane', 1], ['Malevolence', 1],
+    ['Demonic Embrace', 2], ['Malevolence', 1], ['Unholy Power', 5]]);
+  const SOLO56 = seq([['Improved Corruption', 5], ['Suppression', 3], ['Malediction', 5], ['Improved Bane of Agony', 2], ['Pandemic', 1],
+    ['Improved Drains', 3], ['Amplify Curse', 1], ['Soul Siphon', 3], ['Siphon Life', 1], ['Demonic Embrace', 5], ['Unholy Power', 5],
+    ['Improved Voidwalker', 3], ['Demonic Aegis', 2], ['Fel Vitality', 3], ['Demonic Energies', 2], ['Demonic Knowledge', 3],
+    ['Improved Life Tap', 1], ['Shadow Mastery', 3]]);
   const RANKS = {
     'Shadow Bolt': [1, 6, 12, 20, 28, 36, 44, 52], 'Immolate': [1, 10, 20, 30, 40, 50, 60],
     'Corruption': [4, 14, 24, 34, 44, 54], 'Life Tap': [6, 16, 26, 36, 46, 56], 'Bane of Agony': [8, 18, 28, 38, 48, 58],
@@ -1467,22 +2054,22 @@ window.FWL_ICONS = {"ability_deathknight_hemorrhagicfever": "data:image/jpeg;bas
     if (L < 4) return ['Starting out', 'Shadow Bolt to pull, wand to finish', 'Your Imp does real damage early. Keep it out.'];
     if (L < 10) return ['Imp phase', 'Corruption, then Bane of Agony from 8, then wand', 'Corruption is a 2-second cast until Improved Corruption.'];
     if (L < 14) return ['Voidwalker', 'Voidwalker in, Corruption, Bane of Agony, wand', 'Wand stays your filler. Shadow Bolt costs too much mana per kill.'];
-    if (L < 30) return ['DoTs and wand', 'Voidwalker in, instant Corruption, Bane of Agony, wand', 'Wand wins the filler test in 83% of scenarios at level 20.'];
-    if (L < 34) return ['Siphon Life online', 'Corruption, Agony, Siphon Life, wand', 'Wand still wins until Soul Siphon is finished.'];
-    if (L < 56) return ['Drain tank', 'Corruption, Agony, Siphon Life, then Drain Life', 'Instant Shadow Bolt when Nightfall procs. Life Tap when health is high.'];
-    return ['Solo spec', 'Corruption, Agony, Siphon Life, then Drain Life', 'Respec to the Demonic Knowledge splash at 56. It pulls ahead from here.'];
+    if (L < 30) return ['DoTs and wand', 'Voidwalker in, instant Corruption, Bane of Agony, wand', 'Wand wins the filler test in 93% of scenarios at level 20.'];
+    if (L < 34) return ['Soul Siphon online', 'Corruption, Agony, Immolate, then Drain Life', 'Drain Life takes over as Soul Siphon comes in.'];
+    if (L < 56) return ['Drain tank', 'Corruption, Agony, Siphon Life, then Drain Life', 'Add Immolate or Death Coil when they help. Life Tap when health is high.'];
+    return ['Solo spec', 'Corruption, Agony, Siphon Life, then Drain Life', 'The Demonic Knowledge splash is optional at 56. With this order it only breaks even.'];
   }
   function petFor(L) {
     if (L < 10) return ['Imp', 'Your only demon so far. It does real damage at these levels.'];
     if (L === 10) return ['Voidwalker', 'New: do the Voidwalker class quest now. It tanks for you.'];
     if (L === 20) return ['Voidwalker', 'The Succubus quest opens now. She kills faster, but you take the hits and rest more.'];
     if (L === 30) return ['Voidwalker', 'The Felhunter quest opens now. Handy against casters. The Voidwalker stays your leveling pet.'];
-    if (L > 20) return ['Voidwalker', 'The safe default when you might get pulled away. The Succubus kills faster but you rest more.'];
+    if (L > 20) return ['Voidwalker', 'The safe default. The Succubus kills faster, but past 30 the extra rest costs more than she saves.'];
     return ['Voidwalker', 'It tanks, so you can DoT and wand in peace.'];
   }
 
   // ---------------------------------------------------------------- state (validated)
-  const saved = store.get('calc', {}) || {};
+  const saved = store.get('calc8', {}) || {};
   const savedRace = store.get('race', 'human');
   const state = {
     race: RACES[savedRace] ? savedRace : 'human',
@@ -1490,15 +2077,21 @@ window.FWL_ICONS = {"ability_deathknight_hemorrhagicfever": "data:image/jpeg;bas
     dngAll: store.get('dngAll', false) === true,
     sp: clamp(saved.sp, 200, 1000, 500), crit: clamp(saved.crit, 5, 25, 10), ghit: clamp(saved.ghit, 0, 16, 11),
     pet: clamp(saved.pet, 0, 160, 50), bod: clamp(saved.bod, 1.5, 4, 4), spirit: clamp(saved.spirit, 50, 300, 100),
-    isb: saved.isb === 60 ? 60 : 12, lt: saved.lt === 'spirit' ? 'spirit' : '840', sword: saved.sword !== false,
+    isb: saved.isb === 60 ? 60 : 12, lt: saved.lt === '840' ? '840' : 'spirit', sword: saved.sword !== false,
     hp: clamp(saved.hp, 3000, 8000, 4500),
+    cons: saved.cons !== false, sburn: saved.sburn !== false, exec: saved.exec !== false,
+    fire: saved.fire === true, two: saved.two === true, coe: saved.coe === true,
+    brand: [0, 3, 6].includes(saved.brand) ? saved.brand : 3, mp5: clamp(saved.mp5, 0, 300, 0),
   };
-  const saveCalc = () => store.set('calc', { sp: state.sp, crit: state.crit, ghit: state.ghit, pet: state.pet, bod: state.bod,
-    spirit: state.spirit, isb: state.isb, lt: state.lt, sword: state.sword, hp: state.hp });
+  const saveCalc = () => store.set('calc8', { sp: state.sp, crit: state.crit, ghit: state.ghit, pet: state.pet, bod: state.bod,
+    spirit: state.spirit, isb: state.isb, lt: state.lt, sword: state.sword, hp: state.hp,
+    cons: state.cons, sburn: state.sburn, exec: state.exec, fire: state.fire, two: state.two, coe: state.coe, brand: state.brand, mp5: state.mp5 });
 
   function modelOpts(race) {
     return { sp: state.sp, crit: state.crit / 100, race, sword: state.sword, lifeTapMode: state.lt, spirit: state.spirit,
-             bodCoef: state.bod, isbDuration: state.isb, gearHit: state.ghit / 100, petDps: state.pet, maxHp: state.hp };
+             bodCoef: state.bod, isbDuration: state.isb, gearHit: state.ghit / 100, petDps: state.pet, maxHp: state.hp,
+             consumables: state.cons, shadowburn: state.sburn, execute: state.exec, fireImmune: state.fire,
+             targets: state.two ? 2 : 1, coe: state.coe, brandHits: state.brand, mp5: state.mp5 };
   }
   let announceTimer = null;
   const announce = msg => { const s = $('srStatus'); clearTimeout(announceTimer); s.textContent = ''; announceTimer = setTimeout(() => { s.textContent = msg; }, 80); };
@@ -1600,6 +2193,7 @@ window.FWL_ICONS = {"ability_deathknight_hemorrhagicfever": "data:image/jpeg;bas
   function setLevel(L, speak) {
     state.level = Math.round(clamp(L, 1, 60, state.level)); store.set('level', state.level);
     renderPlanner();
+    builderFollowLevel();
     renderBuilder();
     if (speak) announce('Level ' + state.level + '. ' + $('pRot').textContent + '.');
   }
@@ -1615,20 +2209,20 @@ window.FWL_ICONS = {"ability_deathknight_hemorrhagicfever": "data:image/jpeg;bas
     $('pRot').textContent = rot; $('pRotSub').textContent = rotSub;
     const combo = $('pCombo'); combo.textContent = '';
     const steps = L < 4 ? ['Shadow Bolt', 'Wand'] : L < 10 ? ['Imp', 'Corruption', 'Agony', 'Wand'] : L < 30 ? ['Voidwalker', 'Corruption', 'Agony', 'Wand']
-      : L < 34 ? ['Voidwalker', 'Corruption', 'Agony', 'Siphon Life', 'Wand'] : ['Voidwalker', 'Corruption', 'Agony', 'Siphon Life', 'Drain Life'];
+      : L < 34 ? ['Voidwalker', 'Corruption', 'Agony', 'Immolate', 'Drain Life'] : ['Voidwalker', 'Corruption', 'Agony', 'Siphon Life', 'Drain Life'];
     steps.forEach(n => { const w = document.createElement('span'); w.className = 'stepi'; w.appendChild(icon(SPELL_ICON[n], 'm', n)); w.title = n; combo.appendChild(w); });
     const [pet, petSub] = petFor(L); $('pPet').textContent = ''; $('pPet').append(icon(SPELL_ICON[pet], 'm', ''), document.createTextNode(pet)); $('pPetSub').textContent = petSub;
     const newSpells = Object.entries(RANKS).filter(([, lv]) => lv.includes(L)).map(([n, lv]) => {
       const idx = lv.indexOf(L), off = n === 'Siphon Life' ? 1 : 0;
       return idx + off === 0 ? n + ' (new spell)' : n + ' rank ' + (idx + 1 + off);
     });
-    const newTal = L === 56 ? 'Respec to the solo spec' : (t.fresh ? t.fresh + ' ' + t.got[t.fresh] : null);
+    const newTal = L === 56 ? 'Optional respec to the solo spec' : (t.fresh ? t.fresh + ' ' + t.got[t.fresh] : null);
     $('pNew').textContent = newTal || (newSpells.length ? 'Trainer visit' : 'Nothing new');
     $('pNewSub').textContent = newSpells.length ? 'Train: ' + newSpells.join(', ') + '.' : 'No new spell ranks at this level.';
     const ul = $('pTal'); ul.textContent = '';
     Object.entries(t.got).forEach(([n, c]) => { const li = document.createElement('li'); li.textContent = n + ' ' + c; if (n === t.fresh) li.className = 'fresh'; ul.appendChild(li); });
     if (!t.pts) { const li = document.createElement('li'); li.textContent = 'None yet'; ul.appendChild(li); }
-    $('pGear').textContent = L < 34 ? 'Gear: a better wand is your biggest damage upgrade until 33, because the wand is your filler.'
+    $('pGear').textContent = L < 30 ? 'Gear: a better wand is your biggest damage upgrade until 29, because the wand is your filler.'
       : 'Gear: spell power feeds your DoTs 1.2 to 1.6 times over. At 60, use the item comparer.';
     $('pRace').textContent = RACES[state.race].label + ' tip: ' + RACES[state.race].tip;
     renderDungeons(L);
@@ -1702,34 +2296,40 @@ window.FWL_ICONS = {"ability_deathknight_hemorrhagicfever": "data:image/jpeg;bas
   let lastOrder = [];
   function renderRaid() {
     const res = WarlockModel.rank(modelOpts(state.race));
-    const max = res[0].total;
+    const live = res.filter(r => r.viable !== false);
+    const max = live[0].total;
     const bars = $('bars'); bars.textContent = '';
     const moved = lastOrder.length && res.some((r, i) => lastOrder[i] !== r.id);
     res.forEach((r, i) => {
       const row = document.createElement('div');
-      row.className = 'bar-row t-' + r.id.split('-')[0] + (i === 0 ? ' win' : '') + (moved && lastOrder[i] !== r.id ? ' moved' : '');
+      const dead = r.viable === false;
+      row.className = 'bar-row t-' + r.id.split('-')[0] + (i === 0 ? ' win' : '') + (dead ? ' dead' : '') + (moved && lastOrder[i] !== r.id ? ' moved' : '');
       const name = document.createElement('div'); name.className = 'bar-name';
       const st = document.createElement('strong'); st.append(icon(TREE_ICON[r.id.split('-')[0]], 's', ''), document.createTextNode(r.name));
       const cap = document.createElement('span'); cap.className = 'cap';
-      cap.textContent = r.note + ', ' + r.bane + (r.pet ? '. Succubus ' + Math.round(r.petShare * 100) + '% of damage' : '');
+      cap.textContent = dead ? (state.fire ? 'Not viable: the boss is immune to Fire. Play Demonology.' : 'Not viable at these settings.')
+        : (state.fire && r.id === 'demo-deep' ? 'Imp sacrificed, Succubus out, Shadow Bolt, no Brand on a Fire-immune boss'
+          : state.fire ? r.note.replace(', Immolate kept up', '') : r.note) + ', ' + r.bane + (r.execPlan === 'imp' ? '; under 35%, swap to the Imp' : r.execPlan === 'succubus' ? '; under 35%, the Succubus stays out' : '')
+          + (r.pet ? '. Demon ' + Math.round(r.petShare * 100) + '% of damage' : '');
       name.append(st, cap);
       const track = document.createElement('div'); track.className = 'bar-track'; track.setAttribute('aria-hidden', 'true');
       const lock = document.createElement('div'); lock.className = 'bar-lock'; lock.style.width = (r.lock / max * 100) + '%';
       track.appendChild(lock);
       if (r.pet) { const pet = document.createElement('div'); pet.className = 'bar-pet'; pet.style.width = (r.pet / max * 100) + '%'; track.appendChild(pet); }
-      const val = document.createElement('div'); val.className = 'bar-val'; val.textContent = Math.round(r.total) + ' dps';
+      const val = document.createElement('div'); val.className = 'bar-val'; val.textContent = dead ? 'n/a' : Math.round(r.total) + ' dps';
       const gap = document.createElement('div'); gap.className = 'bar-gap';
-      gap.textContent = i === 0 ? 'best' : '−' + ((1 - r.total / max) * 100).toFixed(1) + '%';
+      gap.textContent = dead ? 'out' : i === 0 ? 'best' : '−' + ((1 - r.total / max) * 100).toFixed(1) + '%';
       row.append(name, track, val, gap);
       bars.appendChild(row);
     });
     if (moved) setTimeout(() => document.querySelectorAll('.bar-row.moved').forEach(x => x.classList.remove('moved')), 700);
     lastOrder = res.map(r => r.id);
-    const a = res[0], b = res[1];
+    const a = live[0], b = live[1];
     const lead = (a.total / b.total - 1) * 100;
     $('tieNote').hidden = lead >= 1;
-    const keep = res.find(x => x.id === 'destro-keep'), fire = res.find(x => x.id === 'destro-fire');
-    const succLine = keep.total >= fire.total
+    const keep = live.find(x => x.id === 'destro-keep'), fire = live.find(x => x.id === 'destro-fire');
+    const succLine = !keep || !fire ? 'Fire Destruction is out: the boss is immune to Fire.'
+      : keep.total >= fire.total
       ? 'In Destruction, keep the Succubus out: she beats her own sacrifice at these settings.'
       : 'In Destruction, sacrifice the Succubus: her +15% Fire is worth more than her damage at these settings.';
     $('raidVerdict').textContent = a.name + ' leads ' + b.name + ' by ' + lead.toFixed(1) + '%. ' + succLine;
@@ -1738,7 +2338,7 @@ window.FWL_ICONS = {"ability_deathknight_hemorrhagicfever": "data:image/jpeg;bas
     $('stripGap').textContent = '+' + lead.toFixed(1) + '% over #2';
     [['sp', state.sp, state.sp + ' spell power'], ['crit', state.crit, state.crit + ' percent crit'], ['ghit', state.ghit, state.ghit + ' percent hit from gear'],
      ['pet', state.pet, state.pet + ' Succubus damage per second'], ['bod', state.bod, 'times ' + state.bod.toFixed(1)], ['spirit', state.spirit, state.spirit + ' Spirit'],
-     ['hp', state.hp, state.hp + ' max health']]
+     ['hp', state.hp, state.hp + ' max health'], ['mp5', state.mp5, state.mp5 + ' mana per 5 seconds']]
       .forEach(([id, v, txt]) => {
         const r = $(id), n = $(id + 'N');
         if (document.activeElement !== r) r.value = v;
@@ -1746,6 +2346,9 @@ window.FWL_ICONS = {"ability_deathknight_hemorrhagicfever": "data:image/jpeg;bas
         if (document.activeElement !== n) n.value = id === 'bod' ? v.toFixed(1) : v;
       });
     $('spiritRow').hidden = state.lt !== 'spirit';
+    [['optCons', 'cons'], ['optSburn', 'sburn'], ['optExec', 'exec'], ['optFire', 'fire'], ['optTwo', 'two'], ['optCoe', 'coe']]
+      .forEach(([id, key]) => { $(id).checked = state[key]; });
+    $('brandSeg').querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(Number(x.dataset.v) === state.brand)));
     [['isbSeg', String(state.isb)], ['ltSeg', state.lt]].forEach(([seg, v]) =>
       $(seg).querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x.dataset.v === v))));
     $('sword').checked = state.sword;
@@ -1754,7 +2357,8 @@ window.FWL_ICONS = {"ability_deathknight_hemorrhagicfever": "data:image/jpeg;bas
   function renderWeights() {
     const o = modelOpts(state.race), tb = $('weights');
     tb.textContent = '';
-    WarlockModel.SPECS.forEach(s => {
+    const out = new Set(WarlockModel.rank(o).filter(r => r.viable === false).map(r => r.id));
+    WarlockModel.SPECS.filter(s => !out.has(s.id)).forEach(s => {
       const w = WarlockModel.statWeights(o, s.id);
       const tr = document.createElement('tr');
       const th = document.createElement('th'); th.scope = 'row'; th.style.whiteSpace = 'nowrap'; th.append(icon(TREE_ICON[s.id.split('-')[0]], 's', ''), document.createTextNode(' ' + s.name)); tr.appendChild(th);
@@ -1780,6 +2384,7 @@ window.FWL_ICONS = {"ability_deathknight_hemorrhagicfever": "data:image/jpeg;bas
     const r = WarlockModel.compareItems(modelOpts(state.race), sel.value, a, b);
     const out = $('cmpOut'); out.textContent = '';
     const name = sel.options[sel.selectedIndex].textContent;
+    if (res.some(x => x.id === sel.value && x.viable === false)) { out.textContent = name + ' is not viable at these settings.'; return; }
     if (Math.abs(r.diff) < 0.05) { out.textContent = 'The alternative makes no difference for ' + name + '.'; return; }
     out.appendChild(document.createTextNode('The alternative ' + (r.diff > 0 ? 'gains ' : 'loses ')));
     const bold = document.createElement('b'); bold.textContent = Math.abs(r.diff).toFixed(1) + ' dps (' + (r.pct >= 0 ? '+' : '') + r.pct.toFixed(1) + '%)';
@@ -1801,7 +2406,7 @@ window.FWL_ICONS = {"ability_deathknight_hemorrhagicfever": "data:image/jpeg;bas
     renderDungeonChart(state.level);
   });
 
-  const RANGES = { sp: [200, 1000], crit: [5, 25], ghit: [0, 16], pet: [0, 160], bod: [1.5, 4], spirit: [50, 300], hp: [3000, 8000] };
+  const RANGES = { sp: [200, 1000], crit: [5, 25], ghit: [0, 16], pet: [0, 160], bod: [1.5, 4], spirit: [50, 300], hp: [3000, 8000], mp5: [0, 300] };
   const afterCalc = () => { renderRaid(); renderRaceCard(); renderRaceTable(); };
   Object.entries(RANGES).forEach(([key, [lo, hi]]) => {
     const setV = v => { const c = clamp(v, lo, hi, state[key]); state[key] = key === 'bod' ? Math.round(c * 10) / 10 : c; afterCalc(); };
@@ -1813,6 +2418,11 @@ window.FWL_ICONS = {"ability_deathknight_hemorrhagicfever": "data:image/jpeg;bas
     $(seg).querySelectorAll('button').forEach(btn => btn.addEventListener('click', () => {
       state[key] = parse(btn.dataset.v); afterCalc(); saveCalc(); announce($('raidVerdict').textContent);
     })));
+  [['optCons', 'cons'], ['optSburn', 'sburn'], ['optExec', 'exec'], ['optFire', 'fire'], ['optTwo', 'two'], ['optCoe', 'coe']].forEach(([id, key]) =>
+    $(id).addEventListener('change', e => { state[key] = e.target.checked; afterCalc(); saveCalc(); announce($('raidVerdict').textContent); }));
+  $('brandSeg').querySelectorAll('button').forEach(btn => btn.addEventListener('click', () => {
+    state.brand = Number(btn.dataset.v); afterCalc(); saveCalc(); announce($('raidVerdict').textContent);
+  }));
   $('sword').addEventListener('change', e => { state.sword = e.target.checked; afterCalc(); saveCalc(); announce($('raidVerdict').textContent); });
   ['aSp', 'aCrit', 'aHit', 'bSp', 'bCrit', 'bHit'].forEach(id => $(id).addEventListener('input', () => renderCompare(WarlockModel.rank(modelOpts(state.race)))));
   $('cmpSpec').addEventListener('change', () => { renderCompare(WarlockModel.rank(modelOpts(state.race))); announce($('cmpOut').textContent); });
@@ -1838,8 +2448,7 @@ window.FWL_ICONS = {"ability_deathknight_hemorrhagicfever": "data:image/jpeg;bas
 
   // ================================================================ talent builder
   // Positions, ranks and prerequisites from the Wowhead Forever calculator. Per-rank values from its rank tooltips.
-  // scored: 'yes' counts in the leveling score, 'utility' is real but outside the damage and time math,
-  // 'later' is a Destruction talent whose spells are not in the leveling model yet.
+  // scored: 'yes' counts in the leveling score, 'utility' is real but outside the damage and time math.
   const TREES = ['Affliction', 'Demonology', 'Destruction'];
   const TALENTS = [
     // Affliction
@@ -1847,11 +2456,11 @@ window.FWL_ICONS = {"ability_deathknight_hemorrhagicfever": "data:image/jpeg;bas
     { k: 'Suppression', n: 'Suppression', t: 0, r: 0, c: 1, m: 5, s: 'yes', d: '+{a} hit and {b} less threat.', a: ['1%', '2%', '3%', '4%', '5%'], b: ['4%', '8%', '12%', '16%', '20%'] },
     { k: 'ImprovedCorruption', n: 'Improved Corruption', t: 0, r: 0, c: 2, m: 5, s: 'yes', d: 'Corruption casts {a} sec faster and deals {b} more. Instant at 5/5.', a: ['0.4', '0.8', '1.2', '1.6', '2.0'], b: ['2%', '4%', '6%', '8%', '10%'] },
     { k: 'Malediction', n: 'Malediction', t: 0, r: 1, c: 0, m: 5, s: 'yes', d: '+{a} damage from all your periodic spells.', a: ['1%', '2%', '3%', '4%', '5%'] },
-    { k: 'SoulHarvesting', n: 'Soul Harvesting', t: 0, r: 1, c: 1, m: 2, s: 'utility', d: 'After a Drain Soul kill, +{a} mana regen for 10 sec. Worth about zero in the model.', a: ['50%', '100%'] },
+    { k: 'SoulHarvesting', n: 'Soul Harvesting', t: 0, r: 1, c: 1, m: 2, s: 'yes', d: 'After a Drain Soul kill, +{a} mana regen for 10 sec. Scored when the best rotation finishes with Drain Soul.', a: ['50%', '100%'] },
     { k: 'ImprovedDrains', n: 'Improved Drains', t: 0, r: 1, c: 2, m: 3, s: 'yes', d: 'Drain Life, Drain Soul and Wrack deal {a} more.', a: ['7%', '14%', '20%'] },
     { k: 'ImprovedBoA', n: 'Improved Bane of Agony', t: 0, r: 2, c: 0, m: 2, s: 'yes', d: 'Bane of Agony deals {a} more.', a: ['5%', '10%'] },
     { k: 'FelConcentration', n: 'Fel Concentration', t: 0, r: 2, c: 1, m: 3, s: 'utility', d: '{a} chance to avoid pushback while draining.', a: ['23%', '47%', '70%'] },
-    { k: 'AmplifyCurse', n: 'Amplify Curse', t: 0, r: 2, c: 2, m: 1, s: 'utility', d: 'Your next Bane of Agony or Curse of Weakness is 50% stronger. 3 min cooldown.' },
+    { k: 'AmplifyCurse', n: 'Amplify Curse', t: 0, r: 2, c: 2, m: 1, s: 'yes', d: 'Your next Bane of Agony or Curse of Weakness is 50% stronger. 3 min cooldown.' },
     { k: 'Pandemic', n: 'Pandemic', t: 0, r: 2, c: 3, m: 3, s: 'yes', d: 'Crits from DoTs and drains deal {a} more bonus damage.', a: ['33%', '67%', '100%'] },
     { k: 'Malevolence', n: 'Malevolence', t: 0, r: 3, c: 0, m: 5, s: 'yes', d: '+{a} crit on Shadow spells.', a: ['1%', '2%', '3%', '4%', '5%'] },
     { k: 'Nightfall', n: 'Nightfall', t: 0, r: 3, c: 1, m: 2, s: 'yes', d: 'Corruption and drain ticks have a {a} chance to make your next Shadow Bolt instant.', a: ['2%', '4%'] },
@@ -1862,41 +2471,41 @@ window.FWL_ICONS = {"ability_deathknight_hemorrhagicfever": "data:image/jpeg;bas
     { k: 'Wrack', n: 'Wrack', t: 0, r: 6, c: 1, m: 1, s: 'yes', req: ['SiphonLife', 1], d: 'A 6-sec channel. Your other Shadow DoTs deal 10% more while it runs. Usable from level 40.' },
     // Demonology
     { k: 'ImprovedHealthFunnel', n: 'Improved Health Funnel', t: 1, r: 0, c: 0, m: 2, s: 'utility', d: 'Health Funnel heals your demon {a} more and costs less.', a: ['20%', '40%'] },
-    { k: 'ImprovedImp', n: 'Improved Imp', t: 1, r: 0, c: 1, m: 3, s: 'utility', d: "The Imp's Firebolt and Fire Shield are {a} stronger.", a: ['10%', '20%', '30%'] },
+    { k: 'ImprovedImp', n: 'Improved Imp', t: 1, r: 0, c: 1, m: 3, s: 'yes', d: "The Imp's Firebolt and Fire Shield are {a} stronger.", a: ['10%', '20%', '30%'] },
     { k: 'DemonicEmbrace', n: 'Demonic Embrace', t: 1, r: 0, c: 2, m: 5, s: 'yes', d: '+{a} Stamina.', a: ['3%', '6%', '9%', '12%', '15%'] },
     { k: 'UnholyPower', n: 'Unholy Power', t: 1, r: 0, c: 3, m: 5, s: 'yes', d: 'Your demon deals {a} more damage.', a: ['2%', '4%', '6%', '8%', '10%'] },
     { k: 'DemonicAegis', n: 'Demonic Aegis', t: 1, r: 1, c: 0, m: 2, s: 'utility', d: 'Demon Skin and Demon Armor are {a} stronger.', a: ['15%', '30%'] },
     { k: 'ImprovedVoidwalker', n: 'Improved Voidwalker', t: 1, r: 1, c: 1, m: 3, s: 'utility', d: "The Voidwalker's abilities are {a} stronger.", a: ['10%', '20%', '30%'] },
     { k: 'FelVitality', n: 'Fel Vitality', t: 1, r: 1, c: 2, m: 3, s: 'yes', d: 'Your demon gets {a} more health and mana, and you get {a} more mana.', a: ['5%', '10%', '15%'] },
     { k: 'DemonicEnergies', n: 'Demonic Energies', t: 1, r: 1, c: 3, m: 2, s: 'utility', d: 'Your spells heal your demon for {a} of their damage, and it gets {b} of your Life Tap mana.', a: ['8%', '15%'], b: ['50%', '100%'] },
-    { k: 'ImprovedSayaad', n: 'Improved Sayaad', t: 1, r: 2, c: 0, m: 3, s: 'utility', d: "The Succubus's Lash of Pain is {a} stronger and Seduction lasts longer.", a: ['10%', '20%', '30%'] },
+    { k: 'ImprovedSayaad', n: 'Improved Sayaad', t: 1, r: 2, c: 0, m: 3, s: 'yes', d: "The Succubus's Lash of Pain is {a} stronger and Seduction lasts longer. Scored assuming Lash of Pain is 40% of her damage.", a: ['10%', '20%', '30%'] },
     { k: 'DemonicSacrifice', n: 'Demonic Sacrifice', t: 1, r: 2, c: 1, m: 1, s: 'yes', d: 'Sacrifice your demon for a 2-hour buff: Imp +15% Shadow, Voidwalker 2% mana every 4 sec, Succubus +15% Fire, Felhunter 3% health every 4 sec. Pick it in the Sacrifice menu.' },
     { k: 'MasterSummoner', n: 'Master Summoner', t: 1, r: 2, c: 2, m: 2, s: 'utility', d: 'Summons cast {a} sec faster and cost {b} less.', a: ['2', '4'], b: ['20%', '40%'] },
-    { k: 'Decimation', n: 'Decimation', t: 1, r: 3, c: 0, m: 2, s: 'utility', d: 'Soul Fire cooldown {a} shorter, and a fast free Soul Fire on targets under 35%. Soul Fire is not in the leveling model.', a: ['45%', '90%'] },
+    { k: 'Decimation', n: 'Decimation', t: 1, r: 3, c: 0, m: 2, s: 'yes', d: 'Soul Fire cooldown {a} shorter, and a fast free Soul Fire on targets under 35%. Scored as a free Soul Fire finisher.', a: ['45%', '90%'] },
     { k: 'FelDomination', n: 'Fel Domination', t: 1, r: 3, c: 2, m: 1, s: 'utility', req: ['MasterSummoner', 2], d: 'Your next summon is 5.5 sec faster and half price. 5 min cooldown.' },
     { k: 'DemonicBrand', n: 'Demonic Brand', t: 1, r: 3, c: 3, m: 3, s: 'utility', d: "Searing Pain makes {a} less threat and brands the target. Your pet's next 3 attacks on it generate high threat. Try the 'pet holds aggro' box.", a: ['17%', '33%', '50%'] },
     { k: 'ImprovedFelhunter', n: 'Improved Felhunter', t: 1, r: 4, c: 0, m: 3, s: 'utility', d: "The Felhunter's abilities are {a} stronger and Spell Lock comes back {b} sec sooner.", a: ['10%', '20%', '30%'], b: ['2', '4', '6'] },
     { k: 'SoulLink', n: 'Soul Link', t: 1, r: 4, c: 1, m: 1, s: 'yes', req: ['DemonicSacrifice', 1], d: '30% of the damage you take goes to your demon, and you both deal 3% more.' },
     { k: 'DemonicKnowledge', n: 'Demonic Knowledge', t: 1, r: 4, c: 2, m: 3, s: 'yes', d: 'Spell damage equal to {a} of your level, for you and your demon, while a demon is out.', a: ['33%', '67%', '100%'] },
-    { k: 'MasterDemonologist', n: 'Master Demonologist', t: 1, r: 5, c: 2, m: 5, s: 'yes', d: 'A buff by demon: Imp +Fire, Voidwalker less Physical taken, Succubus +{a} Shadow for you both, Felhunter less Magic taken. Scored for the Succubus.', a: ['2%', '4%', '6%', '8%', '10%'] },
+    { k: 'MasterDemonologist', n: 'Master Demonologist', t: 1, r: 5, c: 2, m: 5, s: 'yes', d: 'A buff by demon: Imp +{a} Fire, Voidwalker less Physical taken, Succubus +{a} Shadow for you both, Felhunter less Magic taken. Scored for the Imp and the Succubus.', a: ['2%', '4%', '6%', '8%', '10%'] },
     { k: 'DemonicPact', n: 'Demonic Pact', t: 1, r: 6, c: 1, m: 1, s: 'yes', req: ['SoulLink', 1], d: 'Your sacrifice buff survives summoning a different demon.' },
     // Destruction
     { k: 'DestructiveReach', n: 'Destructive Reach', t: 2, r: 0, c: 0, m: 2, s: 'utility', d: 'Damaging spells reach {a} farther.', a: ['10%', '20%'] },
-    { k: 'ImprovedShadowBolt', n: 'Improved Shadow Bolt', t: 2, r: 0, c: 1, m: 5, s: 'later', d: 'Shadow Bolt crits make the target take {a} more Shadow damage from you for 12 sec.', a: ['4%', '8%', '12%', '16%', '20%'] },
-    { k: 'Bane', n: 'Bane', t: 2, r: 0, c: 2, m: 5, s: 'yes', d: 'Shadow Bolt, Immolate and Incinerate cast {a} sec faster, Soul Fire {b} sec. Scored for Shadow Bolt.', a: ['0.1', '0.2', '0.3', '0.4', '0.5'], b: ['0.4', '0.8', '1.2', '1.6', '2.0'] },
-    { k: 'MoltenSkin', n: 'Molten Skin', t: 2, r: 1, c: 0, m: 5, s: 'later', d: 'You take {a} less damage.', a: ['2%', '4%', '6%', '8%', '10%'] },
-    { k: 'Cataclysm', n: 'Cataclysm', t: 2, r: 1, c: 1, m: 3, s: 'later', d: 'Destruction spells cost {a} less mana.', a: ['3%', '7%', '10%'] },
-    { k: 'Aftermath', n: 'Aftermath', t: 2, r: 1, c: 2, m: 5, s: 'later', d: "Immolate's first hit deals {a} more, and Conflagrate can daze.", a: ['10%', '20%', '30%', '40%', '50%'] },
-    { k: 'Ruin', n: 'Ruin', t: 2, r: 2, c: 1, m: 5, s: 'later', d: 'Destruction crits deal {a} more bonus damage.', a: ['20%', '40%', '60%', '80%', '100%'] },
-    { k: 'Shadowburn', n: 'Shadowburn', t: 2, r: 2, c: 2, m: 1, s: 'later', d: 'An instant Shadow hit on a 15-sec cooldown that refunds a Soul Shard on a kill.' },
+    { k: 'ImprovedShadowBolt', n: 'Improved Shadow Bolt', t: 2, r: 0, c: 1, m: 5, s: 'yes', d: 'Shadow Bolt crits make the target take {a} more Shadow damage from you for 12 sec.', a: ['4%', '8%', '12%', '16%', '20%'] },
+    { k: 'Bane', n: 'Bane', t: 2, r: 0, c: 2, m: 5, s: 'yes', d: 'Shadow Bolt, Immolate and Incinerate cast {a} sec faster, Soul Fire {b} sec.', a: ['0.1', '0.2', '0.3', '0.4', '0.5'], b: ['0.4', '0.8', '1.2', '1.6', '2.0'] },
+    { k: 'MoltenSkin', n: 'Molten Skin', t: 2, r: 1, c: 0, m: 5, s: 'yes', d: 'You take {a} less damage.', a: ['2%', '4%', '6%', '8%', '10%'] },
+    { k: 'Cataclysm', n: 'Cataclysm', t: 2, r: 1, c: 1, m: 3, s: 'yes', d: 'Destruction spells cost {a} less mana.', a: ['3%', '7%', '10%'] },
+    { k: 'Aftermath', n: 'Aftermath', t: 2, r: 1, c: 2, m: 5, s: 'yes', d: "Immolate's first hit deals {a} more, and Conflagrate can daze.", a: ['10%', '20%', '30%', '40%', '50%'] },
+    { k: 'Ruin', n: 'Ruin', t: 2, r: 2, c: 1, m: 5, s: 'yes', d: 'Destruction crits deal {a} more bonus damage.', a: ['20%', '40%', '60%', '80%', '100%'] },
+    { k: 'Shadowburn', n: 'Shadowburn', t: 2, r: 2, c: 2, m: 1, s: 'yes', d: 'An instant Shadow hit on a 15-sec cooldown that refunds a Soul Shard on a kill.' },
     { k: 'Intensity', n: 'Intensity', t: 2, r: 3, c: 0, m: 3, s: 'utility', d: '{a} chance to avoid pushback on Destruction spells.', a: ['23%', '47%', '70%'] },
-    { k: 'AgonizingFlames', n: 'Agonizing Flames', t: 2, r: 3, c: 1, m: 3, s: 'later', d: 'Destruction spells deal {a} more, and Searing Pain crits more.', a: ['3%', '7%', '10%'] },
-    { k: 'Conflagrate', n: 'Conflagrate', t: 2, r: 3, c: 2, m: 1, s: 'later', d: 'An instant Fire hit on a target with Immolate. 10-sec cooldown.' },
+    { k: 'AgonizingFlames', n: 'Agonizing Flames', t: 2, r: 3, c: 1, m: 3, s: 'yes', d: 'Destruction spells deal {a} more, and Searing Pain crits more.', a: ['3%', '7%', '10%'] },
+    { k: 'Conflagrate', n: 'Conflagrate', t: 2, r: 3, c: 2, m: 1, s: 'yes', d: 'An instant Fire hit on a target with Immolate. 10-sec cooldown.' },
     { k: 'Pyroclasm', n: 'Pyroclasm', t: 2, r: 4, c: 0, m: 2, s: 'utility', req: ['Intensity', 3], d: 'Soul Fire, Rain of Fire and Hellfire have a {a} chance to stun.', a: ['13%', '26%'] },
-    { k: 'BaneOfHavoc', n: 'Bane of Havoc', t: 2, r: 4, c: 1, m: 1, s: 'later', d: '15% of your damage to other targets is copied to this one.' },
-    { k: 'FireAndBrimstone', n: 'Fire and Brimstone', t: 2, r: 4, c: 2, m: 3, s: 'later', req: ['Conflagrate', 1], d: 'Conflagrate has {a} more crit chance.', a: ['8%', '17%', '25%'] },
-    { k: 'ShadowAndFlame', n: 'Shadow and Flame', t: 2, r: 5, c: 2, m: 5, s: 'later', d: 'Conflagrate gives +{a} Shadow damage and Shadowburn +{a} Fire damage for 20 sec.', a: ['2%', '4%', '6%', '8%', '10%'] },
-    { k: 'Incinerate', n: 'Incinerate', t: 2, r: 6, c: 1, m: 1, s: 'later', req: ['BaneOfHavoc', 1], d: 'A Fire nuke that deals 25% more to targets with Immolate. Usable from level 40.' },
+    { k: 'BaneOfHavoc', n: 'Bane of Havoc', t: 2, r: 4, c: 1, m: 1, s: 'utility', d: '15% of your damage to other targets is copied to this one.' },
+    { k: 'FireAndBrimstone', n: 'Fire and Brimstone', t: 2, r: 4, c: 2, m: 3, s: 'yes', req: ['Conflagrate', 1], d: 'Conflagrate has {a} more crit chance.', a: ['8%', '17%', '25%'] },
+    { k: 'ShadowAndFlame', n: 'Shadow and Flame', t: 2, r: 5, c: 2, m: 5, s: 'yes', d: 'Conflagrate gives +{a} Shadow damage and Shadowburn +{a} Fire damage for 20 sec.', a: ['2%', '4%', '6%', '8%', '10%'] },
+    { k: 'Incinerate', n: 'Incinerate', t: 2, r: 6, c: 1, m: 1, s: 'yes', req: ['BaneOfHavoc', 1], d: 'A Fire nuke that deals 25% more to targets with Immolate. Usable from level 40.' },
   ];
   const TALENT_ICON = {"Wrack": "ability_deathknight_hemorrhagicfever", "ShadowMastery": "spell_shadow_shadetruesight", "SoulSiphon": "spell_shadow_lifedrain02", "SiphonLife": "spell_shadow_requiem", "CurseOfExhaustion": "spell_shadow_grimward", "Nightfall": "spell_shadow_twilight", "AmplifyCurse": "spell_shadow_contagion", "Pandemic": "spell_shadow_unstableaffliction_2", "FelConcentration": "spell_shadow_fingerofdeath", "ImprovedBoA": "spell_shadow_curseofsargeras", "ImprovedDrains": "spell_shadow_haunting", "ImprovedLifeTap": "spell_shadow_burningspirit", "SoulHarvesting": "inv_elemental_primal_shadow", "Malediction": "spell_shadow_curseofachimonde", "ImprovedCorruption": "spell_shadow_abominationexplosion", "Suppression": "spell_shadow_unsummonbuilding", "Malevolence": "spell_shadow_focusedpower", "DemonicPact": "inv_ability_soulharvesterwarlock_demonicsoul", "MasterDemonologist": "spell_shadow_shadowpact", "SoulLink": "spell_shadow_gathershadows", "DemonicKnowledge": "spell_shadow_improvedvampiricembrace", "ImprovedFelhunter": "spell_shadow_summonfelhunter", "FelDomination": "spell_nature_removecurse", "DemonicBrand": "ability_demonhunter_chaoticimprint_fire", "Decimation": "spell_fire_fireball02", "MasterSummoner": "spell_shadow_impphaseshift", "DemonicEnergies": "spell_shadow_felmending", "DemonicSacrifice": "spell_shadow_psychicscream", "ImprovedSayaad": "ability_warlock_randomizesuccubusincubus", "DemonicAegis": "spell_shadow_ragingscream", "FelVitality": "spell_shadow_demonictactics", "ImprovedVoidwalker": "spell_shadow_summonvoidwalker", "ImprovedHealthFunnel": "spell_shadow_lifedrain", "UnholyPower": "spell_shadow_shadowworddominate", "DemonicEmbrace": "spell_shadow_metamorphosis", "ImprovedImp": "spell_shadow_summonimp", "Incinerate": "spell_fire_burnout", "ShadowAndFlame": "spell_fire_playingwithfire", "BaneOfHavoc": "ability_warlock_baneofhavoc", "FireAndBrimstone": "spell_fire_meteorstorm", "Pyroclasm": "spell_fire_volcano", "AgonizingFlames": "spell_fire_soulburn", "Conflagrate": "spell_fire_fireball", "DestructiveReach": "spell_shadow_corpseexplode", "Intensity": "spell_fire_lavaspawn", "Ruin": "spell_shadow_shadowwordpain", "Shadowburn": "spell_shadow_scourgebuild", "MoltenSkin": "ability_mage_moltenarmor", "Aftermath": "spell_fire_fire", "Cataclysm": "spell_fire_windsofwoe", "Bane": "spell_shadow_deathpact", "ImprovedShadowBolt": "spell_shadow_shadowbolt"};
   const TBY = Object.fromEntries(TALENTS.map(x => [x.k, x]));
@@ -1919,17 +2528,21 @@ window.FWL_ICONS = {"ability_deathknight_hemorrhagicfever": "data:image/jpeg;bas
     ['Soul Link', 1], ['Demonic Knowledge', 3], ['Master Demonologist', 4], ['Demonic Pact', 1],
     ['Suppression', 3], ['Improved Drains', 3], ['Malediction', 5], ['Pandemic', 3], ['Improved Bane of Agony', 2]]);
   const PRESETS = [
-    ['plan', 'Page plan'], ['solo', 'Solo 28/23/0'], ['531', '5/31/0 Pact'], ['wfb', 'wowforeverbuilds drain tank'], ['clear', 'Clear'],
+    ['plan', 'Page plan'], ['solo', 'Solo 28/23/0'], ['531', 'Demonology to Pact'], ['wfb', 'wowforeverbuilds drain tank'],
+    ['imm', 'Immolate build'], ['d34', '17/0/34 Destruction'], ['speed', 'Speedrun-style'], ['clear', 'Clear'],
   ];
-  const POLICY_TEXT = {
-    'DoTs+DrainLife': 'Corruption, Agony, Siphon Life, then Drain Life', 'DoTs+Wrack+DL': 'Corruption, Agony, Siphon Life, Wrack, then Drain Life',
-    'DoTs+ShadowBolt': 'Corruption, Agony, Siphon Life, then Shadow Bolt', 'DoTs+Wand': 'Corruption, Agony, Siphon Life, then wand',
-    'Corr+SL+DrainLife': 'Corruption, Siphon Life, then Drain Life', 'Corr+SL+Wand': 'Corruption, Siphon Life, then wand',
-    'Corr+SL+SB': 'Corruption, Siphon Life, then Shadow Bolt', 'Corr+BoA+DrainLife': 'Corruption, Agony, then Drain Life',
-    'Corr+BoA+Wand': 'Corruption, Agony, then wand', 'Corr+DrainLife': 'Corruption, then Drain Life', 'Corr+Wand': 'Corruption, then wand',
-  };
+  const PT_STEP = { Corr: 'Corruption', BoA: 'Agony', SL: 'Siphon Life', DoTs: 'Corruption, Agony, Siphon Life', Imm: 'Immolate', Wrack: 'Wrack' };
+  const PT_FILL = { Wand: 'wand', DrainLife: 'Drain Life', DL: 'Drain Life', SB: 'Shadow Bolt', ShadowBolt: 'Shadow Bolt', SP: 'Searing Pain', Incin: 'Incinerate' };
+  const PT_MOD = { 'Curse of the Elements': 'Curse of the Elements at the pull', 'Drain Soul finish': 'Drain Soul to finish',
+    'Shadowburn finish': 'Shadowburn to finish', 'Soul Fire finish': 'Soul Fire under 35%', 'Death Coil': 'Death Coil when it is ready' };
+  function policyText(name) {
+    const [base, ...mods] = String(name).split(' +');
+    const parts = base.split('+'), fill = PT_FILL[parts[parts.length - 1]];
+    const head = (fill ? parts.slice(0, -1) : parts).map(p => PT_STEP[p] || p).join(', ');
+    return [head + (fill ? ', then ' + fill : '')].concat(mods.map(m => PT_MOD[m] || m)).join('. ');
+  }
   const PETS_B = [['voidwalker', 'Voidwalker'], ['succubus', 'Succubus'], ['felhunter', 'Felhunter'], ['imp', 'Imp'], ['none', 'No demon']];
-  const SACS = [['', 'None'], ['imp', 'Imp (+15% Shadow)'], ['voidwalker', 'Voidwalker (mana regen)'], ['felhunter', 'Felhunter (health regen)']];
+  const SACS = [['', 'None'], ['imp', 'Imp (+15% Shadow)'], ['succubus', 'Succubus (+15% Fire)'], ['voidwalker', 'Voidwalker (mana regen)'], ['felhunter', 'Felhunter (health regen)']];
 
   const bsaved = store.get('builder', {}) || {};
   const B = {
@@ -1937,10 +2550,11 @@ window.FWL_ICONS = {"ability_deathknight_hemorrhagicfever": "data:image/jpeg;bas
     pet: PETS_B.some(p => p[0] === bsaved.pet) ? bsaved.pet : 'voidwalker',
     sac: SACS.some(p => p[0] === bsaved.sac) ? bsaved.sac : '',
     aggro: bsaved.aggro === true, gear: bsaved.gear === 2 ? 2 : 1,
+    preset: typeof bsaved.preset === 'string' ? bsaved.preset : null,   // a loaded preset follows the level until you edit it
     sel: 'ImprovedCorruption', tree: 0,
   };
   if (bsaved.ranks && typeof bsaved.ranks === 'object') TALENTS.forEach(x => { B.ranks[x.k] = Math.round(clamp(bsaved.ranks[x.k], 0, x.m, 0)); });
-  const saveB = () => store.set('builder', { ranks: B.ranks, pet: B.pet, sac: B.sac, aggro: B.aggro, gear: B.gear });
+  const saveB = () => store.set('builder', { ranks: B.ranks, pet: B.pet, sac: B.sac, aggro: B.aggro, gear: B.gear, preset: B.preset });
 
   const spent = r => Object.values(r).reduce((a, b) => a + b, 0);
   const treeSpent = (r, t) => TALENTS.filter(x => x.t === t).reduce((a, x) => a + r[x.k], 0);
@@ -1968,12 +2582,35 @@ window.FWL_ICONS = {"ability_deathknight_hemorrhagicfever": "data:image/jpeg;bas
     for (const name of order.slice(0, Math.max(0, level - 9))) { const x = TBYNAME[name]; if (x) r[x.k] += 1; }
     return r;
   }
-  function applyPreset(id) {
-    const L = state.level;
+  // Destruction leveling builds from the v8 tests (analysis/destro_leveling.py): a reader's Immolate build, the community
+  // 17/0/34 with its row-gating fix, and a speedrun-style Shadowburn then Soul Harvesting path
+  const ORDER_IMM = seq([['Improved Corruption', 5], ['Bane', 5], ['Aftermath', 5], ['Shadowburn', 1], ['Ruin', 4], ['Conflagrate', 1],
+    ['Ruin', 1], ['Agonizing Flames', 3], ['Cataclysm', 3], ['Fire and Brimstone', 3], ['Shadow and Flame', 5], ['Bane of Havoc', 1],
+    ['Incinerate', 1], ['Suppression', 5], ['Improved Life Tap', 2], ['Malediction', 5], ['Molten Skin', 1]]);
+  const ORDER_D34 = seq([['Improved Corruption', 5], ['Improved Shadow Bolt', 5], ['Bane', 5], ['Improved Life Tap', 2], ['Molten Skin', 3],
+    ['Ruin', 5], ['Shadowburn', 1], ['Cataclysm', 3], ['Conflagrate', 1], ['Agonizing Flames', 3], ['Shadow and Flame', 5], ['Intensity', 3],
+    ['Suppression', 5], ['Malediction', 3], ['Nightfall', 2]]);
+  const ORDER_SPEED = seq([['Bane', 5], ['Cataclysm', 3], ['Aftermath', 2], ['Shadowburn', 1], ['Improved Corruption', 5], ['Soul Harvesting', 2],
+    ['Suppression', 3], ['Improved Drains', 3], ['Malediction', 5], ['Improved Bane of Agony', 2], ['Pandemic', 2], ['Siphon Life', 1],
+    ['Soul Siphon', 3], ['Nightfall', 2], ['Shadow Mastery', 5], ['Wrack', 1], ['Pandemic', 1], ['Fel Concentration', 3], ['Improved Life Tap', 2]]);
+  function setPresetRanks(id, L) {
     if (id === 'plan') { B.ranks = fromOrder(L >= 56 ? SOLO56 : TAL_ORDER, L); B.pet = 'voidwalker'; B.sac = ''; B.aggro = false; }
     if (id === 'solo') { B.ranks = fromOrder(SOLO56, L); B.pet = 'voidwalker'; B.sac = ''; B.aggro = false; }
     if (id === '531') { B.ranks = fromOrder(ORDER_531, L); B.pet = 'succubus'; B.sac = B.ranks.DemonicPact ? 'imp' : ''; }
     if (id === 'wfb') { B.ranks = fromOrder(ORDER_WFB, L); B.pet = 'voidwalker'; B.sac = ''; B.aggro = false; }
+    if (id === 'imm') { B.ranks = fromOrder(ORDER_IMM, L); B.pet = 'voidwalker'; B.sac = ''; B.aggro = false; }
+    if (id === 'd34') { B.ranks = fromOrder(ORDER_D34, L); B.pet = 'voidwalker'; B.sac = ''; B.aggro = false; }
+    if (id === 'speed') { B.ranks = fromOrder(ORDER_SPEED, L); B.pet = 'voidwalker'; B.sac = ''; B.aggro = false; }
+  }
+  function builderFollowLevel() {
+    if (!B.preset) return;
+    const pet = B.pet, aggro = B.aggro;   // keep the demon you picked; only the points follow the level
+    setPresetRanks(B.preset, state.level); B.pet = pet; B.aggro = aggro; saveB();
+  }
+  function applyPreset(id) {
+    const L = state.level;
+    B.preset = id === 'clear' ? null : id;
+    setPresetRanks(id, L);
     if (id === 'clear') { B.ranks = Object.fromEntries(TALENTS.map(x => [x.k, 0])); B.sac = ''; }
     saveB(); renderBuilder(); announce('Preset loaded. ' + $('bSummary').textContent);
   }
@@ -2011,7 +2648,7 @@ window.FWL_ICONS = {"ability_deathknight_hemorrhagicfever": "data:image/jpeg;bas
         icw.append(icon(TALENT_ICON[x.k], '', ''), rr);
         const nm = document.createElement('span'); nm.className = 'tn'; nm.textContent = short(x.n);
         b.append(icw, nm);
-        b.setAttribute('aria-label', x.n + ', ' + rk + ' of ' + x.m + (x.s === 'yes' ? '' : x.s === 'utility' ? ', utility' : ', not scored yet') + '. Press to add a point, Shift press to remove one.');
+        b.setAttribute('aria-label', x.n + ', ' + rk + ' of ' + x.m + (x.s === 'yes' ? '' : ', utility') + '. Press to add a point, Shift press to remove one.');
         b.addEventListener('click', e => { B.sel = x.k; if (e.shiftKey) step(x, -1); else step(x, +1); });
         b.addEventListener('contextmenu', e => { e.preventDefault(); B.sel = x.k; step(x, -1); });
         b.addEventListener('focus', () => { if (B.sel !== x.k) { B.sel = x.k; renderInfo(); markSel(); } });
@@ -2026,8 +2663,8 @@ window.FWL_ICONS = {"ability_deathknight_hemorrhagicfever": "data:image/jpeg;bas
   }
   function markSel() { document.querySelectorAll('.tal').forEach(b => b.classList.toggle('sel', b.dataset.k === B.sel)); }
   function step(x, dir) {
-    if (dir > 0 && canAdd(x)) B.ranks[x.k] += 1;
-    else if (dir < 0 && canRemove(x)) B.ranks[x.k] -= 1;
+    if (dir > 0 && canAdd(x)) { B.ranks[x.k] += 1; B.preset = null; }
+    else if (dir < 0 && canRemove(x)) { B.ranks[x.k] -= 1; B.preset = null; }
     else { renderInfo(); markSel(); announce(x.n + ': ' + (dir > 0 ? lockReason(x) || 'cannot add.' : 'cannot remove, other talents depend on it.')); return; }
     saveB(); renderBuilder(); announce(x.n + ' ' + B.ranks[x.k] + ' of ' + x.m + '. ' + $('bSummary').textContent);
     const again = document.querySelector('.tal[data-k="' + x.k + '"]'); if (again) again.focus({ preventScroll: true });
@@ -2044,19 +2681,20 @@ window.FWL_ICONS = {"ability_deathknight_hemorrhagicfever": "data:image/jpeg;bas
     $('bInfoRank').textContent = 'Rank ' + rk + '/' + x.m + ' · ' + TREES[x.t];
     $('bInfoNow').textContent = rk ? fill(x, rk) : 'Not taken.';
     $('bInfoNext').textContent = rk < x.m ? 'Next rank: ' + fill(x, rk + 1) : '';
-    $('bInfoTag').textContent = x.s === 'yes' ? 'Counts in the score' : x.s === 'utility' ? 'Utility, not in the score' : 'Not scored yet: Destruction spells are not in the leveling model';
+    $('bInfoTag').textContent = x.s === 'yes' ? 'Counts in the score' : 'Utility, not in the score';
     $('bInfoTag').className = 'chip ' + (x.s === 'yes' ? 'c-proof' : x.s === 'utility' ? 'c-known' : 'c-test');
     const why = lockReason(x);
     $('bInfoLock').textContent = rk < x.m && why ? why : '';
     $('bMinus').disabled = !canRemove(x); $('bPlus').disabled = !canAdd(x);
   }
+  const HP_MULTS = [0.9, 1.0, 1.1];   // mob health 90%, 100% and 110%: kill time snaps to DoT ticks otherwise
   function renderScore() {
     const L = state.level, notes = [];
     const { tal, pet } = modelTalents(notes);
-    const mine = LevelingModel.evaluate(L, tal, pet, B.gear, { aggro: B.aggro });
+    const mine = LevelingModel.evaluate(L, tal, pet, B.gear, { aggro: B.aggro, hpMults: HP_MULTS });
     const planR = fromOrder(L >= 56 ? SOLO56 : TAL_ORDER, L), planTal = {};
     TALENTS.forEach(x => { if (planR[x.k]) planTal[x.k] = planR[x.k]; });
-    const plan = LevelingModel.evaluate(L, planTal, 'voidwalker', B.gear, {});
+    const plan = LevelingModel.evaluate(L, planTal, 'voidwalker', B.gear, { hpMults: HP_MULTS });
     const perHour = n => Math.round(3600 / n);
     $('bSpk').textContent = mine.spk.toFixed(1) + ' s';
     $('bKph').textContent = perHour(mine.spk) + ' kills an hour';
@@ -2066,10 +2704,9 @@ window.FWL_ICONS = {"ability_deathknight_hemorrhagicfever": "data:image/jpeg;bas
     $('bVs').textContent = same ? 'About the same as the page plan at level ' + L + '.'
       : (diff > 0 ? diff.toFixed(1) + '% faster' : (-diff).toFixed(1) + '% slower') + ' than the page plan at level ' + L + ' (' + plan.spk.toFixed(1) + ' s per kill with a Voidwalker).';
     $('bVs').className = 'bvs ' + (same ? '' : diff > 0 ? 'up' : 'down');
-    $('bRot').textContent = POLICY_TEXT[mine.policy] || mine.policy;
+    $('bRot').textContent = policyText(mine.policy);
     const unscored = TALENTS.filter(x => B.ranks[x.k] && x.s !== 'yes').map(x => x.n);
     if (unscored.length) notes.push('Not in the score: ' + unscored.join(', ') + '.');
-    if (TALENTS.some(x => x.t === 2 && x.s === 'later' && B.ranks[x.k])) notes.push('Destruction spells are not in the leveling model yet, so this build is scored as if it cast Shadow Bolt and wand.');
     if (B.aggro && $('bAggroWrap').hidden === false) notes.push('Assumes your pet holds the mob like a Voidwalker. Test 6 checks whether Demonic Brand makes that true.');
     const nl = $('bNotes'); nl.textContent = '';
     notes.forEach(n => { const li = document.createElement('li'); li.textContent = n; nl.appendChild(li); });
@@ -2079,18 +2716,18 @@ window.FWL_ICONS = {"ability_deathknight_hemorrhagicfever": "data:image/jpeg;bas
 
   // share links: #b-<level>-<ranks in talent order>-<pet><sac><aggro><gear>
   const PET_CODE = { voidwalker: 'v', succubus: 's', felhunter: 'f', imp: 'i', none: 'n' };
-  const SAC_CODE = { '': 'x', imp: 'i', voidwalker: 'v', felhunter: 'f' };
+  const SAC_CODE = { '': 'x', imp: 'i', succubus: 's', voidwalker: 'v', felhunter: 'f' };
   const inv = o => Object.fromEntries(Object.entries(o).map(([a, b]) => [b, a]));
   function encodeBuild() {
     return 'b-' + state.level + '-' + TALENTS.map(x => B.ranks[x.k]).join('') + '-' + PET_CODE[B.pet] + SAC_CODE[B.sac] + (B.aggro ? '1' : '0') + B.gear;
   }
   function decodeBuild(h) {
-    const m = h.match(/^b-(\d{1,2})-([0-5]{52})-([vsfin])([xivf])([01])([12])$/);
+    const m = h.match(/^b-(\d{1,2})-([0-5]{52})-([vsfin])([xisvf])([01])([12])$/);
     if (!m) return false;
     const L = Math.round(clamp(m[1], 10, 60, 60));
     const r = {}; TALENTS.forEach((x, i) => { r[x.k] = Math.min(x.m, Number(m[2][i])); });
     if (!buildOk(r, L)) return false;
-    B.ranks = r; B.pet = inv(PET_CODE)[m[3]]; B.sac = inv(SAC_CODE)[m[4]]; B.aggro = m[5] === '1'; B.gear = Number(m[6]);
+    B.ranks = r; B.pet = inv(PET_CODE)[m[3]]; B.sac = inv(SAC_CODE)[m[4]]; B.aggro = m[5] === '1'; B.gear = Number(m[6]); B.preset = null;
     saveB(); setLevel(L, false);
     return true;
   }

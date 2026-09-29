@@ -15,6 +15,8 @@ body:
         - Demonic Pact sacrifice stacking
         - Bane of Doom scaling
         - Succubus aggro with Demonic Brand
+        - Demonic Brand damage
+        - Voidwalker pairs with Hellfire
         - Other
     validations:
       required: true

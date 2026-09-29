@@ -40,7 +40,7 @@ Format: values shown are the **max rank** (usually the level-60 rank) unless not
 | Corruption | R7 | 4 | 340 | 2 sec | 438 total | 18 sec / 3-sec ticks (6 ticks) | 822 total | **.2 per tick at every rank** (was .167 in Classic) | |
 | Bane of Agony (was Curse of Agony) | R6 | 8 | 215 | Instant | 552 total (per tick ~46/8 ticks, builds up) | 24 sec | 1044 total | **.133 per tick at every rank** | Renamed; "Only one **Bane** per Warlock per target", separate slot from Curses (see §3) |
 | Bane of Doom (was Curse of Doom) | 1 rank | 60 | 300 | Instant, 1 min CD | 1742 | delayed 1 min | 3200 | **4.0**, "the largest coefficient on any Warlock spell" (ElliotWood) | Renamed; can summon a Doomguard on kill |
-| Immolate | R8 | 1 | 380 | 2 sec | Initial 158, DoT 275 over 15 sec | 15 sec | Initial 279, DoT 510 | .2 (DoT) / .13 (initial) at every rank | |
+| Immolate | R8 | 1 | 380 | 2 sec | Initial 158, DoT 275 over 15 sec | 15 sec | Initial 279, DoT 510 | .2 (initial) / .13 per DoT tick at every rank | Corrected in v8 from the client SpellEffect table (build 1.60.1.69893): this row used to have the two reversed. |
 | Drain Soul | R4 | 10 | 290 | Channeled | 420 total | 15 sec | 455 total | .1 at every rank | Now grants a Soul Shard chance from *damaging* (not just killing) non-trivial targets while channeling; always grants one on a kill |
 | Drain Life | R6 | 14 | 300 | Channeled | 51/sec | 5 sec | 71/sec | .1 at every rank | |
 | Siphon Life (talent) | R4 | 30 (talent) | 365 | Instant | 41 per 3 sec | 30 sec | 45 per 3 sec | not stated | |
@@ -52,7 +52,7 @@ Format: values shown are the **max rank** (usually the level-60 rank) unless not
 
 | Spell | Max rank | Lvl learned | Effect (Forever) | Effect (Classic) | Notes |
 |---|---|---|---|---|---|
-| Life Tap | R6 | 6 | Converts 840 Health → 840 Mana, **"Spirit increases the amount converted"** | Converts 420 Health → 420 Mana, no Spirit scaling | Base amount roughly doubled at every rank vs. Classic **and** now scales with Spirit, a genuinely new mechanic, not just a number tweak |
+| Life Tap | R6 | 6 | Converts **(430 + Spirit)** Health into Mana at rank 6 (Wowhead Forever tooltip 11689 and client data, checked in v8). The earlier "840" reading is not in any current source. **"Spirit increases the amount converted"** | Converts 420 Health → 420 Mana, no Spirit scaling | Base amount roughly doubled at every rank vs. Classic **and** now scales with Spirit, a genuinely new mechanic, not just a number tweak |
 | Drain Mana | R4 | 24 | 136 Mana/sec, 5 sec, Channeled, 20 yd | same numbers R2–R4; **R1 differs**: Forever R1 is a real channeled spell (95 mana, 20 yd, 42/sec) vs. Classic's old placeholder (50000 yd instant, no cost) | Forever's R1 was effectively non-functional/PvP-only in Classic; now a real early rank |
 | Health Funnel | R7 | 12 | 153 health/sec to pet, 10 sec, Channeled | same values, but now explicitly "generates reduced threat" | Improved Health Funnel talent (moved to tier 1) removes the demon-health floor and can push threat reduction to 100% |
 | Create Healthstone | R5 | 10 | Major Healthstone restores **1440** health | restores 1200 | All 5 ranks increased ~20% |

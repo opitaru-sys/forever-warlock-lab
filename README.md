@@ -8,22 +8,25 @@ Live page: https://opitaru-sys.github.io/forever-warlock-lab/
 
 ## The verdict
 
-- **Leveling 10 to 33.** Affliction, instant Corruption first, then wand as your filler. Not Shadow Bolt, not Drain Life yet. Talents barely matter here: every sane build lands within 3% of the best.
-- **Leveling 34 to 55.** Drain Life becomes the filler the moment Soul Siphon is done. Keep leveling Affliction-first.
-- **Solo from 56.** Switch to a Demonic Knowledge splash, 28/23/0. It kills 5 to 7% faster than deep Affliction or the published drain-tank build, and held up when spell power tripled and pet damage halved.
-- **Group at 60.** Destruction built around Incinerate, not Shadow Bolt. 4 to 7% ahead of the published build. Your Succubus decides the rest: sacrifice her under about 8% of your damage, keep her out above that, Demonology only above about 17 to 20%.
-- **Race.** Undead levels fastest and edges out the raid damage too: casters get a 10% Touch of the Grave, worth about 2%, against about 1.5% for a Human with a caster sword. Every racial is small, so pick the race you like.
+- **Leveling 10 to 29.** Affliction, instant Corruption first, then wand as your filler. Not Shadow Bolt, not Drain Life yet. Talents matter little before 28: every build tested lands within 4% of the best.
+- **Leveling 30 to 55.** Drain Life becomes the filler as Soul Siphon comes in. Keep leveling Affliction-first. Destruction builds (Immolate, Incinerate, Shadow Bolt) kill faster but rest longer, and lose overall.
+- **Solo from 56.** A Demonic Knowledge splash, 28/23/0, is optional. It kills about 3 to 4.5% faster than deep Affliction or the published drain-tank build, but only breaks even against this lab's leveling order.
+- **Group at 60.** Deep Demonology, 0/35/16: Imp sacrificed, Succubus out, Searing Pain to keep Demonic Brand on the boss. About 3% ahead of Destruction and Pact at the calculator defaults; if Demonic Brand deals no damage, it ties them within 1%. Fire Destruction built around Incinerate is the pick when the Succubus cannot stay on the boss; Pact on a Fire-immune boss.
+- **Race.** Undead levels fastest (about 4%) and edges out the raid damage too: casters get a 10% Touch of the Grave, worth about 1.6%, against about 1.5% for a Human with a caster sword. Every racial is small, so pick the race you like.
 
 ## How it was built
 
 Data sources:
 - Wowhead's Forever spell pages and talent calculator, for base spell values, SP coefficients, and talent per-rank effects.
 - ForeverChanges.pro and the ElliotWood/Forever datamine, for anything Wowhead had not indexed yet.
+- Since v8, the beta client's own SpellEffect table (build 1.60.1.69893, from the ElliotWood/Forever data cache) for base damage and spell power coefficients. It settled Immolate's coefficients (0.2 on the hit, 0.13 per tick) and Life Tap's (430 + Spirit).
 
 Models:
 - An expected-value leveling fight simulator (`models/leveling_sim.py`), used through `models/character.py`'s talent and character assumptions.
 - A steady-state raid damage budget model (`models/raid_model.py`), reviewed by a separate Claude session working from its own code (`docs/review.md`).
-- The page's JavaScript model (`model.js`) is a hand port of `models/raid_model.py`. `tests/parity_test.js` checks the two agree, cell by cell, on a spell power by crit grid.
+- The page's JavaScript model (`model.js`) is a hand port of `models/raid_model.py`. `tests/parity_test.js` checks the two agree, cell by cell, on a spell power by crit grid, and `tests/raid_options_test.js` checks every calculator option against Python fixtures.
+- The page's level planner and talent builder run `leveling.js`, a line-for-line port of the leveling model. `tests/leveling_parity_test.js` checks it against Python fixtures.
+- A rougher multi-mob model (`models/multimob.py`) for pulls of several mobs.
 
 Every number on the page or in this README traces back to one of the scripts in `models/` or `analysis/`.
 
@@ -52,8 +55,10 @@ Every number on the page or in this README traces back to one of the scripts in 
 | Input | Value as used |
 |---|---|
 | Hit | Gear hit slider, default 11%. Suppression adds 5% in the Affliction and Destruction builds, so they are capped by default; Demonology has no hit talent. Each 1% short of the 16% boss cap costs 1% of damage |
-| Mana | Life Tap only. No regen, no raid mana buffs, no potions |
-| Life Tap value | Flat 840 by default, or `430 + Spirit` as a page toggle. Times 1.2 for builds with Improved Life Tap |
+| Mana | A Major Mana Potion and a Demonic or Dark Rune on cooldown by default, optional mp5 from gear and buffs, Life Tap for the rest. No raid buffs |
+| Life Tap value | `430 + Spirit` by default (Spirit 100), or flat 840 as a page toggle. Times 1.2 for builds with Improved Life Tap |
+| Fight options | Shadowburn on cooldown, execute phase under 35% (Decimation's +6%) on by default; Fire-immune boss, two targets, Curse of the Elements off by default |
+| Demonic Brand | 3 extra pet hits per brand by default (tooltip), 0 or 6 as page options; untested |
 | Improved Shadow Bolt duration | 12 seconds by default, 60 seconds as a page toggle |
 | Bane of Doom coefficient | 4.0 by default, adjustable on the page |
 
@@ -63,7 +68,10 @@ Run every command from the repo root.
 
 | Claim | Command |
 |---|---|
-| Leveling filler by level (Corruption/wand to L33, Drain Life from L34) | `python analysis/filler_by_level.py` |
+| Leveling filler by level (wand to L29, Drain Life from L30 with this lab's order) | `python analysis/filler_by_level.py` |
+| Destruction leveling builds (reader builds, 17/0/34, speedrun-style, respec search) | `python analysis/destro_leveling.py` |
+| The planner's leveling order and solo build | `python analysis/planner_order.py` |
+| Pulls of several mobs | `python analysis/multimob_leveling.py` |
 | Leveling filler holds up under uncertain wand/pet/HP/rest assumptions | `python analysis/filler_robustness.py` |
 | Best talent order while leveling (Affliction-first vs a Demonic Knowledge detour) | `python analysis/leveling_paths.py` |
 | Best solo build from level 56 (Demonic Knowledge splash 28/23/0) | `python analysis/solo_builds_60.py` |
@@ -75,9 +83,12 @@ Run every command from the repo root.
 | Adversarial review of the raid model's claims and caveats | `docs/review.md` |
 | model.js and models/raid_model.py agree | `node tests/parity_test.js` |
 | Gear hit, stat weights and item comparison behave as specified | `node tests/weights_test.js` |
+| Every raid calculator option matches Python | `node tests/raid_options_test.js` (regenerate with `python tests/make_raid_fixtures.py`) |
+| leveling.js matches the Python leveling model | `node tests/leveling_parity_test.js` (regenerate with `python tests/make_leveling_fixtures.py`) |
 
 ## Changelog
 
+- **v8, 29 Sep 2026.** Closed every modeling gap readers found. Leveling: every Destruction spell and talent, Curse of the Elements, Death Coil and finishers, base damage and coefficients from the beta client, results averaged over mob health; Destruction builds lose on rest; a new leveling order, about 2% faster; the solo respec is optional. Raid: deep Demonology 0/35/16 is the recommended group spec; Fire-immune bosses, execute phase, mana consumables, two targets, Curse of the Elements and mp5 options; Life Tap reads 430 + Spirit. A first multi-mob model. Corrections: tick tables were 1 too high, Wrack's +10% only reaches Corruption and Agony, Undead leveling 3 to 6%, Troll about 1%, Nightfall under 1% a point.
 - **v7, 29 Sep 2026.** Undead's Touch of the Grave now counts in the raid model. Casters get a 10% version (Wowhead Forever spell 1260201), not the 5% one the page first used. Max health slider for Undead. Reported in the Reddit thread, where the same reader tested that applying a DoT triggers it but ticks don't, which is what the model counts.
 - **v6, 29 Sep 2026.** Game icons throughout (talent cells styled like the in-game talent window, race portraits, rotation icons, tree icons), and the chosen race now themes the whole page with a race badge in the section nav. Dungeons got their own section, with every dungeon on one level line filtered to your faction. Icons live in `assets/icons/` and are embedded by `src/build.py`.
 - **v5, 29 Sep 2026.** A talent builder: click any build into the three trees, pick a demon, a sacrifice and gear, and see seconds per kill next to the page plan, with shareable build links (`#b-...`). It runs `leveling.js`, a port of the Python leveling model checked by `tests/leveling_parity_test.js` (444 cases, exact match). Race themes re-tint the page header, and talent trees have their own colors in the builder and the raid chart. Asked for in the Reddit thread.
