@@ -12,7 +12,7 @@ Live page: https://opitaru-sys.github.io/forever-warlock-lab/
 - **Leveling 34 to 55.** Drain Life becomes the filler the moment Soul Siphon is done. Keep leveling Affliction-first.
 - **Solo from 56.** Switch to a Demonic Knowledge splash, 28/23/0. It kills 5 to 7% faster than deep Affliction or the published drain-tank build, and held up when spell power tripled and pet damage halved.
 - **Group at 60.** Destruction built around Incinerate, not Shadow Bolt. 4 to 7% ahead of the published build. Your Succubus decides the rest: sacrifice her under about 8% of your damage, keep her out above that, Demonology only above about 17 to 20%.
-- **Race.** Undead levels fastest. A Human with a caster sword does the most raid damage. Every racial is worth under 2% of raid damage, so pick the race you like.
+- **Race.** Undead levels fastest and edges out the raid damage too: casters get a 10% Touch of the Grave, worth about 2%, against about 1.5% for a Human with a caster sword. Every racial is small, so pick the race you like.
 
 ## How it was built
 
@@ -78,6 +78,7 @@ Run every command from the repo root.
 
 ## Changelog
 
+- **v7, 29 Sep 2026.** Undead's Touch of the Grave now counts in the raid model. Casters get a 10% version (Wowhead Forever spell 1260201), not the 5% one the page first used. Max health slider for Undead, and test 7 checks whether DoT ticks trigger it. Reported in the Reddit thread.
 - **v6, 29 Sep 2026.** Game icons throughout (talent cells styled like the in-game talent window, race portraits, rotation icons, tree icons), and the chosen race now themes the whole page with a race badge in the section nav. Dungeons got their own section, with every dungeon on one level line filtered to your faction. Icons live in `assets/icons/` and are embedded by `src/build.py`.
 - **v5, 29 Sep 2026.** A talent builder: click any build into the three trees, pick a demon, a sacrifice and gear, and see seconds per kill next to the page plan, with shareable build links (`#b-...`). It runs `leveling.js`, a port of the Python leveling model checked by `tests/leveling_parity_test.js` (444 cases, exact match). Race themes re-tint the page header, and talent trees have their own colors in the builder and the raid chart. Asked for in the Reddit thread.
 - **v4, 29 Sep 2026.** Redesign after a four-reviewer UX pass (structure, visual design, interaction and accessibility, first-time Reddit visitor): sticky section nav, a beginner on-ramp and glossary, race and level controls in one place, a two-column calculator with a gap column and a sticky results panel, phone tables that stack into cards, a leader strip on phones, linkable levels and races (`#lvl-24`, `#race-undead`), clamped inputs, saved calculator settings, and calmer screen reader updates. From Reddit comments: Troll PvP corrected (Fear into Rapid Regeneration), and a 5/31/0 Succubus leveling build added as a claim with its own test (Demonic Brand aggro). Numbers unchanged.

@@ -15,6 +15,7 @@ body:
         - Demonic Pact sacrifice stacking
         - Bane of Doom scaling
         - Succubus aggro with Demonic Brand
+        - Touch of the Grave on DoT ticks
         - Other
     validations:
       required: true

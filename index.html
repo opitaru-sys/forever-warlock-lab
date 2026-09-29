@@ -445,7 +445,7 @@ h2::before{content:"";display:inline-block;width:11px;height:11px;transform:rota
 
 <header class="hero-band" data-watermark="">
 <div class="wrap hero">
-  <span class="eyebrow">WoW: Forever · Warlock · beta data · v6 · 29 Sep 2026</span>
+  <span class="eyebrow">WoW: Forever · Warlock · beta data · v7 · 29 Sep 2026</span>
   <div class="title-row"><img class="ico l" data-icon="classicon_warlock" alt="Warlock class icon"><h1>Forever Warlock Lab</h1></div>
   <p class="lede">What to press, which talents to take and which race to play, at every level from 1 to 60. Checked against the Forever beta's own spell data, with calculators you can play with.</p>
   <p class="trust">Built with Claude and checked by a second, adversarial Claude session. Open source. <a href="#method">How it was checked</a> · <a href="#changelog">What changed</a></p>
@@ -500,7 +500,7 @@ h2::before{content:"";display:inline-block;width:11px;height:11px;transform:rota
       <li id="v-lvl2"><span class="k">Levels 34 to 55</span><span><b>Drain Life becomes the filler the moment Soul Siphon is done.</b> Keep leveling Affliction-first.<br><a class="go" href="#lvl-40">Open the planner at level 40</a></span></li>
       <li id="v-solo"><span class="k">Solo from 56</span><span><b>Switch to a Demonic Knowledge splash, 28/23/0.</b> It kills 5 to 7% faster than deep Affliction or the wowforeverbuilds drain-tank build, and held up when spell power tripled and pet damage halved.<br><a class="go" href="#specs">See the solo spec</a></span></li>
       <li id="v-group"><span class="k">Group at 60</span><span><b>Destruction built around Incinerate, not Shadow Bolt.</b> 4 to 7% ahead of the wowforeverbuilds Shadow Bolt build. Your Succubus decides the rest: sacrifice her under about 8% of your damage, keep her out above that, Demonology only above about 17 to 20%.<br><a class="go" href="#raid">Try the raid calculator</a></span></li>
-      <li id="v-race"><span class="k">Race</span><span><b>Undead levels fastest. A Human with a caster sword does the most raid damage.</b> Every racial is worth under 2% of raid damage, so pick the race you like.<br><a class="go" href="#you">Compare the races</a></span></li>
+      <li id="v-race"><span class="k">Race</span><span><b>Undead levels fastest and edges out the raid damage too.</b> Touch of the Grave adds about 2%, a Human with a caster sword about 1.5%. More for Undead if DoT ticks can trigger it. Every racial is small, so pick the race you like.<br><a class="go" href="#you">Compare the races</a></span></li>
       <li id="v-dng"><span class="k">Dungeons</span><span><b>The first ones open at level 13.</b> Every dungeon sits on one level line, filtered to your faction, with the ones that fit your level marked.<br><a class="go" href="#dungeons">See every dungeon by level</a></span></li>
     </ul>
   </div>
@@ -666,6 +666,7 @@ h2::before{content:"";display:inline-block;width:11px;height:11px;transform:rota
     <div class="panel raid-controls" role="group" aria-label="Calculator settings">
       <fieldset><legend>Race</legend><div class="seg compact race-seg" data-compact="1"></div></fieldset>
       <label class="check" id="swordWrap"><input type="checkbox" id="sword" checked> Human with a sword equipped</label>
+      <div class="ctrl" id="hpRow" hidden><label for="hp">Your max health</label><input type="range" id="hp" min="3000" max="8000" step="100" value="4500"><input type="number" id="hpN" min="3000" max="8000" step="100" inputmode="numeric" aria-label="Max health, typed"><span class="hint">Touch of the Grave drains 5% of it. 4,500 is a placeholder.</span></div>
       <div class="ctrl"><label for="sp">Spell power</label><input type="range" id="sp" min="200" max="1000" step="10" value="500"><input type="number" id="spN" min="200" max="1000" step="10" inputmode="numeric" aria-label="Spell power, typed"></div>
       <div class="ctrl"><label for="crit">Crit chance, %</label><input type="range" id="crit" min="5" max="25" step="1" value="10"><input type="number" id="critN" min="5" max="25" step="1" inputmode="numeric" aria-label="Crit chance, typed"></div>
       <div class="ctrl"><label for="ghit">Hit from gear, %</label><input type="range" id="ghit" min="0" max="16" step="1" value="11"><input type="number" id="ghitN" min="0" max="16" step="1" inputmode="numeric" aria-label="Hit from gear, typed"><span class="hint">Boss cap is 16%. Suppression adds 5% in the Affliction and Destruction builds. Demonology has none.</span></div>
@@ -732,8 +733,9 @@ h2::before{content:"";display:inline-block;width:11px;height:11px;transform:rota
 
   <h3 id="claims">Claims we checked</h3>
   <div class="claims">
-    <p class="group-h"><span class="chip c-proof">Checked by the model · 5</span></p>
-    <details id="c-sword"><summary>Human Sword Specialization works on spells</summary><div class="dbody"><p>Forever's version reads "+2% crit with all spells and attacks while you have a sword equipped", and Warlocks can train swords. With Ruin or Pandemic doubling crit damage, that is 1.6 to 2.2% more raid damage, the biggest racial for a Warlock. It only counts if a caster sword is your best weapon.</p></div></details>
+    <p class="group-h"><span class="chip c-proof">Checked by the model · 6</span></p>
+    <details id="c-totg"><summary>Undead Touch of the Grave is the biggest raid racial</summary><div class="dbody"><p>Casters get their own version (Wowhead Forever spell 1260201, for Priest, Mage and Warlock): each spell or attack has a 10% chance to drain 5% of your max health from the target, at most once per second. Warriors, Paladins and Rogues get a 5% version. A raid Warlock makes about half a damaging cast per second, so at 4,500 health that is about 10 damage per second, 1.6 to 2.3% of raid damage depending on your health. The model counts casts only. If DoT ticks can trigger it too, it roughly doubles. A reader caught this: the page first used the 5% version. <a href="#t7">This is test 7</a>.</p></div></details>
+    <details id="c-sword"><summary>Human Sword Specialization works on spells</summary><div class="dbody"><p>Forever's version reads "+2% crit with all spells and attacks while you have a sword equipped", and Warlocks can train swords. With Ruin or Pandemic doubling crit damage, that is 1.6 to 2.2% more raid damage, one of the two biggest racials for a Warlock next to Undead's Touch of the Grave. It only counts if a caster sword is your best weapon.</p></div></details>
     <details id="c-bod"><summary>Bane of Doom beats Bane of Agony at 60</summary><div class="dbody"><p>Per second, both scale identically with spell power (4.0 over 60 s equals 1.6 over 24 s). Doom has more base damage per second and needs a global cooldown once a minute instead of every 24 seconds. <b>Rule: cast Doom while at least a minute of the fight remains, then Agony.</b> The result rests on the datamined 4.0 scaling. <a href="#bod">Drag the Bane of Doom slider</a> to see where it flips.</p></div></details>
     <details id="c-incin"><summary>Incinerate beats Shadow Bolt as the Destruction filler</summary><div class="dbody"><p>With Bane 5/5 and Immolate up, Incinerate does 26 to 29% more per second of casting than Shadow Bolt before school buffs, which is 4 to 7% across the whole rotation. Forever reversed the sacrifice buffs from Classic: Imp now gives Shadow, Succubus gives Fire. One risk: if Improved Shadow Bolt lasts 60 seconds instead of 12, the gap closes to about 1%. <a href="#isbSeg">Try the toggle</a>.</p></div></details>
     <details id="c-dk"><summary>Demonic Knowledge is the best point-for-point talent in the class</summary><div class="dbody"><p>It adds flat spell damage equal to your level, for you and your demon, while a demon is out. Flat bonuses are worth most when gear is weakest, which is solo play. It costs 20 Demonology points of mostly survival talents to reach, so it pays off from about level 56.</p></div></details>
@@ -779,9 +781,10 @@ h2::before{content:"";display:inline-block;width:11px;height:11px;transform:rota
 
 <section id="tests" class="wrap">
   <h2>Help test these</h2>
-  <p>These six checks decide the open questions. Tick them off as you go. Your ticks stay in this browser only. <span id="reportLine"></span></p>
+  <p>These seven checks decide the open questions. Tick them off as you go. Your ticks stay in this browser only. <span id="reportLine"></span></p>
   <ul class="tests" id="testList">
     <li id="t1"><label><input type="checkbox" id="t1c"><span><span class="when">Any level · beta</span><br><b>Life Tap ratio.</b> Write down health and mana, tap once, compare. Sources disagree on whether it converts 430 plus Spirit or 840. If Spirit adds to it, Human and high-Spirit gear buff every tap.</span></label></li>
+    <li id="t7"><label><input type="checkbox" id="t7c"><span><span class="when">Any level · beta · Undead</span><br><b>Touch of the Grave on DoT ticks.</b> Put your pet on passive, cast only Corruption on a mob and let it tick. Repeat on a few mobs. If ticks can trigger it, about every second Corruption shows a Touch of the Grave drain in your combat log, and its raid value roughly doubles.</span></label></li>
     <li id="t2"><label><input type="checkbox" id="t2c"><span><span class="when">Level 20 and up · beta</span><br><b>Succubus share.</b> Run a damage meter over five minutes of normal play with the Succubus out, then put her damage per second into the raid calculator's Succubus slider.</span></label></li>
     <li id="t3"><label><input type="checkbox" id="t3c"><span><span class="when">Level 30 · beta cap</span><br><b>Soul Siphon and curses.</b> With Soul Siphon, compare a Drain Life tick with Corruption and Agony on the target, then again after adding Curse of Weakness. A 12% jump means curses count.</span></label></li>
     <li id="t4"><label><input type="checkbox" id="t4c"><span><span class="when">Level 40 · after launch</span><br><b>Pact stacking.</b> With 31 Demonology points, sacrifice the Imp, summon and sacrifice the Felhunter, then check your buff bar for both buffs.</span></label></li>
@@ -805,6 +808,7 @@ h2::before{content:"";display:inline-block;width:11px;height:11px;transform:rota
     <summary>What changed</summary>
     <div class="dbody">
       <ul class="src">
+        <li><b>v7, 29 Sep 2026.</b> Undead's Touch of the Grave now counts in the raid calculator. Casters get a 10% version, not the 5% one this page used, which makes Undead the top raid race by a small margin. New max health slider for Undead, and test 7 checks whether DoT ticks trigger it. Reported in the Reddit thread.</li>
         <li><b>v6, 29 Sep 2026.</b> Game icons throughout: talent cells styled like the in-game talent window, race portraits, rotation icons in the level planner, tree icons on specs, raid bars and stat weights. The race now themes the whole page, with a race badge in the section nav. Dungeons got their own section: every dungeon on one level line, filtered to your faction.</li>
         <li><b>v5, 29 Sep 2026.</b> A talent builder that scores any leveling build next to the page plan, with shareable build links. Race themes that re-tint the page, and colors per talent tree in the builder and the raid chart. Asked for in the Reddit thread.</li>
         <li><b>v4, 29 Sep 2026.</b> Redesign after a four-reviewer UX pass: section nav, beginner on-ramp and glossary, race and level controls together, a two-column calculator with a gap column, phone tables that stack, a leader strip on phones, and linkable levels such as #lvl-24. From Reddit comments: Troll PvP corrected (Fear into Rapid Regeneration), and a Succubus leveling build with its own test. Numbers unchanged.</li>
@@ -867,13 +871,14 @@ h2::before{content:"";display:inline-block;width:11px;height:11px;transform:rota
     return { dps, parts, f };
   }
 
-  // race: { crit, spMult, castSpeed, eureka }
+  // race: { crit, spMult, castSpeed, eureka, totg }
   function raceMods(race, opts) {
-    const r = { crit: 0, spMult: 1, castSpeed: 1, eureka: 0, spiritMult: 1 };
+    const r = { crit: 0, spMult: 1, castSpeed: 1, eureka: 0, totg: 0, spiritMult: 1 };
     if (race === 'human') { if (opts.sword) r.crit = 0.02; r.spiritMult = 1.05; }
     if (race === 'orc') r.spMult = 1 + 0.10 * 15 / 120;        // Blood Fury: +10% SP, 15 s every 2 min
     if (race === 'troll') r.castSpeed = 1 + 0.10 * 10 / 180;    // Berserking: casts only, not DoTs or channels
     if (race === 'gnome') r.eureka = 0.10 * 3 / 120;            // Eureka!: next 3 spells +10%, every 2 min
+    if (race === 'undead') r.totg = 0.10;                       // Touch of the Grave, caster version (spell 1260201)
     return r;
   }
 
@@ -900,7 +905,20 @@ h2::before{content:"";display:inline-block;width:11px;height:11px;transform:rota
   function withEureka(res, fillerDmg, rm) {
     if (!rm.eureka) return res;
     const extra = rm.eureka * fillerDmg;          // 10% of 3 filler casts per 120 s
-    res.parts.Racial = extra;
+    res.parts.Racial = (res.parts.Racial || 0) + extra;
+    res.dps += extra;
+    return res;
+  }
+
+  // Touch of the Grave: 10% chance per damaging cast, 1 s cooldown, drains 5% of max health from the target.
+  // Counts casts only (periodic casts, filler casts, extra casts such as Nightfall). Whether DoT ticks can proc it is untested.
+  function withTotg(res, periodic, filler, rm, o, extraCasts, hitM) {
+    if (!rm.totg) return res;
+    let casts = res.f / filler[1] + (extraCasts || 0);
+    for (const k in periodic) casts += 1 / periodic[k][1];
+    const pl = rm.totg * casts;
+    const extra = pl / (1 + pl) * 0.05 * (o.maxHp || 4500) * (hitM || 1);   // renewal rate with a 1 s dead time
+    res.parts.Racial = (res.parts.Racial || 0) + extra;
     res.dps += extra;
     return res;
   }
@@ -920,7 +938,8 @@ h2::before{content:"";display:inline-block;width:11px;height:11px;transform:rota
     const F = [(222 + 0.858 * sp) * sh * mal * drains * dc, 6.0, 200, 1.0];   // Wrack
     const res = solve(P, F, lifeTap(o, rm, false), [0.04, 1 / 3, sb, 380], 0.10,
       ['Corruption', 'Bane of Agony', 'Bane of Doom', 'Siphon Life']);
-    return scaleHit(withEureka(res, F[0], rm), hitMult(o, 0.05));
+    const nfCasts = 0.04 / 3 + 0.04 * F[3] * res.f;
+    return scaleHit(withTotg(withEureka(res, F[0], rm), P, F, rm, o, nfCasts), hitMult(o, 0.05));
   }
 
   function destro(o, bane, version) {
@@ -954,7 +973,7 @@ h2::before{content:"";display:inline-block;width:11px;height:11px;transform:rota
       [P, F] = build(1 + 0.2 * u);
       res = solve(P, F, lt);
     }
-    return scaleHit(withEureka(res, F[0], rm), hitMult(o, 0.05));
+    return scaleHit(withTotg(withEureka(res, F[0], rm), P, F, rm, o), hitMult(o, 0.05));
   }
 
   function demo(o, bane) {
@@ -977,7 +996,7 @@ h2::before{content:"";display:inline-block;width:11px;height:11px;transform:rota
     const f0 = solve(P, F, lt).f;
     const u = 1 - Math.pow(1 - c, o.isbDuration * f0 / (2.5 / rm.castSpeed));
     [P, F] = build(1 + 0.2 * u);
-    return withEureka(solve(P, F, lt), F[0], rm);
+    return withTotg(withEureka(solve(P, F, lt), F[0], rm), P, F, rm, o, 0, hitMult(o, 0));
   }
 
   const SPECS = [
@@ -1363,7 +1382,7 @@ window.FWL_ICONS = {"ability_deathknight_hemorrhagicfever": "data:image/jpeg;bas
                 ['Perception', 'See stealth for 20 sec. 3 min cooldown.']],
       level: 'About 1% with a caster sword, otherwise nothing', levelPct: 1,
       pvp: ['Will to Survive breaks stuns', 'the thing that kills casters most'],
-      verdict: 'The best raid race, but only if a caster sword is your best weapon.',
+      verdict: 'Strong raid damage, but only if a caster sword is your best weapon.',
       tip: 'If a quest or drop gives you a spell-power sword, equip it: +2% spell crit comes with it.' },
     gnome: { label: 'Gnome', faction: 'Alliance',
       racials: [['Eureka!', 'Next 3 damaging spells deal +10% and cost 10% less mana. 2 min cooldown.'],
@@ -1394,12 +1413,12 @@ window.FWL_ICONS = {"ability_deathknight_hemorrhagicfever": "data:image/jpeg;bas
       tip: 'Use Rapid Regeneration between pulls, then Life Tap the health into mana. It cannot heal you mid-fight.' },
     undead: { label: 'Undead', faction: 'Horde',
       racials: [['Cannibalize', 'Regain 35% health and 35% mana over 10 sec from a humanoid or undead corpse. 2 min cooldown.'],
-                ['Touch of the Grave', '5% chance on each spell or attack to drain up to 5% of your max health.'],
+                ['Touch of the Grave', 'Caster version: each spell or attack has a 10% chance to drain 5% of your max health from the target, at most once per second.'],
                 ['Will of the Forsaken', 'Break charm, fear and sleep. 2 min cooldown.'],
                 ['Underwater Breathing', 'Breath lasts 300% longer.']],
-      level: 'Fastest: about 5 to 11% from level 30 on, because Cannibalize and Touch of the Grave remove most resting on humanoids', levelPct: 8,
+      level: 'Fastest: about 5 to 11% from level 30 on. Cannibalize removes most resting on humanoids, and Touch of the Grave about half of it on any mob', levelPct: 8,
       pvp: ['Will of the Forsaken breaks fear', 'the Warlock and Priest win condition'],
-      verdict: 'The best leveling race and a strong PvP pick. No raid damage.',
+      verdict: 'The best leveling race, a strong PvP pick, and top raid damage through Touch of the Grave.',
       tip: 'Cannibalize a humanoid or undead corpse after each pull. It replaces most eating and drinking.' },
   };
 
@@ -1473,13 +1492,14 @@ window.FWL_ICONS = {"ability_deathknight_hemorrhagicfever": "data:image/jpeg;bas
     sp: clamp(saved.sp, 200, 1000, 500), crit: clamp(saved.crit, 5, 25, 10), ghit: clamp(saved.ghit, 0, 16, 11),
     pet: clamp(saved.pet, 0, 160, 50), bod: clamp(saved.bod, 1.5, 4, 4), spirit: clamp(saved.spirit, 50, 300, 100),
     isb: saved.isb === 60 ? 60 : 12, lt: saved.lt === 'spirit' ? 'spirit' : '840', sword: saved.sword !== false,
+    hp: clamp(saved.hp, 3000, 8000, 4500),
   };
   const saveCalc = () => store.set('calc', { sp: state.sp, crit: state.crit, ghit: state.ghit, pet: state.pet, bod: state.bod,
-    spirit: state.spirit, isb: state.isb, lt: state.lt, sword: state.sword });
+    spirit: state.spirit, isb: state.isb, lt: state.lt, sword: state.sword, hp: state.hp });
 
   function modelOpts(race) {
     return { sp: state.sp, crit: state.crit / 100, race, sword: state.sword, lifeTapMode: state.lt, spirit: state.spirit,
-             bodCoef: state.bod, isbDuration: state.isb, gearHit: state.ghit / 100, petDps: state.pet };
+             bodCoef: state.bod, isbDuration: state.isb, gearHit: state.ghit / 100, petDps: state.pet, maxHp: state.hp };
   }
   let announceTimer = null;
   const announce = msg => { const s = $('srStatus'); clearTimeout(announceTimer); s.textContent = ''; announceTimer = setTimeout(() => { s.textContent = msg; }, 80); };
@@ -1507,6 +1527,7 @@ window.FWL_ICONS = {"ability_deathknight_hemorrhagicfever": "data:image/jpeg;bas
     const ni = $('navRaceIco'); if (ni && ICONS[RACE_ICON[state.race]]) ni.src = ICONS[RACE_ICON[state.race]];
     document.querySelectorAll('.race-seg button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.race === state.race)));
     $('swordWrap').hidden = state.race !== 'human';
+    $('hpRow').hidden = state.race !== 'undead';
   }
   function setRace(id, speak) {
     if (!RACES[id]) return;
@@ -1542,7 +1563,9 @@ window.FWL_ICONS = {"ability_deathknight_hemorrhagicfever": "data:image/jpeg;bas
     facts.append(
       fact('Leveling', r.levelPct >= 3 ? 'Faster' : (r.levelPct > 0 ? 'Slight edge' : 'Neutral'), r.level),
       fact('Raid damage', (gain >= 0 ? '+' : '') + gain.toFixed(1) + '%',
-        state.race === 'human' && !state.sword ? 'Without a sword, Human adds nothing' : 'Over no racials, top build, at the calculator settings'),
+        state.race === 'human' && !state.sword ? 'Without a sword, Human adds nothing'
+          : state.race === 'undead' ? 'Touch of the Grave on casts only, at ' + state.hp + ' max health, top build'
+          : 'Over no racials, top build, at the calculator settings'),
       fact('PvP', r.pvp[0], r.pvp[1]));
     const list = document.createElement('ul'); list.className = 'racials';
     r.racials.forEach(([n, t]) => {
@@ -1715,7 +1738,8 @@ window.FWL_ICONS = {"ability_deathknight_hemorrhagicfever": "data:image/jpeg;bas
     $('stripVal').textContent = Math.round(a.total) + ' dps';
     $('stripGap').textContent = '+' + lead.toFixed(1) + '% over #2';
     [['sp', state.sp, state.sp + ' spell power'], ['crit', state.crit, state.crit + ' percent crit'], ['ghit', state.ghit, state.ghit + ' percent hit from gear'],
-     ['pet', state.pet, state.pet + ' Succubus damage per second'], ['bod', state.bod, 'times ' + state.bod.toFixed(1)], ['spirit', state.spirit, state.spirit + ' Spirit']]
+     ['pet', state.pet, state.pet + ' Succubus damage per second'], ['bod', state.bod, 'times ' + state.bod.toFixed(1)], ['spirit', state.spirit, state.spirit + ' Spirit'],
+     ['hp', state.hp, state.hp + ' max health']]
       .forEach(([id, v, txt]) => {
         const r = $(id), n = $(id + 'N');
         if (document.activeElement !== r) r.value = v;
@@ -1778,7 +1802,7 @@ window.FWL_ICONS = {"ability_deathknight_hemorrhagicfever": "data:image/jpeg;bas
     renderDungeonChart(state.level);
   });
 
-  const RANGES = { sp: [200, 1000], crit: [5, 25], ghit: [0, 16], pet: [0, 160], bod: [1.5, 4], spirit: [50, 300] };
+  const RANGES = { sp: [200, 1000], crit: [5, 25], ghit: [0, 16], pet: [0, 160], bod: [1.5, 4], spirit: [50, 300], hp: [3000, 8000] };
   const afterCalc = () => { renderRaid(); renderRaceCard(); renderRaceTable(); };
   Object.entries(RANGES).forEach(([key, [lo, hi]]) => {
     const setV = v => { const c = clamp(v, lo, hi, state[key]); state[key] = key === 'bod' ? Math.round(c * 10) / 10 : c; afterCalc(); };

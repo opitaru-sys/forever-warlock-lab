@@ -28,13 +28,14 @@
     return { dps, parts, f };
   }
 
-  // race: { crit, spMult, castSpeed, eureka }
+  // race: { crit, spMult, castSpeed, eureka, totg }
   function raceMods(race, opts) {
-    const r = { crit: 0, spMult: 1, castSpeed: 1, eureka: 0, spiritMult: 1 };
+    const r = { crit: 0, spMult: 1, castSpeed: 1, eureka: 0, totg: 0, spiritMult: 1 };
     if (race === 'human') { if (opts.sword) r.crit = 0.02; r.spiritMult = 1.05; }
     if (race === 'orc') r.spMult = 1 + 0.10 * 15 / 120;        // Blood Fury: +10% SP, 15 s every 2 min
     if (race === 'troll') r.castSpeed = 1 + 0.10 * 10 / 180;    // Berserking: casts only, not DoTs or channels
     if (race === 'gnome') r.eureka = 0.10 * 3 / 120;            // Eureka!: next 3 spells +10%, every 2 min
+    if (race === 'undead') r.totg = 0.10;                       // Touch of the Grave, caster version (spell 1260201)
     return r;
   }
 
@@ -61,7 +62,20 @@
   function withEureka(res, fillerDmg, rm) {
     if (!rm.eureka) return res;
     const extra = rm.eureka * fillerDmg;          // 10% of 3 filler casts per 120 s
-    res.parts.Racial = extra;
+    res.parts.Racial = (res.parts.Racial || 0) + extra;
+    res.dps += extra;
+    return res;
+  }
+
+  // Touch of the Grave: 10% chance per damaging cast, 1 s cooldown, drains 5% of max health from the target.
+  // Counts casts only (periodic casts, filler casts, extra casts such as Nightfall). Whether DoT ticks can proc it is untested.
+  function withTotg(res, periodic, filler, rm, o, extraCasts, hitM) {
+    if (!rm.totg) return res;
+    let casts = res.f / filler[1] + (extraCasts || 0);
+    for (const k in periodic) casts += 1 / periodic[k][1];
+    const pl = rm.totg * casts;
+    const extra = pl / (1 + pl) * 0.05 * (o.maxHp || 4500) * (hitM || 1);   // renewal rate with a 1 s dead time
+    res.parts.Racial = (res.parts.Racial || 0) + extra;
     res.dps += extra;
     return res;
   }
@@ -81,7 +95,8 @@
     const F = [(222 + 0.858 * sp) * sh * mal * drains * dc, 6.0, 200, 1.0];   // Wrack
     const res = solve(P, F, lifeTap(o, rm, false), [0.04, 1 / 3, sb, 380], 0.10,
       ['Corruption', 'Bane of Agony', 'Bane of Doom', 'Siphon Life']);
-    return scaleHit(withEureka(res, F[0], rm), hitMult(o, 0.05));
+    const nfCasts = 0.04 / 3 + 0.04 * F[3] * res.f;
+    return scaleHit(withTotg(withEureka(res, F[0], rm), P, F, rm, o, nfCasts), hitMult(o, 0.05));
   }
 
   function destro(o, bane, version) {
@@ -115,7 +130,7 @@
       [P, F] = build(1 + 0.2 * u);
       res = solve(P, F, lt);
     }
-    return scaleHit(withEureka(res, F[0], rm), hitMult(o, 0.05));
+    return scaleHit(withTotg(withEureka(res, F[0], rm), P, F, rm, o), hitMult(o, 0.05));
   }
 
   function demo(o, bane) {
@@ -138,7 +153,7 @@
     const f0 = solve(P, F, lt).f;
     const u = 1 - Math.pow(1 - c, o.isbDuration * f0 / (2.5 / rm.castSpeed));
     [P, F] = build(1 + 0.2 * u);
-    return withEureka(solve(P, F, lt), F[0], rm);
+    return withTotg(withEureka(solve(P, F, lt), F[0], rm), P, F, rm, o, 0, hitMult(o, 0));
   }
 
   const SPECS = [
