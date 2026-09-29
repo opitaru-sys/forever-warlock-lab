@@ -68,7 +68,7 @@
   }
 
   // Touch of the Grave: 10% chance per damaging cast, 1 s cooldown, drains 5% of max health from the target.
-  // Counts casts only (periodic casts, filler casts, extra casts such as Nightfall). Whether DoT ticks can proc it is untested.
+  // Counts casts only (periodic casts, filler casts, extra casts such as Nightfall). A reader's beta test: applying a DoT procs it, ticks don't.
   function withTotg(res, periodic, filler, rm, o, extraCasts, hitM) {
     if (!rm.totg) return res;
     let casts = res.f / filler[1] + (extraCasts || 0);
