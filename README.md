@@ -11,8 +11,8 @@ Live page: https://opitaru-sys.github.io/forever-warlock-lab/
 - **Leveling 10 to 29.** Affliction, instant Corruption first, then wand as your filler. Not Shadow Bolt, not Drain Life yet. Talents matter little before 28: every build tested lands within 4% of the best.
 - **Leveling 30 to 55.** Drain Life becomes the filler as Soul Siphon comes in. Keep leveling Affliction-first. Destruction builds (Immolate, Incinerate, Shadow Bolt) kill faster but rest longer, and lose overall.
 - **Solo from 56.** A Demonic Knowledge splash, 28/23/0, is optional. It kills about 3 to 4.5% faster than deep Affliction or the published drain-tank build, but only breaks even against this lab's leveling order.
-- **Group at 60.** Deep Demonology, 0/35/16: Imp sacrificed, Succubus out, Searing Pain to keep Demonic Brand on the boss. About 3% ahead of Destruction and Pact at the calculator defaults; if Demonic Brand deals no damage, it ties them within 1%. Fire Destruction built around Incinerate is the pick when the Succubus cannot stay on the boss; Pact on a Fire-immune boss.
-- **Race.** Undead levels fastest (about 4%) and edges out the raid damage too: casters get a 10% Touch of the Grave, worth about 1.6%, against about 1.5% for a Human with a caster sword. Every racial is small, so pick the race you like.
+- **Group at 60.** Deep Demonology, 5/31/15: Suppression 5, Imp sacrificed, Succubus out, Searing Pain to keep Demonic Brand on the boss. About 4 to 5% ahead of Pact and 7% ahead of Destruction at the calculator defaults; if Demonic Brand deals no damage, it is still about 1% ahead. Fire Destruction built around Incinerate is the pick when the Succubus cannot stay on the boss. On a Fire-immune boss the group spec still leads.
+- **Race.** Undead levels fastest (about 4%). In raids, Undead's Touch of the Grave (about 1.6%) and a Human's caster sword (about 1.5%) are within half a percent, and a reported beta change may tip it to the Human. Every racial is small, so pick the race you like.
 
 ## How it was built
 
@@ -54,7 +54,7 @@ Every number on the page or in this README traces back to one of the scripts in 
 
 | Input | Value as used |
 |---|---|
-| Hit | Gear hit slider, default 11%. Suppression adds 5% in the Affliction and Destruction builds, so they are capped by default; Demonology has no hit talent. Each 1% short of the 16% boss cap costs 1% of damage |
+| Hit | Gear hit slider, default 11%. Every build takes Suppression, which adds 5%, so 11% from gear caps you by default. Each 1% short of the 16% boss cap costs 1% of damage |
 | Mana | A Major Mana Potion and a Demonic or Dark Rune on cooldown by default, optional mp5 from gear and buffs, Life Tap for the rest. No raid buffs |
 | Life Tap value | `430 + Spirit` by default (Spirit 100), or flat 840 as a page toggle. Times 1.2 for builds with Improved Life Tap |
 | Fight options | Shadowburn on cooldown, execute phase under 35% (Decimation's +6%) on by default; Fire-immune boss, two targets, Curse of the Elements off by default |
@@ -88,6 +88,7 @@ Run every command from the repo root.
 
 ## Changelog
 
+- **v8.1, 29 Sep 2026.** Group spec is now 5/31/15 (a reader's improvement: Suppression's 5% hit covers every spell, about 4% over 0/35/16 when gear alone does not cap hit). Pact takes Suppression too. Note on a reported Touch of the Grave nerf.
 - **v8, 29 Sep 2026.** Closed every modeling gap readers found. Leveling: every Destruction spell and talent, Curse of the Elements, Death Coil and finishers, base damage and coefficients from the beta client, results averaged over mob health; Destruction builds lose on rest; a new leveling order, about 2% faster; the solo respec is optional. Raid: deep Demonology 0/35/16 is the recommended group spec; Fire-immune bosses, execute phase, mana consumables, two targets, Curse of the Elements and mp5 options; Life Tap reads 430 + Spirit. A first multi-mob model. Corrections: tick tables were 1 too high, Wrack's +10% only reaches Corruption and Agony, Undead leveling 3 to 6%, Troll about 1%, Nightfall under 1% a point.
 - **v7, 29 Sep 2026.** Undead's Touch of the Grave now counts in the raid model. Casters get a 10% version (Wowhead Forever spell 1260201), not the 5% one the page first used. Max health slider for Undead. Reported in the Reddit thread, where the same reader tested that applying a DoT triggers it but ticks don't, which is what the model counts.
 - **v6, 29 Sep 2026.** Game icons throughout (talent cells styled like the in-game talent window, race portraits, rotation icons, tree icons), and the chosen race now themes the whole page with a race badge in the section nav. Dungeons got their own section, with every dungeon on one level line filtered to your faction. Icons live in `assets/icons/` and are embedded by `src/build.py`.

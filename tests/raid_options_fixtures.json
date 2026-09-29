@@ -13,10 +13,10 @@
     "destro-keep|BoD": 486.8801,
     "destro-shadow|BoA": 473.5233,
     "destro-shadow|BoD": 498.8888,
-    "demo-pact|BoA": 448.5599,
-    "demo-pact|BoD": 473.2195,
-    "demo-deep|BoA": 483.6496,
-    "demo-deep|BoD": 507.6898,
+    "demo-pact|BoA": 465.2509,
+    "demo-pact|BoD": 490.8053,
+    "demo-deep|BoA": 507.1896,
+    "demo-deep|BoD": 532.3772,
     "aff-sac|BoA": 431.0652,
     "aff-sac|BoD": 439.3583,
     "aff-keep|BoA": 382.9472,
@@ -26,7 +26,13 @@
     {
      "id": "demo-deep",
      "viable": true,
-     "total": 566.7758,
+     "total": 591.4631,
+     "execPlan": null
+    },
+    {
+     "id": "demo-pact",
+     "viable": true,
+     "total": 545.5941,
      "execPlan": null
     },
     {
@@ -39,12 +45,6 @@
      "id": "destro-fire",
      "viable": true,
      "total": 532.305,
-     "execPlan": null
-    },
-    {
-     "id": "demo-pact",
-     "viable": true,
-     "total": 528.0083,
      "execPlan": null
     },
     {
@@ -80,10 +80,10 @@
     "destro-keep|BoD": 486.8801,
     "destro-shadow|BoA": 473.5233,
     "destro-shadow|BoD": 498.8888,
-    "demo-pact|BoA": 462.725,
-    "demo-pact|BoD": 488.1633,
-    "demo-deep|BoA": 498.9228,
-    "demo-deep|BoD": 523.7221,
+    "demo-pact|BoA": 465.2509,
+    "demo-pact|BoD": 490.8053,
+    "demo-deep|BoA": 507.1896,
+    "demo-deep|BoD": 532.3772,
     "aff-sac|BoA": 431.0652,
     "aff-sac|BoD": 439.3583,
     "aff-keep|BoA": 382.9472,
@@ -93,13 +93,13 @@
     {
      "id": "demo-deep",
      "viable": true,
-     "total": 582.8081,
+     "total": 591.4631,
      "execPlan": null
     },
     {
      "id": "demo-pact",
      "viable": true,
-     "total": 542.9521,
+     "total": 545.5941,
      "execPlan": null
     },
     {
@@ -147,10 +147,10 @@
     "destro-keep|BoD": 0.0,
     "destro-shadow|BoA": 317.0411,
     "destro-shadow|BoD": 336.8155,
-    "demo-pact|BoA": 337.129,
-    "demo-pact|BoD": 358.2204,
-    "demo-deep|BoA": 333.8018,
-    "demo-deep|BoD": 354.6846,
+    "demo-pact|BoA": 349.9023,
+    "demo-pact|BoD": 371.7921,
+    "demo-deep|BoA": 349.9023,
+    "demo-deep|BoD": 371.7921,
     "aff-sac|BoA": 316.8303,
     "aff-sac|BoD": 323.8439,
     "aff-keep|BoA": 275.5046,
@@ -160,13 +160,13 @@
     {
      "id": "demo-deep",
      "viable": true,
-     "total": 413.7705,
+     "total": 430.8781,
      "execPlan": null
     },
     {
      "id": "demo-pact",
      "viable": true,
-     "total": 413.0092,
+     "total": 426.5809,
      "execPlan": null
     },
     {
@@ -214,10 +214,10 @@
     "destro-keep|BoD": 0.0,
     "destro-shadow|BoA": 413.947,
     "destro-shadow|BoD": 437.6323,
-    "demo-pact|BoA": 435.0404,
-    "demo-pact|BoD": 459.9542,
-    "demo-deep|BoA": 430.7255,
-    "demo-deep|BoD": 455.3704,
+    "demo-pact|BoA": 451.4914,
+    "demo-pact|BoD": 477.3148,
+    "demo-deep|BoA": 451.4914,
+    "demo-deep|BoD": 477.3148,
     "aff-sac|BoA": 417.2186,
     "aff-sac|BoD": 424.1067,
     "aff-keep|BoA": 362.7988,
@@ -225,15 +225,15 @@
    },
    "rank": [
     {
-     "id": "demo-pact",
+     "id": "demo-deep",
      "viable": true,
-     "total": 514.743,
+     "total": 536.4007,
      "execPlan": null
     },
     {
-     "id": "demo-deep",
+     "id": "demo-pact",
      "viable": true,
-     "total": 514.4563,
+     "total": 532.1036,
      "execPlan": null
     },
     {
@@ -281,10 +281,10 @@
     "destro-keep|BoD": 0.0,
     "destro-shadow|BoA": 624.5908,
     "destro-shadow|BoD": 658.5175,
-    "demo-pact|BoA": 650.9313,
-    "demo-pact|BoD": 686.0381,
-    "demo-deep|BoA": 644.1705,
-    "demo-deep|BoD": 678.8594,
+    "demo-pact|BoA": 675.0911,
+    "demo-pact|BoD": 711.4212,
+    "demo-deep|BoA": 675.0911,
+    "demo-deep|BoD": 711.4212,
     "aff-sac|BoA": 615.2786,
     "aff-sac|BoD": 622.4833,
     "aff-keep|BoA": 535.0249,
@@ -292,15 +292,15 @@
    },
    "rank": [
     {
-     "id": "demo-pact",
+     "id": "demo-deep",
      "viable": true,
-     "total": 740.8269,
+     "total": 770.5071,
      "execPlan": null
     },
     {
-     "id": "demo-deep",
+     "id": "demo-pact",
      "viable": true,
-     "total": 737.9453,
+     "total": 766.21,
      "execPlan": null
     },
     {
@@ -348,10 +348,10 @@
     "destro-keep|BoD": 367.4902,
     "destro-shadow|BoA": 353.5272,
     "destro-shadow|BoD": 373.3151,
-    "demo-pact|BoA": 334.4546,
-    "demo-pact|BoD": 354.0467,
-    "demo-deep|BoA": 369.636,
-    "demo-deep|BoD": 390.9152,
+    "demo-pact|BoA": 347.1057,
+    "demo-pact|BoD": 367.4486,
+    "demo-deep|BoA": 387.7112,
+    "demo-deep|BoD": 407.8769,
     "aff-sac|BoA": 317.9972,
     "aff-sac|BoD": 325.7534,
     "aff-keep|BoA": 282.8609,
@@ -361,19 +361,19 @@
     {
      "id": "demo-deep",
      "viable": true,
-     "total": 450.0012,
+     "total": 466.9628,
      "execPlan": "succubus"
+    },
+    {
+     "id": "demo-pact",
+     "viable": true,
+     "total": 422.2374,
+     "execPlan": null
     },
     {
      "id": "destro-keep",
      "viable": true,
      "total": 417.4902,
-     "execPlan": null
-    },
-    {
-     "id": "demo-pact",
-     "viable": true,
-     "total": 408.8355,
      "execPlan": null
     },
     {
@@ -415,10 +415,10 @@
     "destro-keep|BoD": 486.8801,
     "destro-shadow|BoA": 473.5233,
     "destro-shadow|BoD": 498.8888,
-    "demo-pact|BoA": 453.1311,
-    "demo-pact|BoD": 478.124,
-    "demo-deep|BoA": 487.6244,
-    "demo-deep|BoD": 511.9864,
+    "demo-pact|BoA": 469.9214,
+    "demo-pact|BoD": 495.8185,
+    "demo-deep|BoA": 511.3346,
+    "demo-deep|BoD": 536.8585,
     "aff-sac|BoA": 431.0652,
     "aff-sac|BoD": 439.3583,
     "aff-keep|BoA": 382.9472,
@@ -428,19 +428,19 @@
     {
      "id": "demo-deep",
      "viable": true,
-     "total": 571.0723,
+     "total": 595.9444,
      "execPlan": "succubus"
+    },
+    {
+     "id": "demo-pact",
+     "viable": true,
+     "total": 550.6073,
+     "execPlan": null
     },
     {
      "id": "destro-keep",
      "viable": true,
      "total": 536.8801,
-     "execPlan": null
-    },
-    {
-     "id": "demo-pact",
-     "viable": true,
-     "total": 532.9128,
      "execPlan": null
     },
     {
@@ -482,10 +482,10 @@
     "destro-keep|BoD": 693.7915,
     "destro-shadow|BoA": 686.9936,
     "destro-shadow|BoD": 723.1244,
-    "demo-pact|BoA": 667.9494,
-    "demo-pact|BoD": 703.1952,
-    "demo-deep|BoA": 695.7442,
-    "demo-deep|BoD": 729.9428,
+    "demo-pact|BoA": 692.0412,
+    "demo-pact|BoD": 728.4963,
+    "demo-deep|BoA": 729.3061,
+    "demo-deep|BoD": 765.113,
     "aff-sac|BoA": 626.9869,
     "aff-sac|BoD": 636.2604,
     "aff-keep|BoA": 556.2323,
@@ -495,19 +495,19 @@
     {
      "id": "demo-deep",
      "viable": true,
-     "total": 789.0288,
+     "total": 824.1989,
      "execPlan": "succubus"
+    },
+    {
+     "id": "demo-pact",
+     "viable": true,
+     "total": 783.2851,
+     "execPlan": null
     },
     {
      "id": "destro-fire",
      "viable": true,
      "total": 759.3877,
-     "execPlan": null
-    },
-    {
-     "id": "demo-pact",
-     "viable": true,
-     "total": 757.984,
      "execPlan": null
     },
     {
@@ -550,10 +550,10 @@
     "destro-keep|BoD": 486.8801,
     "destro-shadow|BoA": 473.5233,
     "destro-shadow|BoD": 498.8888,
-    "demo-pact|BoA": 455.0901,
-    "demo-pact|BoD": 480.2259,
-    "demo-deep|BoA": 489.3279,
-    "demo-deep|BoD": 513.8277,
+    "demo-pact|BoA": 471.923,
+    "demo-pact|BoD": 497.967,
+    "demo-deep|BoA": 513.111,
+    "demo-deep|BoD": 538.779,
     "aff-sac|BoA": 431.0652,
     "aff-sac|BoD": 439.3583,
     "aff-keep|BoA": 382.9472,
@@ -563,19 +563,19 @@
     {
      "id": "demo-deep",
      "viable": true,
-     "total": 572.9137,
+     "total": 597.865,
      "execPlan": "succubus"
+    },
+    {
+     "id": "demo-pact",
+     "viable": true,
+     "total": 552.7558,
+     "execPlan": null
     },
     {
      "id": "destro-keep",
      "viable": true,
      "total": 536.8801,
-     "execPlan": null
-    },
-    {
-     "id": "demo-pact",
-     "viable": true,
-     "total": 535.0147,
      "execPlan": null
     },
     {
@@ -618,10 +618,10 @@
     "destro-keep|BoD": 486.8801,
     "destro-shadow|BoA": 473.5233,
     "destro-shadow|BoD": 498.8888,
-    "demo-pact|BoA": 453.1311,
-    "demo-pact|BoD": 478.124,
-    "demo-deep|BoA": 487.6244,
-    "demo-deep|BoD": 511.9864,
+    "demo-pact|BoA": 469.9214,
+    "demo-pact|BoD": 495.8185,
+    "demo-deep|BoA": 511.3346,
+    "demo-deep|BoD": 536.8585,
     "aff-sac|BoA": 431.0652,
     "aff-sac|BoD": 439.3583,
     "aff-keep|BoA": 382.9472,
@@ -631,19 +631,19 @@
     {
      "id": "demo-deep",
      "viable": true,
-     "total": 571.0723,
+     "total": 595.9444,
      "execPlan": "succubus"
+    },
+    {
+     "id": "demo-pact",
+     "viable": true,
+     "total": 550.6073,
+     "execPlan": null
     },
     {
      "id": "destro-keep",
      "viable": true,
      "total": 536.8801,
-     "execPlan": null
-    },
-    {
-     "id": "demo-pact",
-     "viable": true,
-     "total": 532.9128,
      "execPlan": null
     },
     {
@@ -685,10 +685,10 @@
     "destro-keep|BoD": 535.5682,
     "destro-shadow|BoA": 520.8756,
     "destro-shadow|BoD": 548.7777,
-    "demo-pact|BoA": 493.4159,
-    "demo-pact|BoD": 520.5414,
-    "demo-deep|BoA": 532.0146,
-    "demo-deep|BoD": 558.4588,
+    "demo-pact|BoA": 511.776,
+    "demo-pact|BoD": 539.8858,
+    "demo-deep|BoA": 557.9086,
+    "demo-deep|BoD": 585.6149,
     "aff-sac|BoA": 474.1718,
     "aff-sac|BoD": 483.2942,
     "aff-keep|BoA": 421.2419,
@@ -698,7 +698,13 @@
     {
      "id": "demo-deep",
      "viable": true,
-     "total": 618.3548,
+     "total": 645.5109,
+     "execPlan": null
+    },
+    {
+     "id": "demo-pact",
+     "viable": true,
+     "total": 595.4258,
      "execPlan": null
     },
     {
@@ -711,12 +717,6 @@
      "id": "destro-fire",
      "viable": true,
      "total": 585.5355,
-     "execPlan": null
-    },
-    {
-     "id": "demo-pact",
-     "viable": true,
-     "total": 576.0814,
      "execPlan": null
     },
     {
@@ -753,10 +753,10 @@
     "destro-keep|BoD": 680.1189,
     "destro-shadow|BoA": 658.0142,
     "destro-shadow|BoD": 690.3069,
-    "demo-pact|BoA": 625.9387,
-    "demo-pact|BoD": 657.1384,
-    "demo-deep|BoA": 674.7221,
-    "demo-deep|BoD": 705.2788,
+    "demo-pact|BoA": 649.3914,
+    "demo-pact|BoD": 681.7,
+    "demo-deep|BoA": 707.5899,
+    "demo-deep|BoD": 739.5989,
     "aff-sac|BoA": 614.1472,
     "aff-sac|BoD": 623.2421,
     "aff-keep|BoA": 545.343,
@@ -766,7 +766,7 @@
     {
      "id": "demo-deep",
      "viable": true,
-     "total": 765.1748,
+     "total": 799.4949,
      "execPlan": "succubus"
     },
     {
@@ -776,15 +776,15 @@
      "execPlan": null
     },
     {
-     "id": "destro-keep",
+     "id": "demo-pact",
      "viable": true,
-     "total": 730.6189,
+     "total": 737.2399,
      "execPlan": null
     },
     {
-     "id": "demo-pact",
+     "id": "destro-keep",
      "viable": true,
-     "total": 712.6784,
+     "total": 730.6189,
      "execPlan": null
     },
     {
@@ -820,10 +820,10 @@
     "destro-keep|BoD": 492.7157,
     "destro-shadow|BoA": 479.2883,
     "destro-shadow|BoD": 504.6891,
-    "demo-pact|BoA": 455.0881,
-    "demo-pact|BoD": 479.7812,
-    "demo-deep|BoA": 489.9677,
-    "demo-deep|BoD": 514.0444,
+    "demo-pact|BoA": 471.9654,
+    "demo-pact|BoD": 497.5541,
+    "demo-deep|BoA": 513.7943,
+    "demo-deep|BoD": 539.02,
     "aff-sac|BoA": 435.8966,
     "aff-sac|BoD": 444.0492,
     "aff-keep|BoA": 387.1483,
@@ -833,7 +833,13 @@
     {
      "id": "demo-deep",
      "viable": true,
-     "total": 573.1304,
+     "total": 598.1059,
+     "execPlan": null
+    },
+    {
+     "id": "demo-pact",
+     "viable": true,
+     "total": 552.3429,
      "execPlan": null
     },
     {
@@ -846,12 +852,6 @@
      "id": "destro-fire",
      "viable": true,
      "total": 539.0159,
-     "execPlan": null
-    },
-    {
-     "id": "demo-pact",
-     "viable": true,
-     "total": 534.57,
      "execPlan": null
     },
     {
@@ -887,10 +887,10 @@
     "destro-keep|BoD": 504.3869,
     "destro-shadow|BoA": 490.8457,
     "destro-shadow|BoD": 516.3162,
-    "demo-pact|BoA": 468.1745,
-    "demo-pact|BoD": 492.9334,
-    "demo-deep|BoA": 502.6368,
-    "demo-deep|BoD": 526.7854,
+    "demo-pact|BoA": 485.4249,
+    "demo-pact|BoD": 511.0812,
+    "demo-deep|BoA": 527.0379,
+    "demo-deep|BoD": 552.3387,
     "aff-sac|BoA": 445.5592,
     "aff-sac|BoD": 453.4308,
     "aff-keep|BoA": 395.5506,
@@ -900,7 +900,13 @@
     {
      "id": "demo-deep",
      "viable": true,
-     "total": 585.8714,
+     "total": 611.4246,
+     "execPlan": null
+    },
+    {
+     "id": "demo-pact",
+     "viable": true,
+     "total": 565.8699,
      "execPlan": null
     },
     {
@@ -913,12 +919,6 @@
      "id": "destro-fire",
      "viable": true,
      "total": 552.4378,
-     "execPlan": null
-    },
-    {
-     "id": "demo-pact",
-     "viable": true,
-     "total": 547.7222,
      "execPlan": null
     },
     {
@@ -954,10 +954,10 @@
     "destro-keep|BoD": 492.2252,
     "destro-shadow|BoA": 488.8145,
     "destro-shadow|BoD": 514.0285,
-    "demo-pact|BoA": 477.3204,
-    "demo-pact|BoD": 502.1938,
-    "demo-deep|BoA": 502.8433,
-    "demo-deep|BoD": 527.4119,
+    "demo-pact|BoA": 502.4425,
+    "demo-pact|BoD": 528.625,
+    "demo-deep|BoA": 529.3087,
+    "demo-deep|BoD": 555.1704,
     "aff-sac|BoA": 395.5954,
     "aff-sac|BoD": 402.3346,
     "aff-keep|BoA": 350.8016,
@@ -967,13 +967,13 @@
     {
      "id": "demo-deep",
      "viable": true,
-     "total": 586.4978,
+     "total": 614.2564,
      "execPlan": null
     },
     {
      "id": "demo-pact",
      "viable": true,
-     "total": 556.9826,
+     "total": 583.4138,
      "execPlan": null
     },
     {
@@ -1021,10 +1021,10 @@
     "destro-keep|BoD": 474.0215,
     "destro-shadow|BoA": 471.5156,
     "destro-shadow|BoD": 492.0595,
-    "demo-pact|BoA": 446.4033,
-    "demo-pact|BoD": 466.7356,
-    "demo-deep|BoA": 480.8649,
-    "demo-deep|BoD": 500.6447,
+    "demo-pact|BoA": 465.4162,
+    "demo-pact|BoD": 486.5128,
+    "demo-deep|BoA": 504.9475,
+    "demo-deep|BoD": 525.6793,
     "aff-sac|BoA": 473.7334,
     "aff-sac|BoD": 484.405,
     "aff-keep|BoA": 424.9347,
@@ -1034,19 +1034,19 @@
     {
      "id": "demo-deep",
      "viable": true,
-     "total": 559.7307,
+     "total": 584.7652,
+     "execPlan": null
+    },
+    {
+     "id": "demo-pact",
+     "viable": true,
+     "total": 541.3016,
      "execPlan": null
     },
     {
      "id": "destro-keep",
      "viable": true,
      "total": 524.0215,
-     "execPlan": null
-    },
-    {
-     "id": "demo-pact",
-     "viable": true,
-     "total": 521.5244,
      "execPlan": null
     },
     {
@@ -1088,10 +1088,10 @@
     "destro-keep|BoD": 597.0992,
     "destro-shadow|BoA": 597.1484,
     "destro-shadow|BoD": 621.7125,
-    "demo-pact|BoA": 565.2249,
-    "demo-pact|BoD": 589.2209,
-    "demo-deep|BoA": 603.1719,
-    "demo-deep|BoD": 626.4824,
+    "demo-pact|BoA": 589.1616,
+    "demo-pact|BoD": 614.0267,
+    "demo-deep|BoA": 633.328,
+    "demo-deep|BoD": 657.7507,
     "aff-sac|BoA": 604.3508,
     "aff-sac|BoD": 616.0297,
     "aff-keep|BoA": 541.7381,
@@ -1101,19 +1101,19 @@
     {
      "id": "demo-deep",
      "viable": true,
-     "total": 685.5683,
+     "total": 716.8366,
+     "execPlan": null
+    },
+    {
+     "id": "demo-pact",
+     "viable": true,
+     "total": 668.8155,
      "execPlan": null
     },
     {
      "id": "destro-keep",
      "viable": true,
      "total": 647.0992,
-     "execPlan": null
-    },
-    {
-     "id": "demo-pact",
-     "viable": true,
-     "total": 644.0097,
      "execPlan": null
     },
     {
@@ -1155,10 +1155,10 @@
     "destro-keep|BoD": 836.4573,
     "destro-shadow|BoA": 839.3809,
     "destro-shadow|BoD": 873.7153,
-    "demo-pact|BoA": 801.0313,
-    "demo-pact|BoD": 834.5555,
-    "demo-deep|BoA": 835.3291,
-    "demo-deep|BoD": 867.4948,
+    "demo-pact|BoA": 834.138,
+    "demo-pact|BoD": 868.7931,
+    "demo-deep|BoA": 876.8444,
+    "demo-deep|BoD": 910.5162,
     "aff-sac|BoA": 862.0173,
     "aff-sac|BoD": 876.2762,
     "aff-keep|BoA": 771.6328,
@@ -1168,19 +1168,19 @@
     {
      "id": "demo-deep",
      "viable": true,
-     "total": 926.5808,
+     "total": 969.6021,
+     "execPlan": null
+    },
+    {
+     "id": "demo-pact",
+     "viable": true,
+     "total": 923.5819,
      "execPlan": null
     },
     {
      "id": "destro-fire",
      "viable": true,
      "total": 908.4816,
-     "execPlan": null
-    },
-    {
-     "id": "demo-pact",
-     "viable": true,
-     "total": 889.3443,
      "execPlan": null
     },
     {
@@ -1225,10 +1225,10 @@
     "destro-keep|BoD": 647.2808,
     "destro-shadow|BoA": 642.6632,
     "destro-shadow|BoD": 669.7585,
-    "demo-pact|BoA": 612.4051,
-    "demo-pact|BoD": 639.2269,
-    "demo-deep|BoA": 653.1463,
-    "demo-deep|BoD": 679.2062,
+    "demo-pact|BoA": 637.8378,
+    "demo-pact|BoD": 665.6272,
+    "demo-deep|BoA": 685.6579,
+    "demo-deep|BoD": 712.96,
     "aff-sac|BoA": 645.523,
     "aff-sac|BoD": 658.1225,
     "aff-keep|BoA": 578.3508,
@@ -1238,8 +1238,14 @@
     {
      "id": "demo-deep",
      "viable": true,
-     "total": 739.1022,
+     "total": 772.856,
      "execPlan": "succubus"
+    },
+    {
+     "id": "demo-pact",
+     "viable": true,
+     "total": 721.1671,
+     "execPlan": null
     },
     {
      "id": "destro-fire",
@@ -1251,12 +1257,6 @@
      "id": "destro-keep",
      "viable": true,
      "total": 697.7808,
-     "execPlan": null
-    },
-    {
-     "id": "demo-pact",
-     "viable": true,
-     "total": 694.7668,
      "execPlan": null
     },
     {
@@ -1294,10 +1294,10 @@
     "destro-keep|BoD": 0.0,
     "destro-shadow|BoA": 499.9794,
     "destro-shadow|BoD": 523.3424,
-    "demo-pact|BoA": 540.1464,
-    "demo-pact|BoD": 565.0654,
-    "demo-deep|BoA": 536.807,
-    "demo-deep|BoD": 561.4582,
+    "demo-pact|BoA": 563.5865,
+    "demo-pact|BoD": 589.417,
+    "demo-deep|BoA": 563.5865,
+    "demo-deep|BoD": 589.417,
     "aff-sac|BoA": 576.6575,
     "aff-sac|BoD": 585.5265,
     "aff-keep|BoA": 501.4413,
@@ -1307,13 +1307,13 @@
     {
      "id": "demo-deep",
      "viable": true,
-     "total": 620.5442,
+     "total": 648.503,
      "execPlan": "succubus"
     },
     {
      "id": "demo-pact",
      "viable": true,
-     "total": 619.8542,
+     "total": 644.2058,
      "execPlan": null
     },
     {
@@ -1364,10 +1364,10 @@
     "destro-keep|BoD": 0.0,
     "destro-shadow|BoA": 462.4731,
     "destro-shadow|BoD": 488.5617,
-    "demo-pact|BoA": 487.2627,
-    "demo-pact|BoD": 514.7085,
-    "demo-deep|BoA": 482.3773,
-    "demo-deep|BoD": 509.5265,
+    "demo-pact|BoA": 505.6101,
+    "demo-pact|BoD": 534.0573,
+    "demo-deep|BoA": 505.6101,
+    "demo-deep|BoD": 534.0573,
     "aff-sac|BoA": 465.3178,
     "aff-sac|BoD": 472.7093,
     "aff-keep|BoA": 404.6242,
@@ -1377,13 +1377,13 @@
     {
      "id": "demo-deep",
      "viable": true,
-     "total": 629.3185,
+     "total": 653.8494,
      "execPlan": null
     },
     {
      "id": "demo-pact",
      "viable": true,
-     "total": 625.7884,
+     "total": 645.1373,
      "execPlan": null
     },
     {
@@ -1432,10 +1432,10 @@
     "destro-keep|BoD": 486.8801,
     "destro-shadow|BoA": 473.5233,
     "destro-shadow|BoD": 498.8888,
-    "demo-pact|BoA": 453.1311,
-    "demo-pact|BoD": 478.124,
-    "demo-deep|BoA": 428.7884,
-    "demo-deep|BoD": 450.717,
+    "demo-pact|BoA": 469.9214,
+    "demo-pact|BoD": 495.8185,
+    "demo-deep|BoA": 469.9214,
+    "demo-deep|BoD": 495.8185,
     "aff-sac|BoA": 431.0652,
     "aff-sac|BoD": 439.3583,
     "aff-keep|BoA": 382.9472,
@@ -1455,22 +1455,22 @@
      "execPlan": null
     },
     {
-     "id": "destro-keep",
-     "viable": true,
-     "total": 486.8801,
-     "execPlan": null
-    },
-    {
      "id": "demo-pact",
      "viable": true,
-     "total": 478.124,
+     "total": 495.8185,
      "execPlan": null
     },
     {
      "id": "demo-deep",
      "viable": true,
-     "total": 473.757,
-     "execPlan": "imp"
+     "total": 495.8185,
+     "execPlan": "succubus"
+    },
+    {
+     "id": "destro-keep",
+     "viable": true,
+     "total": 486.8801,
+     "execPlan": null
     },
     {
      "id": "aff-sac",
@@ -1502,10 +1502,10 @@
     "destro-keep|BoD": 597.0992,
     "destro-shadow|BoA": 597.1484,
     "destro-shadow|BoD": 621.7125,
-    "demo-pact|BoA": 567.453,
-    "demo-pact|BoD": 591.7707,
-    "demo-deep|BoA": 563.4831,
-    "demo-deep|BoD": 587.5318,
+    "demo-pact|BoA": 591.3889,
+    "demo-pact|BoD": 616.5847,
+    "demo-deep|BoA": 591.3889,
+    "demo-deep|BoD": 616.5847,
     "aff-sac|BoA": 604.3508,
     "aff-sac|BoD": 616.0297,
     "aff-keep|BoA": 541.7381,
@@ -1525,6 +1525,18 @@
      "execPlan": null
     },
     {
+     "id": "demo-pact",
+     "viable": true,
+     "total": 616.5847,
+     "execPlan": null
+    },
+    {
+     "id": "demo-deep",
+     "viable": true,
+     "total": 616.5847,
+     "execPlan": "succubus"
+    },
+    {
      "id": "aff-sac",
      "viable": true,
      "total": 616.0297,
@@ -1535,18 +1547,6 @@
      "viable": true,
      "total": 597.0992,
      "execPlan": null
-    },
-    {
-     "id": "demo-pact",
-     "viable": true,
-     "total": 591.7707,
-     "execPlan": null
-    },
-    {
-     "id": "demo-deep",
-     "viable": true,
-     "total": 587.5318,
-     "execPlan": "succubus"
     },
     {
      "id": "aff-keep",
@@ -1569,10 +1569,10 @@
     "destro-keep|BoD": 463.9817,
     "destro-shadow|BoA": 461.4012,
     "destro-shadow|BoD": 486.9246,
-    "demo-pact|BoA": 448.5599,
-    "demo-pact|BoD": 473.2195,
-    "demo-deep|BoA": 483.6496,
-    "demo-deep|BoD": 507.6898,
+    "demo-pact|BoA": 465.2509,
+    "demo-pact|BoD": 490.8053,
+    "demo-deep|BoA": 507.1896,
+    "demo-deep|BoD": 532.3772,
     "aff-sac|BoA": 431.0652,
     "aff-sac|BoD": 439.3583,
     "aff-keep|BoA": 382.9472,
@@ -1582,13 +1582,13 @@
     {
      "id": "demo-deep",
      "viable": true,
-     "total": 566.7758,
+     "total": 591.4631,
      "execPlan": null
     },
     {
      "id": "demo-pact",
      "viable": true,
-     "total": 528.0083,
+     "total": 545.5941,
      "execPlan": null
     },
     {
@@ -1638,10 +1638,10 @@
     "destro-keep|BoD": 863.7932,
     "destro-shadow|BoA": 869.585,
     "destro-shadow|BoD": 907.8256,
-    "demo-pact|BoA": 849.1435,
-    "demo-pact|BoD": 886.0201,
-    "demo-deep|BoA": 886.8711,
-    "demo-deep|BoD": 922.2534,
+    "demo-pact|BoA": 883.8771,
+    "demo-pact|BoD": 921.9978,
+    "demo-deep|BoA": 930.8542,
+    "demo-deep|BoD": 967.8931,
     "aff-sac|BoA": 908.8927,
     "aff-sac|BoD": 924.5776,
     "aff-keep|BoA": 813.4968,
@@ -1651,19 +1651,19 @@
     {
      "id": "demo-deep",
      "viable": true,
-     "total": 982.1494,
+     "total": 1027.7892,
+     "execPlan": null
+    },
+    {
+     "id": "demo-pact",
+     "viable": true,
+     "total": 977.5377,
      "execPlan": null
     },
     {
      "id": "destro-fire",
      "viable": true,
      "total": 953.3538,
-     "execPlan": null
-    },
-    {
-     "id": "demo-pact",
-     "viable": true,
-     "total": 941.5601,
      "execPlan": null
     },
     {
@@ -1706,10 +1706,10 @@
     "destro-keep|BoD": 0.0,
     "destro-shadow|BoA": 314.868,
     "destro-shadow|BoD": 334.7318,
-    "demo-pact|BoA": 337.129,
-    "demo-pact|BoD": 358.2204,
-    "demo-deep|BoA": 333.8018,
-    "demo-deep|BoD": 354.6846,
+    "demo-pact|BoA": 349.9023,
+    "demo-pact|BoD": 371.7921,
+    "demo-deep|BoA": 349.9023,
+    "demo-deep|BoD": 371.7921,
     "aff-sac|BoA": 316.8303,
     "aff-sac|BoD": 323.8439,
     "aff-keep|BoA": 275.5046,
@@ -1719,13 +1719,13 @@
     {
      "id": "demo-deep",
      "viable": true,
-     "total": 413.7705,
+     "total": 430.8781,
      "execPlan": null
     },
     {
      "id": "demo-pact",
      "viable": true,
-     "total": 413.0092,
+     "total": 426.5809,
      "execPlan": null
     },
     {
@@ -1773,16 +1773,28 @@
     "destro-keep|BoD": 486.8801,
     "destro-shadow|BoA": 473.5233,
     "destro-shadow|BoD": 498.8888,
-    "demo-pact|BoA": 448.5599,
-    "demo-pact|BoD": 473.2195,
-    "demo-deep|BoA": 443.9291,
-    "demo-deep|BoD": 468.3188,
+    "demo-pact|BoA": 465.2509,
+    "demo-pact|BoD": 490.8053,
+    "demo-deep|BoA": 465.2509,
+    "demo-deep|BoD": 490.8053,
     "aff-sac|BoA": 431.0652,
     "aff-sac|BoD": 439.3583,
     "aff-keep|BoA": 382.9472,
     "aff-keep|BoD": 390.1586
    },
    "rank": [
+    {
+     "id": "demo-deep",
+     "viable": true,
+     "total": 549.8912,
+     "execPlan": null
+    },
+    {
+     "id": "demo-pact",
+     "viable": true,
+     "total": 545.5941,
+     "execPlan": null
+    },
     {
      "id": "destro-keep",
      "viable": true,
@@ -1793,18 +1805,6 @@
      "id": "destro-fire",
      "viable": true,
      "total": 532.305,
-     "execPlan": null
-    },
-    {
-     "id": "demo-pact",
-     "viable": true,
-     "total": 528.0083,
-     "execPlan": null
-    },
-    {
-     "id": "demo-deep",
-     "viable": true,
-     "total": 527.4048,
      "execPlan": null
     },
     {
@@ -1841,10 +1841,10 @@
     "destro-keep|BoD": 486.8801,
     "destro-shadow|BoA": 473.5233,
     "destro-shadow|BoD": 498.8888,
-    "demo-pact|BoA": 453.1311,
-    "demo-pact|BoD": 478.124,
-    "demo-deep|BoA": 448.4057,
-    "demo-deep|BoD": 473.1233,
+    "demo-pact|BoA": 469.9214,
+    "demo-pact|BoD": 495.8185,
+    "demo-deep|BoA": 469.9214,
+    "demo-deep|BoD": 495.8185,
     "aff-sac|BoA": 431.0652,
     "aff-sac|BoD": 439.3583,
     "aff-keep|BoA": 382.9472,
@@ -1852,15 +1852,21 @@
    },
    "rank": [
     {
-     "id": "destro-keep",
+     "id": "demo-deep",
      "viable": true,
-     "total": 536.8801,
-     "execPlan": null
+     "total": 554.9044,
+     "execPlan": "succubus"
     },
     {
      "id": "demo-pact",
      "viable": true,
-     "total": 532.9128,
+     "total": 550.6073,
+     "execPlan": null
+    },
+    {
+     "id": "destro-keep",
+     "viable": true,
+     "total": 536.8801,
      "execPlan": null
     },
     {
@@ -1868,12 +1874,6 @@
      "viable": true,
      "total": 532.305,
      "execPlan": null
-    },
-    {
-     "id": "demo-deep",
-     "viable": true,
-     "total": 532.2092,
-     "execPlan": "succubus"
     },
     {
      "id": "destro-shadow",
@@ -1909,10 +1909,10 @@
     "destro-keep|BoD": 486.8801,
     "destro-shadow|BoA": 473.5233,
     "destro-shadow|BoD": 498.8888,
-    "demo-pact|BoA": 453.1311,
-    "demo-pact|BoD": 478.124,
-    "demo-deep|BoA": 463.9081,
-    "demo-deep|BoD": 487.8981,
+    "demo-pact|BoA": 469.9214,
+    "demo-pact|BoD": 495.8185,
+    "demo-deep|BoA": 486.4937,
+    "demo-deep|BoD": 511.6273,
     "aff-sac|BoA": 431.0652,
     "aff-sac|BoD": 439.3583,
     "aff-keep|BoA": 382.9472,
@@ -1922,19 +1922,19 @@
     {
      "id": "demo-deep",
      "viable": true,
-     "total": 546.984,
+     "total": 570.7133,
      "execPlan": "succubus"
+    },
+    {
+     "id": "demo-pact",
+     "viable": true,
+     "total": 550.6073,
+     "execPlan": null
     },
     {
      "id": "destro-keep",
      "viable": true,
      "total": 536.8801,
-     "execPlan": null
-    },
-    {
-     "id": "demo-pact",
-     "viable": true,
-     "total": 532.9128,
      "execPlan": null
     },
     {
@@ -1976,10 +1976,10 @@
     "destro-keep|BoD": 367.4902,
     "destro-shadow|BoA": 353.5272,
     "destro-shadow|BoD": 373.3151,
-    "demo-pact|BoA": 331.1616,
-    "demo-pact|BoD": 350.5177,
-    "demo-deep|BoA": 352.8594,
-    "demo-deep|BoD": 371.865,
+    "demo-pact|BoA": 343.7396,
+    "demo-pact|BoD": 363.8396,
+    "demo-deep|BoA": 370.0795,
+    "demo-deep|BoD": 390.005,
     "aff-sac|BoA": 317.9972,
     "aff-sac|BoD": 325.7534,
     "aff-keep|BoA": 282.8609,
@@ -1989,19 +1989,19 @@
     {
      "id": "demo-deep",
      "viable": true,
-     "total": 430.9509,
+     "total": 449.0909,
+     "execPlan": null
+    },
+    {
+     "id": "demo-pact",
+     "viable": true,
+     "total": 418.6284,
      "execPlan": null
     },
     {
      "id": "destro-keep",
      "viable": true,
      "total": 417.4902,
-     "execPlan": null
-    },
-    {
-     "id": "demo-pact",
-     "viable": true,
-     "total": 405.3064,
      "execPlan": null
     },
     {
@@ -2046,16 +2046,28 @@
     "destro-keep|BoD": 643.4571,
     "destro-shadow|BoA": 627.5123,
     "destro-shadow|BoD": 659.1375,
-    "demo-pact|BoA": 602.1146,
-    "demo-pact|BoD": 632.8905,
-    "demo-deep|BoA": 595.7669,
-    "demo-deep|BoD": 626.1751,
+    "demo-pact|BoA": 624.3228,
+    "demo-pact|BoD": 656.1693,
+    "demo-deep|BoA": 624.3228,
+    "demo-deep|BoD": 656.1693,
     "aff-sac|BoA": 581.2061,
     "aff-sac|BoD": 589.8093,
     "aff-keep|BoA": 515.9217,
     "aff-keep|BoD": 523.4027
    },
    "rank": [
+    {
+     "id": "demo-deep",
+     "viable": true,
+     "total": 715.2552,
+     "execPlan": "succubus"
+    },
+    {
+     "id": "demo-pact",
+     "viable": true,
+     "total": 710.958,
+     "execPlan": null
+    },
     {
      "id": "destro-fire",
      "viable": true,
@@ -2067,18 +2079,6 @@
      "viable": true,
      "total": 693.4571,
      "execPlan": null
-    },
-    {
-     "id": "demo-pact",
-     "viable": true,
-     "total": 687.6793,
-     "execPlan": null
-    },
-    {
-     "id": "demo-deep",
-     "viable": true,
-     "total": 685.2611,
-     "execPlan": "succubus"
     },
     {
      "id": "destro-shadow",
@@ -2114,10 +2114,10 @@
     "destro-keep|BoD": 444.575,
     "destro-shadow|BoA": 432.8349,
     "destro-shadow|BoD": 457.643,
-    "demo-pact|BoA": 407.505,
-    "demo-pact|BoD": 431.6236,
-    "demo-deep|BoA": 443.838,
-    "demo-deep|BoD": 467.2305,
+    "demo-pact|BoA": 420.5999,
+    "demo-pact|BoD": 445.4397,
+    "demo-deep|BoA": 464.9067,
+    "demo-deep|BoD": 489.3713,
     "aff-sac|BoA": 405.995,
     "aff-sac|BoD": 415.5615,
     "aff-keep|BoA": 361.1469,
@@ -2127,19 +2127,19 @@
     {
      "id": "demo-deep",
      "viable": true,
-     "total": 526.3164,
+     "total": 548.4573,
+     "execPlan": null
+    },
+    {
+     "id": "demo-pact",
+     "viable": true,
+     "total": 500.2285,
      "execPlan": null
     },
     {
      "id": "destro-keep",
      "viable": true,
      "total": 494.575,
-     "execPlan": null
-    },
-    {
-     "id": "demo-pact",
-     "viable": true,
-     "total": 486.4124,
      "execPlan": null
     },
     {
@@ -2184,10 +2184,10 @@
     "destro-keep|BoD": 427.201,
     "destro-shadow|BoA": 422.5784,
     "destro-shadow|BoD": 447.5696,
-    "demo-pact|BoA": 407.505,
-    "demo-pact|BoD": 431.6236,
-    "demo-deep|BoA": 422.6929,
-    "demo-deep|BoD": 445.7121,
+    "demo-pact|BoA": 420.5999,
+    "demo-pact|BoD": 445.4397,
+    "demo-deep|BoA": 442.7998,
+    "demo-deep|BoD": 466.8735,
     "aff-sac|BoA": 405.995,
     "aff-sac|BoD": 415.5615,
     "aff-keep|BoA": 361.1469,
@@ -2197,13 +2197,13 @@
     {
      "id": "demo-deep",
      "viable": true,
-     "total": 504.798,
+     "total": 525.9594,
      "execPlan": null
     },
     {
      "id": "demo-pact",
      "viable": true,
-     "total": 486.4124,
+     "total": 500.2285,
      "execPlan": null
     },
     {
@@ -2255,10 +2255,10 @@
     "destro-keep|BoD": 774.1369,
     "destro-shadow|BoA": 778.6594,
     "destro-shadow|BoD": 809.0353,
-    "demo-pact|BoA": 741.1683,
-    "demo-pact|BoD": 770.8756,
-    "demo-deep|BoA": 783.7904,
-    "demo-deep|BoD": 812.5426,
+    "demo-pact|BoA": 770.9602,
+    "demo-pact|BoD": 801.6066,
+    "demo-deep|BoA": 822.5244,
+    "demo-deep|BoD": 852.6086,
     "aff-sac|BoA": 794.6956,
     "aff-sac|BoD": 808.3565,
     "aff-keep|BoA": 712.0898,
@@ -2268,19 +2268,19 @@
     {
      "id": "demo-deep",
      "viable": true,
-     "total": 871.6286,
+     "total": 911.6945,
      "execPlan": "succubus"
+    },
+    {
+     "id": "demo-pact",
+     "viable": true,
+     "total": 856.3954,
+     "execPlan": null
     },
     {
      "id": "destro-fire",
      "viable": true,
      "total": 832.2396,
-     "execPlan": null
-    },
-    {
-     "id": "demo-pact",
-     "viable": true,
-     "total": 825.6644,
      "execPlan": null
     },
     {
@@ -2322,10 +2322,10 @@
     "destro-keep|BoD": 504.3869,
     "destro-shadow|BoA": 490.8457,
     "destro-shadow|BoD": 516.3162,
-    "demo-pact|BoA": 468.1745,
-    "demo-pact|BoD": 492.9334,
-    "demo-deep|BoA": 502.6368,
-    "demo-deep|BoD": 526.7854,
+    "demo-pact|BoA": 485.4249,
+    "demo-pact|BoD": 511.0812,
+    "demo-deep|BoA": 527.0379,
+    "demo-deep|BoD": 552.3387,
     "aff-sac|BoA": 445.5592,
     "aff-sac|BoD": 453.4308,
     "aff-keep|BoA": 395.5506,
@@ -2335,7 +2335,13 @@
     {
      "id": "demo-deep",
      "viable": true,
-     "total": 585.8714,
+     "total": 611.4246,
+     "execPlan": null
+    },
+    {
+     "id": "demo-pact",
+     "viable": true,
+     "total": 565.8699,
      "execPlan": null
     },
     {
@@ -2348,12 +2354,6 @@
      "id": "destro-fire",
      "viable": true,
      "total": 552.4378,
-     "execPlan": null
-    },
-    {
-     "id": "demo-pact",
-     "viable": true,
-     "total": 547.7222,
      "execPlan": null
     },
     {
@@ -2390,10 +2390,10 @@
     "destro-keep|BoD": 492.2252,
     "destro-shadow|BoA": 488.8145,
     "destro-shadow|BoD": 514.0285,
-    "demo-pact|BoA": 477.3204,
-    "demo-pact|BoD": 502.1938,
-    "demo-deep|BoA": 502.8433,
-    "demo-deep|BoD": 527.4119,
+    "demo-pact|BoA": 502.4425,
+    "demo-pact|BoD": 528.625,
+    "demo-deep|BoA": 529.3087,
+    "demo-deep|BoD": 555.1704,
     "aff-sac|BoA": 395.5954,
     "aff-sac|BoD": 402.3346,
     "aff-keep|BoA": 350.8016,
@@ -2403,13 +2403,13 @@
     {
      "id": "demo-deep",
      "viable": true,
-     "total": 586.4978,
+     "total": 614.2564,
      "execPlan": null
     },
     {
      "id": "demo-pact",
      "viable": true,
-     "total": 556.9826,
+     "total": 583.4138,
      "execPlan": null
     },
     {
@@ -2460,10 +2460,10 @@
     "destro-keep|BoD": 469.6953,
     "destro-shadow|BoA": 457.5546,
     "destro-shadow|BoD": 482.5212,
-    "demo-pact|BoA": 435.1401,
-    "demo-pact|BoD": 459.4066,
-    "demo-deep|BoA": 448.7583,
-    "demo-deep|BoD": 471.953,
+    "demo-pact|BoA": 448.754,
+    "demo-pact|BoD": 473.7437,
+    "demo-deep|BoA": 469.9693,
+    "demo-deep|BoD": 494.2255,
     "aff-sac|BoA": 427.9941,
     "aff-sac|BoD": 436.9209,
     "aff-keep|BoA": 380.2766,
@@ -2473,19 +2473,19 @@
     {
      "id": "demo-deep",
      "viable": true,
-     "total": 531.039,
+     "total": 553.3115,
+     "execPlan": null
+    },
+    {
+     "id": "demo-pact",
+     "viable": true,
+     "total": 528.5325,
      "execPlan": null
     },
     {
      "id": "destro-keep",
      "viable": true,
      "total": 519.6953,
-     "execPlan": null
-    },
-    {
-     "id": "demo-pact",
-     "viable": true,
-     "total": 514.1954,
      "execPlan": null
     },
     {
@@ -2532,16 +2532,28 @@
     "destro-keep|BoD": 524.0335,
     "destro-shadow|BoA": 510.5946,
     "destro-shadow|BoD": 538.1033,
-    "demo-pact|BoA": 486.7959,
-    "demo-pact|BoD": 513.5312,
-    "demo-deep|BoA": 479.7522,
-    "demo-deep|BoD": 506.0773,
+    "demo-pact|BoA": 501.9237,
+    "demo-pact|BoD": 529.4551,
+    "demo-deep|BoA": 501.9237,
+    "demo-deep|BoD": 529.4551,
     "aff-sac|BoA": 477.2465,
     "aff-sac|BoD": 486.8784,
     "aff-keep|BoA": 423.9156,
     "aff-keep|BoD": 432.2911
    },
    "rank": [
+    {
+     "id": "demo-deep",
+     "viable": true,
+     "total": 589.3512,
+     "execPlan": null
+    },
+    {
+     "id": "demo-pact",
+     "viable": true,
+     "total": 584.9951,
+     "execPlan": null
+    },
     {
      "id": "destro-keep",
      "viable": true,
@@ -2552,18 +2564,6 @@
      "id": "destro-fire",
      "viable": true,
      "total": 572.2707,
-     "execPlan": null
-    },
-    {
-     "id": "demo-pact",
-     "viable": true,
-     "total": 569.0712,
-     "execPlan": null
-    },
-    {
-     "id": "demo-deep",
-     "viable": true,
-     "total": 565.9734,
      "execPlan": null
     },
     {
@@ -2604,10 +2604,10 @@
     "destro-keep|BoD": 0.0,
     "destro-shadow|BoA": 653.722,
     "destro-shadow|BoD": 682.3884,
-    "demo-pact|BoA": 701.0676,
-    "demo-pact|BoD": 731.2246,
-    "demo-deep|BoA": 695.109,
-    "demo-deep|BoD": 724.7726,
+    "demo-pact|BoA": 729.0885,
+    "demo-pact|BoD": 760.0977,
+    "demo-deep|BoA": 729.0885,
+    "demo-deep|BoD": 760.0977,
     "aff-sac|BoA": 764.4064,
     "aff-sac|BoD": 774.8048,
     "aff-keep|BoA": 664.7012,
@@ -2615,16 +2615,16 @@
    },
    "rank": [
     {
-     "id": "demo-pact",
-     "viable": true,
-     "total": 786.0134,
-     "execPlan": null
-    },
-    {
      "id": "demo-deep",
      "viable": true,
-     "total": 783.8585,
+     "total": 819.1836,
      "execPlan": "succubus"
+    },
+    {
+     "id": "demo-pact",
+     "viable": true,
+     "total": 814.8865,
+     "execPlan": null
     },
     {
      "id": "aff-sac",
@@ -2672,10 +2672,10 @@
     "destro-keep|BoD": 486.8801,
     "destro-shadow|BoA": 473.5233,
     "destro-shadow|BoD": 498.8888,
-    "demo-pact|BoA": 453.1311,
-    "demo-pact|BoD": 478.124,
-    "demo-deep|BoA": 454.6068,
-    "demo-deep|BoD": 476.3082,
+    "demo-pact|BoA": 469.9214,
+    "demo-pact|BoD": 495.8185,
+    "demo-deep|BoA": 472.5074,
+    "demo-deep|BoD": 495.254,
     "aff-sac|BoA": 431.0652,
     "aff-sac|BoD": 439.3583,
     "aff-keep|BoA": 382.9472,
@@ -2685,19 +2685,19 @@
     {
      "id": "demo-deep",
      "viable": true,
-     "total": 599.774,
+     "total": 599.0906,
      "execPlan": "imp"
+    },
+    {
+     "id": "demo-pact",
+     "viable": true,
+     "total": 550.6073,
+     "execPlan": null
     },
     {
      "id": "destro-keep",
      "viable": true,
      "total": 536.8801,
-     "execPlan": null
-    },
-    {
-     "id": "demo-pact",
-     "viable": true,
-     "total": 532.9128,
      "execPlan": null
     },
     {
@@ -2741,10 +2741,10 @@
     "destro-keep|BoD": 382.4955,
     "destro-shadow|BoA": 370.8639,
     "destro-shadow|BoD": 392.0563,
-    "demo-pact|BoA": 355.3188,
-    "demo-pact|BoD": 376.5665,
-    "demo-deep|BoA": 351.6437,
-    "demo-deep|BoD": 372.6759,
+    "demo-pact|BoA": 368.53,
+    "demo-pact|BoD": 390.5741,
+    "demo-deep|BoA": 368.53,
+    "demo-deep|BoD": 390.5741,
     "aff-sac|BoA": 330.9714,
     "aff-sac|BoD": 339.0577,
     "aff-keep|BoA": 294.2975,
@@ -2758,6 +2758,18 @@
      "execPlan": null
     },
     {
+     "id": "demo-deep",
+     "viable": true,
+     "total": 402.3913,
+     "execPlan": "succubus"
+    },
+    {
+     "id": "demo-pact",
+     "viable": true,
+     "total": 401.5319,
+     "execPlan": null
+    },
+    {
      "id": "destro-keep",
      "viable": true,
      "total": 392.4955,
@@ -2768,18 +2780,6 @@
      "viable": true,
      "total": 392.0563,
      "execPlan": null
-    },
-    {
-     "id": "demo-pact",
-     "viable": true,
-     "total": 387.5243,
-     "execPlan": null
-    },
-    {
-     "id": "demo-deep",
-     "viable": true,
-     "total": 384.4931,
-     "execPlan": "succubus"
     },
     {
      "id": "aff-sac",
@@ -2812,10 +2812,10 @@
     "destro-keep|BoD": 469.6953,
     "destro-shadow|BoA": 457.5546,
     "destro-shadow|BoD": 482.5212,
-    "demo-pact|BoA": 439.4372,
-    "demo-pact|BoD": 464.0292,
-    "demo-deep|BoA": 452.0473,
-    "demo-deep|BoD": 475.5478,
+    "demo-pact|BoA": 453.0877,
+    "demo-pact|BoD": 478.4089,
+    "demo-deep|BoA": 473.3825,
+    "demo-deep|BoD": 497.9574,
     "aff-sac|BoA": 427.9941,
     "aff-sac|BoD": 436.9209,
     "aff-keep|BoA": 380.2766,
@@ -2825,19 +2825,19 @@
     {
      "id": "demo-deep",
      "viable": true,
-     "total": 534.6337,
+     "total": 557.0433,
      "execPlan": "succubus"
+    },
+    {
+     "id": "demo-pact",
+     "viable": true,
+     "total": 533.1976,
+     "execPlan": null
     },
     {
      "id": "destro-keep",
      "viable": true,
      "total": 519.6953,
-     "execPlan": null
-    },
-    {
-     "id": "demo-pact",
-     "viable": true,
-     "total": 518.818,
      "execPlan": null
     },
     {
@@ -2884,10 +2884,10 @@
     "destro-keep|BoD": 0.0,
     "destro-shadow|BoA": 401.7224,
     "destro-shadow|BoD": 425.0667,
-    "demo-pact|BoA": 429.3952,
-    "demo-pact|BoD": 454.2601,
-    "demo-deep|BoA": 423.4298,
-    "demo-deep|BoD": 447.9161,
+    "demo-pact|BoA": 443.1077,
+    "demo-pact|BoD": 468.7173,
+    "demo-deep|BoA": 443.1077,
+    "demo-deep|BoD": 468.7173,
     "aff-sac|BoA": 418.9578,
     "aff-sac|BoD": 426.3398,
     "aff-keep|BoA": 364.3111,
@@ -2895,16 +2895,16 @@
    },
    "rank": [
     {
-     "id": "demo-pact",
-     "viable": true,
-     "total": 509.0489,
-     "execPlan": null
-    },
-    {
      "id": "demo-deep",
      "viable": true,
-     "total": 507.002,
+     "total": 527.8033,
      "execPlan": "succubus"
+    },
+    {
+     "id": "demo-pact",
+     "viable": true,
+     "total": 523.5061,
+     "execPlan": null
     },
     {
      "id": "aff-sac",

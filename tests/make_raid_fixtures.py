@@ -114,7 +114,7 @@ def parity_table():
                  R.destro(sp, c, version='incin', aftermath=True)[0],
                  R.destro(sp, c, version='keep', aftermath=True)[0],
                  R.destro(sp, c, version='sb', shadowburn=True)[0],
-                 R.demo(sp, c, immolate=True, hit_penalty=0.05)[0]]
+                 R.demo(sp, c, immolate=True)[0]]      # Pact 5/31/15: Suppression caps hit at 11% gear
             rows.append(f"  '{sp},{c:.2f}': [" + ', '.join(f'{x:.1f}' for x in v) + '],')
     return '\n'.join(rows)
 

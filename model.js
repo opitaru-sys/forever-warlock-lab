@@ -52,13 +52,15 @@
   const PET_HIT = 0.86;     // pet attacks that land on a raid boss (about 14% miss or dodge, assumed); a miss still uses a brand charge
   const PET_SP = 60;                       // demon spell power from Demonic Knowledge 3/3
   const IMP_BASE = (47 + 0.571 * PET_SP) / 2;  // Imp dps before talents: Firebolt 11763, 2 s cast
-  const FIGHT_S = 300, SWAP = [3.0, 570];   // one-off execute pet swap: two GCDs, 44% of base mana
+  const FIGHT_S = 300;
+  const SWAP = [7.5, 884];   // one-off Imp summon under 35%: 6 s cast (no Fel Domination, Master Summoner 2/2) plus the
+                             // Soul Link GCD; 68% of base mana (about 1,300, assumed)
   const POTION_MANA = (1350 + 2250) / 2, RUNE_MANA = (900 + 1500) / 2;   // items 13444, 12662 / 20520, 2 min each
   const CONSUMABLE_REGEN = (Math.floor(FIGHT_S / 120) + 1) * (POTION_MANA + RUNE_MANA) / FIGHT_S;   // 30 mana per s
   // Succubus talents: [Soul Link x Unholy Power, Master Demonologist, Improved Sayaad]. Master Demonologist (+10% Shadow)
   // and Improved Sayaad (+30% Lash of Pain) reach only her Lash of Pain share (LASH_SHARE); her melee is Physical.
   const SUCC_PLAIN = [1, 1, 1], SUCC_PACT = [1.03 * 1.02, 1.10, 1.30], SUCC_DEEP = [1.03 * 1.10, 1.10, 1.30];
-  const DEEP_IMP_PET = 1.03 * 1.10 * 1.10 * 1.30, BRAND_PET = 1.03 * 1.10 * 1.10;
+  const DEEP_IMP_PET = 1.03 * 1.10 * 1.10, BRAND_PET = 1.03 * 1.10 * 1.10;   // Imp: no Improved Imp in 5/31/15
   const SECOND = ' (2nd)';
   const NAMES = { Corruption: 'Corruption', BoA: 'Bane of Agony', BoD: 'Bane of Doom', SiphonLife: 'Siphon Life',
                   Immolate: 'Immolate', Havoc: 'Bane of Havoc' };
@@ -150,7 +152,7 @@
 
   // Hit below the boss cap: each 1% short of 16% loses 1% of landed damage.
   // Legacy switch kept so the reviewed defaults reproduce exactly:
-  // gearHitCapped true = 16% from gear, false = 11% (Suppression's 5% then caps Affliction and Destruction).
+  // gearHitCapped true = 16% from gear, false = 11% (Suppression's 5% then caps every build).
   function gearHit(o) {
     if (typeof o.gearHit === 'number') return o.gearHit;
     return o.gearHitCapped ? 0.16 : 0.11;
@@ -322,12 +324,14 @@
     return withTotg(withEureka(pick.res, pick.F[0] * coeMult(o), rm), pick.P, pick.F, rm, o, 0, q.hitM);
   }
 
-  // Demonology 0/31/20 (Pact): Imp sacrificed, Succubus out, Shadow Bolt. Decimation 2/2 under 35%.
+  // Demonology with Pact, 5/31/15 since v8.1: Suppression 5, the wowforeverbuilds Demonology 31, Improved Shadow Bolt 5,
+  // Bane 5, Ruin 5 (Destructive Reach 2 and Cataclysm 3 traded for Suppression). Imp sacrificed, Succubus out, Shadow
+  // Bolt. Decimation 2/2 under 35%.
   function demo(o, bane) {
     const rm = raceMods(o.race, o);
-    const hitM = hitMult(o, 0);                                 // no Suppression in this build
+    const hitM = hitMult(o, 0.05);                              // Suppression 5/5
     const q = { sp2: o.sp * rm.spMult + 60, c: o.crit + rm.crit, lt: lifeTap(o, rm, false), bane,   // Demonic Knowledge +60
-      allm: 1.03 * hitM, sh: 1.15 * 1.10, fire: 1.0, cat: 0.9, immolate: !o.fireImmune,             // Soul Link; Imp sac + Master Demonologist
+      allm: 1.03 * hitM, sh: 1.15 * 1.10, fire: 1.0, cat: 1.0, immolate: !o.fireImmune,             // Soul Link; Imp sac + Master Demonologist
       decim: 1.0, fil: 'SB', soulFire: null, brand: null, fixed: null, hitM };
     const p1 = demoPhase(o, rm, q);
     const x = execShare(o);
@@ -335,14 +339,15 @@
     return blend(p1, demoPhase(o, rm, Object.assign({}, q, { decim: DECIMATION, soulFire: o.fireImmune ? null : SOUL_FIRE_EXEC })), x);
   }
 
-  // Deep Demonology 0/35/16, a reader's build. Above 35%: as Pact, plus a Searing Pain every 10 s for
-  // Demonic Brand when it pays. Under 35% it takes whichever plan does more damage, demons included, and
-  // says which in execPlan: 'imp' (the reader's: Fel Domination Imp, which cancels the Imp sacrifice, Soul
-  // Link recast, Searing Pain filler that brands the Imp's attacks as often as it lands, Decimation Soul Fire) or 'succubus' (keep
-  // her out: Shadow Bolt, the brand weave and Decimation Soul Fire when they pay).
+  // Deep Demonology 5/31/15 (reader 510Kyle's revision): Suppression 5; Demonology 31 with Demonic Brand 3 and Unholy
+  // Power 5; Improved Shadow Bolt 5, Bane 5, Ruin 5. Above 35%: as Pact, plus a Searing Pain for Demonic Brand when it
+  // pays. Under 35% it takes whichever plan does more damage, demons included, and says which in execPlan: 'imp'
+  // (summon the Imp, a 6 s cast without Fel Domination, which cancels the Imp sacrifice; Soul Link recast; Searing
+  // Pain filler that brands the Imp's attacks as often as it lands; Decimation Soul Fire) or 'succubus' (keep her
+  // out: Shadow Bolt, the brand weave and Decimation Soul Fire when they pay and fit).
   function demoDeep(o, bane) {
     const rm = raceMods(o.race, o);
-    const hitM = hitMult(o, 0);
+    const hitM = hitMult(o, 0.05);                              // Suppression 5/5
     const sp2 = o.sp * rm.spMult + 60;
     const hits = brandHits(o), branding = hits > 0 && !o.fireImmune;   // 0 hits: Demonic Brand is threat only
     // the brand needs your Searing Pain to land (hitM) and the pet's attack to land (PET_HIT)
@@ -351,7 +356,7 @@
     const impRate = IMP_RATE * Math.min(1, Math.max(0, impDps(o)) / IMP_BASE);
     const period = Math.min(BRAND_S, hits / succRate);
     const q = { sp2, c: o.crit + rm.crit, lt: lifeTap(o, rm, false), bane, allm: 1.03 * hitM, sh: 1.15 * 1.10,
-      fire: 1.0, cat: 0.97, immolate: !o.fireImmune, decim: 1.0, fil: 'SB', soulFire: null, fixed: null, hitM,
+      fire: 1.0, cat: 1.0, immolate: !o.fireImmune, decim: 1.0, fil: 'SB', soulFire: null, fixed: null, hitM,
       brand: !branding || !(succRate > 0) ? null : [period, period * succRate * perHit], filBrand: null };   // a brand needs a demon that attacks
     const p1 = demoPhase(o, rm, q);
     const x = execShare(o);
@@ -382,9 +387,10 @@
       run: (o, b) => destro(o, b, 'keep') },
     { id: 'destro-shadow', name: 'Destruction, Shadow (published)', note: 'Imp sacrificed, Shadow Bolt and Shadowburn', pet: 0,
       run: (o, b) => destro(o, b, 'sb') },
-    { id: 'demo-pact', name: 'Demonology, Pact', note: 'Imp sacrificed, Succubus out, Shadow Bolt', pet: succMult({}, SUCC_PACT), succ: SUCC_PACT,
+    { id: 'demo-pact', name: 'Demonology, Pact', note: 'Now with Suppression 5: Imp sacrificed, Succubus out, Shadow Bolt',
+      pet: succMult({}, SUCC_PACT), succ: SUCC_PACT,
       run: (o, b) => demo(o, b) },
-    { id: 'demo-deep', name: 'Demonology, deep', note: 'Imp sacrificed, Succubus out, Shadow Bolt, Searing Pain for Demonic Brand',
+    { id: 'demo-deep', name: 'Demonology, deep 5/31/15', note: 'Suppression 5, Imp sacrificed, Succubus out, Shadow Bolt, Searing Pain for Demonic Brand',
       pet: succMult({}, SUCC_DEEP), succ: SUCC_DEEP, petFn: deepPet, run: (o, b) => demoDeep(o, b) },
     { id: 'aff-sac', name: 'Affliction', note: 'Imp sacrificed, Wrack filler, Immolate kept up', pet: 0,
       run: (o, b) => aff(o, b, false) },

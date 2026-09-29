@@ -73,13 +73,14 @@ POTION_MANA = (1350 + 2250) / 2   # Major Mana Potion (13444), 2 min cooldown
 RUNE_MANA = (900 + 1500) / 2      # Demonic Rune / Dark Rune (12662 / 20520), own 2 min cooldown; the 600 to
                                   # 1000 life is treated like Life Tap's health: healed by the raid, no cost
 CONSUMABLE_REGEN = (FIGHT_S // 120 + 1) * (POTION_MANA + RUNE_MANA) / FIGHT_S   # 3 of each: 30 mana per s
-SWAP = (3.0, 570)              # Fel Domination summon + Soul Link recast: two GCDs, 24% + 20% of base mana
+SWAP = (7.5, 884)              # Imp summon under 35% without Fel Domination: 10 s cast - 4 s Master Summoner 2/2,
+                               # then Soul Link (GCD); 80% x 0.6 + 20% of base mana (about 1,300, assumed)
 # Succubus talents as (Soul Link x Unholy Power, Master Demonologist, Improved Sayaad). Master Demonologist is
 # +10% Shadow and Improved Sayaad +30% Lash of Pain, so both reach only her Lash of Pain share.
 SUCC_PLAIN = (1.0, 1.0, 1.0)                # Destruction 9/11/31 and Affliction 40/11/0: no demon talents
-SUCC_PACT = (1.03 * 1.02, 1.10, 1.30)       # Pact 0/31/20: Unholy Power 1/5, Improved Sayaad 3/3
-SUCC_DEEP = (1.03 * 1.10, 1.10, 1.30)       # deep 0/35/16: Unholy Power 5/5, Improved Sayaad 3/3
-DEEP_IMP_PET = 1.03 * 1.10 * 1.10 * 1.30    # Soul Link, Unholy Power 5/5, Master Demonologist (Imp), Improved Imp
+SUCC_PACT = (1.03 * 1.02, 1.10, 1.30)       # Pact 5/31/15: Unholy Power 1/5, Improved Sayaad 3/3
+SUCC_DEEP = (1.03 * 1.10, 1.10, 1.30)       # deep 5/31/15: Unholy Power 5/5, Improved Sayaad 3/3
+DEEP_IMP_PET = 1.03 * 1.10 * 1.10           # Soul Link, Unholy Power 5/5, Master Demonologist (Imp); no Improved Imp
 BRAND_PET = 1.03 * 1.10 * 1.10              # brand damage: Soul Link, Unholy Power, Master Demonologist (its school)
 SECOND = ' (2nd)'
 
@@ -379,13 +380,15 @@ def _demo_phase(sp2, c, lt, bane, allm, sh, fire, cat, immolate, regen, targets,
 
 def demo(sp, c, lt=840, bane='BoD', immolate=False, isb_mode='fixed', hit_penalty=0.0, isb_dur=12.0,
          fire_immune=False, coe=False, mp5=0.0, targets=1, execute=0.0, extra=(), soul_fire=None,
-         consumables=False):
-    """Demonology 0/31/20 (Pact): Imp sacrificed, Succubus out, Shadow Bolt. The build has Decimation 2/2, so
-    under 35% health Shadow Bolt deals 6% more and a free 2.4 s Soul Fire comes every 6 s (cast if it pays).
-    soul_fire: (cast s, cooldown s) outside execute, which costs a Soul Shard each (analysis only)."""
+         consumables=False, cat=1.0):
+    """Demonology with Pact, 5/31/15 since v8.1: Suppression 5 (so hit_penalty is the gap left after it), the
+    wowforeverbuilds Demonology 31, and Improved Shadow Bolt 5, Bane 5, Ruin 5. The old 0/31/20 had
+    Destructive Reach 2 and Cataclysm 3 (cat=0.9). Imp sacrificed, Succubus out, Shadow Bolt. Decimation 2/2:
+    under 35% health Shadow Bolt deals 6% more, and a free 2.4 s Soul Fire every 6 s is cast if it pays and
+    fits. soul_fire: (cast s, cooldown s) outside execute, one Soul Shard each (analysis only)."""
     sp2 = sp + 60                       # Demonic Knowledge
     sh = 1.15 * 1.10                    # Imp sac + Master Demonologist (Succubus)
-    allm = 1.03 * (1 - hit_penalty)     # Soul Link; optional missing-Suppression hit gap
+    allm = 1.03 * (1 - hit_penalty)     # Soul Link; hit below the boss cap
     if isb_mode == 'orig':              # raid.py: ISB only on Shadow Bolt, n = 3.6 SB per 12 s
         dstr, dotc = ev(c, 1.0), ev(c, 0.5)
         P = {'Corruption': (dmg(CORRUPTION, sp2) * sh * allm * dotc, 18, 2.0, 340),
@@ -395,7 +398,7 @@ def demo(sp, c, lt=840, bane='BoD', immolate=False, isb_mode='fixed', hit_penalt
             P['Immolate'] = ((dmg(IMMOLATE_HIT, sp2) + dmg(IMMOLATE_DOT, sp2)) * allm * dstr, 15, 1.5, 380 * 0.9)
         u = 1 - (1 - c) ** 3.6
         return solve(P, (dmg(SHADOW_BOLT, sp2) * sh * allm * dstr * (1 + 0.2 * u), 2.5, 380 * 0.9, 0.0), lt)
-    args = (sp2, c, lt, bane, allm, sh, 1.0, 0.9, immolate and not fire_immune, _regen(mp5, consumables), targets, isb_dur)
+    args = (sp2, c, lt, bane, allm, sh, 1.0, cat, immolate and not fire_immune, _regen(mp5, consumables), targets, isb_dur)
     p1 = _demo_phase(*args, soul_fire=soul_fire, extra=extra, coe=coe)
     x = exec_share(execute)
     if not x:
@@ -413,12 +416,14 @@ def _brand(attacks, rate, per_hit):
 def demo_deep_run(sp, c, lt=840, bane='BoD', immolate=True, hit_penalty=0.0, isb_dur=12.0, fire_immune=False,
                   coe=False, mp5=0.0, targets=1, execute=0.0, brand_attacks=BRAND_ATTACKS, weave=True,
                   exec_plan='best', pet_dps=50.0, imp_dps=None, brand_scaling='lock', consumables=False):
-    """Deep Demonology 0/35/16, a reader's build (talents and results in the raid v8 notes).
+    """Deep Demonology 5/31/15 (reader 510Kyle's revision of a reader's build; talents in the raid v8 notes):
+    Suppression 5, Demonology 31 with Demonic Brand 3 and Unholy Power 5, Improved Shadow Bolt 5, Bane 5, Ruin 5.
     Above 35%: Imp sacrificed, Succubus out, Shadow Bolt, and a Searing Pain every 10 s for Demonic Brand
     when it pays (weave). Under 35% there are two plans:
-      'imp' (the reader's): Fel Domination Imp, Soul Link recast, Searing Pain filler (brands the Imp's
-            attacks as often as it is cast) and Decimation Soul Fire. Summoning the Imp cancels the Imp sacrifice (Demonic Pact
-            tooltip) and Master Demonologist turns to +10% Fire.
+      'imp' (the first reader's): summon the Imp (6 s cast, no Fel Domination in this build), Soul Link recast,
+            Searing Pain filler (brands the Imp's attacks as often as it is cast) and Decimation Soul Fire.
+            Summoning the Imp cancels the Imp sacrifice (Demonic Pact tooltip) and Master Demonologist turns to
+            +10% Fire. No Improved Imp either.
       'succubus': keep her out, Shadow Bolt, the brand weave and Decimation Soul Fire when they pay.
     exec_plan 'best' (default) takes whichever plan does more damage in the execute phase, demons included
     (pet_dps: the Succubus, imp_dps: the Imp, default IMP_BASE). A demon with 0 damage has nothing to brand.
@@ -429,7 +434,7 @@ def demo_deep_run(sp, c, lt=840, bane='BoD', immolate=True, hit_penalty=0.0, isb
     hit = 1 - hit_penalty
     allm = 1.03 * hit
     sh = 1.15 * 1.10
-    tail = (0.97, immolate and not fire_immune, _regen(mp5, consumables), targets, isb_dur)     # Cataclysm 1/3
+    tail = (1.0, immolate and not fire_immune, _regen(mp5, consumables), targets, isb_dur)      # no Cataclysm
     # the brand needs your Searing Pain to land (hit) and the pet's attack to land (PET_HIT)
     per_hit = dmg(BRAND_HIT, sp2 if brand_scaling == 'lock' else PET_SP) * hit * PET_HIT * BRAND_PET
     branding = brand_attacks > 0 and not fire_immune       # 0 attacks: Demonic Brand is threat only
@@ -490,8 +495,8 @@ def spec_run(spec, sp, c, bane, gear_hit=0.11, execute=0.0, pet_dps=50.0, imp_dp
     for every other spec): race none, ISB 12 s. life_tap: mana per tap before Improved Life Tap (840 flat, or
     430 + Spirit). pet_dps / imp_dps matter only to demo-deep (Demonic Brand, the execute plan choice)."""
     o = {k: opts[k] for k in OPTION_KEYS if k in opts}
-    supp = 1 - max(0.0, 0.16 - gear_hit - 0.05)          # Affliction and Destruction have Suppression 5/5
-    pen = max(0.0, 0.16 - gear_hit)                       # the Demonology builds have none
+    supp = 1 - max(0.0, 0.16 - gear_hit - 0.05)          # every build has Suppression 5/5 (5% hit)
+    pen = max(0.0, 0.16 - gear_hit - 0.05)                # the same gap, passed into the Demonology functions
     if spec == 'aff-sac':
         return aff(sp, c, lt=life_tap, bane=bane, immolate=True, **o)[0] * supp, None
     if spec == 'aff-keep':
