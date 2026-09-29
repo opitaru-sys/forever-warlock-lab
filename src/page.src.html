@@ -1,0 +1,1374 @@
+<title>Forever Warlock Lab</title>
+<meta name="description" content="What to press, which talents and which race, at every level of a WoW: Forever Warlock. Checked against the beta's spell data, with live calculators.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+:root{
+  --ground:#F0F0F2; --surface:#FFFFFF; --ink:#15131A; --muted:#5A5664; --line:#DDDAE3;
+  --accent:#5A479C; --accent-ink:#FFFFFF; --accent-soft:#ECE8F6;
+  --fel:#2F6B10; --fel-soft:#E4F0DC; --amber:#8A5A00; --amber-soft:#FBF0DA; --blood:#9C2F29; --blood-soft:#F8E4E2;
+  --track:#E6E3EC; --bar:#5A479C;
+  --tt-bg:#0B1026; --tt-line:#6E7390; --tt-gold:#FFD100; --tt-green:#1EFF00; --tt-white:#FFFFFF; --tt-grey:#A3A3A3;
+  --display:"Cinzel", "Trajan Pro", Georgia, serif;
+  --body:"Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, Consolas, monospace;
+  --nav-h:52px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --ground:#0E0D12; --surface:#19171F; --ink:#ECEAF1; --muted:#A6A1B2; --line:#2C2935;
+    --accent:#9482C9; --accent-ink:#0E0D12; --accent-soft:#262036;
+    --fel:#8FD14F; --fel-soft:#1B2713; --amber:#E3A83E; --amber-soft:#2C2312; --blood:#E7766F; --blood-soft:#331A19;
+    --track:#26232E; --bar:#9482C9; --tt-bg:#0F1633; --tt-line:#9AA0BE;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --ground:#0E0D12; --surface:#19171F; --ink:#ECEAF1; --muted:#A6A1B2; --line:#2C2935;
+  --accent:#9482C9; --accent-ink:#0E0D12; --accent-soft:#262036;
+  --fel:#8FD14F; --fel-soft:#1B2713; --amber:#E3A83E; --amber-soft:#2C2312; --blood:#E7766F; --blood-soft:#331A19;
+  --track:#26232E; --bar:#9482C9; --tt-bg:#0F1633; --tt-line:#9AA0BE;
+}
+
+/* talent tree colors and race themes */
+:root{--aff:#7446B8;--aff-soft:#EFE8FA;--demo:#A8324F;--demo-soft:#F8E4EA;--destro:#C4561B;--destro-soft:#FBEADF;--race:#5A479C;--race-soft:#ECE8F6;--race-ink:#FFFFFF;--faction:#5A5664;--faction-2:#C8A14B}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--aff:#A98AE0;--aff-soft:#2A2140;--demo:#E0789A;--demo-soft:#3A1C27;--destro:#F0934F;--destro-soft:#3A2414}}
+:root[data-theme="dark"]{--aff:#A98AE0;--aff-soft:#2A2140;--demo:#E0789A;--demo-soft:#3A1C27;--destro:#F0934F;--destro-soft:#3A2414}
+:root[data-race="human"]{--race:#2F5DA8;--race-soft:#D3E0F5;--race-ink:#FFFFFF;--faction:#1E4C9A;--faction-2:#C8A14B}
+:root[data-race="gnome"]{--race:#177373;--race-soft:#CBEAE6;--race-ink:#FFFFFF;--faction:#1E4C9A;--faction-2:#C8A14B}
+:root[data-race="orc"]{--race:#9A3B22;--race-soft:#F0D3C8;--race-ink:#FFFFFF;--faction:#8C1C13;--faction-2:#3A2A1A}
+:root[data-race="troll"]{--race:#2E7D5B;--race-soft:#CDE8D9;--race-ink:#FFFFFF;--faction:#8C1C13;--faction-2:#3A2A1A}
+:root[data-race="undead"]{--race:#5F6E2E;--race-soft:#DFE4C6;--race-ink:#FFFFFF;--faction:#8C1C13;--faction-2:#3A2A1A}
+@media (prefers-color-scheme: dark){
+:root[data-race="human"]:not([data-theme="light"]){--race:#8FB0EA;--race-soft:#17223A;--race-ink:#0E0D12;--faction:#5D86D6;--faction-2:#D8B866}
+:root[data-race="gnome"]:not([data-theme="light"]){--race:#6FD1CF;--race-soft:#122B2B;--race-ink:#0E0D12;--faction:#5D86D6;--faction-2:#D8B866}
+:root[data-race="orc"]:not([data-theme="light"]){--race:#E8866A;--race-soft:#35190F;--race-ink:#0E0D12;--faction:#D0584A;--faction-2:#8A6A4A}
+:root[data-race="troll"]:not([data-theme="light"]){--race:#7FCFA6;--race-soft:#12281E;--race-ink:#0E0D12;--faction:#D0584A;--faction-2:#8A6A4A}
+:root[data-race="undead"]:not([data-theme="light"]){--race:#B9C77A;--race-soft:#23271A;--race-ink:#0E0D12;--faction:#D0584A;--faction-2:#8A6A4A}
+}
+:root[data-theme="dark"][data-race="human"]{--race:#8FB0EA;--race-soft:#17223A;--race-ink:#0E0D12;--faction:#5D86D6;--faction-2:#D8B866}
+:root[data-theme="dark"][data-race="gnome"]{--race:#6FD1CF;--race-soft:#122B2B;--race-ink:#0E0D12;--faction:#5D86D6;--faction-2:#D8B866}
+:root[data-theme="dark"][data-race="orc"]{--race:#E8866A;--race-soft:#35190F;--race-ink:#0E0D12;--faction:#D0584A;--faction-2:#8A6A4A}
+:root[data-theme="dark"][data-race="troll"]{--race:#7FCFA6;--race-soft:#12281E;--race-ink:#0E0D12;--faction:#D0584A;--faction-2:#8A6A4A}
+:root[data-theme="dark"][data-race="undead"]{--race:#B9C77A;--race-soft:#23271A;--race-ink:#0E0D12;--faction:#D0584A;--faction-2:#8A6A4A}
+
+/* race tint across the whole page */
+:root[data-race="human"]{--ground:#E9EEF7}
+:root[data-race="gnome"]{--ground:#E8F2F1}
+:root[data-race="orc"]{--ground:#F4ECE8}
+:root[data-race="troll"]{--ground:#E8F1EC}
+:root[data-race="undead"]{--ground:#EEF0E5}
+@media (prefers-color-scheme: dark){
+:root[data-race="human"]:not([data-theme="light"]){--ground:#0C1019}
+:root[data-race="gnome"]:not([data-theme="light"]){--ground:#0A1414}
+:root[data-race="orc"]:not([data-theme="light"]){--ground:#150D0A}
+:root[data-race="troll"]:not([data-theme="light"]){--ground:#0B130F}
+:root[data-race="undead"]:not([data-theme="light"]){--ground:#111309}
+}
+:root[data-theme="dark"][data-race="human"]{--ground:#0C1019}
+:root[data-theme="dark"][data-race="gnome"]{--ground:#0A1414}
+:root[data-theme="dark"][data-race="orc"]{--ground:#150D0A}
+:root[data-theme="dark"][data-race="troll"]{--ground:#0B130F}
+:root[data-theme="dark"][data-race="undead"]{--ground:#111309}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--ground);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;margin:0;padding-block:0 72px}
+.wrap{max-width:760px;margin:0 auto;padding-inline:16px}
+.wide{max-width:1120px}
+h1,h2{font-family:var(--display);font-weight:700;letter-spacing:.02em;text-wrap:balance;margin:0;line-height:1.15;color:var(--ink)}
+h1{font-size:46px}
+h2{font-size:28px}
+h3{font-family:var(--body);font-size:20px;font-weight:600;margin:0;line-height:1.3}
+p{margin:0}
+a{color:var(--accent);text-underline-offset:2px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.label,.k,th,.lab,.chip,.tag,.when,.eyebrow,legend{font-family:var(--mono);font-size:11.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+.note{color:var(--muted);font-size:14px}
+section{scroll-margin-top:calc(var(--nav-h) + 12px);display:flex;flex-direction:column;gap:18px;padding-block:32px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px}
+
+/* header */
+.hero-band{border-top:4px solid var(--faction);background:linear-gradient(180deg,var(--race-soft) 0%,var(--ground) 100%);position:relative;overflow:hidden}
+.hero-band::after{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:linear-gradient(90deg,transparent,var(--faction-2),transparent);opacity:.55}
+.hero{padding-block:36px 20px;display:flex;flex-direction:column;gap:14px;position:relative;z-index:1}
+.hero-band::before{content:attr(data-watermark);position:absolute;right:-12px;bottom:-34px;font-family:var(--display);font-size:170px;font-weight:700;line-height:1;letter-spacing:.04em;color:var(--race);opacity:.09;pointer-events:none;white-space:nowrap;z-index:0}
+@media (max-width:760px){.hero-band::before{font-size:84px;bottom:-14px}}
+.race-badge{align-self:flex-start;display:inline-flex;gap:8px;align-items:center;font-family:var(--mono);font-size:11.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--race);border:1px solid var(--race);border-radius:999px;padding:3px 10px;background:var(--surface)}
+.race-badge i{width:8px;height:8px;border-radius:50%;background:var(--faction);display:inline-block}
+.eyebrow{color:var(--muted)}
+.lede{font-size:19px;max-width:62ch}
+.trust{font-size:14.5px;color:var(--muted)}
+
+/* sticky nav */
+.toc{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--ground);border-bottom:1px solid var(--line)}
+.toc .wrap{display:flex;gap:6px;align-items:center;overflow-x:auto;height:var(--nav-h);scrollbar-width:none;max-width:none;padding-left:max(16px,calc((100% - 760px) / 2 + 16px))}
+.toc .wrap::-webkit-scrollbar{display:none}
+.toc a{white-space:nowrap;text-decoration:none;color:var(--ink);font-size:15px;padding:6px 12px;border-radius:999px}
+.toc a:hover{background:var(--accent-soft)}
+.toc a[aria-current="true"]{background:var(--accent);color:var(--accent-ink)}
+.toc .sep{width:1px;height:20px;background:var(--line);flex:0 0 auto;margin-inline:4px}
+
+/* details */
+details{border-top:1px solid var(--line)}
+details>summary{cursor:pointer;list-style:none;padding:12px 0;display:flex;align-items:center;gap:12px;font-weight:600}
+details>summary::-webkit-details-marker{display:none}
+details>summary::before{content:"";width:8px;height:8px;border-right:2px solid var(--accent);border-bottom:2px solid var(--accent);transform:rotate(-45deg);transition:transform .15s;flex:0 0 auto;margin-left:2px}
+details[open]>summary::before{transform:rotate(45deg)}
+@media (prefers-reduced-motion:reduce){details>summary::before{transition:none}}
+.dbody{padding:0 0 16px;display:flex;flex-direction:column;gap:12px}
+
+/* start */
+.onramp{display:flex;flex-direction:column;gap:10px}
+.onramp p{max-width:66ch}
+dl.gloss{display:grid;grid-template-columns:max-content 1fr;gap:6px 16px;margin:0;font-size:15.5px}
+dl.gloss dt{font-weight:700}
+dl.gloss dd{margin:0}
+@media (max-width:560px){dl.gloss{grid-template-columns:1fr;gap:2px}dl.gloss dd{margin-bottom:8px}}
+.verdict{list-style:none;margin:0;padding:0}
+.verdict li{display:grid;grid-template-columns:9.5em 1fr;gap:4px 18px;padding:14px 0;border-top:1px solid var(--line);scroll-margin-top:calc(var(--nav-h) + 12px)}
+.verdict li:first-child{border-top:0;padding-top:0}
+.verdict li:last-child{padding-bottom:0}
+.verdict .k{color:var(--accent);padding-top:4px}
+.verdict .go{font-size:15px;margin-top:4px;display:inline-block}
+@media (max-width:560px){.verdict li{grid-template-columns:1fr}}
+
+/* shared controls */
+.seg{display:flex;flex-wrap:wrap;gap:8px}
+.seg button{font:inherit;font-size:15px;min-height:40px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:6px 14px;cursor:pointer;display:inline-flex;gap:8px;align-items:center}
+.seg button:hover{border-color:var(--accent)}
+.seg button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.race-seg button[aria-pressed="true"]{background:var(--race);border-color:var(--race);color:var(--race-ink)}
+.seg .fac{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;opacity:.8}
+.seg.compact button{min-height:34px;padding:4px 11px;font-size:14px}
+fieldset{border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:8px;min-width:0}
+legend{color:var(--muted);padding:0;margin-bottom:6px}
+.ctrl{display:grid;grid-template-columns:1fr 88px;gap:6px 12px;align-items:center}
+.ctrl label{grid-column:1/-1;font-size:15px;font-weight:600}
+.ctrl .hint{grid-column:1/-1;font-size:13.5px;color:var(--muted);margin-top:-4px}
+input[type=range]{width:100%;accent-color:var(--accent);height:28px;margin:0}
+input[type=number],select{font:inherit;font-size:16px;width:100%;padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--ground);color:var(--ink);font-family:var(--mono)}
+select{font-family:var(--body)}
+.check{display:inline-flex;gap:10px;align-items:center;font-size:15px;min-height:40px}
+.check input{accent-color:var(--accent);width:20px;height:20px}
+@media (max-width:560px){.seg button{min-height:44px}.seg.compact button{min-height:40px}}
+
+/* your warlock */
+.you-controls{display:grid;gap:18px}
+.lvlrow{display:grid;grid-template-columns:44px 1fr 44px 72px;gap:10px;align-items:center}
+.stepbtn{font:inherit;font-size:22px;line-height:1;height:44px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;cursor:pointer}
+.stepbtn:hover{border-color:var(--accent)}
+.lvlchips{display:flex;gap:6px;flex-wrap:wrap}
+.lvlchips button{font:inherit;font-family:var(--mono);font-size:13px;min-height:36px;min-width:44px;border:1px solid var(--line);background:none;color:var(--ink);border-radius:8px;cursor:pointer}
+.lvlchips button[aria-pressed="true"]{border-color:var(--accent);color:var(--accent);font-weight:600}
+.you-grid{display:grid;grid-template-columns:1fr;gap:16px}
+.card{display:flex;flex-direction:column;gap:14px}
+.card-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.lvl-big{font-family:var(--display);font-size:40px;line-height:1;color:var(--race)}
+#raceCard{border-top:3px solid var(--race)}
+#raceCard h3{color:var(--race)}
+#planCard{border-top:3px solid var(--race)}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px 22px}
+.fact{display:flex;flex-direction:column;gap:2px}
+.fact .lab{color:var(--muted)}
+.fact .val{font-weight:700;font-size:17px;line-height:1.35}
+.fact .sub{font-size:14.5px;color:var(--muted)}
+.racials{list-style:none;margin:0;padding:0;display:grid;gap:6px;font-size:15.5px}
+.tlist{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.tlist li{font-size:14px;background:var(--ground);border:1px solid var(--line);border-radius:6px;padding:2px 8px}
+.tlist li.fresh{border-color:var(--fel);color:var(--fel);font-weight:600}
+.dlist{list-style:none;margin:0;padding:0;display:grid;gap:4px;font-size:15px}
+.dlist .far{color:var(--muted)}
+.tag{padding:1px 6px;border-radius:999px;background:var(--fel-soft);color:var(--fel);margin-left:6px;white-space:nowrap;font-size:10.5px}
+.pill{display:inline-block;padding:2px 8px;border-radius:999px;background:var(--accent-soft);color:var(--accent)}
+.fact .go{font-size:14.5px;margin-top:4px}
+
+/* dungeons */
+.dng{display:flex;flex-direction:column;gap:12px}
+.dng-top{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;justify-content:space-between}
+.dng-lvl{display:flex;align-items:center;gap:10px}
+.dng-lvl .stepbtn{width:44px}
+.dng-lvl .num{font-family:var(--display);font-size:30px;line-height:1;color:var(--race);min-width:2ch;text-align:center}
+.dng-lvl .lab{color:var(--muted)}
+.dng-sum{font-size:15.5px}
+.dng-chart{--lv:40%;list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.dng-axis,.dng-row{display:grid;grid-template-columns:minmax(200px,260px) 1fr;gap:4px 14px;align-items:center}
+.dng-axis{padding:0 8px 6px}
+.dng-axis .ticks{position:relative;height:22px;font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+.dng-axis .ticks span{position:absolute;top:3px;transform:translateX(-50%)}
+.dng-axis .ticks span:first-child{transform:none}
+.dng-axis .ticks span:last-of-type{transform:translateX(-100%)}
+.dng-axis .you{position:absolute;top:0;left:var(--lv);transform:translateX(-50%);font-family:var(--mono);font-size:12px;font-weight:600;background:var(--race);color:var(--race-ink);border-radius:999px;padding:1px 8px;z-index:1;white-space:nowrap}
+.dng-row{font:inherit;color:var(--ink);text-align:left;background:none;border:0;border-radius:8px;padding:5px 8px;cursor:pointer;width:100%}
+.dng-row:hover{background:var(--ground)}
+.dng-name{font-size:15px;line-height:1.3}
+.dng-name small{display:block;color:var(--muted);font-size:12.5px;font-family:var(--mono);letter-spacing:.02em}
+.dng-track{position:relative;height:14px;background:var(--track);border-radius:4px}
+.dng-track::after{content:"";position:absolute;top:-6px;bottom:-6px;left:var(--lv);width:2px;margin-left:-1px;background:var(--race);opacity:.9}
+.dng-bar{position:absolute;top:0;bottom:0;border-radius:4px;background:var(--muted);opacity:.4}
+.dng-row.fit{background:var(--race-soft)}
+.dng-row.fit .dng-name{font-weight:700}
+.dng-row.fit .dng-bar{background:var(--race);opacity:1}
+.dng-row.away .dng-name{color:var(--muted)}
+.dng-row.away .dng-bar{background:repeating-linear-gradient(135deg,var(--muted) 0 3px,transparent 3px 6px);opacity:.7}
+.dng-row.fit.away .dng-bar{background:repeating-linear-gradient(135deg,var(--race) 0 3px,transparent 3px 6px);opacity:1}
+@media (max-width:560px){
+  .dng-axis,.dng-row{grid-template-columns:1fr}
+  .dng-axis>span:first-child{display:none}
+  .dng-track{height:10px}
+}
+
+/* tables */
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:15.5px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+thead th{color:var(--muted);background:var(--ground)}
+tbody th{font-family:var(--body);font-size:15.5px;font-weight:600;letter-spacing:0;text-transform:none}
+tr:last-child>*{border-bottom:0}
+td.r,th.r{text-align:right;font-family:var(--mono);font-size:14px;font-variant-numeric:tabular-nums;white-space:nowrap}
+td .na{font-family:var(--body);color:var(--muted)}
+tr.hl>*{background:var(--race-soft)}
+tr.top th{font-weight:700}
+.scrollx table{min-width:600px}
+.scrollx tbody th{position:sticky;left:0;background:var(--surface);z-index:1}
+.scrollx thead th:first-child{position:sticky;left:0;z-index:2}
+.swipe{display:none}
+@media (max-width:560px){
+  .swipe{display:block}
+  table.stack thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  table.stack tr{display:grid;grid-template-columns:1fr 1fr;gap:6px 12px;padding:12px;border-bottom:1px solid var(--line)}
+  table.stack tr:last-child{border-bottom:0}
+  table.stack th,table.stack td{border:0;padding:0;text-align:left;white-space:normal;background:none}
+  table.stack tbody th{grid-column:1/-1;font-size:16px}
+  table.stack td.wide{grid-column:1/-1}
+  table.stack td::before{content:attr(data-label);display:block;font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  table.stack tr.hl{background:var(--accent-soft)}
+}
+
+/* tooltip cards: the one bold element */
+.specs{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
+.tt{background:var(--tt-bg);color:var(--tt-white);border:1px solid var(--tt-line);border-radius:6px;padding:16px 18px;box-shadow:0 0 0 1px #000 inset,0 10px 28px rgba(8,6,24,.28);font-size:15px;line-height:1.5;display:flex;flex-direction:column;gap:6px}
+.tt .name{font-family:var(--display);color:var(--tt-gold);font-size:20px;font-weight:700;letter-spacing:.02em}
+.tt .sub{color:var(--tt-grey);font-size:13.5px}
+.tt .use{color:var(--tt-green)}
+.tt .grey{color:var(--tt-grey);font-size:14px}
+.tt ul{list-style:none;margin:2px 0 0;padding:0;display:grid;gap:2px}
+.tt .split{font-family:var(--mono);color:var(--tt-gold);font-size:13px}
+
+/* raid */
+.raid-grid{display:grid;grid-template-columns:1fr;gap:20px;align-items:start}
+@media (min-width:1000px){
+  .raid-grid{grid-template-columns:340px 1fr}
+  .raid-results{position:sticky;top:calc(var(--nav-h) + 16px)}
+}
+.intro{display:flex;flex-direction:column;gap:18px;width:100%}
+.raid-controls{display:flex;flex-direction:column;gap:16px}
+.raid-results{display:flex;flex-direction:column;gap:14px}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:13.5px;color:var(--muted);align-items:center}
+.sw{display:inline-block;width:14px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.sw.lock{background:var(--bar)}
+.sw.pet{background:repeating-linear-gradient(135deg,var(--muted) 0 3px,transparent 3px 6px);box-shadow:inset 0 0 0 1px var(--muted)}
+.sw.lock{background:var(--muted)}
+.bar-pet{background:repeating-linear-gradient(135deg,var(--tc,var(--bar)) 0 3px,transparent 3px 6px);box-shadow:inset 0 0 0 1px var(--tc,var(--bar))}
+.sw.aff{background:var(--aff)} .sw.demo{background:var(--demo)} .sw.destro{background:var(--destro)}
+.bars{display:grid;gap:12px}
+.bar-row{display:grid;grid-template-columns:minmax(170px,230px) 1fr 76px 58px;gap:6px 12px;align-items:center;border-radius:6px}
+.bar-name{font-size:15px;line-height:1.3}
+.bar-name .cap{display:block;color:var(--muted);font-size:13px;font-weight:400}
+.bar-name strong{font-weight:600}
+.bar-row.win .bar-name strong{font-weight:700}
+.bar-track{height:20px;background:var(--track);border-radius:4px;display:flex;overflow:hidden}
+.bar-lock{background:var(--tc,var(--bar));height:100%}
+.bar-row.t-aff{--tc:var(--aff)} .bar-row.t-demo{--tc:var(--demo)} .bar-row.t-destro{--tc:var(--destro)}
+.bar-name strong::before{content:"";display:inline-block;width:9px;height:9px;border-radius:2px;background:var(--tc,var(--bar));margin-right:7px;vertical-align:1px}
+.bar-pet{height:100%;border-left:2px solid var(--surface)}
+.bar-val{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:right;font-weight:600;font-size:14.5px;white-space:nowrap}
+.bar-gap{font-family:var(--mono);font-size:13px;color:var(--muted);text-align:right;white-space:nowrap}
+.bar-row.win .bar-gap{color:var(--fel);font-weight:600}
+.bar-row.moved{box-shadow:0 0 0 2px var(--accent)}
+@media (prefers-reduced-motion:no-preference){.bar-lock,.bar-pet{transition:width .25s ease}.bar-row{transition:box-shadow .6s}}
+@media (max-width:640px){.bar-row{grid-template-columns:1fr auto auto}.bar-name{grid-column:1/-1}}
+.verdict-line{font-size:17px;border-left:3px solid var(--accent);padding:2px 0 2px 14px}
+.tie{font-size:14.5px;color:var(--muted)}
+
+/* compare */
+.cmp{display:grid;grid-template-columns:110px repeat(3,minmax(0,1fr));gap:8px 10px;align-items:center}
+.cmp .h{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.cmp .rowlab{font-weight:600;font-size:15px}
+@media (max-width:560px){.cmp{grid-template-columns:repeat(3,minmax(0,1fr))}.cmp .corner{display:none}.cmp .rowlab{grid-column:1/-1;margin-top:6px}}
+.cmp-out{font-size:17px}
+.cmp-out b{font-family:var(--mono)}
+
+/* claims */
+.group-h{margin-top:10px;margin-bottom:2px}
+.chip{display:inline-block;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.c-proof{background:var(--fel-soft);color:var(--fel)}
+.c-test{background:var(--amber-soft);color:var(--amber)}
+.c-bust{background:var(--blood-soft);color:var(--blood)}
+.c-known{background:var(--accent-soft);color:var(--accent)}
+.claims details>summary{font-size:17px}
+.claims .dbody p{max-width:68ch}
+
+/* tests */
+.tests{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.tests li{background:var(--surface);border:1px solid var(--line);border-radius:12px;scroll-margin-top:calc(var(--nav-h) + 12px)}
+.tests label{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start;padding:14px 16px;cursor:pointer}
+.tests input{width:22px;height:22px;margin-top:3px;accent-color:var(--fel)}
+.tests li.done{opacity:.6}
+.tests .when{color:var(--muted)}
+.callout{border-left:3px solid var(--accent);padding:4px 0 4px 14px}
+.src{font-size:14.5px;display:grid;gap:4px;margin:0;padding-left:18px}
+
+
+/* talent builder */
+.btop{display:grid;grid-template-columns:1fr;gap:16px}
+@media (min-width:900px){.btop{grid-template-columns:1.1fr 1fr}}
+.bcontrols{display:grid;gap:14px}
+.brow{display:flex;flex-wrap:wrap;gap:12px 18px;align-items:end}
+.brow .fld{display:flex;flex-direction:column;gap:4px;min-width:150px;flex:1}
+.brow .fld label{font-size:13.5px;font-weight:600}
+.blvl{display:flex;align-items:center;gap:8px}
+.blvl .num{font-family:var(--display);font-size:28px;min-width:2ch;text-align:center;color:var(--race)}
+.bscore{display:flex;flex-direction:column;gap:8px}
+.bspk{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.bspk b{font-family:var(--display);font-size:38px;line-height:1}
+.bvs{font-weight:600}
+.bvs.up{color:var(--fel)} .bvs.down{color:var(--blood)}
+.bnotes{margin:0;padding-left:18px;font-size:14px;color:var(--muted);display:grid;gap:3px}
+.blink{display:flex;gap:8px}
+.blink input{font-family:var(--mono);font-size:13px}
+.blink button{font:inherit;font-size:14px;white-space:nowrap;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;padding:6px 12px;cursor:pointer}
+.btabs{display:none}
+.btrees{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.btree{border:1px solid var(--line);border-radius:12px;background:var(--surface);overflow:hidden}
+.btree.t0{--tc:var(--aff);--tcs:var(--aff-soft)} .btree.t1{--tc:var(--demo);--tcs:var(--demo-soft)} .btree.t2{--tc:var(--destro);--tcs:var(--destro-soft)}
+.btree h3{font-family:var(--display);font-size:17px;letter-spacing:.03em;padding:10px 14px;background:linear-gradient(90deg,var(--tcs),var(--surface));border-bottom:2px solid var(--tc);color:var(--tc)}
+.bgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(7,auto);gap:6px;padding:10px}
+.tal{font:inherit;position:relative;min-height:58px;padding:5px 5px 16px;border:1px solid var(--line);border-radius:8px;background:var(--ground);color:var(--ink);cursor:pointer;text-align:left;display:flex;flex-direction:column;justify-content:flex-start}
+.tal .tn{font-size:11.5px;line-height:1.2;font-weight:600;padding-right:9px;hyphens:manual;-webkit-hyphens:manual;overflow-wrap:break-word}
+.tal .tr{position:absolute;right:5px;bottom:3px;font-family:var(--mono);font-size:11px;color:var(--muted)}
+.tal::after{content:"";position:absolute;top:5px;right:5px;width:7px;height:7px;border-radius:50%}
+.tal.s-yes::after{background:var(--tc)}
+.tal.s-utility::after{box-shadow:inset 0 0 0 1.5px var(--muted)}
+.tal.s-later::after{background:var(--amber)}
+.tal.some{border-color:var(--tc);background:var(--tcs)}
+.tal.max{border-color:var(--tc);background:var(--tc);color:#fff}
+.tal.max .tr{color:rgba(255,255,255,.85)}
+.tal.max.s-yes::after{background:#fff}
+.tal.locked{opacity:.45}
+.tal.sel{outline:2px solid var(--ink);outline-offset:1px}
+.tal:hover{border-color:var(--tc)}
+.binfo{display:grid;gap:6px}
+.binfo .top{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.binfo .btns{display:flex;gap:8px}
+.binfo .btns button{font:inherit;font-size:20px;width:44px;height:40px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;cursor:pointer}
+.binfo .btns button:disabled{opacity:.35;cursor:default}
+.blegend{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--muted);align-items:center}
+.blegend i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px}
+@media (max-width:760px){
+  .btabs{display:flex}
+  .btrees{grid-template-columns:1fr}
+  .btree:not(.on){display:none}
+}
+
+
+/* game icons (Blizzard art via Wowhead) */
+.ico{width:36px;height:36px;border-radius:5px;box-shadow:0 0 0 1px rgba(0,0,0,.55),0 1px 2px rgba(0,0,0,.25);display:inline-block;vertical-align:middle;flex:0 0 auto;background:#111}
+.ico.s{width:20px;height:20px;border-radius:4px}
+.ico.m{width:28px;height:28px}
+.ico.l{width:44px;height:44px;border-radius:7px}
+.title-row{display:flex;align-items:center;gap:16px}
+.seg button .ico.s{margin-left:-6px}
+.navrace .ico.s{width:22px;height:22px;border-radius:50%;margin-left:-6px;box-shadow:0 0 0 2px var(--faction-2)}
+.racials li{display:flex;gap:10px;align-items:flex-start}
+.racials .noico{width:20px;flex:0 0 auto}
+.combo{display:flex;flex-wrap:wrap;gap:6px 4px;align-items:center;margin:4px 0 2px}
+.combo .stepi{display:inline-flex;align-items:center;gap:4px}
+.combo .stepi+.stepi::before{content:"";width:6px;height:6px;border-top:2px solid var(--muted);border-right:2px solid var(--muted);transform:rotate(45deg);margin:0 5px 0 1px;opacity:.7}
+.bar-name strong::before{display:none}
+.bar-name strong{display:inline-flex;align-items:center;gap:8px}
+.tt .name-row{display:flex;align-items:center;gap:12px}
+.tt .name-row .ico{box-shadow:0 0 0 1px var(--tt-line)}
+/* talent cells like the in-game talent window */
+.tal{align-items:flex-start;gap:4px;min-height:84px;padding:6px 6px 6px}
+.tal .icw{position:relative;display:inline-block}
+.tal .icw .ico{width:36px;height:36px}
+.tal .tr{position:absolute;right:-8px;bottom:-6px;background:#0B0B0F;color:#F2F2F2;border-radius:6px;padding:0 4px;font-size:10.5px;line-height:15px;border:1px solid #555}
+.tal .tn{font-size:11px;padding-right:0;margin-top:5px}
+.tal::after{top:6px;right:6px}
+.tal .icw .ico{box-shadow:0 0 0 2px #6b6b6b}
+.tal.avail .icw .ico{box-shadow:0 0 0 2px #3FA535}
+.tal.some .icw .ico{box-shadow:0 0 0 2px #3FA535}
+.tal.some .tr{color:#7CFC6A;border-color:#3FA535}
+.tal.max .icw .ico{box-shadow:0 0 0 2px #E6B422}
+.tal.max .tr{color:#FFD65A;border-color:#E6B422}
+.tal.max{background:var(--tcs);color:var(--ink)}
+.tal.locked .icw .ico{filter:grayscale(1) brightness(.75)}
+.tal.locked{opacity:.6}
+.binfo .top .ico{width:36px;height:36px}
+.credit{font-size:13px;color:var(--muted)}
+
+/* phone leader strip */
+.strip{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--surface);border-top:1px solid var(--line);box-shadow:0 -6px 18px rgba(8,6,24,.12);padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));font-size:15px;display:flex;gap:10px;align-items:baseline;justify-content:space-between}
+.strip b{font-family:var(--mono)}
+@media (min-width:1000px){.strip{display:none!important}}
+
+@media (max-width:560px){
+  h1{font-size:34px} h2{font-size:22px} h3{font-size:18px}
+  section{padding-block:24px}
+  .lede{font-size:17.5px}
+  .panel{padding:14px}
+}
+
+/* race accents: kept last so they win over the base rules */
+h2::before{content:"";display:inline-block;width:11px;height:11px;transform:rotate(45deg);background:var(--race);margin-right:14px;vertical-align:5px;box-shadow:0 0 0 3px var(--race-soft)}
+.panel{border-top:3px solid var(--race)}
+.bspk b{color:var(--race)}
+.navrace{position:sticky;left:0;z-index:2;box-shadow:-24px 0 0 6px var(--ground),6px 0 8px -2px var(--ground);display:inline-flex;align-items:center;gap:8px;white-space:nowrap;text-decoration:none;font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--race-ink)!important;background:var(--race)!important;padding:6px 12px!important;border-radius:999px;margin-right:6px}
+.navrace i{width:8px;height:8px;border-radius:50%;background:var(--faction-2);display:inline-block;box-shadow:0 0 0 2px var(--race-soft)}
+.toc{border-bottom:2px solid var(--race)}
+</style>
+
+<header class="hero-band" data-watermark="">
+<div class="wrap hero">
+  <span class="eyebrow">WoW: Forever · Warlock · beta data · v6 · 29 Sep 2026</span>
+  <div class="title-row"><img class="ico l" data-icon="classicon_warlock" alt="Warlock class icon"><h1>Forever Warlock Lab</h1></div>
+  <p class="lede">What to press, which talents to take and which race to play, at every level from 1 to 60. Checked against the Forever beta's own spell data, with calculators you can play with.</p>
+  <p class="trust">Built with Claude and checked by a second, adversarial Claude session. Open source. <a href="#method">How it was checked</a> · <a href="#changelog">What changed</a></p>
+  <a class="race-badge" href="#you" id="raceBadge"><i></i><span></span></a>
+</div>
+</header>
+
+<nav class="toc" aria-label="Sections">
+  <div class="wrap">
+    <a class="navrace" href="#you" aria-label="Your race, change it"><img class="ico s" id="navRaceIco" alt=""><span id="navRace">Human</span></a>
+    <a href="#start">Start</a>
+    <a href="#you">Your Warlock</a>
+    <a href="#dungeons">Dungeons</a>
+    <a href="#builder">Talent builder</a>
+    <a href="#specs">Specs at 60</a>
+    <span class="sep" aria-hidden="true"></span>
+    <a href="#raid">Raid calculator</a>
+    <a href="#upgrades">Item upgrades</a>
+    <span class="sep" aria-hidden="true"></span>
+    <a href="#proof">Proof</a>
+    <a href="#tests">Help test</a>
+  </div>
+</nav>
+
+<main>
+<section id="start" class="wrap">
+  <h2>The short answer</h2>
+  <div class="onramp">
+    <p><b>New to Warlocks?</b> You win by attrition. You stack damage-over-time spells (DoTs) on a target, let a demon pet tank or fight, and trade your own health for mana with Life Tap, then drain the health back. Forever made this style stronger: its DoTs scale with your gear far better than your direct nukes do.</p>
+    <details>
+      <summary>Glossary of the terms on this page</summary>
+      <div class="dbody">
+        <dl class="gloss">
+          <dt>DoT</dt><dd>Damage over time. A spell that keeps hurting the target for a while, like Corruption.</dd>
+          <dt>Filler</dt><dd>What you cast while your DoTs are ticking: wand, Drain Life, Shadow Bolt or Incinerate.</dd>
+          <dt>Wand</dt><dd>A ranged weapon that shoots for free. Early on it is your best filler.</dd>
+          <dt>Spell power (SP)</dt><dd>The gear stat that makes every spell hit harder.</dd>
+          <dt>GCD</dt><dd>Global cooldown. The 1.5 seconds after most spells before you can cast the next one.</dd>
+          <dt>Proc</dt><dd>A random bonus that triggers on its own, like Nightfall's free instant Shadow Bolt.</dd>
+          <dt>Sacrifice</dt><dd>Demonic Sacrifice: kill your own demon for a 2-hour buff. In Forever the Imp gives Shadow damage and the Succubus gives Fire damage.</dd>
+          <dt>Hit cap</dt><dd>Against raid bosses, 16% hit stops your spells missing. Below it, each missing 1% costs about 1% of damage.</dd>
+          <dt>28/23/0</dt><dd>Talent points in Affliction, Demonology and Destruction, in that order.</dd>
+          <dt>Bane and Curse</dt><dd>Forever split them into two slots, so you can keep one Bane and one Curse on the same target.</dd>
+          <dt>Drain tank</dt><dd>Leveling by letting your pet hold the mob while Drain Life heals you.</dd>
+        </dl>
+      </div>
+    </details>
+  </div>
+  <div class="panel">
+    <ul class="verdict">
+      <li id="v-lvl1"><span class="k">Levels 10 to 33</span><span><b>Affliction, instant Corruption first, then wand as your filler.</b> Not Shadow Bolt, not Drain Life yet. Talents barely matter here: every sane build lands within 3% of the best.<br><a class="go" href="#lvl-20">Open the planner at level 20</a></span></li>
+      <li id="v-lvl2"><span class="k">Levels 34 to 55</span><span><b>Drain Life becomes the filler the moment Soul Siphon is done.</b> Keep leveling Affliction-first.<br><a class="go" href="#lvl-40">Open the planner at level 40</a></span></li>
+      <li id="v-solo"><span class="k">Solo from 56</span><span><b>Switch to a Demonic Knowledge splash, 28/23/0.</b> It kills 5 to 7% faster than deep Affliction or the wowforeverbuilds drain-tank build, and held up when spell power tripled and pet damage halved.<br><a class="go" href="#specs">See the solo spec</a></span></li>
+      <li id="v-group"><span class="k">Group at 60</span><span><b>Destruction built around Incinerate, not Shadow Bolt.</b> 4 to 7% ahead of the wowforeverbuilds Shadow Bolt build. Your Succubus decides the rest: sacrifice her under about 8% of your damage, keep her out above that, Demonology only above about 17 to 20%.<br><a class="go" href="#raid">Try the raid calculator</a></span></li>
+      <li id="v-race"><span class="k">Race</span><span><b>Undead levels fastest. A Human with a caster sword does the most raid damage.</b> Every racial is worth under 2% of raid damage, so pick the race you like.<br><a class="go" href="#you">Compare the races</a></span></li>
+      <li id="v-dng"><span class="k">Dungeons</span><span><b>The first ones open at level 13.</b> Every dungeon sits on one level line, filtered to your faction, with the ones that fit your level marked.<br><a class="go" href="#dungeons">See every dungeon by level</a></span></li>
+    </ul>
+  </div>
+</section>
+
+<section id="you" class="wrap">
+  <h2>Your Warlock</h2>
+  <p>Pick a race and a level. The level plan, the dungeon list, the race card and the raid calculator all follow these two choices.</p>
+  <div class="panel you-controls">
+    <fieldset><legend>Race</legend><div class="seg race-seg" data-compact="0"></div></fieldset>
+    <fieldset>
+      <legend>Level</legend>
+      <div class="lvlrow">
+        <button type="button" class="stepbtn" id="lvlDown" aria-label="One level lower">−</button>
+        <input type="range" id="lvl" min="1" max="60" value="30" aria-label="Character level">
+        <button type="button" class="stepbtn" id="lvlUp" aria-label="One level higher">+</button>
+        <input type="number" id="lvlNum" min="1" max="60" value="30" inputmode="numeric" aria-label="Character level, typed">
+      </div>
+      <div class="lvlchips" id="lvlChips" role="group" aria-label="Jump to level"></div>
+    </fieldset>
+  </div>
+  <div class="you-grid">
+    <div class="panel card" id="planCard">
+      <div class="card-head"><span class="lvl-big" id="lvlBig">30</span><span class="pill label" id="lvlPhase"></span><span class="note" id="lvlPts"></span></div>
+      <div class="facts">
+        <div class="fact"><span class="lab">What to press</span><div class="combo" id="pCombo" aria-hidden="true"></div><span class="val" id="pRot"></span><span class="sub" id="pRotSub"></span></div>
+        <div class="fact"><span class="lab">Pet</span><span class="val" id="pPet" style="display:flex;align-items:center;gap:8px"></span><span class="sub" id="pPetSub"></span></div>
+        <div class="fact"><span class="lab">New at this level</span><span class="val" id="pNew"></span><span class="sub" id="pNewSub"></span></div>
+        <div class="fact"><span class="lab">Dungeons that fit</span><ul class="dlist" id="pDung"></ul><span class="sub" id="pDungSub"></span><a class="go" href="#dungeons">All dungeons by level</a></div>
+      </div>
+      <div class="fact"><span class="lab">Talents at this level</span><ul class="tlist" id="pTal"></ul></div>
+      <p class="note" id="pGear"></p>
+      <p class="note" id="pRace"></p>
+    </div>
+    <div class="panel card" id="raceCard"></div>
+  </div>
+  <details>
+    <summary>Compare all five races</summary>
+    <div class="dbody">
+      <div class="tbl" role="region" aria-label="Race comparison" tabindex="0"><table class="stack">
+        <thead><tr><th scope="col">Race</th><th scope="col">Leveling</th><th scope="col" class="r">Raid damage</th><th scope="col">PvP</th></tr></thead>
+        <tbody id="raceTable"></tbody>
+      </table></div>
+      <p class="note">Raid damage is the gain over no racials for the top build, at the raid calculator's current settings.</p>
+    </div>
+  </details>
+</section>
+
+<section id="dungeons" class="wrap">
+  <h2>Dungeons</h2>
+  <p>Every Forever dungeon on one level line. The marker is your level. Pick a dungeon to jump to the level it opens.</p>
+  <div class="panel dng">
+    <div class="dng-top">
+      <div class="dng-lvl">
+        <button type="button" class="stepbtn" id="dngDown" aria-label="One level lower">−</button>
+        <span class="lab">Level</span><span class="num" id="dngLvl">30</span>
+        <button type="button" class="stepbtn" id="dngUp" aria-label="One level higher">+</button>
+      </div>
+      <fieldset><legend class="sr-only">Show dungeons from</legend><div class="seg compact" id="dngSide"><button type="button" data-v="mine" aria-pressed="true">Your side</button><button type="button" data-v="all" aria-pressed="false">Both factions</button></div></fieldset>
+    </div>
+    <p class="dng-sum" id="dngSum"></p>
+    <ul class="dng-chart" id="dngChart" aria-label="Dungeons by level"></ul>
+    <p class="note">Highlighted dungeons fit your level, counting one level early. Ranges for dungeons new in Forever are published. Ranges for returning dungeons are estimates around Forever's recommended level.</p>
+  </div>
+</section>
+
+<section id="builder" lang="en">
+  <div class="wrap intro">
+    <h2>Talent builder</h2>
+    <p>Build your own tree, pick a demon, and see how fast it levels next to the page plan. Click to add a point. Shift-click or right-click removes one, or use the − and + under the tree.</p>
+  </div>
+  <div class="wrap wide" style="display:flex;flex-direction:column;gap:16px">
+    <div class="btop">
+      <div class="panel bcontrols">
+        <div class="brow">
+          <div class="fld" style="flex:0 0 auto;min-width:0"><span class="label">Level</span>
+            <div class="blvl"><button type="button" class="stepbtn" id="bLvlDown" aria-label="One level lower">−</button><span class="num" id="bLevel">30</span><button type="button" class="stepbtn" id="bLvlUp" aria-label="One level higher">+</button></div>
+          </div>
+          <div class="fld"><span class="label">Points</span><span id="bPts" style="font-weight:600;padding-block:8px"></span></div>
+        </div>
+        <div class="brow">
+          <div class="fld"><label for="bPet">Demon out</label><select id="bPet"></select></div>
+          <div class="fld"><label for="bSac">Sacrificed</label><select id="bSac"></select></div>
+          <div class="fld"><label for="bGear">Gear</label><select id="bGear"><option value="1">Leveling greens</option><option value="2">Good gear for the level</option></select></div>
+        </div>
+        <label class="check" id="bAggroWrap"><input type="checkbox" id="bAggro"> My demon holds the mob (the Demonic Brand case)</label>
+        <fieldset><legend>Start from</legend><div class="seg compact" id="bPresets"></div></fieldset>
+      </div>
+      <div class="panel bscore" aria-live="off">
+        <span class="label" style="color:var(--muted)">Seconds per kill, walking and resting included</span>
+        <div class="bspk"><b id="bSpk"></b><span id="bKph" class="note" style="font-size:15px"></span></div>
+        <span class="note" id="bSplit"></span>
+        <span class="bvs" id="bVs"></span>
+        <span><span class="label" style="color:var(--muted)">Best rotation</span><br><span id="bRot" style="font-weight:600"></span></span>
+        <ul class="bnotes" id="bNotes"></ul>
+        <div class="blink"><input type="text" id="bLink" readonly aria-label="Link to this build"><button type="button" id="bCopy">Copy link</button></div>
+        <span class="sr-only" id="bSummary"></span>
+      </div>
+    </div>
+    <div class="seg compact btabs" id="bTabs" role="group" aria-label="Talent tree">
+      <button type="button" data-t="0">Affliction</button><button type="button" data-t="1">Demonology</button><button type="button" data-t="2">Destruction</button>
+    </div>
+    <div class="btrees">
+      <div class="btree t0" data-t="0"><h3 id="bTreeHead0">Affliction</h3><div class="bgrid" id="bTree0" role="group" aria-label="Affliction talents"></div></div>
+      <div class="btree t1" data-t="1"><h3 id="bTreeHead1">Demonology</h3><div class="bgrid" id="bTree1" role="group" aria-label="Demonology talents"></div></div>
+      <div class="btree t2" data-t="2"><h3 id="bTreeHead2">Destruction</h3><div class="bgrid" id="bTree2" role="group" aria-label="Destruction talents"></div></div>
+    </div>
+    <div class="panel binfo">
+      <div class="top"><img class="ico" id="bInfoIco" alt=""><h3 id="bInfoName"></h3><span class="note" id="bInfoRank"></span><span id="bInfoTag"></span></div>
+      <p id="bInfoNow"></p>
+      <p class="note" id="bInfoNext"></p>
+      <p class="note" id="bInfoLock" style="color:var(--amber)"></p>
+      <div class="btns"><button type="button" id="bMinus" aria-label="Remove a point from the selected talent">−</button><button type="button" id="bPlus" aria-label="Add a point to the selected talent">+</button></div>
+    </div>
+    <div class="blegend"><span><i style="background:var(--accent)"></i>Counts in the score</span><span><i style="box-shadow:inset 0 0 0 1.5px var(--muted)"></i>Utility, not scored</span><span><i style="background:var(--amber)"></i>Destruction, not scored for leveling yet</span></div>
+  </div>
+</section>
+
+<section id="specs" class="wrap">
+  <h2>Two specs for 60</h2>
+  <p>One for playing alone, one for groups. Blizzard has not said how dual spec works yet, but the beta client has slots for two specs.</p>
+  <div class="specs">
+    <div class="tt">
+      <div class="name-row"><img class="ico" data-icon="spell_shadow_deathcoil" alt="Affliction"><span class="name">Tome of the Patient Drain</span></div>
+      <span class="sub">Solo spec · questing, farming, world</span>
+      <span class="split">Affliction 28 · Demonology 23 · Destruction 0</span>
+      <span class="use">Use: +60 spell damage for you and your demon from Demonic Knowledge, on top of a full drain kit.</span>
+      <ul>
+        <li>Improved Corruption 5, Suppression 3, Improved Life Tap 1</li>
+        <li>Improved Drains 3, Malediction 5</li>
+        <li>Improved Bane of Agony 2, Pandemic 3, Nightfall 2</li>
+        <li>Siphon Life 1, Soul Siphon 3</li>
+        <li>Demonic Embrace 5, Unholy Power 5</li>
+        <li>Demonic Aegis 2, Improved Voidwalker 3, Fel Vitality 3, Demonic Energies 2</li>
+        <li>Demonic Knowledge 3</li>
+      </ul>
+      <span class="grey">Pet: Voidwalker. Demonic Energies heals it off your damage and hands it your Life Tap mana.</span>
+    </div>
+    <div class="tt">
+      <div class="name-row"><img class="ico" data-icon="spell_shadow_rainoffire" alt="Destruction"><span class="name">Codex of the Pale Flame</span></div>
+      <span class="sub">Group spec · dungeons and raids</span>
+      <span class="split">Affliction 9 · Demonology 11 · Destruction 31</span>
+      <span class="use">Use: Summon the Succubus. Sacrifice her for +15% Fire damage only if she does under about 8% of your damage.</span>
+      <ul>
+        <li>Improved Life Tap 2, Suppression 5, Malediction 2</li>
+        <li>Demonic Embrace 5, Demonic Aegis 2, Fel Vitality 3, Demonic Sacrifice 1</li>
+        <li>Destructive Reach 1, Bane 5, Aftermath 5, Cataclysm 3</li>
+        <li>Ruin 5, Shadowburn 1, Conflagrate 1, Agonizing Flames 3</li>
+        <li>Bane of Havoc 1, Shadow and Flame 5, Incinerate 1</li>
+      </ul>
+      <span class="grey">Keep up Immolate, Corruption and Bane of Doom. Conflagrate and Shadowburn on cooldown. Fill with Incinerate.</span>
+    </div>
+  </div>
+  <p class="note">The group spec takes Aftermath 5 in place of the wowforeverbuilds pick of Improved Shadow Bolt 5, because this version never casts Shadow Bolt.</p>
+</section>
+
+<section id="raid">
+  <div class="wrap intro">
+    <h2>Raid calculator</h2>
+    <p>Single target at level 60. Life Tap funds all mana, the same limit for every build, and each build uses whichever Bane scores higher. Change anything and the ranking updates.</p>
+  </div>
+  <div class="wrap wide raid-grid">
+    <div class="panel raid-controls" role="group" aria-label="Calculator settings">
+      <fieldset><legend>Race</legend><div class="seg compact race-seg" data-compact="1"></div></fieldset>
+      <label class="check" id="swordWrap"><input type="checkbox" id="sword" checked> Human with a sword equipped</label>
+      <div class="ctrl"><label for="sp">Spell power</label><input type="range" id="sp" min="200" max="1000" step="10" value="500"><input type="number" id="spN" min="200" max="1000" step="10" inputmode="numeric" aria-label="Spell power, typed"></div>
+      <div class="ctrl"><label for="crit">Crit chance, %</label><input type="range" id="crit" min="5" max="25" step="1" value="10"><input type="number" id="critN" min="5" max="25" step="1" inputmode="numeric" aria-label="Crit chance, typed"></div>
+      <div class="ctrl"><label for="ghit">Hit from gear, %</label><input type="range" id="ghit" min="0" max="16" step="1" value="11"><input type="number" id="ghitN" min="0" max="16" step="1" inputmode="numeric" aria-label="Hit from gear, typed"><span class="hint">Boss cap is 16%. Suppression adds 5% in the Affliction and Destruction builds. Demonology has none.</span></div>
+      <div class="ctrl"><label for="pet">Succubus damage per second</label><input type="range" id="pet" min="0" max="160" step="5" value="50"><input type="number" id="petN" min="0" max="160" step="5" inputmode="numeric" aria-label="Succubus damage, typed"><span class="hint">50 is a placeholder. <a href="#t2">Measure yours</a>.</span></div>
+      <div class="ctrl"><label for="bod">Bane of Doom spell power bonus</label><input type="range" id="bod" min="1.5" max="4" step="0.1" value="4"><input type="number" id="bodN" min="1.5" max="4" step="0.1" inputmode="decimal" aria-label="Bane of Doom bonus, typed"><span class="hint">Datamine says ×4.0. Below about ×2.9, Affliction should stay on Agony.</span></div>
+      <fieldset><legend>Improved Shadow Bolt debuff lasts</legend><div class="seg compact" id="isbSeg"><button type="button" data-v="12" aria-pressed="true">12 sec</button><button type="button" data-v="60" aria-pressed="false">60 sec</button></div></fieldset>
+      <fieldset><legend>Life Tap converts</legend><div class="seg compact" id="ltSeg"><button type="button" data-v="840" aria-pressed="true">840 flat</button><button type="button" data-v="spirit" aria-pressed="false">430 + Spirit</button></div></fieldset>
+      <div class="ctrl" id="spiritRow" hidden><label for="spirit">Spirit</label><input type="range" id="spirit" min="50" max="300" step="5" value="100"><input type="number" id="spiritN" min="50" max="300" step="5" inputmode="numeric" aria-label="Spirit, typed"></div>
+    </div>
+    <div class="raid-results">
+      <div class="legend"><span><span class="sw aff"></span>Affliction</span><span><span class="sw demo"></span>Demonology</span><span><span class="sw destro"></span>Destruction</span><span><span class="sw pet"></span>Striped: Succubus</span><span>Gap is versus the leader</span></div>
+      <div class="bars" id="bars"></div>
+      <p class="tie" id="tieNote" hidden>The top two builds are within 1% of each other, which is closer than this model can call. Pick either.</p>
+      <p class="verdict-line" id="raidVerdict"></p>
+      <p class="note">Bane of Doom's scaling and Incinerate's top rank come from datamines only. Each 1% of hit short of the cap costs about 1% of damage.</p>
+    </div>
+  </div>
+</section>
+
+<section id="upgrades" class="wrap">
+  <h2>Is this item an upgrade?</h2>
+  <p>Stat weights say what one more point of each stat is worth for each build, at the calculator's settings. Crit and hit are also priced in spell power, so you can value any item. The Succubus is held fixed here, because nobody knows yet how she scales with your gear.</p>
+  <div class="tbl" role="region" aria-label="Stat weights" tabindex="0"><table class="stack">
+    <thead><tr><th scope="col">Build</th><th scope="col" class="r">+1 spell power</th><th scope="col" class="r">+1% crit</th><th scope="col" class="r">+1% hit</th></tr></thead>
+    <tbody id="weights"></tbody>
+  </table></div>
+  <div class="panel card">
+    <h3>Compare two items</h3>
+    <p class="note">The calculator's settings count as wearing the equipped item. Enter what each item gives and the full model re-runs with the swap.</p>
+    <div class="ctrl" style="grid-template-columns:1fr"><label for="cmpSpec">Build</label><select id="cmpSpec"></select></div>
+    <div class="cmp" role="group" aria-label="Item stats">
+      <span class="corner"></span><span class="h">Spell power</span><span class="h">Crit %</span><span class="h">Hit %</span>
+      <span class="rowlab">Equipped</span>
+      <input type="number" id="aSp" value="30" min="0" max="200" step="1" inputmode="numeric" aria-label="Equipped item spell power">
+      <input type="number" id="aCrit" value="1" min="0" max="5" step="1" inputmode="numeric" aria-label="Equipped item crit percent">
+      <input type="number" id="aHit" value="0" min="0" max="5" step="1" inputmode="numeric" aria-label="Equipped item hit percent">
+      <span class="rowlab">Alternative</span>
+      <input type="number" id="bSp" value="40" min="0" max="200" step="1" inputmode="numeric" aria-label="Alternative item spell power">
+      <input type="number" id="bCrit" value="0" min="0" max="5" step="1" inputmode="numeric" aria-label="Alternative item crit percent">
+      <input type="number" id="bHit" value="0" min="0" max="5" step="1" inputmode="numeric" aria-label="Alternative item hit percent">
+    </div>
+    <p class="cmp-out" id="cmpOut"></p>
+  </div>
+</section>
+
+<section id="proof" class="wrap">
+  <h2>The proof</h2>
+  <p>Everything above rests on this. Open what you want to check.</p>
+
+  <h3 id="rule">Why DoTs beat Shadow Bolt in Forever</h3>
+  <p>Forever cut most Warlock spells to about half their Classic base damage and moved the power into spell power scaling. Direct nukes kept Classic's scaling. DoTs got a lot more of it.</p>
+  <p class="note swipe">Swipe the table sideways for all columns.</p>
+  <div class="tbl scrollx" role="region" aria-label="Classic versus Forever spell values" tabindex="0"><table>
+    <thead><tr><th scope="col">Max rank</th><th scope="col" class="r">Classic base</th><th scope="col" class="r">Forever base</th><th scope="col" class="r">Forever SP scaling</th><th scope="col">What changed</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Corruption</th><td class="r">822</td><td class="r">438</td><td class="r">×1.2</td><td>Scaling up from ×1.0</td></tr>
+      <tr><th scope="row">Bane of Agony</th><td class="r">1044</td><td class="r">552</td><td class="r">×1.6</td><td>Scaling up from ×1.0</td></tr>
+      <tr><th scope="row">Bane of Doom</th><td class="r">3200</td><td class="r">1742</td><td class="r">×4.0</td><td>Datamine value only</td></tr>
+      <tr><th scope="row">Shadow Bolt</th><td class="r">482 to 538</td><td class="r">253 to 283</td><td class="r">×0.857</td><td>Same scaling as Classic</td></tr>
+      <tr><th scope="row">Drain Life, per sec</th><td class="r">71</td><td class="r">52</td><td class="r">×0.1 per tick</td><td>Unchanged scaling</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>So:</b> an instant DoT is worth far more per global cooldown than any nuke, at every gear level. That is why Shadow Bolt is a trap while leveling, why Bane of Doom wins at 60, and why every raid build still keeps Corruption and a Bane up.</p>
+
+  <h3 id="claims">Claims we checked</h3>
+  <div class="claims">
+    <p class="group-h"><span class="chip c-proof">Checked by the model · 5</span></p>
+    <details id="c-sword"><summary>Human Sword Specialization works on spells</summary><div class="dbody"><p>Forever's version reads "+2% crit with all spells and attacks while you have a sword equipped", and Warlocks can train swords. With Ruin or Pandemic doubling crit damage, that is 1.6 to 2.2% more raid damage, the biggest racial for a Warlock. It only counts if a caster sword is your best weapon.</p></div></details>
+    <details id="c-bod"><summary>Bane of Doom beats Bane of Agony at 60</summary><div class="dbody"><p>Per second, both scale identically with spell power (4.0 over 60 s equals 1.6 over 24 s). Doom has more base damage per second and needs a global cooldown once a minute instead of every 24 seconds. <b>Rule: cast Doom while at least a minute of the fight remains, then Agony.</b> The result rests on the datamined 4.0 scaling. <a href="#bod">Drag the Bane of Doom slider</a> to see where it flips.</p></div></details>
+    <details id="c-incin"><summary>Incinerate beats Shadow Bolt as the Destruction filler</summary><div class="dbody"><p>With Bane 5/5 and Immolate up, Incinerate does 26 to 29% more per second of casting than Shadow Bolt before school buffs, which is 4 to 7% across the whole rotation. Forever reversed the sacrifice buffs from Classic: Imp now gives Shadow, Succubus gives Fire. One risk: if Improved Shadow Bolt lasts 60 seconds instead of 12, the gap closes to about 1%. <a href="#isbSeg">Try the toggle</a>.</p></div></details>
+    <details id="c-dk"><summary>Demonic Knowledge is the best point-for-point talent in the class</summary><div class="dbody"><p>It adds flat spell damage equal to your level, for you and your demon, while a demon is out. Flat bonuses are worth most when gear is weakest, which is solo play. It costs 20 Demonology points of mostly survival talents to reach, so it pays off from about level 56.</p></div></details>
+    <details id="c-nf"><summary>Nightfall is underrated once you drain</summary><div class="dbody"><p>It can proc on every Corruption tick and every Drain Life and Wrack tick, once per second while channeling. At 60 it is worth about 3% per point, even after paying the global cooldown for the instant Shadow Bolt.</p></div></details>
+
+    <p class="group-h"><span class="chip c-test">Needs an in-game test · 3</span></p>
+    <details id="c-brand"><summary>A Succubus leveling build, if she can hold aggro</summary><div class="dbody"><p>A 5/31/0 build with the Imp sacrificed through Demonic Pact and the Succubus out ties the Affliction route at 45 and kills 4 to 7% faster from 50. The swing is who takes the hits. If the Succubus holds the mob, it becomes about 15 to 19% faster than anything else tested, because your resting drops away. Demonic Brand is built for exactly that: Searing Pain brands the target, and your pet's next 3 attacks on it generate high threat. The Voidwalker is a bit slower in this build and the Felhunter slowest. Suggested by a reader. <a href="#t6">This is test 6</a>.</p></div></details>
+    <details id="c-pact"><summary>Stacking sacrifices with Demonic Pact</summary><div class="dbody"><p>Demonic Pact only says a sacrifice is not cancelled by summoning a different demon. Nothing says a second sacrifice removes the first. If they stack, sacrificing the Imp, Felhunter and Voidwalker in turn and keeping the Succubus is about 9% faster solo. That assumes the damage Soul Link moves onto the Succubus costs nothing. If you must heal her back up, it is 13% slower. A curiosity, not a plan. <a href="#t4">This is test 4</a>.</p></div></details>
+    <details id="c-siphon"><summary>Do curses count for Soul Siphon?</summary><div class="dbody"><p>Soul Siphon grows Drain Life by 12% per other Affliction effect on the target, up to three. Curses now sit in their own slot next to Banes. If a curse counts, Corruption, a Bane and Curse of Weakness max it out without Siphon Life. <a href="#t3">This is test 3</a>.</p></div></details>
+
+    <p class="group-h"><span class="chip c-bust">Busted · 2</span></p>
+    <details id="c-sb"><summary>Shadow Bolt as a leveling filler</summary><div class="dbody"><p>It costs the most mana per damage of anything you have, so the resting it causes cancels the faster kills. It won 0 of 612 level-by-level scans.</p></div></details>
+    <details id="c-troll"><summary>Troll Warlock as a raid pick</summary><div class="dbody"><p>Berserking is casting speed, and in the beta haste does not speed up DoTs or channels. It adds about 0.2% raid damage. Rapid Regeneration is a 6-second channel that breaks on any action or damage, so in PvE it is between-fights healing. In PvP it shines behind a Fear: the target runs, you channel 50% of your health back.</p></div></details>
+
+    <p class="group-h"><span class="chip c-known">Known and confirmed · 1</span></p>
+    <details id="c-demo"><summary>Demonic Pact: sacrifice the Imp, then summon the Succubus</summary><div class="dbody"><p>The wowforeverbuilds Demonology guide already uses this. It tops the raid calculator once the Succubus carries about 17 to 20% of your damage, or about 8% if your gear caps hit. The BlizzCon demo credited her with 23 to 25% at level 38, so this is a live contender.</p></div></details>
+  </div>
+
+  <details id="talents">
+    <summary>What each talent point is worth</summary>
+    <div class="dbody">
+      <p>Extra damage over 120 seconds from adding a talent to a solid base build, at that level's best rotation. This is where "talents barely matter while leveling" comes from.</p>
+      <p class="note swipe">Swipe the table sideways for all columns.</p>
+      <div class="tbl scrollx" role="region" aria-label="Talent point values" tabindex="0"><table>
+        <thead><tr><th scope="col">Talent</th><th scope="col" class="r">Lvl 30, wand</th><th scope="col" class="r">Lvl 45, Drain Life</th><th scope="col" class="r">Lvl 60, Drain Life</th></tr></thead>
+        <tbody>
+          <tr class="top"><th scope="row">Demonic Knowledge (Demonology, 20 deep)</th><td class="r">+2.3%/pt</td><td class="r">+3.4%/pt</td><td class="r">+3.1%/pt</td></tr>
+          <tr class="top"><th scope="row">Soul Siphon</th><td class="r"><span class="na">0, no drains yet</span></td><td class="r">+2.6%/pt</td><td class="r"><span class="na">in base build</span></td></tr>
+          <tr class="top"><th scope="row">Nightfall</th><td class="r">+0.4%/pt</td><td class="r">+1.5%/pt</td><td class="r">+3.0%/pt</td></tr>
+          <tr><th scope="row">Siphon Life (1 point)</th><td class="r">+2.5%</td><td class="r"><span class="na">in base build</span></td><td class="r"><span class="na">in base build</span></td></tr>
+          <tr><th scope="row">Improved Bane of Agony</th><td class="r">+0.8%/pt</td><td class="r">+0.7%/pt</td><td class="r">+0.9%/pt</td></tr>
+          <tr><th scope="row">Malediction, Shadow Mastery</th><td class="r">+0.3%/pt</td><td class="r">+0.8%/pt</td><td class="r"><span class="na">in base build</span></td></tr>
+          <tr><th scope="row">Pandemic</th><td class="r">+0.3%/pt</td><td class="r">+0.6%/pt</td><td class="r">+0.7%/pt</td></tr>
+          <tr><th scope="row">Unholy Power</th><td class="r">+0.5%/pt</td><td class="r">+0.5%/pt</td><td class="r">+0.4%/pt</td></tr>
+          <tr><th scope="row">Malevolence</th><td class="r">+0.2%/pt</td><td class="r">+0.4%/pt</td><td class="r">+0.4%/pt</td></tr>
+          <tr><th scope="row">Soul Harvesting</th><td class="r"><span class="na">about 0</span></td><td class="r"><span class="na">about 0</span></td><td class="r"><span class="na">about 0</span></td></tr>
+        </tbody>
+      </table></div>
+      <p class="note">Soul Harvesting doubles Spirit-based mana regen for 10 seconds after a Drain Soul kill. At 60 that is roughly 300 mana, a third of one Life Tap, and it forces a slow Drain Soul finish.</p>
+    </div>
+  </details>
+</section>
+
+<section id="tests" class="wrap">
+  <h2>Help test these</h2>
+  <p>These six checks decide the open questions. Tick them off as you go. Your ticks stay in this browser only. <span id="reportLine"></span></p>
+  <ul class="tests" id="testList">
+    <li id="t1"><label><input type="checkbox" id="t1c"><span><span class="when">Any level · beta</span><br><b>Life Tap ratio.</b> Write down health and mana, tap once, compare. Sources disagree on whether it converts 430 plus Spirit or 840. If Spirit adds to it, Human and high-Spirit gear buff every tap.</span></label></li>
+    <li id="t2"><label><input type="checkbox" id="t2c"><span><span class="when">Level 20 and up · beta</span><br><b>Succubus share.</b> Run a damage meter over five minutes of normal play with the Succubus out, then put her damage per second into the raid calculator's Succubus slider.</span></label></li>
+    <li id="t3"><label><input type="checkbox" id="t3c"><span><span class="when">Level 30 · beta cap</span><br><b>Soul Siphon and curses.</b> With Soul Siphon, compare a Drain Life tick with Corruption and Agony on the target, then again after adding Curse of Weakness. A 12% jump means curses count.</span></label></li>
+    <li id="t4"><label><input type="checkbox" id="t4c"><span><span class="when">Level 40 · after launch</span><br><b>Pact stacking.</b> With 31 Demonology points, sacrifice the Imp, summon and sacrifice the Felhunter, then check your buff bar for both buffs.</span></label></li>
+    <li id="t6"><label><input type="checkbox" id="t6c"><span><span class="when">Level 25 and up · beta</span><br><b>Succubus aggro with Demonic Brand.</b> With 15 Demonology points and Demonic Brand, open with Searing Pain, send the Succubus in, then DoT and drain. Note whether she keeps the mob off you through the whole fight.</span></label></li>
+    <li id="t5"><label><input type="checkbox" id="t5c"><span><span class="when">Level 60 · after launch</span><br><b>Bane of Doom scaling.</b> Cast it on a training dummy in two gear sets with different spell power. The hit should move by four times the spell power difference.</span></label></li>
+  </ul>
+</section>
+
+<section id="method" class="wrap">
+  <h2>How this was checked</h2>
+  <p class="callout"><b>Limits.</b> The beta is capped at level 30, so nobody has played a finished tree. Pet damage, mob health and damage, wand damage and rest speed are assumptions that were stress-tested, not measured. The raid model ignores mana regen, potions and raid buffs, which would help Destruction and Demonology a little more than Affliction. Numbers will move before 4 November. Corrections are welcome.</p>
+  <details>
+    <summary>Method, data and review</summary>
+    <div class="dbody">
+      <p>Spell data came from Wowhead's Forever spell pages, including per-tick spell power scaling, cross-checked against two beta client datamines, ForeverChanges and the ElliotWood Forever sim. Talent values came from the Wowhead calculator's rank tooltips, cross-checked against five talent sites. Racial values came from Wowhead's Forever spell data. Dungeon levels came from zockify.com and lfcarry.com.</p>
+      <p>Leveling runs through an expected-value fight simulator. It folds hit and crit into every tick, applies buffs live because Forever removed snapshotting, ramps Agony the way the tooltip says, enforces talent row requirements, and scores seconds per kill including rest. A hill-climbing optimizer searched both trees at levels 20 to 60. The raid calculator is a steady-state spell-budget model that balances mana with Life Tap.</p>
+      <p>The research, models and this page were built with Claude, Anthropic's AI model. A separate Claude session then reviewed the work adversarially, starting from its own code: it rebuilt the raid math in its own script plus a turn-by-turn rotation simulation. The two agreed within 0.3%. It confirmed every headline with caveats, corrected three thresholds and one unfair comparison, and checked the solo claims under tripled spell power and halved pet damage. The calculator on this page is a direct port of the reviewed model and reproduces it exactly across 54 test cases. <span id="codeLine"></span></p>
+    </div>
+  </details>
+  <details id="changelog">
+    <summary>What changed</summary>
+    <div class="dbody">
+      <ul class="src">
+        <li><b>v6, 29 Sep 2026.</b> Game icons throughout: talent cells styled like the in-game talent window, race portraits, rotation icons in the level planner, tree icons on specs, raid bars and stat weights. The race now themes the whole page, with a race badge in the section nav. Dungeons got their own section: every dungeon on one level line, filtered to your faction.</li>
+        <li><b>v5, 29 Sep 2026.</b> A talent builder that scores any leveling build next to the page plan, with shareable build links. Race themes that re-tint the page, and colors per talent tree in the builder and the raid chart. Asked for in the Reddit thread.</li>
+        <li><b>v4, 29 Sep 2026.</b> Redesign after a four-reviewer UX pass: section nav, beginner on-ramp and glossary, race and level controls together, a two-column calculator with a gap column, phone tables that stack, a leader strip on phones, and linkable levels such as #lvl-24. From Reddit comments: Troll PvP corrected (Fear into Rapid Regeneration), and a Succubus leveling build with its own test. Numbers unchanged.</li>
+        <li><b>v3, 29 Sep 2026.</b> Stat weights, an item comparer, a gear hit slider, and dungeons in the level planner. Requested in the Reddit thread.</li>
+        <li><b>v2, 29 Sep 2026.</b> Interactive page: race picker, level planner, live raid calculator, test checklist.</li>
+        <li><b>v1, 28 Sep 2026.</b> First published research.</li>
+      </ul>
+    </div>
+  </details>
+  <details>
+    <summary>Sources</summary>
+    <div class="dbody">
+      <ul class="src">
+        <li><a href="https://www.wowhead.com/forever/talent-calc/warlock">Wowhead Forever Warlock talent calculator</a> and Forever spell pages</li>
+        <li><a href="https://foreverchanges.pro/class/warlock">ForeverChanges: Warlock changes vs Classic</a></li>
+        <li><a href="https://github.com/ElliotWood/Forever">ElliotWood/Forever sim</a></li>
+        <li><a href="https://www.icy-veins.com/wow-forever/warlock-class-overview">Icy Veins: Forever Warlock overview</a></li>
+        <li><a href="https://www.warcrafttavern.com/forever/guides/stats/">Warcraft Tavern: Forever stats guide</a></li>
+        <li><a href="https://wowforeverbuilds.com/guides/warlock">wowforeverbuilds: published Warlock builds</a></li>
+        <li><a href="https://www.zockify.com/forever/dungeons/">zockify: Forever dungeons by level</a></li>
+        <li><a href="https://lfcarry.com/guides/wow-forever-dual-spec">lfcarry: dual spec status</a></li>
+      </ul>
+      <p class="credit">Game icons are Blizzard Entertainment's art, taken from Wowhead's image server. This is a non-commercial fan project.</p>
+    </div>
+  </details>
+</section>
+</main>
+
+<div class="strip" id="strip" hidden aria-hidden="true"><span id="stripName"></span><span><b id="stripVal"></b> <span class="note" id="stripGap"></span></span></div>
+<div class="sr-only" role="status" id="srStatus"></div>
+
+<script>
+/*MODEL*/
+</script>
+<script>
+/*LEVELING*/
+</script>
+<script>
+window.FWL_ICONS = /*ICONS*/;
+</script>
+<script>
+(function () {
+  const REPO_URL = '';            // filled in by build.py
+  const RESULTS_URL = '';         // issue form for test results
+
+  // ---------------------------------------------------------------- per-viewer storage (conveniences only)
+  const store = {
+    get(k, d) { try { const v = localStorage.getItem('fwl.' + k); return v === null ? d : JSON.parse(v); } catch (e) { return d; } },
+    set(k, v) { try { localStorage.setItem('fwl.' + k, JSON.stringify(v)); } catch (e) { /* storage blocked */ } }
+  };
+  const $ = id => document.getElementById(id);
+
+  // ---------------------------------------------------------------- game icons (embedded by src/build.py)
+  const ICONS = window.FWL_ICONS || {};
+  const icon = (name, cls, alt) => { const i = document.createElement('img'); i.className = 'ico' + (cls ? ' ' + cls : ''); i.alt = alt || ''; if (ICONS[name]) i.src = ICONS[name]; else i.hidden = true; return i; };
+  const RACE_ICON = { human: 'race_human_male', gnome: 'race_gnome_male', orc: 'race_orc_male', troll: 'race_troll_male', undead: 'race_scourge_male' };
+  const TREE_ICON = { aff: 'spell_shadow_deathcoil', demo: 'spell_shadow_metamorphosis', destro: 'spell_shadow_rainoffire' };
+  const SPELL_ICON = { Corruption: 'spell_shadow_abominationexplosion', Agony: 'spell_shadow_curseofsargeras', 'Siphon Life': 'spell_shadow_requiem',
+    'Drain Life': 'spell_shadow_lifedrain02', 'Shadow Bolt': 'spell_shadow_shadowbolt', Wand: 'ability_shootwand', Imp: 'spell_shadow_summonimp',
+    Voidwalker: 'spell_shadow_summonvoidwalker', Succubus: 'spell_shadow_summonsuccubus', Felhunter: 'spell_shadow_summonfelhunter' };
+  const RACIAL_ICON = { 'Cannibalize': 'ability_racial_cannibalize', 'Blood Fury': 'racial_orc_berserkerstrength', 'Berserking': 'racial_troll_berserk',
+    'Eureka!': 'inv_gnometoy', 'Sword Specialization': 'ability_meleedamage', 'Rapid Regeneration': 'ability_racial_regeneratin' };
+  document.querySelectorAll('img[data-icon]').forEach(i => { if (ICONS[i.dataset.icon]) i.src = ICONS[i.dataset.icon]; else i.hidden = true; });
+  const clamp = (v, lo, hi, d) => { const n = Number(v); return (v === '' || v === null || !Number.isFinite(n)) ? d : Math.min(hi, Math.max(lo, n)); };
+
+  // ---------------------------------------------------------------- races
+  const RACES = {
+    human: { label: 'Human', faction: 'Alliance',
+      racials: [['Sword Specialization', '+2% crit with all spells and attacks while a sword is equipped. Warlocks can train swords.'],
+                ['The Human Spirit', '+5% Spirit. Only matters if Life Tap really scales with Spirit.'],
+                ['Will to Survive', 'Break all stuns. 3 min cooldown.'],
+                ['Perception', 'See stealth for 20 sec. 3 min cooldown.']],
+      level: 'About 1% with a caster sword, otherwise nothing', levelPct: 1,
+      pvp: ['Will to Survive breaks stuns', 'the thing that kills casters most'],
+      verdict: 'The best raid race, but only if a caster sword is your best weapon.',
+      tip: 'If a quest or drop gives you a spell-power sword, equip it: +2% spell crit comes with it.' },
+    gnome: { label: 'Gnome', faction: 'Alliance',
+      racials: [['Eureka!', 'Next 3 damaging spells deal +10% and cost 10% less mana. 2 min cooldown.'],
+                ['Expansive Mind', '+5% max mana.'],
+                ['Escape Artist', 'Break roots and slows, immune for 3 sec. 2 min cooldown.'],
+                ['Engineering Specialization', 'Engineering gadgets fail 20% less often.']],
+      level: 'About 0.5% from Eureka! on the pull', levelPct: 0.5,
+      pvp: ['Escape Artist', 'frees you from roots and slows'],
+      verdict: 'A solid all-round Alliance pick with no big edge anywhere.',
+      tip: 'Press Eureka! on the pull so your opening DoTs get the +10%.' },
+    orc: { label: 'Orc', faction: 'Horde',
+      racials: [['Blood Fury', '+10% Attack Power and Spell Power for 15 sec. 2 min cooldown.'],
+                ['Hardiness', 'Stuns on you last 20% shorter.'],
+                ['Shatter Curse', 'Remove and block curses and banes, and take 15% less magic damage for 8 sec. 3 min cooldown.'],
+                ['Axe Specialization', '+1% crit with an axe. Warlocks cannot use axes.']],
+      level: 'About 0.5% from Blood Fury on elites', levelPct: 0.5,
+      pvp: ['Hardiness plus Shatter Curse', 'which shuts down enemy Warlocks'],
+      verdict: 'The best Horde PvP race, with a small raid edge.',
+      tip: 'Save Blood Fury for elites and big pulls. At low spell power it adds little.' },
+    troll: { label: 'Troll', faction: 'Horde',
+      racials: [['Rapid Regeneration', 'Regain 50% max health over 6 sec, channeled. Breaks on any action or damage. 3 min cooldown.'],
+                ['Berserking', '+10% casting speed for 10 sec. 3 min cooldown. Does not speed up DoTs or channels in the beta.'],
+                ['Regeneration', '10% of health regen continues in combat.'],
+                ['Beast Slaying', '+5% damage to Beasts.']],
+      level: 'About 3 to 6% faster: Rapid Regeneration replaces some eating and beasts die 5% faster', levelPct: 4.5,
+      pvp: ['Fear, then Rapid Regeneration', '50% of your health back while the target runs'],
+      verdict: 'A good leveler with a strong PvP heal, and the weakest raid race for a Warlock.',
+      tip: 'Use Rapid Regeneration between pulls, then Life Tap the health into mana. It cannot heal you mid-fight.' },
+    undead: { label: 'Undead', faction: 'Horde',
+      racials: [['Cannibalize', 'Regain 35% health and 35% mana over 10 sec from a humanoid or undead corpse. 2 min cooldown.'],
+                ['Touch of the Grave', '5% chance on each spell or attack to drain up to 5% of your max health.'],
+                ['Will of the Forsaken', 'Break charm, fear and sleep. 2 min cooldown.'],
+                ['Underwater Breathing', 'Breath lasts 300% longer.']],
+      level: 'Fastest: about 5 to 11% from level 30 on, because Cannibalize and Touch of the Grave remove most resting on humanoids', levelPct: 8,
+      pvp: ['Will of the Forsaken breaks fear', 'the Warlock and Priest win condition'],
+      verdict: 'The best leveling race and a strong PvP pick. No raid damage.',
+      tip: 'Cannibalize a humanoid or undead corpse after each pull. It replaces most eating and drinking.' },
+  };
+
+  // ---------------------------------------------------------------- leveling data
+  const seq = pairs => pairs.flatMap(([n, c]) => Array(c).fill(n));
+  const TAL_ORDER = seq([['Improved Corruption', 5], ['Suppression', 3], ['Improved Drains', 3], ['Malediction', 5],
+    ['Improved Bane of Agony', 2], ['Pandemic', 2], ['Siphon Life', 1], ['Soul Siphon', 3], ['Nightfall', 2], ['Shadow Mastery', 5],
+    ['Wrack', 1], ['Pandemic', 1], ['Fel Concentration', 3], ['Improved Life Tap', 2], ['Demonic Embrace', 5], ['Improved Voidwalker', 3]]);
+  const SOLO56 = seq([['Improved Corruption', 5], ['Suppression', 3], ['Improved Drains', 3], ['Malediction', 5],
+    ['Improved Bane of Agony', 2], ['Pandemic', 2], ['Siphon Life', 1], ['Soul Siphon', 3], ['Demonic Embrace', 5], ['Unholy Power', 5],
+    ['Demonic Aegis', 2], ['Improved Voidwalker', 3], ['Fel Vitality', 3], ['Demonic Energies', 2], ['Demonic Knowledge', 3],
+    ['Nightfall', 2], ['Pandemic', 1], ['Improved Life Tap', 1]]);
+  const RANKS = {
+    'Shadow Bolt': [1, 6, 12, 20, 28, 36, 44, 52], 'Immolate': [1, 10, 20, 30, 40, 50, 60],
+    'Corruption': [4, 14, 24, 34, 44, 54], 'Life Tap': [6, 16, 26, 36, 46, 56], 'Bane of Agony': [8, 18, 28, 38, 48, 58],
+    'Drain Soul': [10, 24, 38, 52], 'Drain Life': [14, 22, 30, 38, 46, 54], 'Siphon Life': [38, 48, 58], 'Bane of Doom': [60],
+  };
+  // Forever dungeons: name, from, to, zone, home side, new in Forever.
+  // New dungeons use published ranges; returning dungeons use an estimate around Forever's recommended level.
+  const DUNGEONS = [
+    ['Ragefire Chasm', 13, 18, 'Orgrimmar', 'Horde', false], ['Hall of Thanes', 13, 18, 'Ironforge', 'Alliance', true],
+    ['Ruins of Lordaeron', 15, 20, 'Tirisfal Glades', 'Horde', true], ['The Deadmines', 16, 22, 'Westfall', 'Alliance', false],
+    ['Wailing Caverns', 17, 23, 'The Barrens', 'Horde', false], ['Shadowfang Keep', 18, 24, 'Silverpine Forest', 'Horde', false],
+    ['Blackfathom Deeps', 22, 28, 'Ashenvale', 'Both', false], ['Stormwind Stockade', 23, 28, 'Stormwind City', 'Alliance', false],
+    ['Razorfen Kraul', 24, 30, 'The Barrens', 'Horde', false], ['Excavation Site: Wetlands', 24, 29, 'Wetlands', 'Both', true],
+    ['Gnomeregan', 25, 31, 'Dun Morogh', 'Alliance', false], ['City of Dalaran', 28, 33, 'Alterac Mountains', 'Both', true],
+    ['Scarlet Monastery', 30, 38, 'Tirisfal Glades', 'Both', false], ['Razorfen Downs', 34, 40, 'The Barrens', 'Horde', false],
+    ['Uldaman', 35, 41, 'Badlands', 'Both', false], ['The Drowned City', 35, 40, 'Stranglethorn Vale', 'Both', true],
+    ["Krol'dok Stronghold", 40, 45, 'Riverglades', 'Both', true], ["Zul'Farrak", 42, 48, 'Tanaris', 'Both', false],
+    ['Maraudon', 42, 48, 'Desolace', 'Both', false], ["The Temple of Atal'Hakkar", 45, 51, 'Swamp of Sorrows', 'Both', false],
+    ['Alcaz Prison', 48, 53, 'Dustwallow Marsh', 'Both', true], ['Blackrock Depths', 48, 56, 'Burning Steppes', 'Both', false],
+    ['Lower Blackrock Spire', 53, 60, 'Burning Steppes', 'Both', false], ['Upper Blackrock Spire', 55, 60, 'Burning Steppes', 'Both', false],
+    ['Dire Maul', 54, 60, 'Feralas', 'Both', false], ['Blackmaw Hold', 55, 60, 'zone unconfirmed', 'Both', true],
+    ['Stratholme', 55, 60, 'Eastern Plaguelands', 'Both', false], ['Scholomance', 57, 60, 'Western Plaguelands', 'Both', false],
+    ["Shaper's Terrace", 58, 60, "Un'Goro Crater", 'Both', true],
+  ];
+
+  function talentsAt(L) {
+    const pts = Math.max(0, L - 9);
+    const order = L >= 56 ? SOLO56 : TAL_ORDER;
+    const got = {}, taken = order.slice(0, pts);
+    taken.forEach(n => { got[n] = (got[n] || 0) + 1; });
+    const fresh = L >= 10 && L !== 56 ? taken[taken.length - 1] : null;
+    return { pts, got, fresh };
+  }
+  function phase(L) {
+    if (L < 4) return ['Starting out', 'Shadow Bolt to pull, wand to finish', 'Your Imp does real damage early. Keep it out.'];
+    if (L < 10) return ['Imp phase', 'Corruption, then Bane of Agony from 8, then wand', 'Corruption is a 2-second cast until Improved Corruption.'];
+    if (L < 14) return ['Voidwalker', 'Voidwalker in, Corruption, Bane of Agony, wand', 'Wand stays your filler. Shadow Bolt costs too much mana per kill.'];
+    if (L < 30) return ['DoTs and wand', 'Voidwalker in, instant Corruption, Bane of Agony, wand', 'Wand wins the filler test in 83% of scenarios at level 20.'];
+    if (L < 34) return ['Siphon Life online', 'Corruption, Agony, Siphon Life, wand', 'Wand still wins until Soul Siphon is finished.'];
+    if (L < 56) return ['Drain tank', 'Corruption, Agony, Siphon Life, then Drain Life', 'Instant Shadow Bolt when Nightfall procs. Life Tap when health is high.'];
+    return ['Solo spec', 'Corruption, Agony, Siphon Life, then Drain Life', 'Respec to the Demonic Knowledge splash at 56. It pulls ahead from here.'];
+  }
+  function petFor(L) {
+    if (L < 10) return ['Imp', 'Your only demon so far. It does real damage at these levels.'];
+    if (L === 10) return ['Voidwalker', 'New: do the Voidwalker class quest now. It tanks for you.'];
+    if (L === 20) return ['Voidwalker', 'The Succubus quest opens now. She kills faster, but you take the hits and rest more.'];
+    if (L === 30) return ['Voidwalker', 'The Felhunter quest opens now. Handy against casters. The Voidwalker stays your leveling pet.'];
+    if (L > 20) return ['Voidwalker', 'The safe default when you might get pulled away. The Succubus kills faster but you rest more.'];
+    return ['Voidwalker', 'It tanks, so you can DoT and wand in peace.'];
+  }
+
+  // ---------------------------------------------------------------- state (validated)
+  const saved = store.get('calc', {}) || {};
+  const savedRace = store.get('race', 'human');
+  const state = {
+    race: RACES[savedRace] ? savedRace : 'human',
+    level: Math.round(clamp(store.get('level', 30), 1, 60, 30)),
+    dngAll: store.get('dngAll', false) === true,
+    sp: clamp(saved.sp, 200, 1000, 500), crit: clamp(saved.crit, 5, 25, 10), ghit: clamp(saved.ghit, 0, 16, 11),
+    pet: clamp(saved.pet, 0, 160, 50), bod: clamp(saved.bod, 1.5, 4, 4), spirit: clamp(saved.spirit, 50, 300, 100),
+    isb: saved.isb === 60 ? 60 : 12, lt: saved.lt === 'spirit' ? 'spirit' : '840', sword: saved.sword !== false,
+  };
+  const saveCalc = () => store.set('calc', { sp: state.sp, crit: state.crit, ghit: state.ghit, pet: state.pet, bod: state.bod,
+    spirit: state.spirit, isb: state.isb, lt: state.lt, sword: state.sword });
+
+  function modelOpts(race) {
+    return { sp: state.sp, crit: state.crit / 100, race, sword: state.sword, lifeTapMode: state.lt, spirit: state.spirit,
+             bodCoef: state.bod, isbDuration: state.isb, gearHit: state.ghit / 100, petDps: state.pet };
+  }
+  let announceTimer = null;
+  const announce = msg => { const s = $('srStatus'); clearTimeout(announceTimer); s.textContent = ''; announceTimer = setTimeout(() => { s.textContent = msg; }, 80); };
+
+  // ---------------------------------------------------------------- race pickers (built once, kept in sync)
+  function buildRaceSegs() {
+    document.querySelectorAll('.race-seg').forEach(seg => {
+      const compact = seg.dataset.compact === '1';
+      Object.entries(RACES).forEach(([id, r]) => {
+        const b = document.createElement('button');
+        b.type = 'button'; b.dataset.race = id;
+        b.appendChild(icon(RACE_ICON[id], 's', ''));
+        const n = document.createElement('span'); n.textContent = r.label; b.appendChild(n);
+        if (!compact) { const f = document.createElement('span'); f.className = 'fac'; f.textContent = r.faction; b.appendChild(f); }
+        b.addEventListener('click', () => setRace(id, true));
+        seg.appendChild(b);
+      });
+    });
+  }
+  function syncRace() {
+    document.documentElement.setAttribute('data-race', state.race);
+    const badge = $('raceBadge'); if (badge) badge.querySelector('span').textContent = RACES[state.race].label + ' Warlock · ' + RACES[state.race].faction;
+    const band = document.querySelector('.hero-band'); if (band) band.setAttribute('data-watermark', RACES[state.race].label);
+    const nr = $('navRace'); if (nr) nr.textContent = RACES[state.race].label;
+    const ni = $('navRaceIco'); if (ni && ICONS[RACE_ICON[state.race]]) ni.src = ICONS[RACE_ICON[state.race]];
+    document.querySelectorAll('.race-seg button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.race === state.race)));
+    $('swordWrap').hidden = state.race !== 'human';
+  }
+  function setRace(id, speak) {
+    if (!RACES[id]) return;
+    state.race = id; store.set('race', id);
+    syncRace(); renderRaceCard(); renderRaceTable(); renderPlanner(); renderRaid();
+    if (speak) announce(RACES[id].label + ' selected. ' + $('raidVerdict').textContent);
+  }
+
+  function raidGain(race) {
+    const base = WarlockModel.rank(modelOpts('none'));
+    const withR = WarlockModel.rank(modelOpts(race));
+    const top = base[0];
+    const mine = withR.find(x => x.id === top.id);
+    return (mine.total / top.total - 1) * 100;
+  }
+  const fact = (lab, val, sub) => {
+    const d = document.createElement('div'); d.className = 'fact';
+    const a = document.createElement('span'); a.className = 'lab'; a.textContent = lab;
+    const b = document.createElement('span'); b.className = 'val'; b.textContent = val;
+    d.append(a, b);
+    if (sub) { const c = document.createElement('span'); c.className = 'sub'; c.textContent = sub; d.appendChild(c); }
+    return d;
+  };
+  function renderRaceCard() {
+    const r = RACES[state.race], gain = raidGain(state.race), card = $('raceCard');
+    card.textContent = '';
+    const head = document.createElement('div'); head.className = 'card-head';
+    const h = document.createElement('h3'); h.textContent = r.label + ' Warlock';
+    const f = document.createElement('span'); f.className = 'pill label'; f.textContent = r.faction;
+    head.append(icon(RACE_ICON[state.race], 'l', r.label + ' portrait'), h, f);
+    const v = document.createElement('p'); const vb = document.createElement('b'); vb.textContent = r.verdict; v.appendChild(vb);
+    const facts = document.createElement('div'); facts.className = 'facts';
+    facts.append(
+      fact('Leveling', r.levelPct >= 3 ? 'Faster' : (r.levelPct > 0 ? 'Slight edge' : 'Neutral'), r.level),
+      fact('Raid damage', (gain >= 0 ? '+' : '') + gain.toFixed(1) + '%',
+        state.race === 'human' && !state.sword ? 'Without a sword, Human adds nothing' : 'Over no racials, top build, at the calculator settings'),
+      fact('PvP', r.pvp[0], r.pvp[1]));
+    const list = document.createElement('ul'); list.className = 'racials';
+    r.racials.forEach(([n, t]) => {
+      const li = document.createElement('li');
+      if (RACIAL_ICON[n]) li.appendChild(icon(RACIAL_ICON[n], 's', '')); else { const sp = document.createElement('span'); sp.className = 'noico'; li.appendChild(sp); }
+      const tx = document.createElement('span'); const b = document.createElement('b'); b.textContent = n + '. '; tx.append(b, document.createTextNode(t)); li.appendChild(tx); list.appendChild(li);
+    });
+    card.append(head, v, facts, list);
+  }
+  function renderRaceTable() {
+    const tb = $('raceTable'); tb.textContent = '';
+    Object.entries(RACES).forEach(([id, r]) => {
+      const tr = document.createElement('tr'); if (id === state.race) tr.className = 'hl';
+      const th = document.createElement('th'); th.scope = 'row'; th.textContent = r.label + ' (' + r.faction + ')';
+      const g = raidGain(id);
+      tr.appendChild(th);
+      [['Leveling', r.level, 'wide'], ['Raid damage', (g >= 0 ? '+' : '') + g.toFixed(1) + '%', 'r'], ['PvP', r.pvp[0] + (r.pvp[1] ? ', ' + r.pvp[1] : ''), 'wide']]
+        .forEach(([lab, txt, cls]) => { const td = document.createElement('td'); td.dataset.label = lab; td.textContent = txt; td.className = cls; tr.appendChild(td); });
+      tb.appendChild(tr);
+    });
+  }
+
+  // ---------------------------------------------------------------- planner
+  function buildLevelChips() {
+    const box = $('lvlChips');
+    [10, 20, 30, 40, 50, 56, 60].forEach(L => {
+      const b = document.createElement('button'); b.type = 'button'; b.textContent = L; b.dataset.l = L;
+      b.setAttribute('aria-label', 'Level ' + L);
+      b.addEventListener('click', () => setLevel(L, true));
+      box.appendChild(b);
+    });
+  }
+  function setLevel(L, speak) {
+    state.level = Math.round(clamp(L, 1, 60, state.level)); store.set('level', state.level);
+    renderPlanner();
+    renderBuilder();
+    if (speak) announce('Level ' + state.level + '. ' + $('pRot').textContent + '.');
+  }
+  function renderPlanner() {
+    const L = state.level;
+    $('lvl').value = L; $('lvlNum').value = L; $('lvlBig').textContent = L;
+    $('lvl').setAttribute('aria-valuetext', 'Level ' + L);
+    document.querySelectorAll('#lvlChips button').forEach(b => b.setAttribute('aria-pressed', String(Number(b.dataset.l) === L)));
+    const [ph, rot, rotSub] = phase(L);
+    $('lvlPhase').textContent = ph;
+    const t = talentsAt(L);
+    $('lvlPts').textContent = t.pts ? t.pts + ' talent point' + (t.pts > 1 ? 's' : '') : 'Talents start at level 10';
+    $('pRot').textContent = rot; $('pRotSub').textContent = rotSub;
+    const combo = $('pCombo'); combo.textContent = '';
+    const steps = L < 4 ? ['Shadow Bolt', 'Wand'] : L < 10 ? ['Imp', 'Corruption', 'Agony', 'Wand'] : L < 30 ? ['Voidwalker', 'Corruption', 'Agony', 'Wand']
+      : L < 34 ? ['Voidwalker', 'Corruption', 'Agony', 'Siphon Life', 'Wand'] : ['Voidwalker', 'Corruption', 'Agony', 'Siphon Life', 'Drain Life'];
+    steps.forEach(n => { const w = document.createElement('span'); w.className = 'stepi'; w.appendChild(icon(SPELL_ICON[n], 'm', n)); w.title = n; combo.appendChild(w); });
+    const [pet, petSub] = petFor(L); $('pPet').textContent = ''; $('pPet').append(icon(SPELL_ICON[pet], 'm', ''), document.createTextNode(pet)); $('pPetSub').textContent = petSub;
+    const newSpells = Object.entries(RANKS).filter(([, lv]) => lv.includes(L)).map(([n, lv]) => {
+      const idx = lv.indexOf(L), off = n === 'Siphon Life' ? 1 : 0;
+      return idx + off === 0 ? n + ' (new spell)' : n + ' rank ' + (idx + 1 + off);
+    });
+    const newTal = L === 56 ? 'Respec to the solo spec' : (t.fresh ? t.fresh + ' ' + t.got[t.fresh] : null);
+    $('pNew').textContent = newTal || (newSpells.length ? 'Trainer visit' : 'Nothing new');
+    $('pNewSub').textContent = newSpells.length ? 'Train: ' + newSpells.join(', ') + '.' : 'No new spell ranks at this level.';
+    const ul = $('pTal'); ul.textContent = '';
+    Object.entries(t.got).forEach(([n, c]) => { const li = document.createElement('li'); li.textContent = n + ' ' + c; if (n === t.fresh) li.className = 'fresh'; ul.appendChild(li); });
+    if (!t.pts) { const li = document.createElement('li'); li.textContent = 'None yet'; ul.appendChild(li); }
+    $('pGear').textContent = L < 34 ? 'Gear: a better wand is your biggest damage upgrade until 33, because the wand is your filler.'
+      : 'Gear: spell power feeds your DoTs 1.2 to 1.6 times over. At 60, use the item comparer.';
+    $('pRace').textContent = RACES[state.race].label + ' tip: ' + RACES[state.race].tip;
+    renderDungeons(L);
+    renderDungeonChart(L);
+  }
+  function renderDungeons(L) {
+    const side = RACES[state.race].faction;
+    const fits = DUNGEONS.filter(d => L >= d[1] - 1 && L <= d[2]);
+    const home = fits.filter(d => d[4] === 'Both' || d[4] === side);
+    const ul = $('pDung'); ul.textContent = '';
+    home.slice(0, 5).forEach(d => {
+      const li = document.createElement('li');
+      li.appendChild(document.createTextNode(d[0] + ', ' + d[1] + ' to ' + d[2]));
+      if (d[5]) { const t = document.createElement('span'); t.className = 'tag'; t.textContent = 'New'; li.appendChild(t); }
+      ul.appendChild(li);
+    });
+    $('pDungSub').textContent = L < 12 ? 'The first dungeons open around level 13.'
+      : (home.length ? 'Ranges for returning dungeons are estimates.' : 'Nothing on your side fits exactly. Quest until the next one opens.');
+  }
+
+  // dungeon chart: every dungeon on a level 10 to 60 line, rebuilt only when the faction filter changes
+  const DNG_MIN = 10, DNG_MAX = 60;
+  const dngPct = l => (clamp(l, DNG_MIN, DNG_MAX, DNG_MIN) - DNG_MIN) / (DNG_MAX - DNG_MIN) * 100;
+  const dngFits = (d, L) => L >= d[1] - 1 && L <= d[2];
+  let dngKey = '';
+  function buildDungeonRows(side) {
+    const chart = $('dngChart'); chart.textContent = '';
+    const axis = document.createElement('li'); axis.className = 'dng-axis'; axis.setAttribute('aria-hidden', 'true');
+    const ticks = document.createElement('span'); ticks.className = 'ticks';
+    for (let l = DNG_MIN; l <= DNG_MAX; l += 10) { const t = document.createElement('span'); t.style.left = dngPct(l) + '%'; t.textContent = l; ticks.appendChild(t); }
+    const you = document.createElement('b'); you.className = 'you'; you.id = 'dngYou'; ticks.appendChild(you);
+    axis.append(document.createElement('span'), ticks); chart.appendChild(axis);
+    DUNGEONS.filter(d => state.dngAll || d[4] === 'Both' || d[4] === side).forEach(d => {
+      const away = d[4] !== 'Both' && d[4] !== side;
+      const li = document.createElement('li');
+      const b = document.createElement('button'); b.type = 'button'; b.dungeon = d; b.dataset.away = away ? '1' : '';
+      const name = document.createElement('span'); name.className = 'dng-name'; name.textContent = d[0];
+      if (d[5]) { const t = document.createElement('span'); t.className = 'tag'; t.textContent = 'New'; name.appendChild(t); }
+      const sm = document.createElement('small'); sm.textContent = d[1] + ' to ' + d[2] + ' · ' + d[3] + (away ? ' · ' + d[4] + ' side' : ''); name.appendChild(sm);
+      const track = document.createElement('span'); track.className = 'dng-track';
+      const bar = document.createElement('span'); bar.className = 'dng-bar';
+      bar.style.left = dngPct(d[1]) + '%'; bar.style.width = (dngPct(d[2]) - dngPct(d[1])) + '%';
+      track.appendChild(bar); b.append(name, track);
+      b.addEventListener('click', () => setLevel(d[1], true));
+      li.appendChild(b); chart.appendChild(li);
+    });
+  }
+  function renderDungeonChart(L) {
+    const side = RACES[state.race].faction;
+    const key = side + '|' + state.dngAll;
+    if (key !== dngKey) { buildDungeonRows(side); dngKey = key; }
+    $('dngChart').style.setProperty('--lv', dngPct(L) + '%');
+    $('dngYou').textContent = 'You ' + L;
+    $('dngLvl').textContent = L;
+    $('dngSide').querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String((b.dataset.v === 'all') === state.dngAll)));
+    let fit = 0;
+    $('dngChart').querySelectorAll('button').forEach(b => {
+      const d = b.dungeon, away = b.dataset.away === '1', ok = dngFits(d, L);
+      if (ok && !away) fit++;
+      b.className = 'dng-row' + (ok ? ' fit' : '') + (away ? ' away' : '');
+      b.setAttribute('aria-label', d[0] + ', levels ' + d[1] + ' to ' + d[2] + ', ' + d[3] + (away ? ', ' + d[4] + ' side' : '')
+        + (d[5] ? ', new in Forever' : '') + (ok ? ', fits your level' : '') + '. Sets your level to ' + d[1] + '.');
+    });
+    const next = DUNGEONS.find(d => d[1] - 1 > L && (d[4] === 'Both' || d[4] === side));
+    $('dngSum').textContent = L < 12 ? 'The first dungeons open around level 13. Quest until then.'
+      : fit ? fit + ' dungeon' + (fit > 1 ? 's fit' : ' fits') + ' level ' + L + ' on your side.'
+      : 'Nothing on your side fits level ' + L + '.' + (next ? ' Next up: ' + next[0] + ' at ' + next[1] + '.' : '');
+  }
+
+  // ---------------------------------------------------------------- raid
+  let lastOrder = [];
+  function renderRaid() {
+    const res = WarlockModel.rank(modelOpts(state.race));
+    const max = res[0].total;
+    const bars = $('bars'); bars.textContent = '';
+    const moved = lastOrder.length && res.some((r, i) => lastOrder[i] !== r.id);
+    res.forEach((r, i) => {
+      const row = document.createElement('div');
+      row.className = 'bar-row t-' + r.id.split('-')[0] + (i === 0 ? ' win' : '') + (moved && lastOrder[i] !== r.id ? ' moved' : '');
+      const name = document.createElement('div'); name.className = 'bar-name';
+      const st = document.createElement('strong'); st.append(icon(TREE_ICON[r.id.split('-')[0]], 's', ''), document.createTextNode(r.name));
+      const cap = document.createElement('span'); cap.className = 'cap';
+      cap.textContent = r.note + ', ' + r.bane + (r.pet ? '. Succubus ' + Math.round(r.petShare * 100) + '% of damage' : '');
+      name.append(st, cap);
+      const track = document.createElement('div'); track.className = 'bar-track'; track.setAttribute('aria-hidden', 'true');
+      const lock = document.createElement('div'); lock.className = 'bar-lock'; lock.style.width = (r.lock / max * 100) + '%';
+      track.appendChild(lock);
+      if (r.pet) { const pet = document.createElement('div'); pet.className = 'bar-pet'; pet.style.width = (r.pet / max * 100) + '%'; track.appendChild(pet); }
+      const val = document.createElement('div'); val.className = 'bar-val'; val.textContent = Math.round(r.total) + ' dps';
+      const gap = document.createElement('div'); gap.className = 'bar-gap';
+      gap.textContent = i === 0 ? 'best' : '−' + ((1 - r.total / max) * 100).toFixed(1) + '%';
+      row.append(name, track, val, gap);
+      bars.appendChild(row);
+    });
+    if (moved) setTimeout(() => document.querySelectorAll('.bar-row.moved').forEach(x => x.classList.remove('moved')), 700);
+    lastOrder = res.map(r => r.id);
+    const a = res[0], b = res[1];
+    const lead = (a.total / b.total - 1) * 100;
+    $('tieNote').hidden = lead >= 1;
+    const keep = res.find(x => x.id === 'destro-keep'), fire = res.find(x => x.id === 'destro-fire');
+    const succLine = keep.total >= fire.total
+      ? 'In Destruction, keep the Succubus out: she beats her own sacrifice at these settings.'
+      : 'In Destruction, sacrifice the Succubus: her +15% Fire is worth more than her damage at these settings.';
+    $('raidVerdict').textContent = a.name + ' leads ' + b.name + ' by ' + lead.toFixed(1) + '%. ' + succLine;
+    $('stripName').textContent = '#1 ' + a.name;
+    $('stripVal').textContent = Math.round(a.total) + ' dps';
+    $('stripGap').textContent = '+' + lead.toFixed(1) + '% over #2';
+    [['sp', state.sp, state.sp + ' spell power'], ['crit', state.crit, state.crit + ' percent crit'], ['ghit', state.ghit, state.ghit + ' percent hit from gear'],
+     ['pet', state.pet, state.pet + ' Succubus damage per second'], ['bod', state.bod, 'times ' + state.bod.toFixed(1)], ['spirit', state.spirit, state.spirit + ' Spirit']]
+      .forEach(([id, v, txt]) => {
+        const r = $(id), n = $(id + 'N');
+        if (document.activeElement !== r) r.value = v;
+        r.setAttribute('aria-valuetext', txt);
+        if (document.activeElement !== n) n.value = id === 'bod' ? v.toFixed(1) : v;
+      });
+    $('spiritRow').hidden = state.lt !== 'spirit';
+    [['isbSeg', String(state.isb)], ['ltSeg', state.lt]].forEach(([seg, v]) =>
+      $(seg).querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x.dataset.v === v))));
+    $('sword').checked = state.sword;
+    renderWeights(); renderCompare(res);
+  }
+  function renderWeights() {
+    const o = modelOpts(state.race), tb = $('weights');
+    tb.textContent = '';
+    WarlockModel.SPECS.forEach(s => {
+      const w = WarlockModel.statWeights(o, s.id);
+      const tr = document.createElement('tr');
+      const th = document.createElement('th'); th.scope = 'row'; th.style.whiteSpace = 'nowrap'; th.append(icon(TREE_ICON[s.id.split('-')[0]], 's', ''), document.createTextNode(' ' + s.name)); tr.appendChild(th);
+      [['+1 spell power', w.sp.toFixed(2) + ' dps'],
+       ['+1% crit', w.crit.toFixed(1) + ' dps · ' + w.critInSp.toFixed(1) + ' SP'],
+       ['+1% hit', w.hit > 0 ? w.hit.toFixed(1) + ' dps · ' + w.hitInSp.toFixed(1) + ' SP' : null]].forEach(([lab, txt]) => {
+        const td = document.createElement('td'); td.className = 'r'; td.dataset.label = lab;
+        if (txt === null) { const n = document.createElement('span'); n.className = 'na'; n.textContent = 'capped'; td.appendChild(n); } else td.textContent = txt;
+        tr.appendChild(td);
+      });
+      tb.appendChild(tr);
+    });
+  }
+  function renderCompare(res) {
+    const sel = $('cmpSpec');
+    if (!sel.options.length) {
+      WarlockModel.SPECS.forEach(s => { const op = document.createElement('option'); op.value = s.id; op.textContent = s.name; sel.appendChild(op); });
+      sel.value = res[0].id;
+    }
+    const num = id => { const el = $(id); return clamp(el.value, Number(el.min), Number(el.max), 0); };
+    const a = { sp: num('aSp'), crit: num('aCrit') / 100, hit: num('aHit') / 100 };
+    const b = { sp: num('bSp'), crit: num('bCrit') / 100, hit: num('bHit') / 100 };
+    const r = WarlockModel.compareItems(modelOpts(state.race), sel.value, a, b);
+    const out = $('cmpOut'); out.textContent = '';
+    const name = sel.options[sel.selectedIndex].textContent;
+    if (Math.abs(r.diff) < 0.05) { out.textContent = 'The alternative makes no difference for ' + name + '.'; return; }
+    out.appendChild(document.createTextNode('The alternative ' + (r.diff > 0 ? 'gains ' : 'loses ')));
+    const bold = document.createElement('b'); bold.textContent = Math.abs(r.diff).toFixed(1) + ' dps (' + (r.pct >= 0 ? '+' : '') + r.pct.toFixed(1) + '%)';
+    out.append(bold, document.createTextNode(' for ' + name + ', from ' + Math.round(r.base) + ' to ' + Math.round(r.swapped) + '.'));
+  }
+
+  // ---------------------------------------------------------------- wiring
+  buildRaceSegs(); buildLevelChips();
+  $('lvl').addEventListener('input', e => setLevel(e.target.value, false));
+  $('lvl').addEventListener('change', () => announce('Level ' + state.level + '. ' + $('pRot').textContent + '.'));
+  $('lvlNum').addEventListener('change', e => setLevel(e.target.value, true));
+  $('lvlDown').addEventListener('click', () => setLevel(state.level - 1, true));
+  $('lvlUp').addEventListener('click', () => setLevel(state.level + 1, true));
+  $('dngDown').addEventListener('click', () => setLevel(state.level - 1, true));
+  $('dngUp').addEventListener('click', () => setLevel(state.level + 1, true));
+  $('dngSide').addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    state.dngAll = b.dataset.v === 'all'; store.set('dngAll', state.dngAll);
+    renderDungeonChart(state.level);
+  });
+
+  const RANGES = { sp: [200, 1000], crit: [5, 25], ghit: [0, 16], pet: [0, 160], bod: [1.5, 4], spirit: [50, 300] };
+  const afterCalc = () => { renderRaid(); renderRaceCard(); renderRaceTable(); };
+  Object.entries(RANGES).forEach(([key, [lo, hi]]) => {
+    const setV = v => { const c = clamp(v, lo, hi, state[key]); state[key] = key === 'bod' ? Math.round(c * 10) / 10 : c; afterCalc(); };
+    $(key).addEventListener('input', e => setV(e.target.value));
+    $(key).addEventListener('change', () => { saveCalc(); announce($('raidVerdict').textContent); });
+    $(key + 'N').addEventListener('change', e => { setV(e.target.value); e.target.value = key === 'bod' ? state[key].toFixed(1) : state[key]; saveCalc(); announce($('raidVerdict').textContent); });
+  });
+  [['isbSeg', 'isb', v => Number(v)], ['ltSeg', 'lt', v => v]].forEach(([seg, key, parse]) =>
+    $(seg).querySelectorAll('button').forEach(btn => btn.addEventListener('click', () => {
+      state[key] = parse(btn.dataset.v); afterCalc(); saveCalc(); announce($('raidVerdict').textContent);
+    })));
+  $('sword').addEventListener('change', e => { state.sword = e.target.checked; afterCalc(); saveCalc(); announce($('raidVerdict').textContent); });
+  ['aSp', 'aCrit', 'aHit', 'bSp', 'bCrit', 'bHit'].forEach(id => $(id).addEventListener('input', () => renderCompare(WarlockModel.rank(modelOpts(state.race)))));
+  $('cmpSpec').addEventListener('change', () => { renderCompare(WarlockModel.rank(modelOpts(state.race))); announce($('cmpOut').textContent); });
+
+  // tests
+  const ticks = store.get('tests', {}) || {};
+  document.querySelectorAll('#testList input').forEach(cb => {
+    cb.checked = !!ticks[cb.id];
+    cb.closest('li').classList.toggle('done', cb.checked);
+    cb.addEventListener('change', () => { ticks[cb.id] = cb.checked; store.set('tests', ticks); cb.closest('li').classList.toggle('done', cb.checked); });
+  });
+  const rep = $('reportLine');
+  if (RESULTS_URL) {
+    rep.appendChild(document.createTextNode('Got a result? '));
+    const a = document.createElement('a'); a.href = RESULTS_URL; a.target = '_blank'; a.rel = 'noopener'; a.textContent = 'Report it on GitHub';
+    rep.append(a, document.createTextNode(', or reply in the Reddit thread where you found this.'));
+  } else rep.textContent = 'Got a result? Reply in the thread where you found this page.';
+  if (REPO_URL) {
+    const code = $('codeLine'); code.appendChild(document.createTextNode('The models are open source: '));
+    const a = document.createElement('a'); a.href = REPO_URL; a.target = '_blank'; a.rel = 'noopener'; a.textContent = 'read or run them';
+    code.append(a, document.createTextNode('.'));
+  }
+
+/*BUILDER*/
+
+  // deep links: #lvl-24, #race-undead, #b-... builds, or any element id (opens the <details> around it)
+  function openTo(el) {
+    for (let p = el; p; p = p.parentElement) if (p.tagName === 'DETAILS') p.open = true;
+    el.scrollIntoView({ block: 'start' });
+    if (el.matches('input, select, button')) el.focus({ preventScroll: true });
+  }
+  function handleHash() {
+    let h = '';
+    try { h = decodeURIComponent(location.hash.slice(1)); } catch (e) { return; }
+    if (!h) return;
+    let m = h.match(/^lvl-(\d{1,2})$/);
+    if (m) { setLevel(Number(m[1]), false); openTo($('you')); return; }
+    if (/^b-/.test(h)) { if (decodeBuild(h)) { renderBuilder(); openTo($('builder')); } return; }
+    m = h.match(/^race-([a-z]+)$/);
+    if (m && RACES[m[1]]) { setRace(m[1], false); openTo($('you')); return; }
+    const el = document.getElementById(h);
+    if (el) openTo(el);
+  }
+  window.addEventListener('hashchange', handleHash);
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a[href^="#"]');
+    if (a && a.getAttribute('href') === location.hash) { e.preventDefault(); handleHash(); }
+  });
+
+  // section nav highlight and the phone leader strip
+  const links = [...document.querySelectorAll('.toc a:not(.navrace)')];
+  const byId = Object.fromEntries(links.map(a => [a.getAttribute('href').slice(1), a]));
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(en => {
+        if (en.isIntersecting && byId[en.target.id]) {
+          links.forEach(a => a.removeAttribute('aria-current'));
+          const cur = byId[en.target.id];
+          cur.setAttribute('aria-current', 'true');
+          const row = cur.parentElement;
+          const badge = row.querySelector('.navrace');
+          const cover = badge ? badge.offsetWidth + 12 : 0;          // the pinned race badge sits over the row's left edge
+          const left = cur.offsetLeft - row.offsetLeft, right = left + cur.offsetWidth;
+          if (left - cover < row.scrollLeft || right > row.scrollLeft + row.clientWidth) row.scrollTo({ left: Math.max(0, left - cover - 8), behavior: 'auto' });
+        }
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    Object.keys(byId).forEach(id => { const s = $(id); if (s) io.observe(s); });
+    const strip = $('strip');
+    new IntersectionObserver(entries => { entries.forEach(en => { strip.hidden = !en.isIntersecting; }); }, { threshold: 0.05 }).observe($('raid'));
+  }
+
+  syncRace(); renderRaceCard(); renderRaceTable(); renderPlanner(); renderRaid(); renderBuilder();
+  handleHash();
+})();
+</script>

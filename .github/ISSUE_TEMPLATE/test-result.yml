@@ -14,6 +14,7 @@ body:
         - Soul Siphon counts curses
         - Demonic Pact sacrifice stacking
         - Bane of Doom scaling
+        - Succubus aggro with Demonic Brand
         - Other
     validations:
       required: true

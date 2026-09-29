@@ -51,7 +51,7 @@ Every number on the page or in this README traces back to one of the scripts in 
 
 | Input | Value as used |
 |---|---|
-| Hit | Assumed capped (no misses modeled), except a Demonology build without Suppression, which is modeled with a 5% throughput penalty when gear is not hit-capped |
+| Hit | Gear hit slider, default 11%. Suppression adds 5% in the Affliction and Destruction builds, so they are capped by default; Demonology has no hit talent. Each 1% short of the 16% boss cap costs 1% of damage |
 | Mana | Life Tap only. No regen, no raid mana buffs, no potions |
 | Life Tap value | Flat 840 by default, or `430 + Spirit` as a page toggle. Times 1.2 for builds with Improved Life Tap |
 | Improved Shadow Bolt duration | 12 seconds by default, 60 seconds as a page toggle |
@@ -74,6 +74,20 @@ Run every command from the repo root.
 | Race effect on raid damage, and the live calculator behind the page | open `index.html`, or read `model.js` |
 | Adversarial review of the raid model's claims and caveats | `docs/review.md` |
 | model.js and models/raid_model.py agree | `node tests/parity_test.js` |
+| Gear hit, stat weights and item comparison behave as specified | `node tests/weights_test.js` |
+
+## Changelog
+
+- **v6, 29 Sep 2026.** Game icons throughout (talent cells styled like the in-game talent window, race portraits, rotation icons, tree icons), and the chosen race now themes the whole page with a race badge in the section nav. Dungeons got their own section, with every dungeon on one level line filtered to your faction. Icons live in `assets/icons/` and are embedded by `src/build.py`.
+- **v5, 29 Sep 2026.** A talent builder: click any build into the three trees, pick a demon, a sacrifice and gear, and see seconds per kill next to the page plan, with shareable build links (`#b-...`). It runs `leveling.js`, a port of the Python leveling model checked by `tests/leveling_parity_test.js` (444 cases, exact match). Race themes re-tint the page header, and talent trees have their own colors in the builder and the raid chart. Asked for in the Reddit thread.
+- **v4, 29 Sep 2026.** Redesign after a four-reviewer UX pass (structure, visual design, interaction and accessibility, first-time Reddit visitor): sticky section nav, a beginner on-ramp and glossary, race and level controls in one place, a two-column calculator with a gap column and a sticky results panel, phone tables that stack into cards, a leader strip on phones, linkable levels and races (`#lvl-24`, `#race-undead`), clamped inputs, saved calculator settings, and calmer screen reader updates. From Reddit comments: Troll PvP corrected (Fear into Rapid Regeneration), and a 5/31/0 Succubus leveling build added as a claim with its own test (Demonic Brand aggro). Numbers unchanged.
+- **v3, 29 Sep 2026.** Stat weights per build (spell power, crit, hit, with crit and hit priced in spell power). An item comparer that re-runs the full model for a swap. A gear hit slider replaces the hit-cap checkbox; the default reproduces the reviewed numbers exactly. The level planner lists dungeons that fit your level and faction (levels from zockify.com and lfcarry.com; returning dungeons use an estimated range around Forever's recommended level). Requested in the Reddit thread.
+- **v2, 29 Sep 2026.** Interactive page: race picker, level planner, live raid calculator, test checklist.
+- **v1, 28 Sep 2026.** First published research.
+
+## How to rebuild the page
+
+`index.html` is generated. Edit `src/page.src.html`, `src/builder.js`, `model.js` or `leveling.js`, then run `python src/build.py` from the repo root and rerun the three test scripts in `tests/`.
 
 ## How to contribute
 
@@ -84,6 +98,10 @@ If you think a formula, a spell value, or a talent effect here is wrong, open a 
 ## Disclosure
 
 Research, models and page were built with Claude (Anthropic). A separate Claude session then reviewed the work adversarially from its own code, and its corrections are applied. Every number traces to a source or a script here.
+
+## Game art
+
+The icons in `assets/icons/` are Blizzard Entertainment's art, downloaded from Wowhead's image server (`wow.zamimg.com`). They are used here in a non-commercial fan project and are not covered by this repo's MIT license.
 
 ## License
 

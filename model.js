@@ -38,6 +38,21 @@
     return r;
   }
 
+  // Hit below the boss cap: each 1% short of 16% loses 1% of landed damage.
+  // Legacy switch kept so the reviewed defaults reproduce exactly:
+  // gearHitCapped true = 16% from gear, false = 11% (Suppression's 5% then caps Affliction and Destruction).
+  function gearHit(o) {
+    if (typeof o.gearHit === 'number') return o.gearHit;
+    return o.gearHitCapped ? 0.16 : 0.11;
+  }
+  function hitMult(o, talentHit) { return 1 - Math.max(0, 0.16 - gearHit(o) - talentHit); }
+  function scaleHit(res, m) {
+    if (m === 1) return res;
+    for (const k in res.parts) res.parts[k] *= m;
+    res.dps *= m;
+    return res;
+  }
+
   function lifeTap(opts, rm, ilt) {
     const base = opts.lifeTapMode === 'spirit' ? 430 + opts.spirit * rm.spiritMult : 840;
     return base * (ilt ? 1.2 : 1.0);
@@ -66,7 +81,7 @@
     const F = [(222 + 0.858 * sp) * sh * mal * drains * dc, 6.0, 200, 1.0];   // Wrack
     const res = solve(P, F, lifeTap(o, rm, false), [0.04, 1 / 3, sb, 380], 0.10,
       ['Corruption', 'Bane of Agony', 'Bane of Doom', 'Siphon Life']);
-    return withEureka(res, F[0], rm);
+    return scaleHit(withEureka(res, F[0], rm), hitMult(o, 0.05));
   }
 
   function destro(o, bane, version) {
@@ -100,14 +115,14 @@
       [P, F] = build(1 + 0.2 * u);
       res = solve(P, F, lt);
     }
-    return withEureka(res, F[0], rm);
+    return scaleHit(withEureka(res, F[0], rm), hitMult(o, 0.05));
   }
 
   function demo(o, bane) {
     const rm = raceMods(o.race, o);
     const sp = o.sp * rm.spMult + 60, c = o.crit + rm.crit;    // Demonic Knowledge +60
     const sh = 1.15 * 1.10;                                     // Imp sac + Master Demonologist
-    const allm = 1.03 * (o.gearHitCapped ? 1 : 0.95);           // Soul Link; no Suppression in this build
+    const allm = 1.03 * hitMult(o, 0);                          // Soul Link; no Suppression in this build
     const dstr = ev(c, 1.0), dotc = ev(c, 0.5), cat = 0.9;
     const lt = lifeTap(o, rm, false);
     function build(isb) {
@@ -152,6 +167,33 @@
     }).sort((x, y) => y.total - x.total);
   }
 
-  const api = { rank, aff, destro, demo, SPECS };
+  function specTotal(o, id) {
+    const s = SPECS.find(x => x.id === id);
+    const a = s.run(o, 'BoA').dps, d = s.run(o, 'BoD').dps;
+    return Math.max(a, d) + s.pet * o.petDps;
+  }
+
+  // Damage per second gained from +1 spell power, +1% crit, +1% hit, and their spell power equivalents.
+  function statWeights(o, id) {
+    const f = p => specTotal(Object.assign({}, o, p), id);
+    const sp = (f({ sp: o.sp + 10 }) - f({ sp: Math.max(0, o.sp - 10) })) / (o.sp >= 10 ? 20 : 10 + o.sp);
+    const crit = (f({ crit: o.crit + 0.01 }) - f({ crit: Math.max(0, o.crit - 0.01) })) / (o.crit >= 0.01 ? 2 : 1);
+    const gh = gearHit(o);
+    const hit = f({ gearHit: gh + 0.01 }) - f({ gearHit: gh });
+    return { sp, crit, hit, critInSp: sp > 0 ? crit / sp : 0, hitInSp: sp > 0 ? hit / sp : 0 };
+  }
+
+  // Swap an equipped item (a) for an alternative (b). Current totals already include item a.
+  function compareItems(o, id, a, b) {
+    const base = specTotal(o, id);
+    const swapped = specTotal(Object.assign({}, o, {
+      sp: Math.max(0, o.sp - a.sp + b.sp),
+      crit: Math.max(0, o.crit - a.crit + b.crit),
+      gearHit: Math.max(0, gearHit(o) - a.hit + b.hit),
+    }), id);
+    return { base, swapped, diff: swapped - base, pct: base ? (swapped / base - 1) * 100 : 0 };
+  }
+
+  const api = { rank, aff, destro, demo, SPECS, statWeights, compareItems, specTotal };
   if (typeof module !== 'undefined') module.exports = api; else root.WarlockModel = api;
 })(this);
