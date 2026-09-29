@@ -1,0 +1,822 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="darkreader-lock">
+<style>[hidden]{display:none!important}</style>
+<title>Forever Warlock Lab</title>
+<meta name="description" content="Tested WoW: Forever Warlock builds, rotations and racials, from beta spell data and an open expected-value model.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+:root{
+  --ground:#F3F1F7; --surface:#FFFFFF; --ink:#1C1726; --muted:#5E5770; --line:#DCD6E6;
+  --void:#5B3F99; --void-soft:#ECE6F8; --fel:#3E7A12; --fel-soft:#E7F2DC;
+  --amber:#946000; --amber-soft:#FBF0DA; --blood:#A0302A; --blood-soft:#F8E4E2;
+  --bar:#7B5CC4; --bar-pet:#C9A2E8; --track:#E4DFEC;
+  --tt-bg:#0B1026; --tt-line:#6E7390; --tt-gold:#FFD100; --tt-green:#1EFF00; --tt-white:#FFFFFF; --tt-grey:#9D9D9D;
+  --display:"Cinzel", "Trajan Pro", Georgia, serif;
+  --body:"Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --ground:#121018; --surface:#1B1724; --ink:#ECE8F3; --muted:#A79FB8; --line:#302A3C;
+    --void:#A98DEB; --void-soft:#2A2140; --fel:#8FD14F; --fel-soft:#1D2A14;
+    --amber:#E3A83E; --amber-soft:#2E2412; --blood:#E7766F; --blood-soft:#341A19;
+    --bar:#9B7FE0; --bar-pet:#5E4696; --track:#2A2536;
+    --tt-bg:#070A1A; --tt-line:#5D6280;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --ground:#121018; --surface:#1B1724; --ink:#ECE8F3; --muted:#A79FB8; --line:#302A3C;
+  --void:#A98DEB; --void-soft:#2A2140; --fel:#8FD14F; --fel-soft:#1D2A14;
+  --amber:#E3A83E; --amber-soft:#2E2412; --blood:#E7766F; --blood-soft:#341A19;
+  --bar:#9B7FE0; --bar-pet:#5E4696; --track:#2A2536;
+  --tt-bg:#070A1A; --tt-line:#5D6280;
+}
+*{box-sizing:border-box}
+body{background:var(--ground);color:var(--ink);font-family:var(--body);font-size:16.5px;line-height:1.6;padding-inline:16px;padding-block:28px 64px;margin:0}
+.wrap{max-width:820px;margin:0 auto;display:flex;flex-direction:column;gap:48px}
+h1,h2{font-family:var(--display);font-weight:700;letter-spacing:.02em;text-wrap:balance;margin:0;line-height:1.2}
+h1{font-size:clamp(30px,6vw,44px)}
+h2{font-size:clamp(21px,3.6vw,26px);color:var(--void)}
+h3{font-size:17px;margin:0;font-weight:700}
+p{margin:0;max-width:70ch}
+section{display:flex;flex-direction:column;gap:16px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.lede{font-size:18px;color:var(--muted)}
+header{display:flex;flex-direction:column;gap:12px;border-bottom:1px solid var(--line);padding-bottom:24px}
+.num,.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.note{font-size:14px;color:var(--muted)}
+a{color:var(--void)}
+:focus-visible{outline:2px solid var(--void);outline-offset:2px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:14px}
+
+/* verdict */
+.verdict{margin:0;padding:0;display:grid;gap:10px}
+.verdict li{list-style:none;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:grid;grid-template-columns:9.5em 1fr;gap:4px 14px;align-items:baseline}
+.verdict .k{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--void)}
+@media (max-width:560px){.verdict li{grid-template-columns:1fr}}
+
+/* chips / segmented controls */
+.seg{display:flex;flex-wrap:wrap;gap:8px}
+.seg button{font:inherit;font-size:15px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:6px 14px;cursor:pointer;display:inline-flex;gap:8px;align-items:center}
+.seg button[aria-pressed="true"]{background:var(--void);border-color:var(--void);color:var(--surface)}
+.seg .fac{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;opacity:.75}
+.seg-label{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+
+/* race card */
+.race-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.stat{background:var(--ground);border-radius:10px;padding:10px 12px;display:flex;flex-direction:column;gap:2px}
+.stat .lab{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.stat .val{font-weight:700;font-size:17px}
+.stat .sub{font-size:14px;color:var(--muted)}
+.racials{margin:0;padding:0;display:grid;gap:6px}
+.racials li{list-style:none;font-size:15px}
+.racials b{font-weight:700}
+
+/* tables */
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:540px;font-size:15px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;font-family:var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600;background:var(--ground)}
+tr:last-child td{border-bottom:0}
+td.r,th.r{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.hl td{background:var(--fel-soft)}
+
+/* sliders */
+.ctrl{display:grid;grid-template-columns:minmax(150px,210px) 1fr 4.5em;gap:10px;align-items:center}
+.ctrl label{font-size:15px}
+.ctrl output{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:right}
+input[type=range]{width:100%;accent-color:var(--void)}
+@media (max-width:560px){.ctrl{grid-template-columns:1fr 4em}.ctrl label{grid-column:1/-1}}
+.toggles{display:flex;flex-wrap:wrap;gap:16px 24px;align-items:center}
+.check{display:inline-flex;gap:8px;align-items:center;font-size:15px}
+.check input{accent-color:var(--void);width:17px;height:17px}
+
+/* level planner */
+.lvl-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.lvl-big{font-family:var(--display);font-size:40px;line-height:1;color:var(--void)}
+.plan-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.pill{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:999px;font-weight:600;background:var(--void-soft);color:var(--void)}
+.pill.new{background:var(--fel-soft);color:var(--fel)}
+.tlist{margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.tlist li{list-style:none;font-size:14px;background:var(--ground);border-radius:6px;padding:3px 8px}
+.tlist li.fresh{background:var(--fel-soft);color:var(--fel);font-weight:600}
+
+/* raid bars */
+.bars{display:grid;gap:10px}
+.bar-row{display:grid;grid-template-columns:minmax(150px,230px) 1fr 4.5em;gap:10px;align-items:center}
+.bar-name{font-size:14.5px;line-height:1.3}
+.bar-name small{display:block;color:var(--muted);font-size:12.5px}
+.bar-track{height:18px;background:var(--track);border-radius:4px;display:flex;overflow:hidden}
+.bar-lock{background:var(--bar);height:100%}
+.bar-pet{background:var(--bar-pet);height:100%}
+.bar-val{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:right;font-weight:600}
+.bar-row.win .bar-name{font-weight:700}
+@media (max-width:560px){.bar-row{grid-template-columns:1fr 4em}.bar-name{grid-column:1/-1}}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.callout{border-left:3px solid var(--void);padding:4px 0 4px 14px}
+
+/* status chips */
+.chip{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:999px;font-weight:600;white-space:nowrap}
+.c-proof{background:var(--fel-soft);color:var(--fel)}
+.c-test{background:var(--amber-soft);color:var(--amber)}
+.c-bust{background:var(--blood-soft);color:var(--blood)}
+.c-known{background:var(--void-soft);color:var(--void)}
+.finds{display:grid;gap:10px;margin:0;padding:0}
+.finds li{list-style:none;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.finds .t{display:flex;flex-wrap:wrap;gap:8px 10px;align-items:center}
+
+/* WoW tooltip cards */
+.specs{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.tt{background:var(--tt-bg);color:var(--tt-white);border:1px solid var(--tt-line);border-radius:6px;padding:14px 16px;box-shadow:0 0 0 1px #000 inset,0 6px 18px rgba(10,8,30,.25);font-size:14.5px;line-height:1.45;display:flex;flex-direction:column;gap:6px}
+.tt .name{font-family:var(--display);color:var(--tt-gold);font-size:18px;font-weight:700;letter-spacing:.02em}
+.tt .sub{color:var(--tt-grey);font-size:13px}
+.tt .use{color:var(--tt-green)}
+.tt .grey{color:var(--tt-grey)}
+.tt ul{margin:2px 0 0;padding-left:18px}
+.tt .split{font-family:var(--mono);color:var(--tt-gold);font-size:13px}
+
+/* tests */
+.tests{margin:0;padding:0;display:grid;gap:10px}
+.tests li{list-style:none;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px;display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start}
+.tests input{width:18px;height:18px;margin-top:4px;accent-color:var(--fel)}
+.tests li.done{background:var(--fel-soft)}
+.tests .when{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.src{font-size:14px;display:grid;gap:4px;margin:0;padding-left:18px}
+@media (prefers-reduced-motion:no-preference){.bar-lock,.bar-pet{transition:width .25s ease}}
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+
+<header>
+  <span class="eyebrow">WoW: Forever · Warlock · beta data, v2 · 29 Sep 2026</span>
+  <h1>Forever Warlock Lab</h1>
+  <p class="lede">Which Warlock build, rotation and race actually wins in Forever, checked against the beta's own spell numbers instead of copied from guides. Every claim is marked as proven by the model, needing an in-game test, or busted. The calculators below run the same model live, so you can change the assumptions and see what flips.</p>
+</header>
+
+<section>
+  <h2>The verdict</h2>
+  <ul class="verdict">
+    <li><span class="k">Leveling 10 to 33</span><span><b>Affliction, instant Corruption first, then wand as your filler.</b> Not Shadow Bolt, not Drain Life yet. Talents barely matter here: every sane build lands within 3% of the best.</span></li>
+    <li><span class="k">Leveling 34 to 55</span><span><b>Drain Life becomes the filler the moment Soul Siphon is done.</b> Keep leveling Affliction-first.</span></li>
+    <li><span class="k">Solo from 56</span><span><b>Switch to a Demonic Knowledge splash, 28/23/0.</b> It kills 5 to 7% faster than deep Affliction or the published drain-tank build, and held up when spell power tripled and pet damage halved.</span></li>
+    <li><span class="k">Group at 60</span><span><b>Destruction built around Incinerate, not Shadow Bolt.</b> 4 to 7% ahead of the published build. Your Succubus decides the rest: sacrifice her under about 8% of your damage, keep her out above that, Demonology only above about 17 to 20%.</span></li>
+    <li><span class="k">Race</span><span><b>Undead levels fastest. A Human with a caster sword does the most raid damage.</b> Every racial is worth under 2% of raid damage, so pick the race you like.</span></li>
+  </ul>
+</section>
+
+<section id="race">
+  <h2>Pick a race</h2>
+  <p>Only five races can be Warlocks in Forever. Racial numbers are from Wowhead's Forever data. The raid figure is computed live from the calculator further down, at its current settings.</p>
+  <div class="seg" role="group" aria-label="Race" id="raceSeg"></div>
+  <div class="panel" id="raceCard" aria-live="polite"></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Race</th><th>Leveling</th><th class="r">Raid damage</th><th>PvP</th></tr></thead>
+    <tbody id="raceTable"></tbody>
+  </table></div>
+</section>
+
+<section id="planner">
+  <h2>Level planner</h2>
+  <p>Drag to your level. It shows the talents you should have, what is new at that level, what to press, and a tip for your race.</p>
+  <div class="panel">
+    <div class="ctrl"><label for="lvl">Character level</label><input type="range" id="lvl" min="1" max="60" value="30"><output for="lvl" id="lvlOut">30</output></div>
+    <div class="lvl-head"><span class="lvl-big" id="lvlBig">30</span><span id="lvlPhase" class="pill"></span><span id="lvlPts" class="note"></span></div>
+    <div class="plan-grid">
+      <div class="stat"><span class="lab">Rotation</span><span class="val" id="pRot"></span><span class="sub" id="pRotSub"></span></div>
+      <div class="stat"><span class="lab">Pet</span><span class="val" id="pPet"></span><span class="sub" id="pPetSub"></span></div>
+      <div class="stat"><span class="lab">New at this level</span><span class="val" id="pNew"></span><span class="sub" id="pNewSub"></span></div>
+    </div>
+    <div><span class="seg-label">Talents at this level</span></div>
+    <ul class="tlist" id="pTal"></ul>
+    <p class="note" id="pRace"></p>
+  </div>
+</section>
+
+<section>
+  <h2>Suggested dual spec at 60</h2>
+  <p>Blizzard has not announced how dual spec works yet. The beta client has strings for a primary and secondary spec. The pair below assumes two slots.</p>
+  <div class="specs">
+    <div class="tt">
+      <span class="name">Tome of the Patient Drain</span>
+      <span class="sub">Solo spec · questing, farming, world</span>
+      <span class="split">Affliction 28 · Demonology 23 · Destruction 0</span>
+      <span class="use">Use: +60 spell damage for you and your demon from Demonic Knowledge, on top of a full drain kit.</span>
+      <ul>
+        <li>Improved Corruption 5, Suppression 3, Improved Life Tap 1</li>
+        <li>Improved Drains 3, Malediction 5</li>
+        <li>Improved Bane of Agony 2, Pandemic 3, Nightfall 2</li>
+        <li>Siphon Life 1, Soul Siphon 3</li>
+        <li>Demonic Embrace 5, Unholy Power 5</li>
+        <li>Demonic Aegis 2, Improved Voidwalker 3, Fel Vitality 3, Demonic Energies 2</li>
+        <li>Demonic Knowledge 3</li>
+      </ul>
+      <span class="grey">Pet: Voidwalker. Demonic Energies heals it off your damage and hands it your Life Tap mana.</span>
+    </div>
+    <div class="tt">
+      <span class="name">Codex of the Pale Flame</span>
+      <span class="sub">Group spec · dungeons and raids</span>
+      <span class="split">Affliction 9 · Demonology 11 · Destruction 31</span>
+      <span class="use">Use: Summon the Succubus. Sacrifice her for +15% Fire damage only if she does under about 8% of your damage.</span>
+      <ul>
+        <li>Improved Life Tap 2, Suppression 5, Malediction 2</li>
+        <li>Demonic Embrace 5, Demonic Aegis 2, Fel Vitality 3, Demonic Sacrifice 1</li>
+        <li>Destructive Reach 1, Bane 5, Aftermath 5, Cataclysm 3</li>
+        <li>Ruin 5, Shadowburn 1, Conflagrate 1, Agonizing Flames 3</li>
+        <li>Bane of Havoc 1, Shadow and Flame 5, Incinerate 1</li>
+      </ul>
+      <span class="grey">Keep up Immolate, Corruption and Bane of Doom. Conflagrate and Shadowburn on cooldown. Fill with Incinerate.</span>
+    </div>
+  </div>
+  <p class="note">The group spec takes Aftermath 5 in place of the published Improved Shadow Bolt 5, because this version never casts Shadow Bolt.</p>
+</section>
+
+<section id="raid">
+  <h2>Raid calculator</h2>
+  <p>Single target at level 60. Life Tap funds all mana, the same limit for every build. Each build uses whichever Bane scores higher under your settings. Change anything and the ranking updates.</p>
+  <div class="panel">
+    <div class="ctrl"><label for="sp">Spell power</label><input type="range" id="sp" min="200" max="1000" step="10" value="500"><output id="spOut"></output></div>
+    <div class="ctrl"><label for="crit">Crit chance</label><input type="range" id="crit" min="5" max="25" step="1" value="10"><output id="critOut"></output></div>
+    <div class="ctrl"><label for="pet">Succubus damage per sec</label><input type="range" id="pet" min="0" max="160" step="5" value="50"><output id="petOut"></output></div>
+    <div class="ctrl"><label for="bod">Bane of Doom scaling</label><input type="range" id="bod" min="1.5" max="4" step="0.1" value="4"><output id="bodOut"></output></div>
+    <div class="toggles">
+      <span class="seg-label">Improved Shadow Bolt lasts</span>
+      <div class="seg" role="group" aria-label="Improved Shadow Bolt duration" id="isbSeg">
+        <button type="button" data-v="12" aria-pressed="true">12 sec</button>
+        <button type="button" data-v="60" aria-pressed="false">60 sec</button>
+      </div>
+      <span class="seg-label">Life Tap</span>
+      <div class="seg" role="group" aria-label="Life Tap version" id="ltSeg">
+        <button type="button" data-v="840" aria-pressed="true">840 flat</button>
+        <button type="button" data-v="spirit" aria-pressed="false">430 + Spirit</button>
+      </div>
+    </div>
+    <div class="ctrl" id="spiritRow" hidden><label for="spirit">Spirit</label><input type="range" id="spirit" min="50" max="300" step="5" value="100"><output id="spiritOut"></output></div>
+    <div class="toggles">
+      <label class="check"><input type="checkbox" id="hitcap"> Gear alone reaches the 16% boss hit cap</label>
+      <label class="check" id="swordWrap"><input type="checkbox" id="sword" checked> Human with a sword equipped</label>
+      <span class="note">Race: <b id="raidRace"></b> (change it above)</span>
+    </div>
+  </div>
+  <div class="legend"><span><i style="background:var(--bar)"></i>Warlock</span><span><i style="background:var(--bar-pet)"></i>Succubus</span></div>
+  <div class="bars" id="bars" aria-live="polite"></div>
+  <p class="callout" id="raidVerdict"></p>
+  <p class="note">Defaults are what the beta data supports today. Bane of Doom's 4.0 scaling and Incinerate's top rank come from datamines only. A Succubus at 50 damage per second is a placeholder. Run the Succubus test below and set your own. Demonology has no hit talent, so unless your gear caps hit, it loses 5% of its damage to misses.</p>
+</section>
+
+<section>
+  <h2>What each talent point is worth</h2>
+  <p>Extra damage over 120 seconds from adding a talent to a solid base build, at that level's best rotation. This is where "talents barely matter while leveling" comes from.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Talent</th><th class="r">Lvl 30, wand</th><th class="r">Lvl 45, Drain Life</th><th class="r">Lvl 60, Drain Life</th></tr></thead>
+    <tbody>
+      <tr class="hl"><td>Demonic Knowledge (Demonology, 20 deep)</td><td class="r">+2.3%/pt</td><td class="r">+3.4%/pt</td><td class="r">+3.1%/pt</td></tr>
+      <tr class="hl"><td>Soul Siphon</td><td class="r">0 (no drains)</td><td class="r">+2.6%/pt</td><td class="r">in base</td></tr>
+      <tr class="hl"><td>Nightfall</td><td class="r">+0.4%/pt</td><td class="r">+1.5%/pt</td><td class="r">+3.0%/pt</td></tr>
+      <tr><td>Siphon Life (1 point)</td><td class="r">+2.5%</td><td class="r">in base</td><td class="r">in base</td></tr>
+      <tr><td>Improved Bane of Agony</td><td class="r">+0.8%/pt</td><td class="r">+0.7%/pt</td><td class="r">+0.9%/pt</td></tr>
+      <tr><td>Malediction, Shadow Mastery</td><td class="r">+0.3%/pt</td><td class="r">+0.8%/pt</td><td class="r">in base</td></tr>
+      <tr><td>Pandemic</td><td class="r">+0.3%/pt</td><td class="r">+0.6%/pt</td><td class="r">+0.7%/pt</td></tr>
+      <tr><td>Unholy Power</td><td class="r">+0.5%/pt</td><td class="r">+0.5%/pt</td><td class="r">+0.4%/pt</td></tr>
+      <tr><td>Malevolence</td><td class="r">+0.2%/pt</td><td class="r">+0.4%/pt</td><td class="r">+0.4%/pt</td></tr>
+      <tr><td>Soul Harvesting</td><td class="r">about 0</td><td class="r">about 0</td><td class="r">about 0</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">Soul Harvesting doubles Spirit-based mana regen for 10 seconds after a Drain Soul kill. At 60 that is roughly 300 mana, a third of one Life Tap, and it forces a slow Drain Soul finish.</p>
+</section>
+
+<section>
+  <h2>The rule behind all of it</h2>
+  <p>Forever cut most Warlock spells to about half their Classic base damage and moved the power into spell power scaling. Direct nukes kept Classic's scaling. Damage-over-time spells got a lot more of it.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Max rank</th><th class="r">Classic base</th><th class="r">Forever base</th><th class="r">Forever SP scaling</th><th>What changed</th></tr></thead>
+    <tbody>
+      <tr><td>Corruption</td><td class="r">822</td><td class="r">438</td><td class="r">×1.2</td><td>Scaling up from ×1.0</td></tr>
+      <tr><td>Bane of Agony</td><td class="r">1044</td><td class="r">552</td><td class="r">×1.6</td><td>Scaling up from ×1.0</td></tr>
+      <tr><td>Bane of Doom</td><td class="r">3200</td><td class="r">1742</td><td class="r">×4.0</td><td>Datamine value only</td></tr>
+      <tr><td>Shadow Bolt</td><td class="r">482 to 538</td><td class="r">253 to 283</td><td class="r">×0.857</td><td>Same scaling as Classic</td></tr>
+      <tr><td>Drain Life, per sec</td><td class="r">71</td><td class="r">52</td><td class="r">×0.1 per tick</td><td>Unchanged scaling</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>Consequence:</b> an instant DoT is worth far more per global cooldown than any nuke, at every gear level. That is why Shadow Bolt is a trap while leveling, why Bane of Doom wins at 60, and why every raid build still keeps Corruption and a Bane up.</p>
+</section>
+
+<section>
+  <h2>Interactions, tested</h2>
+  <ul class="finds">
+    <li><div class="t"><span class="chip c-proof">Proven by math</span><h3>Human Sword Specialization works on spells</h3></div>
+      <p>Forever's version reads "+2% crit with all spells and attacks while you have a sword equipped", and Warlocks can train swords. With Ruin or Pandemic doubling crit damage, that is 1.6 to 2.2% more raid damage, the biggest racial for a Warlock. It only counts if a caster sword is your best weapon.</p></li>
+    <li><div class="t"><span class="chip c-proof">Proven by math</span><h3>Bane of Doom beats Bane of Agony at 60</h3></div>
+      <p>Per second, both scale identically with spell power (4.0 over 60 s equals 1.6 over 24 s). Doom has more base damage per second and needs a global cooldown once a minute instead of every 24 seconds. <b>Rule: cast Doom while at least a minute of the fight remains, then Agony.</b> The result rests on the datamined 4.0 scaling. Drag the slider in the raid calculator to see where it flips.</p></li>
+    <li><div class="t"><span class="chip c-proof">Proven by math</span><h3>Incinerate beats Shadow Bolt as the Destruction filler</h3></div>
+      <p>With Bane 5/5 and Immolate up, Incinerate does 26 to 29% more per second of casting than Shadow Bolt before school buffs, which is 4 to 7% across the whole rotation. Forever reversed the sacrifice buffs from Classic: Imp now gives Shadow, Succubus gives Fire. One risk: if Improved Shadow Bolt lasts 60 seconds instead of 12, the gap closes to about 1%. Try the toggle.</p></li>
+    <li><div class="t"><span class="chip c-proof">Proven by math</span><h3>Demonic Knowledge is the best point-for-point talent in the class</h3></div>
+      <p>It adds flat spell damage equal to your level, for you and your demon, while a demon is out. Flat bonuses are worth most when gear is weakest, which is solo play. It costs 20 Demonology points of mostly survival talents to reach, so it pays off from about level 56.</p></li>
+    <li><div class="t"><span class="chip c-proof">Proven by math</span><h3>Nightfall is underrated once you drain</h3></div>
+      <p>It can proc on every Corruption tick and every Drain Life and Wrack tick, once per second while channeling. At 60 it is worth about 3% per point, even after paying the global cooldown for the instant Shadow Bolt.</p></li>
+    <li><div class="t"><span class="chip c-test">Needs an in-game test</span><h3>Stacking sacrifices with Demonic Pact</h3></div>
+      <p>Demonic Pact only says a sacrifice is not cancelled by summoning a different demon. Nothing says a second sacrifice removes the first. If they stack, sacrificing the Imp, Felhunter and Voidwalker in turn and keeping the Succubus is about 9% faster solo. That assumes the damage Soul Link moves onto the Succubus costs nothing. If you must heal her back up, it is 13% slower. A curiosity, not a plan.</p></li>
+    <li><div class="t"><span class="chip c-test">Needs an in-game test</span><h3>Do curses count for Soul Siphon?</h3></div>
+      <p>Soul Siphon grows Drain Life by 12% per other Affliction effect on the target, up to three. Curses now sit in their own slot next to Banes. If a curse counts, Corruption, a Bane and Curse of Weakness max it out without Siphon Life.</p></li>
+    <li><div class="t"><span class="chip c-bust">Busted</span><h3>Shadow Bolt as a leveling filler</h3></div>
+      <p>It costs the most mana per damage of anything you have, so the resting it causes cancels the faster kills. It won 0 of 612 level-by-level scans.</p></li>
+    <li><div class="t"><span class="chip c-bust">Busted</span><h3>Troll Warlock as a raid pick</h3></div>
+      <p>Berserking is casting speed, and in the beta haste does not speed up DoTs or channels. It adds about 0.2% raid damage. Rapid Regeneration is a 6-second channel that breaks on any action, so it is between-fights healing, not a combat heal.</p></li>
+    <li><div class="t"><span class="chip c-known">Known, confirmed</span><h3>Demonic Pact: sacrifice the Imp, then summon the Succubus</h3></div>
+      <p>The Demonology raid guide already uses this. It tops the raid calculator once the Succubus carries about 17 to 20% of your damage, or about 8% if your gear caps hit. The BlizzCon demo credited her with 23 to 25% at level 38, so this is a live contender.</p></li>
+  </ul>
+</section>
+
+<section id="tests">
+  <h2>Help test these</h2>
+  <p>These five checks decide the open questions. Tick them off as you go. Your ticks stay in this browser only. <span id="reportLine"></span></p>
+  <ul class="tests" id="testList">
+    <li><input type="checkbox" id="t1" aria-labelledby="t1l"><div id="t1l"><span class="when">Any level, beta</span><br><b>Life Tap ratio.</b> Write down health and mana, tap once, compare. Sources disagree on whether it converts 430 plus Spirit or 840. If Spirit adds to it, Human and high-Spirit gear buff every tap.</div></li>
+    <li><input type="checkbox" id="t2" aria-labelledby="t2l"><div id="t2l"><span class="when">Level 20 and up, beta</span><br><b>Succubus share.</b> Run a damage meter over five minutes of normal play with the Succubus out. Put her damage per second into the raid calculator above.</div></li>
+    <li><input type="checkbox" id="t3" aria-labelledby="t3l"><div id="t3l"><span class="when">Level 30, beta cap</span><br><b>Soul Siphon and curses.</b> With Soul Siphon, compare a Drain Life tick with Corruption and Agony on the target, then again after adding Curse of Weakness. A 12% jump means curses count.</div></li>
+    <li><input type="checkbox" id="t4" aria-labelledby="t4l"><div id="t4l"><span class="when">Level 40, after launch</span><br><b>Pact stacking.</b> With 31 Demonology points, sacrifice the Imp, summon and sacrifice the Felhunter, then check your buff bar for both buffs.</div></li>
+    <li><input type="checkbox" id="t5" aria-labelledby="t5l"><div id="t5l"><span class="when">Level 60, after launch</span><br><b>Bane of Doom scaling.</b> Cast it on a training dummy in two gear sets with different spell power. The hit should move by four times the spell power difference.</div></li>
+  </ul>
+</section>
+
+<section>
+  <h2>How this was checked</h2>
+  <p>Spell data came from Wowhead's Forever spell pages, including per-tick spell power scaling, cross-checked against two beta client datamines, ForeverChanges and the ElliotWood Forever sim. Talent values came from the Wowhead calculator's rank tooltips, cross-checked against five talent sites. Racial values came from Wowhead's Forever spell data.</p>
+  <p>Leveling runs through an expected-value fight simulator. It folds hit and crit into every tick, applies buffs live because Forever removed snapshotting, ramps Agony the way the tooltip says, enforces talent row requirements, and scores seconds per kill including rest. A hill-climbing optimizer searched both trees at levels 20 to 60. The raid calculator is a steady-state spell-budget model that balances mana with Life Tap.</p>
+  <p>The research, models and this page were built with Claude, Anthropic's AI model. A separate Claude session then reviewed the work adversarially, starting from its own code: it rebuilt the raid math in its own script plus a turn-by-turn rotation simulation. The two agreed within 0.3%. It confirmed every headline with caveats, corrected three thresholds and one unfair comparison, and checked the solo claims under tripled spell power and halved pet damage. The calculator on this page is a direct port of the reviewed model and reproduces it exactly across 54 test cases. <span id="codeLine"></span></p>
+  <p class="callout"><b>Limits.</b> The beta is capped at level 30, so nobody has played a finished tree. Pet damage, mob health and damage, wand damage and rest speed are assumptions that were stress-tested, not measured. The raid model ignores mana regen, potions and raid buffs, which would help Destruction and Demonology a little more than Affliction. Numbers will move before 4 November. Corrections are welcome.</p>
+</section>
+
+<section>
+  <h2>Sources</h2>
+  <ul class="src">
+    <li><a href="https://www.wowhead.com/forever/talent-calc/warlock">Wowhead Forever Warlock talent calculator</a> and Forever spell pages</li>
+    <li><a href="https://foreverchanges.pro/class/warlock">ForeverChanges: Warlock changes vs Classic</a></li>
+    <li><a href="https://github.com/ElliotWood/Forever">ElliotWood/Forever sim</a></li>
+    <li><a href="https://www.icy-veins.com/wow-forever/warlock-class-overview">Icy Veins: Forever Warlock overview</a></li>
+    <li><a href="https://www.warcrafttavern.com/forever/guides/stats/">Warcraft Tavern: Forever stats guide</a></li>
+    <li><a href="https://wowforeverbuilds.com/guides/warlock">wowforeverbuilds: published Warlock builds</a></li>
+    <li><a href="https://lfcarry.com/guides/wow-forever-dual-spec">lfcarry: dual spec status</a></li>
+  </ul>
+</section>
+
+</div>
+
+<script>
+/* Forever Warlock raid model (level 60, single target, steady state).
+ * Port of the reviewed Python model (review_check.py). Expected values, no RNG.
+ * Budget: DoT/cooldown cast time + Nightfall Shadow Bolts + Life Tap time + filler time = 1 second.
+ * Mana: everything is funded by Life Tap (no regen, no potions): the same limit for every spec.
+ */
+(function (root) {
+  const GCD = 1.5;
+  const ev = (c, bonus) => 1 + c * bonus;
+
+  function solve(periodic, filler, lt, nf, ampFrac, shadowDotNames) {
+    let A = 0, M = 0;
+    for (const k in periodic) { const [, T, t, m] = periodic[k]; A += t / T; M += m / T; }
+    const [dF, cF, mF, tps] = filler;
+    let r0 = 0, r1 = 0, sbd = 0, sbm = 0;
+    if (nf) { const [p, corrTps, d, m] = nf; r0 = p * corrTps; r1 = p * tps; sbd = d; sbm = m; }
+    const k = GCD / lt;
+    const f = (1 - A - GCD * r0 - k * (M + sbm * r0)) / (1 + GCD * r1 + k * (sbm * r1 + mF / cF));
+    const parts = {};
+    let shadowDots = 0;
+    for (const n in periodic) {
+      const [D, T] = periodic[n];
+      parts[n] = D / T;
+      if ((shadowDotNames || []).includes(n)) shadowDots += D / T;
+    }
+    parts.Filler = f * (dF / cF + (ampFrac || 0) * shadowDots);
+    if (nf) parts['Nightfall'] = (r0 + r1 * f) * sbd;
+    const dps = Object.values(parts).reduce((a, b) => a + b, 0);
+    return { dps, parts, f };
+  }
+
+  // race: { crit, spMult, castSpeed, eureka }
+  function raceMods(race, opts) {
+    const r = { crit: 0, spMult: 1, castSpeed: 1, eureka: 0, spiritMult: 1 };
+    if (race === 'human') { if (opts.sword) r.crit = 0.02; r.spiritMult = 1.05; }
+    if (race === 'orc') r.spMult = 1 + 0.10 * 15 / 120;        // Blood Fury: +10% SP, 15 s every 2 min
+    if (race === 'troll') r.castSpeed = 1 + 0.10 * 10 / 180;    // Berserking: casts only, not DoTs or channels
+    if (race === 'gnome') r.eureka = 0.10 * 3 / 120;            // Eureka!: next 3 spells +10%, every 2 min
+    return r;
+  }
+
+  function lifeTap(opts, rm, ilt) {
+    const base = opts.lifeTapMode === 'spirit' ? 430 + opts.spirit * rm.spiritMult : 840;
+    return base * (ilt ? 1.2 : 1.0);
+  }
+
+  function withEureka(res, fillerDmg, rm) {
+    if (!rm.eureka) return res;
+    const extra = rm.eureka * fillerDmg;          // 10% of 3 filler casts per 120 s
+    res.parts.Racial = extra;
+    res.dps += extra;
+    return res;
+  }
+
+  function aff(o, bane, keepSuccubus) {
+    const rm = raceMods(o.race, o);
+    const sp = o.sp * rm.spMult, c = o.crit + rm.crit, cs = c + 0.05;
+    const sh = (keepSuccubus ? 1.0 : 1.15) * 1.05, mal = 1.05, dc = ev(cs, 1.0);
+    const P = {};
+    P.Corruption = [(438 + 1.2 * sp) * sh * mal * 1.10 * dc, 18, GCD, 340];
+    if (bane === 'BoA') P['Bane of Agony'] = [(552 + 1.596 * sp) * sh * mal * 1.10 * dc, 24, GCD, 215];
+    else P['Bane of Doom'] = [(1742 + o.bodCoef * sp) * sh * mal * dc, 60, GCD, 300];
+    P['Siphon Life'] = [(420 + 0.5 * sp) * sh * mal * dc, 30, GCD, 365];
+    P.Immolate = [(159 + 0.2 * sp) * ev(c, 0.5) + (280 + 0.65 * sp) * mal * ev(c, 0.5), 15, 2.0, 380];
+    const sb = (268 + 0.857 * sp) * sh * ev(cs, 0.5);
+    const drains = 1.20 * 1.36;
+    const F = [(222 + 0.858 * sp) * sh * mal * drains * dc, 6.0, 200, 1.0];   // Wrack
+    const res = solve(P, F, lifeTap(o, rm, false), [0.04, 1 / 3, sb, 380], 0.10,
+      ['Corruption', 'Bane of Agony', 'Bane of Doom', 'Siphon Life']);
+    return withEureka(res, F[0], rm);
+  }
+
+  function destro(o, bane, version) {
+    // version: 'sb' = Imp sac + Shadow Bolt (+Shadowburn); 'incin' = Succubus sac + Incinerate; 'keep' = Succubus out
+    const rm = raceMods(o.race, o);
+    const sp = o.sp * rm.spMult, c = o.crit + rm.crit;
+    const aftermath = version !== 'sb';
+    const sh = (version === 'sb' ? 1.15 : 1.0) * 1.10;
+    const fi = (version === 'incin' ? 1.15 : 1.0) * 1.10;
+    const AF = 1.10, mal = 1.02, cat = 0.9, dstr = ev(c, 1.0), dotc = ev(c, 0.5);
+    const lt = lifeTap(o, rm, true);
+    function build(isb) {
+      const P = {};
+      P.Corruption = [(438 + 1.2 * sp) * sh * mal * dotc * isb, 18, 2.0, 340];
+      if (bane === 'BoA') P['Bane of Agony'] = [(552 + 1.596 * sp) * sh * mal * dotc * isb, 24, GCD, 215];
+      else P['Bane of Doom'] = [(1742 + o.bodCoef * sp) * sh * mal * dotc * isb, 60, GCD, 300];
+      const direct = (159 + 0.2 * sp) * (aftermath ? 1.5 : 1.0);
+      P.Immolate = [(direct + (280 + 0.65 * sp) * mal) * fi * AF * dstr, 15, 1.5, 380 * cat];
+      P.Conflagrate = [(282 + 0.429 * sp) * fi * AF * dstr, 10, GCD, 255 * cat];
+      P.Shadowburn = [(266 + 0.429 * sp) * sh * AF * dstr * isb, 15, GCD, 365 * cat];
+      const F = version === 'sb'
+        ? [(268 + 0.857 * sp) * sh * AF * dstr * isb, 2.5 / rm.castSpeed, 380 * cat, 0]
+        : [(217 + 0.714 * sp) * 1.25 * fi * AF * dstr, 2.0 / rm.castSpeed, 325 * cat, 0];
+      return [P, F];
+    }
+    let [P, F] = build(1.0);
+    let res = solve(P, F, lt);
+    if (version === 'sb') {
+      const n = o.isbDuration * res.f / (2.5 / rm.castSpeed);
+      const u = 1 - Math.pow(1 - c, n);
+      [P, F] = build(1 + 0.2 * u);
+      res = solve(P, F, lt);
+    }
+    return withEureka(res, F[0], rm);
+  }
+
+  function demo(o, bane) {
+    const rm = raceMods(o.race, o);
+    const sp = o.sp * rm.spMult + 60, c = o.crit + rm.crit;    // Demonic Knowledge +60
+    const sh = 1.15 * 1.10;                                     // Imp sac + Master Demonologist
+    const allm = 1.03 * (o.gearHitCapped ? 1 : 0.95);           // Soul Link; no Suppression in this build
+    const dstr = ev(c, 1.0), dotc = ev(c, 0.5), cat = 0.9;
+    const lt = lifeTap(o, rm, false);
+    function build(isb) {
+      const P = {};
+      P.Corruption = [(438 + 1.2 * sp) * sh * allm * dotc * isb, 18, 2.0, 340];
+      if (bane === 'BoA') P['Bane of Agony'] = [(552 + 1.596 * sp) * sh * allm * dotc * isb, 24, GCD, 215];
+      else P['Bane of Doom'] = [(1742 + o.bodCoef * sp) * sh * allm * dotc * isb, 60, GCD, 300];
+      P.Immolate = [((159 + 0.2 * sp) + (280 + 0.65 * sp)) * allm * dstr, 15, 1.5, 380 * cat];
+      const F = [(268 + 0.857 * sp) * sh * allm * dstr * isb, 2.5 / rm.castSpeed, 380 * cat, 0];
+      return [P, F];
+    }
+    let [P, F] = build(1.0);
+    const f0 = solve(P, F, lt).f;
+    const u = 1 - Math.pow(1 - c, o.isbDuration * f0 / (2.5 / rm.castSpeed));
+    [P, F] = build(1 + 0.2 * u);
+    return withEureka(solve(P, F, lt), F[0], rm);
+  }
+
+  const SPECS = [
+    { id: 'destro-fire', name: 'Destruction, Fire', note: 'Succubus sacrificed, Incinerate filler, Aftermath', pet: 0,
+      run: (o, b) => destro(o, b, 'incin') },
+    { id: 'destro-keep', name: 'Destruction, Fire + Succubus', note: 'Succubus kept out, Incinerate filler', pet: 1.0,
+      run: (o, b) => destro(o, b, 'keep') },
+    { id: 'destro-shadow', name: 'Destruction, Shadow (published)', note: 'Imp sacrificed, Shadow Bolt and Shadowburn', pet: 0,
+      run: (o, b) => destro(o, b, 'sb') },
+    { id: 'demo-pact', name: 'Demonology, Pact', note: 'Imp sacrificed, Succubus out, Shadow Bolt', pet: 1.156,
+      run: (o, b) => demo(o, b) },
+    { id: 'aff-sac', name: 'Affliction', note: 'Imp sacrificed, Wrack filler, Immolate kept up', pet: 0,
+      run: (o, b) => aff(o, b, false) },
+    { id: 'aff-keep', name: 'Affliction + Succubus', note: 'Succubus kept out, Wrack filler', pet: 1.0,
+      run: (o, b) => aff(o, b, true) },
+  ];
+
+  function rank(o) {
+    return SPECS.map(s => {
+      const a = s.run(o, 'BoA'), d = s.run(o, 'BoD');
+      const best = d.dps >= a.dps ? { r: d, bane: 'Bane of Doom' } : { r: a, bane: 'Bane of Agony' };
+      const pet = s.pet * o.petDps;
+      const total = best.r.dps + pet;
+      return { id: s.id, name: s.name, note: s.note, bane: best.bane, lock: best.r.dps, pet, total,
+               petShare: total ? pet / total : 0, parts: best.r.parts, filler: best.r.f };
+    }).sort((x, y) => y.total - x.total);
+  }
+
+  const api = { rank, aff, destro, demo, SPECS };
+  if (typeof module !== 'undefined') module.exports = api; else root.WarlockModel = api;
+})(this);
+
+</script>
+<script>
+(function () {
+  const REPO_URL = 'https://github.com/opitaru-sys/forever-warlock-lab';            // filled in once the code is public
+  const RESULTS_URL = 'https://github.com/opitaru-sys/forever-warlock-lab/issues/new?template=test-result.yml';         // issue form for test results
+
+  // ---------------------------------------------------------------- store (per-viewer conveniences only)
+  const store = {
+    get(k, d) { try { const v = localStorage.getItem('fwl.' + k); return v === null ? d : JSON.parse(v); } catch (e) { return d; } },
+    set(k, v) { try { localStorage.setItem('fwl.' + k, JSON.stringify(v)); } catch (e) { /* storage blocked: ignore */ } }
+  };
+
+  // ---------------------------------------------------------------- races
+  const RACES = {
+    human: { label: 'Human', faction: 'Alliance',
+      racials: [['Sword Specialization', '+2% crit with all spells and attacks while a sword is equipped. Warlocks can train swords.'],
+                ['The Human Spirit', '+5% Spirit. Only matters if Life Tap really scales with Spirit.'],
+                ['Will to Survive', 'Break all stuns. 3 min cooldown.'],
+                ['Perception', 'See stealth for 20 sec. 3 min cooldown.']],
+      level: 'About 1% with a caster sword, otherwise nothing', levelPct: 1,
+      pvp: 'Will to Survive breaks stuns, the thing that kills casters most',
+      verdict: 'The best raid race, but only if a caster sword is your best weapon.',
+      tip: 'If a quest or drop gives you a spell-power sword, equip it: +2% spell crit comes with it.' },
+    gnome: { label: 'Gnome', faction: 'Alliance',
+      racials: [['Eureka!', 'Next 3 damaging spells deal +10% and cost 10% less mana. 2 min cooldown.'],
+                ['Expansive Mind', '+5% max mana.'],
+                ['Escape Artist', 'Break roots and slows, immune for 3 sec. 2 min cooldown.'],
+                ['Engineering Specialization', 'Engineering gadgets fail 20% less often.']],
+      level: 'About 0.5% from Eureka! on the pull', levelPct: 0.5,
+      pvp: 'Escape Artist frees you from roots and slows',
+      verdict: 'A solid all-round Alliance pick with no big edge anywhere.',
+      tip: 'Press Eureka! on the pull so your opening DoTs get the +10%.' },
+    orc: { label: 'Orc', faction: 'Horde',
+      racials: [['Blood Fury', '+10% Attack Power and Spell Power for 15 sec. 2 min cooldown.'],
+                ['Hardiness', 'Stuns on you last 20% shorter.'],
+                ['Shatter Curse', 'Remove and block curses and banes, and take 15% less magic damage for 8 sec. 3 min cooldown.'],
+                ['Axe Specialization', '+1% crit with an axe. Warlocks cannot use axes.']],
+      level: 'About 0.5% from Blood Fury on elites', levelPct: 0.5,
+      pvp: 'Hardiness plus Shatter Curse, which shuts down enemy Warlocks',
+      verdict: 'The best Horde PvP race, with a small raid edge.',
+      tip: 'Save Blood Fury for elites and big pulls. At low spell power it adds little.' },
+    troll: { label: 'Troll', faction: 'Horde',
+      racials: [['Rapid Regeneration', 'Regain 50% max health over 6 sec, channeled. Breaks on any action or damage. 3 min cooldown.'],
+                ['Berserking', '+10% casting speed for 10 sec. 3 min cooldown. Does not speed up DoTs or channels in the beta.'],
+                ['Regeneration', '10% of health regen continues in combat.'],
+                ['Beast Slaying', '+5% damage to Beasts.']],
+      level: 'About 3 to 6% faster: Rapid Regeneration replaces some eating and beasts die 5% faster', levelPct: 4.5,
+      pvp: 'Nothing major',
+      verdict: 'A good leveler and the weakest raid race for a Warlock.',
+      tip: 'Use Rapid Regeneration between pulls, then Life Tap the health into mana. It cannot heal you mid-fight.' },
+    undead: { label: 'Undead', faction: 'Horde',
+      racials: [['Cannibalize', 'Regain 35% health and 35% mana over 10 sec from a humanoid or undead corpse. 2 min cooldown.'],
+                ['Touch of the Grave', '5% chance on each spell or attack to drain up to 5% of your max health.'],
+                ['Will of the Forsaken', 'Break charm, fear and sleep. 2 min cooldown.'],
+                ['Underwater Breathing', 'Breath lasts 300% longer.']],
+      level: 'Fastest: about 5 to 11% from level 30 on, because Cannibalize and Touch of the Grave remove most resting on humanoids', levelPct: 8,
+      pvp: 'Will of the Forsaken breaks fear, the Warlock and Priest win condition',
+      verdict: 'The best leveling race and a strong PvP pick. No raid damage.',
+      tip: 'Cannibalize a humanoid or undead corpse after each pull. It replaces most eating and drinking.' },
+  };
+
+  // ---------------------------------------------------------------- leveling data
+  const TAL_ORDER = [];
+  const add = (name, n) => { for (let i = 0; i < n; i++) TAL_ORDER.push(name); };
+  add('Improved Corruption', 5); add('Suppression', 3); add('Improved Drains', 3); add('Malediction', 5);
+  add('Improved Bane of Agony', 2); add('Pandemic', 2); add('Siphon Life', 1); add('Soul Siphon', 3);
+  add('Nightfall', 2); add('Shadow Mastery', 5); add('Wrack', 1); add('Pandemic', 1);
+  add('Fel Concentration', 3); add('Improved Life Tap', 2); add('Demonic Embrace', 5); add('Improved Voidwalker', 3);
+  const SOLO56 = [];
+  const add2 = (name, n) => { for (let i = 0; i < n; i++) SOLO56.push(name); };
+  add2('Improved Corruption', 5); add2('Suppression', 3); add2('Improved Drains', 3); add2('Malediction', 5);
+  add2('Improved Bane of Agony', 2); add2('Pandemic', 2); add2('Siphon Life', 1); add2('Soul Siphon', 3);
+  add2('Demonic Embrace', 5); add2('Unholy Power', 5); add2('Demonic Aegis', 2); add2('Improved Voidwalker', 3);
+  add2('Fel Vitality', 3); add2('Demonic Energies', 2); add2('Demonic Knowledge', 3);
+  add2('Nightfall', 2); add2('Pandemic', 1); add2('Improved Life Tap', 1);
+
+  // spell ranks learned by level (Forever beta data)
+  const RANKS = {
+    'Shadow Bolt': [1, 6, 12, 20, 28, 36, 44, 52], 'Immolate': [1, 10, 20, 30, 40, 50, 60],
+    'Corruption': [4, 14, 24, 34, 44, 54], 'Life Tap': [6, 16, 26, 36, 46, 56], 'Bane of Agony': [8, 18, 28, 38, 48, 58],
+    'Drain Soul': [10, 24, 38, 52], 'Drain Life': [14, 22, 30, 38, 46, 54], 'Siphon Life': [38, 48, 58],
+    'Bane of Doom': [60],
+  };
+  const PETS = { 1: 'Imp', 10: 'Voidwalker (class quest)', 20: 'Succubus (class quest)', 30: 'Felhunter (class quest)' };
+
+  function talentsAt(L) {
+    const pts = Math.max(0, L - 9);
+    const order = L >= 56 ? SOLO56 : TAL_ORDER;
+    const got = {}, seq = order.slice(0, pts);
+    seq.forEach(n => { got[n] = (got[n] || 0) + 1; });
+    const fresh = L >= 10 && L !== 56 ? seq[seq.length - 1] : null;
+    return { pts, got, fresh, order };
+  }
+
+  function phase(L) {
+    if (L < 4) return ['Starting out', 'Shadow Bolt to pull, wand to finish', 'Your Imp does real damage early. Keep it out.'];
+    if (L < 10) return ['Imp phase', 'Corruption, then Bane of Agony from 8, then wand', 'Corruption is a 2-second cast until Improved Corruption.'];
+    if (L < 14) return ['Voidwalker, early talents', 'Voidwalker in, Corruption, Bane of Agony, wand', 'Wand stays your filler. Shadow Bolt costs too much mana per kill.'];
+    if (L < 30) return ['DoTs and wand', 'Voidwalker in, instant Corruption, Bane of Agony, wand', 'Wand wins the filler test in 83% of scenarios at level 20.'];
+    if (L < 34) return ['Siphon Life online', 'Corruption, Agony, Siphon Life, wand', 'Wand still wins until Soul Siphon is finished.'];
+    if (L < 56) return ['Drain tank', 'Corruption, Agony, Siphon Life, Drain Life filler', 'Instant Shadow Bolt when Nightfall procs. Life Tap when health is high.'];
+    return ['Solo spec', 'Corruption, Agony, Siphon Life, Drain Life filler', 'Respec to the Demonic Knowledge splash at 56. It pulls ahead from here.'];
+  }
+
+  // ---------------------------------------------------------------- state
+  const state = {
+    race: store.get('race', 'human'),
+    level: store.get('level', 30),
+    sp: 500, crit: 10, pet: 50, bod: 4.0, isb: 12, lt: '840', spirit: 100, hitcap: false, sword: true,
+  };
+  const $ = id => document.getElementById(id);
+
+  // ---------------------------------------------------------------- race UI
+  function renderRaceSeg() {
+    const seg = $('raceSeg');
+    seg.innerHTML = '';
+    Object.entries(RACES).forEach(([id, r]) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.setAttribute('aria-pressed', String(id === state.race));
+      b.innerHTML = '<span></span><span class="fac"></span>';
+      b.children[0].textContent = r.label;
+      b.children[1].textContent = r.faction;
+      b.addEventListener('click', () => { state.race = id; store.set('race', id); renderAll(); });
+      seg.appendChild(b);
+    });
+  }
+
+  function modelOpts(race) {
+    return { sp: state.sp, crit: state.crit / 100, race, sword: state.sword, lifeTapMode: state.lt,
+             spirit: state.spirit, bodCoef: state.bod, isbDuration: state.isb, gearHitCapped: state.hitcap, petDps: state.pet };
+  }
+
+  function raidGain(race) {
+    const base = WarlockModel.rank(modelOpts('none'));
+    const withR = WarlockModel.rank(modelOpts(race));
+    const top = base[0];
+    const mine = withR.find(x => x.id === top.id);
+    return (mine.total / top.total - 1) * 100;
+  }
+
+  function renderRaceCard() {
+    const r = RACES[state.race];
+    const gain = raidGain(state.race);
+    const card = $('raceCard');
+    card.innerHTML = '';
+    const head = document.createElement('div');
+    head.className = 'lvl-head';
+    head.innerHTML = '<h3></h3><span class="pill"></span>';
+    head.children[0].textContent = r.label + ' Warlock';
+    head.children[1].textContent = r.faction;
+    const grid = document.createElement('div');
+    grid.className = 'race-grid';
+    const stat = (lab, val, sub) => {
+      const d = document.createElement('div'); d.className = 'stat';
+      d.innerHTML = '<span class="lab"></span><span class="val"></span><span class="sub"></span>';
+      d.children[0].textContent = lab; d.children[1].textContent = val; d.children[2].textContent = sub || '';
+      return d;
+    };
+    grid.appendChild(stat('Leveling', r.levelPct >= 3 ? 'Faster' : (r.levelPct > 0 ? 'Slight edge' : 'Neutral'), r.level));
+    grid.appendChild(stat('Raid damage', (gain >= 0 ? '+' : '') + gain.toFixed(1) + '%',
+      state.race === 'human' && !state.sword ? 'Without a sword, Human adds nothing' : 'vs no racials, top build at current calculator settings'));
+    grid.appendChild(stat('PvP', r.pvp.split(',')[0], r.pvp.includes(',') ? r.pvp.slice(r.pvp.indexOf(',') + 2) : ''));
+    const list = document.createElement('ul');
+    list.className = 'racials';
+    r.racials.forEach(([n, t]) => { const li = document.createElement('li'); li.innerHTML = '<b></b> '; li.children[0].textContent = n + '.'; li.appendChild(document.createTextNode(t)); list.appendChild(li); });
+    const v = document.createElement('p'); v.innerHTML = '<b></b>'; v.children[0].textContent = r.verdict;
+    card.append(head, v, grid, list);
+  }
+
+  function renderRaceTable() {
+    const tb = $('raceTable');
+    tb.innerHTML = '';
+    Object.entries(RACES).forEach(([id, r]) => {
+      const tr = document.createElement('tr');
+      if (id === state.race) tr.className = 'hl';
+      const g = raidGain(id);
+      [r.label + ' (' + r.faction + ')', r.level, (g >= 0 ? '+' : '') + g.toFixed(1) + '%', r.pvp].forEach((txt, i) => {
+        const td = document.createElement('td'); td.textContent = txt; if (i === 2) td.className = 'r'; tr.appendChild(td);
+      });
+      tb.appendChild(tr);
+    });
+  }
+
+  // ---------------------------------------------------------------- planner UI
+  function renderPlanner() {
+    const L = state.level;
+    $('lvl').value = L; $('lvlOut').textContent = L; $('lvlBig').textContent = L;
+    const [ph, rot, rotSub] = phase(L);
+    $('lvlPhase').textContent = ph;
+    const t = talentsAt(L);
+    $('lvlPts').textContent = t.pts ? t.pts + ' talent point' + (t.pts > 1 ? 's' : '') : 'Talents start at level 10';
+    $('pRot').textContent = rot; $('pRotSub').textContent = rotSub;
+    const pet = L >= 10 ? 'Voidwalker' : 'Imp';
+    $('pPet').textContent = pet;
+    $('pPetSub').textContent = PETS[L] ? 'New: ' + PETS[L] + '.' : (L >= 20 ? 'Succubus kills faster but you take the hits and rest more.' : 'The Voidwalker is the safe default when you might get pulled away.');
+    const newSpells = Object.entries(RANKS).filter(([, lv]) => lv.includes(L)).map(([n, lv]) => {
+      const idx = lv.indexOf(L), off = n === 'Siphon Life' ? 1 : 0;
+      return idx + off === 0 ? n + ' (new spell)' : n + ' rank ' + (idx + 1 + off);
+    });
+    const newTal = L === 56 ? 'Respec to the solo spec' : (t.fresh ? t.fresh + ' ' + t.got[t.fresh] : null);
+    $('pNew').textContent = newTal || (newSpells.length ? 'Trainer visit' : 'Nothing new');
+    $('pNewSub').textContent = newSpells.length ? 'Train: ' + newSpells.join(', ') + '.' : 'No new spell ranks this level.';
+    const ul = $('pTal'); ul.innerHTML = '';
+    Object.entries(t.got).forEach(([n, c]) => {
+      const li = document.createElement('li');
+      li.textContent = n + ' ' + c;
+      if (n === t.fresh) li.className = 'fresh';
+      ul.appendChild(li);
+    });
+    if (!t.pts) { const li = document.createElement('li'); li.textContent = 'None yet'; ul.appendChild(li); }
+    $('pRace').textContent = RACES[state.race].label + ' tip: ' + RACES[state.race].tip;
+  }
+
+  // ---------------------------------------------------------------- raid UI
+  function renderRaid() {
+    $('spOut').textContent = state.sp; $('critOut').textContent = state.crit + '%'; $('petOut').textContent = state.pet;
+    $('bodOut').textContent = state.bod.toFixed(1); $('spiritOut').textContent = state.spirit;
+    $('spiritRow').hidden = state.lt !== 'spirit';
+    $('swordWrap').hidden = state.race !== 'human';
+    $('raidRace').textContent = RACES[state.race].label;
+    const res = WarlockModel.rank(modelOpts(state.race));
+    const max = res[0].total;
+    const bars = $('bars'); bars.innerHTML = '';
+    res.forEach((r, i) => {
+      const row = document.createElement('div');
+      row.className = 'bar-row' + (i === 0 ? ' win' : '');
+      row.innerHTML = '<div class="bar-name"><span></span><small></small></div><div class="bar-track" role="img"><div class="bar-lock"></div><div class="bar-pet"></div></div><div class="bar-val"></div>';
+      row.querySelector('.bar-name span').textContent = r.name;
+      row.querySelector('small').textContent = r.note + ', ' + r.bane + (r.pet ? '. Succubus ' + Math.round(r.petShare * 100) + '% of damage' : '');
+      row.querySelector('.bar-lock').style.width = (r.lock / max * 100) + '%';
+      row.querySelector('.bar-pet').style.width = (r.pet / max * 100) + '%';
+      row.querySelector('.bar-track').setAttribute('aria-label', r.name + ': ' + Math.round(r.total) + ' damage per second');
+      row.querySelector('.bar-val').textContent = Math.round(r.total);
+      bars.appendChild(row);
+    });
+    const a = res[0], b = res[1];
+    const lead = ((a.total / b.total - 1) * 100).toFixed(1);
+    const keep = res.find(x => x.id === 'destro-keep'), fire = res.find(x => x.id === 'destro-fire');
+    const succLine = keep.total >= fire.total
+      ? 'In Destruction, keep the Succubus out: she beats her own sacrifice at these settings.'
+      : 'In Destruction, sacrifice the Succubus: her +15% Fire is worth more than her damage at these settings.';
+    $('raidVerdict').textContent = a.name + ' wins by ' + lead + '% over ' + b.name + '. ' + succLine;
+  }
+
+  function renderAll() { renderRaceSeg(); renderRaceCard(); renderRaceTable(); renderPlanner(); renderRaid(); }
+
+  // ---------------------------------------------------------------- wiring
+  const bindRange = (id, key, parse) => $(id).addEventListener('input', e => { state[key] = parse(e.target.value); if (key === 'level') store.set('level', state.level); key === 'level' ? renderPlanner() : (renderRaid(), renderRaceCard(), renderRaceTable()); });
+  bindRange('lvl', 'level', v => parseInt(v, 10));
+  bindRange('sp', 'sp', v => parseInt(v, 10));
+  bindRange('crit', 'crit', v => parseInt(v, 10));
+  bindRange('pet', 'pet', v => parseInt(v, 10));
+  bindRange('bod', 'bod', v => parseFloat(v));
+  bindRange('spirit', 'spirit', v => parseInt(v, 10));
+  const bindSeg = (id, key, parse) => $(id).querySelectorAll('button').forEach(btn => btn.addEventListener('click', () => {
+    state[key] = parse(btn.dataset.v);
+    $(id).querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x === btn)));
+    renderRaid(); renderRaceCard(); renderRaceTable();
+  }));
+  bindSeg('isbSeg', 'isb', v => parseInt(v, 10));
+  bindSeg('ltSeg', 'lt', v => v);
+  $('hitcap').addEventListener('change', e => { state.hitcap = e.target.checked; renderRaid(); renderRaceCard(); renderRaceTable(); });
+  $('sword').addEventListener('change', e => { state.sword = e.target.checked; renderRaid(); renderRaceCard(); renderRaceTable(); });
+
+  // tests checklist
+  const ticks = store.get('tests', {});
+  document.querySelectorAll('#testList input').forEach(cb => {
+    cb.checked = !!ticks[cb.id];
+    cb.closest('li').classList.toggle('done', cb.checked);
+    cb.addEventListener('change', () => {
+      ticks[cb.id] = cb.checked; store.set('tests', ticks);
+      cb.closest('li').classList.toggle('done', cb.checked);
+    });
+  });
+  const rep = $('reportLine');
+  if (RESULTS_URL) { rep.innerHTML = 'Got a result? <a target="_blank" rel="noopener">Report it here</a>.'; rep.querySelector('a').href = RESULTS_URL; }
+  else { rep.textContent = 'Got a result? Post it in the thread where you found this page.'; }
+  const code = $('codeLine');
+  if (REPO_URL) { code.innerHTML = 'The models are open source: <a target="_blank" rel="noopener">read or run them</a>.'; code.querySelector('a').href = REPO_URL; }
+
+  if (!RACES[state.race]) state.race = 'human';
+  renderAll();
+})();
+</script>
+
+</body>
+</html>
