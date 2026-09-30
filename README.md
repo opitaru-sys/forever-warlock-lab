@@ -88,6 +88,7 @@ Run every command from the repo root.
 
 ## Changelog
 
+- **v8.2, 30 Sep 2026.** Threat caveat for Demonic Brand (group spec and test 7), and the Soul Harvesting drinking trick marked as hotfixed, both from readers.
 - **v8.1, 29 Sep 2026.** Group spec is now 5/31/15 (a reader's improvement: Suppression's 5% hit covers every spell, about 4% over 0/35/16 when gear alone does not cap hit). Pact takes Suppression too. Note on a reported Touch of the Grave nerf.
 - **v8, 29 Sep 2026.** Closed every modeling gap readers found. Leveling: every Destruction spell and talent, Curse of the Elements, Death Coil and finishers, base damage and coefficients from the beta client, results averaged over mob health; Destruction builds lose on rest; a new leveling order, about 2% faster; the solo respec is optional. Raid: deep Demonology 0/35/16 is the recommended group spec; Fire-immune bosses, execute phase, mana consumables, two targets, Curse of the Elements and mp5 options; Life Tap reads 430 + Spirit. A first multi-mob model. Corrections: tick tables were 1 too high, Wrack's +10% only reaches Corruption and Agony, Undead leveling 3 to 6%, Troll about 1%, Nightfall under 1% a point.
 - **v7, 29 Sep 2026.** Undead's Touch of the Grave now counts in the raid model. Casters get a 10% version (Wowhead Forever spell 1260201), not the 5% one the page first used. Max health slider for Undead. Reported in the Reddit thread, where the same reader tested that applying a DoT triggers it but ticks don't, which is what the model counts.
