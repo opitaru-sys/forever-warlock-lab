@@ -943,6 +943,8 @@ window.FWL_ICONS = /*ICONS*/;
       verdict: 'The best leveling race, a strong PvP pick, and near the top in raids through Touch of the Grave.',
       tip: 'Cannibalize a humanoid or undead corpse when you are low. It saves food and water, not time.' },
   };
+  // own keys only: a plain RACES[id] also finds 'constructor' or '__proto__' on Object.prototype, and a link or saved value can carry those
+  const isRace = id => typeof id === 'string' && Object.prototype.hasOwnProperty.call(RACES, id);
 
   // ---------------------------------------------------------------- leveling data
   const seq = pairs => pairs.flatMap(([n, c]) => Array(c).fill(n));
@@ -1009,7 +1011,7 @@ window.FWL_ICONS = /*ICONS*/;
   const saved = store.get('calc8', {}) || {};
   const savedRace = store.get('race', 'human');
   const state = {
-    race: RACES[savedRace] ? savedRace : 'human',
+    race: isRace(savedRace) ? savedRace : 'human',
     level: Math.round(clamp(store.get('level', 30), 1, 60, 30)),
     dngAll: store.get('dngAll', false) === true,
     sp: clamp(saved.sp, 200, 1000, 500), crit: clamp(saved.crit, 5, 25, 10), ghit: clamp(saved.ghit, 0, 16, 11),
@@ -1059,7 +1061,7 @@ window.FWL_ICONS = /*ICONS*/;
     $('hpRow').hidden = state.race !== 'undead';
   }
   function setRace(id, speak) {
-    if (!RACES[id]) return;
+    if (!isRace(id)) return;
     state.race = id; store.set('race', id);
     syncRace(); renderRaceCard(); renderRaceTable(); renderPlanner(); renderRaid();
     if (speak) announce(RACES[id].label + ' selected. ' + $('raidVerdict').textContent);
@@ -1399,7 +1401,7 @@ window.FWL_ICONS = /*ICONS*/;
     if (m) { setLevel(Number(m[1]), false); openTo($('you')); return; }
     if (/^b-/.test(h)) { if (decodeBuild(h)) { renderBuilder(); openTo($('builder')); } return; }
     m = h.match(/^race-([a-z]+)$/);
-    if (m && RACES[m[1]]) { setRace(m[1], false); openTo($('you')); return; }
+    if (m && isRace(m[1])) { setRace(m[1], false); openTo($('you')); return; }
     const el = document.getElementById(h);
     if (el) openTo(el);
   }
