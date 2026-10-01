@@ -52,7 +52,7 @@ fixtures.cases.forEach(cs => {
 
 // statWeights and compareItems pass the options through.
 const base = baseOpts(500, 0.10);
-const withOpts = Object.assign({}, base, { targets: 2, coe: true, mp5: 80, consumables: true, execute: true, brandHits: 3 });
+const withOpts = Object.assign({}, base, { targets: 2, coe: true, mp5: 80, consumables: true, execute: true, brandHits: 3, trainerRanks: true });
 m.SPECS.forEach(s => {
   const direct = m.specTotal(withOpts, s.id);
   const swap = m.compareItems(withOpts, s.id, { sp: 30, crit: 0, hit: 0 }, { sp: 30, crit: 0, hit: 0 });
