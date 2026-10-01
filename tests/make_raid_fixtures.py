@@ -2,7 +2,8 @@
 
 1. Rewrites the EXPECTED table in tests/parity_test.js (54 cases: SP 300/500/800 x crit 5/10/20%, no options).
 2. Writes tests/raid_options_fixtures.json: every spec function and rank() (totals, order, viability, deep
-   Demonology's execute plan) under the v8 options and the deep Demonology spec.
+   Demonology's execute plan) under the v8 options, the deep Demonology spec, and v8.4's trainer ranks
+   (trainerRanks: Shadow Bolt 9, Corruption 6, Immolate 7 instead of the Ruins of Ahn'Qiraj book ranks).
 
 Run from the repo root: python tests/make_raid_fixtures.py
 """
@@ -64,6 +65,15 @@ CASES = [
     {'sp': 500, 'crit': 0.10, 'lifeTapMode': 'spirit', 'spirit': 100, 'consumables': True, 'brandHits': 3, 'execute': True},
     {'sp': 500, 'crit': 0.10, 'lifeTapMode': 'spirit', 'spirit': 100, 'consumables': True, 'brandHits': 3, 'execute': True,
      'fireImmune': True},
+    # v8.4: the trainer's level-60 ranks, which the page uses unless the books box is ticked
+    {'sp': 500, 'crit': 0.10, 'trainerRanks': True},
+    {'sp': 500, 'crit': 0.10, 'lifeTapMode': 'spirit', 'spirit': 100, 'consumables': True, 'brandHits': 3, 'execute': True, 'trainerRanks': True},
+    {'sp': 500, 'crit': 0.10, 'lifeTapMode': 'spirit', 'spirit': 100, 'consumables': True, 'brandHits': 0, 'execute': True, 'trainerRanks': True},
+    {'sp': 500, 'crit': 0.10, 'lifeTapMode': 'spirit', 'spirit': 100, 'consumables': True, 'brandHits': 6, 'execute': True, 'trainerRanks': True},
+    {'sp': 500, 'crit': 0.10, 'lifeTapMode': 'spirit', 'spirit': 100, 'consumables': True, 'brandHits': 3, 'execute': True, 'fireImmune': True,
+     'trainerRanks': True},
+    {'sp': 800, 'crit': 0.20, 'targets': 2, 'coe': True, 'mp5': 80, 'execute': True, 'trainerRanks': True},
+    {'sp': 300, 'crit': 0.05, 'lifeTapMode': 'spirit', 'spirit': 100, 'consumables': True, 'brandHits': 3, 'shadowburn': False, 'trainerRanks': True},
 ]
 
 
@@ -88,6 +98,8 @@ def py_opts(case):
         opts['brand_hits'] = case['brandHits']
     if 'brandScaling' in case:
         opts['brand_scaling'] = case['brandScaling']
+    if case.get('trainerRanks'):
+        opts['trainer_ranks'] = R.TRAINER_SPELLS
     return opts
 
 

@@ -24,8 +24,11 @@ Options, all off by default so the reviewed numbers are unchanged:
   brand_attacks, brand_scaling   demo_deep(): branded pet attacks per Demonic Brand (0 = no damage,
                3 = Wowhead tooltip, 6 = client rank text) and whether the brand scales with the
                warlock's spell power ('lock') or the demon's (Demonic Knowledge, 'pet').
+  trainer_ranks  spells cast at the trainer's level-60 rank instead of the grimoire rank: any of 'sb',
+               'corruption', 'immolate'. () keeps the grimoire ranks (Shadow Bolt 10, Corruption 7, Immolate 8).
 """
 import itertools
+from collections import namedtuple
 
 GCD = 1.5
 
@@ -48,6 +51,14 @@ SOUL_FIRE = (431, 1.0)         # 17924
 SEARING_PAIN = (114, 0.429)    # 17923
 DEATH_COIL = (454, 0.214)      # 17926
 BRAND_HIT = (66.5, 0.078)      # Demonic Brand, per branded pet attack at level 60 (Wowhead tooltip formula)
+# Shadow Bolt 25307, Immolate 25309 and Corruption 25311 are taught by Grimoires 21281 to 21283, whose only Classic
+# source was Ruins of Ahn'Qiraj (not on the Forever roadmap). The trainer's ranks at level 60, same client table:
+SHADOW_BOLT_R9 = (251, 0.857)  # 11661, 370 mana
+CORRUPTION_R6 = (342, 1.2)     # 11672: 57 per 3 s tick x 6, 0.2 per tick, 290 mana
+IMMOLATE_R7_HIT = (146, 0.2)   # 11668 effect 1, 370 mana
+IMMOLATE_R7_DOT = (260, 0.65)  # 11668 effect 0: 52 per 3 s tick x 5, 0.13 per tick
+TRAINER_SPELLS = ('sb', 'corruption', 'immolate')
+Ranks = namedtuple('Ranks', 'sb sb_mana corr corr_mana imm_hit imm_dot imm_mana')
 
 # ---------------------------------------------------------------- option constants
 EXEC_SHARE = 0.35              # the boss is under 35% health for the last 35% of the fight (linear health)
@@ -88,6 +99,18 @@ SECOND = ' (2nd)'
 def _regen(mp5, consumables):
     """Mana per second from outside Life Tap: mp5 plus potion and rune on cooldown. Items are off the GCD."""
     return mp5 / 5 + (CONSUMABLE_REGEN if consumables else 0.0)
+
+
+def ranks(trainer=()):
+    """Spell data and mana per cast: the grimoire ranks, except the spells named in trainer."""
+    bad = [n for n in trainer if n not in TRAINER_SPELLS]
+    if bad:
+        raise ValueError(f'trainer_ranks: unknown spells {bad}, expected any of {TRAINER_SPELLS}')
+    sb, corr, imm = (n in trainer for n in TRAINER_SPELLS)
+    return Ranks(SHADOW_BOLT_R9 if sb else SHADOW_BOLT, 370 if sb else 380,
+                 CORRUPTION_R6 if corr else CORRUPTION, 290 if corr else 340,
+                 IMMOLATE_R7_HIT if imm else IMMOLATE_HIT, IMMOLATE_R7_DOT if imm else IMMOLATE_DOT,
+                 370 if imm else 380)
 
 
 def ev(c, bonus):
@@ -189,8 +212,10 @@ def _best(results):
 
 # ------------------------------------------------------------------ Affliction 40/11/0
 def aff(sp, c, lt=840, bane='BoD', fil='Wrack', sac_imp=True, immolate=False, nf_mode='fixed',
-        drains=1.20 * 1.36, fire_immune=False, coe=False, mp5=0.0, targets=1, extra=(), consumables=False):
+        drains=1.20 * 1.36, fire_immune=False, coe=False, mp5=0.0, targets=1, extra=(), consumables=False,
+        trainer_ranks=()):
     """extra: 'SoulFire' and/or 'DeathCoil' cast on cooldown (analysis only). fil 'SearingPain' is analysis only."""
+    rk = ranks(trainer_ranks)
     cs = c + 0.05
     sh = (1.15 if sac_imp else 1.0) * 1.05          # Imp sac, Shadow Mastery
     mal = 1.05
@@ -199,16 +224,16 @@ def aff(sp, c, lt=840, bane='BoD', fil='Wrack', sac_imp=True, immolate=False, nf
 
     def dot(n):
         if n == 'Corruption':
-            return (dmg(CORRUPTION, sp) * sh * mal * 1.10 * dc, 18, GCD, 340)
+            return (dmg(rk.corr, sp) * sh * mal * 1.10 * dc, 18, GCD, rk.corr_mana)
         if n == 'BoA':
             return (dmg(AGONY, sp) * sh * mal * 1.10 * dc, 24, GCD, 215)
         if n == 'BoD':
             return (dmg(DOOM, sp) * sh * mal * dc, 60, GCD, 300)
         if n == 'SiphonLife':
             return (dmg(SIPHON_LIFE, sp) * sh * mal * dc, 30, GCD, 365)
-        return (dmg(IMMOLATE_HIT, sp) * ev(c, 0.5) + dmg(IMMOLATE_DOT, sp) * mal * ev(c, 0.5), 15, 2.0, 380)
+        return (dmg(rk.imm_hit, sp) * ev(c, 0.5) + dmg(rk.imm_dot, sp) * mal * ev(c, 0.5), 15, 2.0, rk.imm_mana)
 
-    sb = dmg(SHADOW_BOLT, sp) * sh * ev(cs, 0.5)
+    sb = dmg(rk.sb, sp) * sh * ev(cs, 0.5)
     if fil == 'Wrack':
         F = (dmg(WRACK, sp) * sh * mal * drains * dc, 6.0, 200, 1.0)
     elif fil == 'DrainLife':
@@ -216,7 +241,7 @@ def aff(sp, c, lt=840, bane='BoD', fil='Wrack', sac_imp=True, immolate=False, nf
     elif fil == 'SearingPain':
         F = (0.0 if fire_immune else dmg(SEARING_PAIN, sp) * ev(c, 0.5), 1.5, 168, 0.0)
     else:
-        F = (sb, 3.0, 380, 0.0)
+        F = (sb, 3.0, rk.sb_mana, 0.0)
     if nf_mode == 'orig':          # Corruption-only proc source, as in raid.py
         F = (F[0], F[1], F[2], 0.0)
     amp = 0.10 if fil == 'Wrack' else 0.0
@@ -228,7 +253,7 @@ def aff(sp, c, lt=840, bane='BoD', fil='Wrack', sac_imp=True, immolate=False, nf
         P = {n: dot(n) for n in main}
         P.update({n + SECOND: dot(n) for n in plan})
         P.update({n: xtra[n] for n in extra if not (fire_immune and n == 'SoulFire')})
-        nf = (0.04, (1 + ('Corruption' in plan)) / 3, sb, 380)
+        nf = (0.04, (1 + ('Corruption' in plan)) / 3, sb, rk.sb_mana)
         # Wrack's +10% reaches Corruption and Bane of Agony only (client class mask 0x402), on its own target
         return _finish(solve(P, F, lt, nf, amp, ('Corruption', 'BoA'), _regen(mp5, consumables)), coe)
 
@@ -239,13 +264,14 @@ def aff(sp, c, lt=840, bane='BoD', fil='Wrack', sac_imp=True, immolate=False, nf
 # ------------------------------------------------------------------ Destruction 9/11/31
 def destro(sp, c, lt=840 * 1.2, bane='BoD', version='incin', shadowburn=None, isb_mode='fixed',
            isb_dur=12.0, aftermath=False, fire_immune=False, coe=False, mp5=0.0, targets=1,
-           imp_sac=True, havoc_keeps_main_bane=True, extra=(), fil=None, consumables=False):
+           imp_sac=True, havoc_keeps_main_bane=True, extra=(), fil=None, consumables=False, trainer_ranks=()):
     """version 'sb' = Imp sac + Shadow Bolt; 'incin' = Succubus sac + Incinerate; 'keep' = Succubus out, no sac.
     imp_sac False: the 'sb' version keeps the Imp out instead. A Fire version on a Fire-immune boss is not
     viable and returns (0, {}, 0). havoc_keeps_main_bane False: Havoc on the second target also costs the main
     target its Bane (the brief's reading; the tooltip says one Bane per Warlock per target)."""
     if fire_immune and version != 'sb':
         return 0.0, {}, 0.0
+    rk = ranks(trainer_ranks)
     if shadowburn is None:
         shadowburn = version != 'sb'
     fire_ok = not fire_immune
@@ -259,18 +285,18 @@ def destro(sp, c, lt=840 * 1.2, bane='BoD', version='incin', shadowburn=None, is
     dstr = ev(c, 1.0)       # Ruin on Destruction spells
     dotc = ev(c, 0.5)       # Corruption / Bane, no Pandemic
     fil = fil or ('ShadowBolt' if version == 'sb' else 'Incinerate')
-    direct = dmg(IMMOLATE_HIT, sp) * (1.5 if aftermath else 1.0)
+    direct = dmg(rk.imm_hit, sp) * (1.5 if aftermath else 1.0)
 
     def dot(n, isb):
         if n == 'Corruption':
-            return (dmg(CORRUPTION, sp) * sh * mal * dotc * isb, 18, 2.0, 340)
+            return (dmg(rk.corr, sp) * sh * mal * dotc * isb, 18, 2.0, rk.corr_mana)
         if n == 'BoA':
             return (dmg(AGONY, sp) * sh * mal * dotc * isb, 24, GCD, 215)
         if n == 'BoD':
             return (dmg(DOOM, sp) * sh * mal * dotc * isb, 60, GCD, 300)
         if n == 'Havoc':
             return HAVOC
-        return ((direct + dmg(IMMOLATE_DOT, sp) * mal) * fi * AF * dstr, 15, 1.5, 380 * cat)
+        return ((direct + dmg(rk.imm_dot, sp) * mal) * fi * AF * dstr, 15, 1.5, rk.imm_mana * cat)
 
     def build(isb, plan):
         P = {'Corruption': dot('Corruption', isb)}
@@ -287,7 +313,7 @@ def destro(sp, c, lt=840 * 1.2, bane='BoD', version='incin', shadowburn=None, is
         if 'DeathCoil' in extra:
             P['DeathCoil'] = (dmg(DEATH_COIL, sp) * sh * ev(c, 0.5) * isb, 120, GCD, 600)
         if fil == 'ShadowBolt':
-            F = (dmg(SHADOW_BOLT, sp) * sh * AF * dstr * isb, 2.5, 380 * cat, 0.0)
+            F = (dmg(rk.sb, sp) * sh * AF * dstr * isb, 2.5, rk.sb_mana * cat, 0.0)
         elif fil == 'SearingPain':    # Agonizing Flames 3/3 also adds 10% crit to Searing Pain
             F = (dmg(SEARING_PAIN, sp) * fi * AF * ev(c + 0.10, 1.0) if fire_ok else 0.0, 1.5, 168 * cat, 0.0)
         else:
@@ -314,7 +340,8 @@ def destro(sp, c, lt=840 * 1.2, bane='BoD', version='incin', shadowburn=None, is
 
 # ------------------------------------------------------------------ Demonology
 def _demo_phase(sp2, c, lt, bane, allm, sh, fire, cat, immolate, regen, targets, isb_dur,
-                decim=1.0, fil='SB', soul_fire=None, brand=None, fixed=None, extra=(), coe=False, fil_brand=None):
+                decim=1.0, fil='SB', soul_fire=None, brand=None, fixed=None, extra=(), coe=False, fil_brand=None,
+                trainer_ranks=()):
     """One phase of a Demonology rotation, Improved Shadow Bolt on the main target when the filler is Shadow
     Bolt. sh / fire: school multipliers. soul_fire: (cast s, cooldown s). brand: (period s, bonus damage per
     brand) for a Searing Pain woven in to keep Demonic Brand up. Soul Fire and the brand weave are cast only
@@ -324,16 +351,17 @@ def _demo_phase(sp2, c, lt, bane, allm, sh, fire, cat, immolate, regen, targets,
     Searing Pain filler itself brands the target: branded attacks per second are min(charges x casts per s,
     attack rate, attack rate x 10 s x casts per s)."""
     dstr, dotc = ev(c, 1.0), ev(c, 0.5)
+    rk = ranks(trainer_ranks)
     spain = dmg(SEARING_PAIN, sp2) * fire * allm * dstr * decim
 
     def dot(n, isb):
         if n == 'Corruption':
-            return (dmg(CORRUPTION, sp2) * sh * allm * dotc * isb, 18, 2.0, 340)
+            return (dmg(rk.corr, sp2) * sh * allm * dotc * isb, 18, 2.0, rk.corr_mana)
         if n == 'BoA':
             return (dmg(AGONY, sp2) * sh * allm * dotc * isb, 24, GCD, 215)
         if n == 'BoD':
             return (dmg(DOOM, sp2) * sh * allm * dotc * isb, 60, GCD, 300)
-        return ((dmg(IMMOLATE_HIT, sp2) + dmg(IMMOLATE_DOT, sp2)) * fire * allm * dstr, 15, 1.5, 380 * cat)
+        return ((dmg(rk.imm_hit, sp2) + dmg(rk.imm_dot, sp2)) * fire * allm * dstr, 15, 1.5, rk.imm_mana * cat)
 
     def build(isb, plan, sf, br):
         P = {'Corruption': dot('Corruption', isb), bane: dot(bane, isb)}
@@ -348,7 +376,7 @@ def _demo_phase(sp2, c, lt, bane, allm, sh, fire, cat, immolate, regen, targets,
             P['DeathCoil'] = (dmg(DEATH_COIL, sp2) * sh * allm * ev(c, 0.5) * isb, 120, GCD, 600)
         P.update(fixed or {})
         if fil == 'SB':
-            F = (dmg(SHADOW_BOLT, sp2) * sh * allm * dstr * isb * decim, 2.5, 380 * cat, 0.0)
+            F = (dmg(rk.sb, sp2) * sh * allm * dstr * isb * decim, 2.5, rk.sb_mana * cat, 0.0)
         else:
             F = (spain, 1.5, 168 * cat, 0.0)
         return P, F
@@ -380,7 +408,7 @@ def _demo_phase(sp2, c, lt, bane, allm, sh, fire, cat, immolate, regen, targets,
 
 def demo(sp, c, lt=840, bane='BoD', immolate=False, isb_mode='fixed', hit_penalty=0.0, isb_dur=12.0,
          fire_immune=False, coe=False, mp5=0.0, targets=1, execute=0.0, extra=(), soul_fire=None,
-         consumables=False, cat=1.0):
+         consumables=False, cat=1.0, trainer_ranks=()):
     """Demonology with Pact, 5/31/15 since v8.1: Suppression 5 (so hit_penalty is the gap left after it), the
     wowforeverbuilds Demonology 31, and Improved Shadow Bolt 5, Bane 5, Ruin 5. The old 0/31/20 had
     Destructive Reach 2 and Cataclysm 3 (cat=0.9). Imp sacrificed, Succubus out, Shadow Bolt. Decimation 2/2:
@@ -391,20 +419,23 @@ def demo(sp, c, lt=840, bane='BoD', immolate=False, isb_mode='fixed', hit_penalt
     allm = 1.03 * (1 - hit_penalty)     # Soul Link; hit below the boss cap
     if isb_mode == 'orig':              # raid.py: ISB only on Shadow Bolt, n = 3.6 SB per 12 s
         dstr, dotc = ev(c, 1.0), ev(c, 0.5)
-        P = {'Corruption': (dmg(CORRUPTION, sp2) * sh * allm * dotc, 18, 2.0, 340),
+        rk = ranks(trainer_ranks)
+        P = {'Corruption': (dmg(rk.corr, sp2) * sh * allm * dotc, 18, 2.0, rk.corr_mana),
              bane: (dmg(DOOM if bane == 'BoD' else AGONY, sp2) * sh * allm * dotc,
                     60 if bane == 'BoD' else 24, GCD, 300 if bane == 'BoD' else 215)}
         if immolate:
-            P['Immolate'] = ((dmg(IMMOLATE_HIT, sp2) + dmg(IMMOLATE_DOT, sp2)) * allm * dstr, 15, 1.5, 380 * 0.9)
+            P['Immolate'] = ((dmg(rk.imm_hit, sp2) + dmg(rk.imm_dot, sp2)) * allm * dstr, 15, 1.5,
+                             rk.imm_mana * 0.9)
         u = 1 - (1 - c) ** 3.6
-        return solve(P, (dmg(SHADOW_BOLT, sp2) * sh * allm * dstr * (1 + 0.2 * u), 2.5, 380 * 0.9, 0.0), lt)
+        return solve(P, (dmg(rk.sb, sp2) * sh * allm * dstr * (1 + 0.2 * u), 2.5, rk.sb_mana * 0.9, 0.0), lt)
     args = (sp2, c, lt, bane, allm, sh, 1.0, cat, immolate and not fire_immune, _regen(mp5, consumables), targets, isb_dur)
-    p1 = _demo_phase(*args, soul_fire=soul_fire, extra=extra, coe=coe)
+    p1 = _demo_phase(*args, soul_fire=soul_fire, extra=extra, coe=coe, trainer_ranks=trainer_ranks)
     x = exec_share(execute)
     if not x:
         return p1
     sf = None if fire_immune else SOUL_FIRE_EXEC
-    return _blend(p1, _demo_phase(*args, decim=DECIMATION, soul_fire=sf, extra=extra, coe=coe), x)
+    return _blend(p1, _demo_phase(*args, decim=DECIMATION, soul_fire=sf, extra=extra, coe=coe,
+                                  trainer_ranks=trainer_ranks), x)
 
 
 def _brand(attacks, rate, per_hit):
@@ -415,7 +446,8 @@ def _brand(attacks, rate, per_hit):
 
 def demo_deep_run(sp, c, lt=840, bane='BoD', immolate=True, hit_penalty=0.0, isb_dur=12.0, fire_immune=False,
                   coe=False, mp5=0.0, targets=1, execute=0.0, brand_attacks=BRAND_ATTACKS, weave=True,
-                  exec_plan='best', pet_dps=50.0, imp_dps=None, brand_scaling='lock', consumables=False):
+                  exec_plan='best', pet_dps=50.0, imp_dps=None, brand_scaling='lock', consumables=False,
+                  trainer_ranks=()):
     """Deep Demonology 5/31/15 (reader 510Kyle's revision of a reader's build; talents in the raid v8 notes):
     Suppression 5, Demonology 31 with Demonic Brand 3 and Unholy Power 5, Improved Shadow Bolt 5, Bane 5, Ruin 5.
     Above 35%: Imp sacrificed, Succubus out, Shadow Bolt, and a Searing Pain every 10 s for Demonic Brand
@@ -441,18 +473,19 @@ def demo_deep_run(sp, c, lt=840, bane='BoD', immolate=True, hit_penalty=0.0, isb
     succ_rate = SUCC_RATE * min(1.0, max(0.0, pet_dps) / SUCC_FULL)     # her time on the boss
     imp_rate = IMP_RATE * min(1.0, max(0.0, imp) / IMP_BASE)
     succ = _brand(brand_attacks, succ_rate, per_hit) if weave and succ_rate > 0 and branding else None
-    p1 = _demo_phase(sp2, c, lt, bane, allm, sh, 1.0, *tail, brand=succ, coe=coe)
+    p1 = _demo_phase(sp2, c, lt, bane, allm, sh, 1.0, *tail, brand=succ, coe=coe, trainer_ranks=trainer_ranks)
     x = exec_share(execute)
     if not x:
         return p1, None
     keep = _demo_phase(sp2, c, lt, bane, allm, sh, 1.0, *tail, decim=DECIMATION, brand=succ,
-                       soul_fire=None if fire_immune else SOUL_FIRE_EXEC, coe=coe)
+                       soul_fire=None if fire_immune else SOUL_FIRE_EXEC, coe=coe, trainer_ranks=trainer_ranks)
     if fire_immune or exec_plan == 'succubus':      # on a Fire-immune boss nothing in the swap plan lands
         return _blend(p1, keep, x), 'succubus'
     fixed = {'Pet swap': (0.0, x * FIGHT_S, SWAP[0], SWAP[1])}
     fil_brand = (brand_attacks, imp_rate, per_hit) if branding and imp_rate > 0 else None
     swap = _demo_phase(sp2, c, lt, bane, allm, 1.0, 1.10, *tail, decim=DECIMATION, fil='SearingPain',
-                       soul_fire=SOUL_FIRE_EXEC, fixed=fixed, coe=coe, fil_brand=fil_brand)
+                       soul_fire=SOUL_FIRE_EXEC, fixed=fixed, coe=coe, fil_brand=fil_brand,
+                       trainer_ranks=trainer_ranks)
     if exec_plan == 'best':
         imp_total = swap[0] + _deep_exec_pet('imp', pet_dps, imp, coe)
         keep_total = keep[0] + _deep_exec_pet('succubus', pet_dps, imp, coe)
@@ -486,7 +519,7 @@ def deep_pet(pet_dps, imp_dps=None, execute=0.0, coe=False, fire_immune=False, e
 SPEC_IDS = ('destro-fire', 'destro-keep', 'destro-shadow', 'demo-pact', 'demo-deep', 'aff-sac', 'aff-keep')
 FIRE_SPECS = ('destro-fire', 'destro-keep')
 SUCC_TALENTS = {'destro-keep': SUCC_PLAIN, 'demo-pact': SUCC_PACT, 'aff-keep': SUCC_PLAIN}
-OPTION_KEYS = ('fire_immune', 'coe', 'mp5', 'targets', 'consumables')
+OPTION_KEYS = ('fire_immune', 'coe', 'mp5', 'targets', 'consumables', 'trainer_ranks')
 
 
 def spec_run(spec, sp, c, bane, gear_hit=0.11, execute=0.0, pet_dps=50.0, imp_dps=None, life_tap=840,

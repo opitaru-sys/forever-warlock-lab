@@ -2937,6 +2937,505 @@
      "execPlan": null
     }
    ]
+  },
+  {
+   "opts": {
+    "sp": 500,
+    "crit": 0.1,
+    "trainerRanks": true
+   },
+   "funcs": {
+    "destro-fire|BoA": 498.1166,
+    "destro-fire|BoD": 524.8906,
+    "destro-keep|BoA": 455.3916,
+    "destro-keep|BoD": 479.6132,
+    "destro-shadow|BoA": 463.1901,
+    "destro-shadow|BoD": 488.2267,
+    "demo-pact|BoA": 454.1162,
+    "demo-pact|BoD": 479.3912,
+    "demo-deep|BoA": 497.1939,
+    "demo-deep|BoD": 522.1059,
+    "aff-sac|BoA": 421.2866,
+    "aff-sac|BoD": 429.4666,
+    "aff-keep|BoA": 374.1907,
+    "aff-keep|BoD": 381.3036
+   },
+   "rank": [
+    {
+     "id": "demo-deep",
+     "viable": true,
+     "total": 581.1919,
+     "execPlan": null
+    },
+    {
+     "id": "demo-pact",
+     "viable": true,
+     "total": 534.1799,
+     "execPlan": null
+    },
+    {
+     "id": "destro-keep",
+     "viable": true,
+     "total": 529.6132,
+     "execPlan": null
+    },
+    {
+     "id": "destro-fire",
+     "viable": true,
+     "total": 524.8906,
+     "execPlan": null
+    },
+    {
+     "id": "destro-shadow",
+     "viable": true,
+     "total": 488.2267,
+     "execPlan": null
+    },
+    {
+     "id": "aff-keep",
+     "viable": true,
+     "total": 431.3036,
+     "execPlan": null
+    },
+    {
+     "id": "aff-sac",
+     "viable": true,
+     "total": 429.4666,
+     "execPlan": null
+    }
+   ]
+  },
+  {
+   "opts": {
+    "sp": 500,
+    "crit": 0.1,
+    "lifeTapMode": "spirit",
+    "spirit": 100,
+    "consumables": true,
+    "brandHits": 3,
+    "execute": true,
+    "trainerRanks": true
+   },
+   "funcs": {
+    "destro-fire|BoA": 479.7853,
+    "destro-fire|BoD": 506.1139,
+    "destro-keep|BoA": 439.4514,
+    "destro-keep|BoD": 463.2857,
+    "destro-shadow|BoA": 448.6017,
+    "destro-shadow|BoD": 473.2855,
+    "demo-pact|BoA": 443.6684,
+    "demo-pact|BoD": 468.7592,
+    "demo-deep|BoA": 465.806,
+    "demo-deep|BoD": 490.1568,
+    "aff-sac|BoA": 419.1669,
+    "aff-sac|BoD": 427.9543,
+    "aff-keep|BoA": 372.3474,
+    "aff-keep|BoD": 379.9887
+   },
+   "rank": [
+    {
+     "id": "demo-deep",
+     "viable": true,
+     "total": 549.2428,
+     "execPlan": "succubus"
+    },
+    {
+     "id": "demo-pact",
+     "viable": true,
+     "total": 523.548,
+     "execPlan": null
+    },
+    {
+     "id": "destro-keep",
+     "viable": true,
+     "total": 513.2857,
+     "execPlan": null
+    },
+    {
+     "id": "destro-fire",
+     "viable": true,
+     "total": 506.1139,
+     "execPlan": null
+    },
+    {
+     "id": "destro-shadow",
+     "viable": true,
+     "total": 473.2855,
+     "execPlan": null
+    },
+    {
+     "id": "aff-keep",
+     "viable": true,
+     "total": 429.9887,
+     "execPlan": null
+    },
+    {
+     "id": "aff-sac",
+     "viable": true,
+     "total": 427.9543,
+     "execPlan": null
+    }
+   ]
+  },
+  {
+   "opts": {
+    "sp": 500,
+    "crit": 0.1,
+    "lifeTapMode": "spirit",
+    "spirit": 100,
+    "consumables": true,
+    "brandHits": 0,
+    "execute": true,
+    "trainerRanks": true
+   },
+   "funcs": {
+    "destro-fire|BoA": 479.7853,
+    "destro-fire|BoD": 506.1139,
+    "destro-keep|BoA": 439.4514,
+    "destro-keep|BoD": 463.2857,
+    "destro-shadow|BoA": 448.6017,
+    "destro-shadow|BoD": 473.2855,
+    "demo-pact|BoA": 443.6684,
+    "demo-pact|BoD": 468.7592,
+    "demo-deep|BoA": 443.6684,
+    "demo-deep|BoD": 468.7592,
+    "aff-sac|BoA": 419.1669,
+    "aff-sac|BoD": 427.9543,
+    "aff-keep|BoA": 372.3474,
+    "aff-keep|BoD": 379.9887
+   },
+   "rank": [
+    {
+     "id": "demo-deep",
+     "viable": true,
+     "total": 527.8451,
+     "execPlan": "succubus"
+    },
+    {
+     "id": "demo-pact",
+     "viable": true,
+     "total": 523.548,
+     "execPlan": null
+    },
+    {
+     "id": "destro-keep",
+     "viable": true,
+     "total": 513.2857,
+     "execPlan": null
+    },
+    {
+     "id": "destro-fire",
+     "viable": true,
+     "total": 506.1139,
+     "execPlan": null
+    },
+    {
+     "id": "destro-shadow",
+     "viable": true,
+     "total": 473.2855,
+     "execPlan": null
+    },
+    {
+     "id": "aff-keep",
+     "viable": true,
+     "total": 429.9887,
+     "execPlan": null
+    },
+    {
+     "id": "aff-sac",
+     "viable": true,
+     "total": 427.9543,
+     "execPlan": null
+    }
+   ]
+  },
+  {
+   "opts": {
+    "sp": 500,
+    "crit": 0.1,
+    "lifeTapMode": "spirit",
+    "spirit": 100,
+    "consumables": true,
+    "brandHits": 6,
+    "execute": true,
+    "trainerRanks": true
+   },
+   "funcs": {
+    "destro-fire|BoA": 479.7853,
+    "destro-fire|BoD": 506.1139,
+    "destro-keep|BoA": 439.4514,
+    "destro-keep|BoD": 463.2857,
+    "destro-shadow|BoA": 448.6017,
+    "destro-shadow|BoD": 473.2855,
+    "demo-pact|BoA": 443.6684,
+    "demo-pact|BoD": 468.7592,
+    "demo-deep|BoA": 487.9639,
+    "demo-deep|BoD": 512.6926,
+    "aff-sac|BoA": 419.1669,
+    "aff-sac|BoD": 427.9543,
+    "aff-keep|BoA": 372.3474,
+    "aff-keep|BoD": 379.9887
+   },
+   "rank": [
+    {
+     "id": "demo-deep",
+     "viable": true,
+     "total": 571.7786,
+     "execPlan": "succubus"
+    },
+    {
+     "id": "demo-pact",
+     "viable": true,
+     "total": 523.548,
+     "execPlan": null
+    },
+    {
+     "id": "destro-keep",
+     "viable": true,
+     "total": 513.2857,
+     "execPlan": null
+    },
+    {
+     "id": "destro-fire",
+     "viable": true,
+     "total": 506.1139,
+     "execPlan": null
+    },
+    {
+     "id": "destro-shadow",
+     "viable": true,
+     "total": 473.2855,
+     "execPlan": null
+    },
+    {
+     "id": "aff-keep",
+     "viable": true,
+     "total": 429.9887,
+     "execPlan": null
+    },
+    {
+     "id": "aff-sac",
+     "viable": true,
+     "total": 427.9543,
+     "execPlan": null
+    }
+   ]
+  },
+  {
+   "opts": {
+    "sp": 500,
+    "crit": 0.1,
+    "lifeTapMode": "spirit",
+    "spirit": 100,
+    "consumables": true,
+    "brandHits": 3,
+    "execute": true,
+    "fireImmune": true,
+    "trainerRanks": true
+   },
+   "funcs": {
+    "destro-fire|BoA": 0.0,
+    "destro-fire|BoD": 0.0,
+    "destro-keep|BoA": 0.0,
+    "destro-keep|BoD": 0.0,
+    "destro-shadow|BoA": 393.295,
+    "destro-shadow|BoD": 416.372,
+    "demo-pact|BoA": 434.2473,
+    "demo-pact|BoD": 459.6209,
+    "demo-deep|BoA": 434.2473,
+    "demo-deep|BoD": 459.6209,
+    "aff-sac|BoA": 411.3389,
+    "aff-sac|BoD": 418.5943,
+    "aff-keep|BoA": 357.686,
+    "aff-keep|BoD": 363.995
+   },
+   "rank": [
+    {
+     "id": "demo-deep",
+     "viable": true,
+     "total": 518.7068,
+     "execPlan": "succubus"
+    },
+    {
+     "id": "demo-pact",
+     "viable": true,
+     "total": 514.4097,
+     "execPlan": null
+    },
+    {
+     "id": "aff-sac",
+     "viable": true,
+     "total": 418.5943,
+     "execPlan": null
+    },
+    {
+     "id": "destro-shadow",
+     "viable": true,
+     "total": 416.372,
+     "execPlan": null
+    },
+    {
+     "id": "aff-keep",
+     "viable": true,
+     "total": 413.995,
+     "execPlan": null
+    },
+    {
+     "id": "destro-fire",
+     "viable": false,
+     "total": 0.0,
+     "execPlan": null
+    },
+    {
+     "id": "destro-keep",
+     "viable": false,
+     "total": 0.0,
+     "execPlan": null
+    }
+   ]
+  },
+  {
+   "opts": {
+    "sp": 800,
+    "crit": 0.2,
+    "targets": 2,
+    "coe": true,
+    "mp5": 80,
+    "execute": true,
+    "trainerRanks": true
+   },
+   "funcs": {
+    "destro-fire|BoA": 946.9671,
+    "destro-fire|BoD": 993.6756,
+    "destro-keep|BoA": 863.4276,
+    "destro-keep|BoD": 905.2995,
+    "destro-shadow|BoA": 889.5067,
+    "destro-shadow|BoD": 927.1415,
+    "demo-pact|BoA": 890.8346,
+    "demo-pact|BoD": 929.6339,
+    "demo-deep|BoA": 937.004,
+    "demo-deep|BoD": 974.5145,
+    "aff-sac|BoA": 902.7622,
+    "aff-sac|BoD": 917.8519,
+    "aff-keep|BoA": 807.6085,
+    "aff-keep|BoD": 820.7299
+   },
+   "rank": [
+    {
+     "id": "demo-deep",
+     "viable": true,
+     "total": 1034.4105,
+     "execPlan": "succubus"
+    },
+    {
+     "id": "destro-fire",
+     "viable": true,
+     "total": 993.6756,
+     "execPlan": null
+    },
+    {
+     "id": "demo-pact",
+     "viable": true,
+     "total": 985.1739,
+     "execPlan": null
+    },
+    {
+     "id": "destro-keep",
+     "viable": true,
+     "total": 955.7995,
+     "execPlan": null
+    },
+    {
+     "id": "destro-shadow",
+     "viable": true,
+     "total": 927.1415,
+     "execPlan": null
+    },
+    {
+     "id": "aff-sac",
+     "viable": true,
+     "total": 917.8519,
+     "execPlan": null
+    },
+    {
+     "id": "aff-keep",
+     "viable": true,
+     "total": 871.2299,
+     "execPlan": null
+    }
+   ]
+  },
+  {
+   "opts": {
+    "sp": 300,
+    "crit": 0.05,
+    "lifeTapMode": "spirit",
+    "spirit": 100,
+    "consumables": true,
+    "brandHits": 3,
+    "shadowburn": false,
+    "trainerRanks": true
+   },
+   "funcs": {
+    "destro-fire|BoA": 345.4192,
+    "destro-fire|BoD": 364.8811,
+    "destro-keep|BoA": 312.6576,
+    "destro-keep|BoD": 330.4935,
+    "destro-shadow|BoA": 319.9725,
+    "destro-shadow|BoD": 339.2991,
+    "demo-pact|BoA": 321.9702,
+    "demo-pact|BoD": 341.4524,
+    "demo-deep|BoA": 350.6087,
+    "demo-deep|BoD": 369.7586,
+    "aff-sac|BoA": 306.6418,
+    "aff-sac|BoD": 314.7294,
+    "aff-keep|BoA": 272.7393,
+    "aff-keep|BoD": 279.7721
+   },
+   "rank": [
+    {
+     "id": "demo-deep",
+     "viable": true,
+     "total": 428.8445,
+     "execPlan": null
+    },
+    {
+     "id": "demo-pact",
+     "viable": true,
+     "total": 396.2412,
+     "execPlan": null
+    },
+    {
+     "id": "destro-keep",
+     "viable": true,
+     "total": 380.4935,
+     "execPlan": null
+    },
+    {
+     "id": "destro-fire",
+     "viable": true,
+     "total": 364.8811,
+     "execPlan": null
+    },
+    {
+     "id": "destro-shadow",
+     "viable": true,
+     "total": 339.2991,
+     "execPlan": null
+    },
+    {
+     "id": "aff-keep",
+     "viable": true,
+     "total": 329.7721,
+     "execPlan": null
+    },
+    {
+     "id": "aff-sac",
+     "viable": true,
+     "total": 314.7294,
+     "execPlan": null
+    }
+   ]
   }
  ]
 }

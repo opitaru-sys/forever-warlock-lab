@@ -17,6 +17,7 @@ body:
         - Succubus aggro with Demonic Brand
         - Demonic Brand damage and threat
         - Voidwalker pairs with Hellfire
+        - Top-rank books (Shadow Bolt 10, Corruption 7, Immolate 8)
         - Other
     validations:
       required: true

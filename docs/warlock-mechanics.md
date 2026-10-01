@@ -25,7 +25,7 @@ Format: values shown are the **max rank** (usually the level-60 rank) unless not
 
 | Spell | Max rank | Lvl learned | Mana | Cast time | Damage (Forever) | Damage (Classic) | Coef (Forever) | Notes |
 |---|---|---|---|---|---|---|---|---|
-| Shadow Bolt | R10 | 1 | 380 | 3 sec | 253–283 | 482–538 | 1.7 sec ratio → 0.857 (coef .486/.629/.8 on ranks 1–3, rising) | Damage cut to ~half Classic; coefficient markedly higher on early ranks |
+| Shadow Bolt | R10 (book), R9 (trainer) | 1 | 380 / 370 | 3 sec | 253 to 283 / 237 to 265 | 482 to 538 | 1.7 sec ratio → 0.857 (coef .486/.629/.8 on ranks 1 to 3, rising) | Damage cut to ~half Classic; coefficient markedly higher on early ranks. R10 is taught only by Grimoire of Shadow Bolt X (item 21281), a Ruins of Ahn'Qiraj drop in Classic, with no Forever source yet. |
 | Soul Fire | R2 | 48 | 335 | 6 sec | 383–479 (per foreverchanges) / 390–487 (per ElliotWood build) | 703–881 / 715–894 | not stated | 1 min cooldown; Decimation talent can zero its cooldown/cost for 10 sec |
 | Searing Pain | R6 | 18 | 168 | 1.5 sec | 105–123 (foreverchanges) / 107–126 (ElliotWood) | 204–240 / 208–244 | .429 at every rank | High threat, unchanged from Classic in that regard |
 | Incinerate (talent) | R3 | 40 (talent) | 325 | 2.5 sec | 201–233 (foreverchanges) / 201–233 (ElliotWood) | n/a, new spell | .714 | +25% damage if target has Immolate; spell IDs 412758/1293812/1293813 confirmed identical across both sources |
@@ -37,10 +37,10 @@ Format: values shown are the **max rank** (usually the level-60 rank) unless not
 
 | Spell | Max rank | Lvl learned | Mana | Cast | Total/tick dmg (Forever) | Duration/tick | Total/tick dmg (Classic) | Coef | Notes |
 |---|---|---|---|---|---|---|---|---|---|
-| Corruption | R7 | 4 | 340 | 2 sec | 438 total | 18 sec / 3-sec ticks (6 ticks) | 822 total | **.2 per tick at every rank** (was .167 in Classic) | |
+| Corruption | R7 (book), R6 (trainer) | 4 | 340 / 290 | 2 sec | 438 / 342 total | 18 sec / 3-sec ticks (6 ticks) | 822 total | **.2 per tick at every rank** (was .167 in Classic) | R7 is taught only by Grimoire of Corruption VII (item 21283), a Ruins of Ahn'Qiraj drop in Classic. |
 | Bane of Agony (was Curse of Agony) | R6 | 8 | 215 | Instant | 552 total (per tick ~46/8 ticks, builds up) | 24 sec | 1044 total | **.133 per tick at every rank** | Renamed; "Only one **Bane** per Warlock per target", separate slot from Curses (see §3) |
 | Bane of Doom (was Curse of Doom) | 1 rank | 60 | 300 | Instant, 1 min CD | 1742 | delayed 1 min | 3200 | **4.0**, "the largest coefficient on any Warlock spell" (ElliotWood) | Renamed; can summon a Doomguard on kill |
-| Immolate | R8 | 1 | 380 | 2 sec | Initial 158, DoT 275 over 15 sec | 15 sec | Initial 279, DoT 510 | .2 (initial) / .13 per DoT tick at every rank | Corrected in v8 from the client SpellEffect table (build 1.60.1.69893): this row used to have the two reversed. |
+| Immolate | R8 (book), R7 (trainer) | 1 | 380 / 370 | 2 sec | Initial 158, DoT 275 / initial 146, DoT 260, over 15 sec | 15 sec | Initial 279, DoT 510 | .2 (initial) / .13 per DoT tick at every rank | Corrected in v8 from the client SpellEffect table (build 1.60.1.69893): this row used to have the two reversed. R8 is taught only by Grimoire of Immolate VIII (item 21282), a Ruins of Ahn'Qiraj drop in Classic. |
 | Drain Soul | R4 | 10 | 290 | Channeled | 420 total | 15 sec | 455 total | .1 at every rank | Now grants a Soul Shard chance from *damaging* (not just killing) non-trivial targets while channeling; always grants one on a kill |
 | Drain Life | R6 | 14 | 300 | Channeled | 51/sec | 5 sec | 71/sec | .1 at every rank | |
 | Siphon Life (talent) | R4 | 30 (talent) | 365 | Instant | 41 per 3 sec | 30 sec | 45 per 3 sec | not stated | |

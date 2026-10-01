@@ -10,9 +10,9 @@ Live page: https://opitaru-sys.github.io/forever-warlock-lab/
 
 - **Leveling 10 to 29.** Affliction, instant Corruption first, then wand as your filler. Not Shadow Bolt, not Drain Life yet. Talents matter little before 28: every build tested lands within 4% of the best.
 - **Leveling 30 to 55.** Drain Life becomes the filler as Soul Siphon comes in. Keep leveling Affliction-first. Destruction builds (Immolate, Incinerate, Shadow Bolt) kill faster but rest longer, and lose overall.
-- **Solo from 56.** A Demonic Knowledge splash, 28/23/0, is optional. It kills about 3 to 4.5% faster than deep Affliction or the published drain-tank build, but only breaks even against this lab's leveling order.
+- **Solo from 56.** A Demonic Knowledge splash, 28/23/0, is optional. It kills about 3 to 5% faster than deep Affliction or the published drain-tank build, but only breaks even against this lab's leveling order.
 - **Group at 60.** Deep Demonology, 5/31/15: Suppression 5, Imp sacrificed, Succubus out, Searing Pain to keep Demonic Brand on the boss. About 4 to 5% ahead of Pact and 7% ahead of Destruction at the calculator defaults; if Demonic Brand deals no damage, it is still about 1% ahead. Fire Destruction built around Incinerate is the pick when the Succubus cannot stay on the boss. On a Fire-immune boss the group spec still leads.
-- **Race.** Undead levels fastest (about 4%). In raids, Undead's Touch of the Grave (about 1.6%) and a Human's caster sword (about 1.5%) are within half a percent, and a reported beta change may tip it to the Human. Every racial is small, so pick the race you like.
+- **Race.** Undead levels fastest (about 4%). In raids, Undead's Touch of the Grave (about 1.7%) and a Human's caster sword (about 1.5%) are within half a percent, and a reported beta change may tip it to the Human. Every racial is small, so pick the race you like.
 
 ## How it was built
 
@@ -61,6 +61,7 @@ Every number on the page or in this README traces back to one of the scripts in 
 | Demonic Brand | 3 extra pet hits per brand by default (tooltip), 0 or 6 as page options; untested |
 | Improved Shadow Bolt duration | 12 seconds by default, 60 seconds as a page toggle |
 | Bane of Doom coefficient | 4.0 by default, adjustable on the page |
+| Spell ranks | The trainer's level-60 ranks (Shadow Bolt 9, Corruption 6, Immolate 7). Shadow Bolt 10, Corruption 7 and Immolate 8 came only from Ruins of Ahn'Qiraj books in Classic, so they are a page toggle |
 
 ## How to reproduce each claim
 
@@ -88,6 +89,7 @@ Run every command from the repo root.
 
 ## Changelog
 
+- **v8.4, 1 Oct 2026.** The raid calculator now uses the spell ranks a trainer teaches at 60. Shadow Bolt 10, Corruption 7 and Immolate 8 came only from books in Ruins of Ahn'Qiraj, which is not on Forever's roadmap, so they are now a box to tick. Every build does 1 to 2% less and no ranking changes. The level-60 leveling numbers use the trainer ranks too, and the planner now lists Shadow Bolt rank 9 at 60. Test 9 checks for the books. (`trainerRanks` in `model.js`, `trainer_ranks` in `models/raid_model.py`.)
 - **v8.3, 1 Oct 2026.** Mage / Warlock switch in the header (the Mage page is new), with links that carry your race and level between the two pages. A crafted race link can no longer break the page, and levels 1 to 5 no longer break it either (no Life Tap before level 6: the leveling model now wands when out of mana and rests by eating and drinking side by side).
 - **v8.2, 30 Sep 2026.** Threat caveat for Demonic Brand (group spec and test 7), and the Soul Harvesting drinking trick marked as hotfixed, both from readers.
 - **v8.1, 29 Sep 2026.** Group spec is now 5/31/15 (a reader's improvement: Suppression's 5% hit covers every spell, about 4% over 0/35/16 when gear alone does not cap hit). Pact takes Suppression too. Note on a reported Touch of the Grave nerf.

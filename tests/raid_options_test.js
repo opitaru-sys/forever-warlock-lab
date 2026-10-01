@@ -1,5 +1,6 @@
 // Parity for the v8 raid options (fireImmune, execute, coe, mp5, consumables, targets, impDps, shadowburn,
-// brandHits, brandScaling, Life Tap 430 + Spirit) and the deep Demonology spec: model.js against models/raid_model.py.
+// brandHits, brandScaling, Life Tap 430 + Spirit, and v8.4's trainerRanks) and the deep Demonology spec: model.js
+// against models/raid_model.py.
 // Expected values live in raid_options_fixtures.json (python tests/make_raid_fixtures.py regenerates them).
 // Checks every spec function with both Banes, rank() totals, order and viability, and that statWeights and
 // compareItems carry the options. Run from the repo root: node tests/raid_options_test.js

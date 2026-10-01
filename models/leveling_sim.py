@@ -16,8 +16,10 @@ from dataclasses import dataclass, field
 # v8: every value is the client's base points. Before v8 the DoT, drain and Shadow Bolt tables read 1 higher on
 # every tick and hit (the old DBC "base points + 1" convention); Wowhead agrees with the client
 # (Corruption rank 1: 40 damage over 12 sec, 10 a tick).
+# v8.4: level 60 uses the trainer's ranks. Shadow Bolt 10, Corruption 7 and Immolate 8 were taught only by books
+# from Ruins of Ahn'Qiraj in Classic, with no Forever source yet, so Corruption rank 6 carries at 60.
 CORR = [(4, 10, 4, 35), (14, 13, 5, 55), (24, 22, 6, 100), (34, 28, 6, 160),
-        (44, 40, 6, 225), (54, 57, 6, 290), (60, 73, 6, 340)]      # lvl, per 3s tick, ticks, mana
+        (44, 40, 6, 225), (54, 57, 6, 290)]                         # lvl, per 3s tick, ticks, mana
 CORR_SP = 0.2
 BOA = [(8, 6, 25), (18, 10, 50), (28, 14, 90), (38, 21, 130), (48, 33, 170), (58, 46, 215)]
 BOA_SP = 0.133      # 12 ticks / 2s; ramp 0.5x, 1.0x, 1.5x in thirds
@@ -37,10 +39,10 @@ LT = [(6, 30, 16), (16, 75, 26), (26, 140, 36), (36, 220, 46), (46, 310, 56), (5
 SB = [(1, 13, 1.7, 25, .486, .3, 5), (6, 25, 2.2, 40, .629, .6, 11), (12, 41, 2.8, 70, .8, .7, 17),
       (20, 56, 3, 110, .857, .9, 25), (28, 78, 3, 160, .857, 1.2, 33), (36, 101, 3, 210, .857, 1.2, 41),
       (44, 141, 3, 265, .857, 1.4, 49), (52, 191, 3, 315, .857, 1.6, 57),
-      (60, 268, 3, 380, .857, 1.9, 65)]                           # lvl, avg hit, cast, mana, coef, per lvl, max
+      (60, 251, 3, 370, .857, 1.8, 65)]                           # lvl, avg hit, cast, mana, coef, per lvl, max
 IMM = [(1, 8, 25, 3, .7, 5), (10, 17, 45, 6, .8, 15), (20, 32, 90, 12, 1.2, 25), (30, 56, 155, 19, 1.5, 35),
        (40, 72, 220, 25, 1.6, 45), (50, 106, 295, 38, 1.9, 55),
-       (60, 158, 380, 55, 2.3, 65)]                               # lvl, avg hit, mana, per 3s tick (x5), per lvl, max
+       (60, 146, 370, 52, 2.3, 65)]                               # lvl, avg hit, mana, per 3s tick (x5), per lvl, max
 IMM_SP, IMM_TICK_SP, IMM_CAST = 0.2, 0.13, 2.0                    # client: 0.2 on the hit, 0.13 a tick
 SEAR = [(18, 23, 45, .6, 24), (26, 33, 68, .7, 32), (34, 44, 91, .8, 40), (42, 62, 118, .9, 48),
         (50, 85, 141, 1.0, 56), (58, 114, 168, 1.2, 64)]          # Searing Pain: lvl, avg, mana, per lvl, max; 1.5s
@@ -79,7 +81,7 @@ def rank(table, lvl):
 def dd_avg(row, lvl, mode='base'):
     """Average direct hit of a rank. 'base': the client's base points (the default). 'scaled': plus
     EffectRealPointsPerLevel for every character level above the rank's own, up to its MaxLevel (the in-game
-    formula). 'wowhead': at MaxLevel, which is what Wowhead's tooltips print (Immolate rank 8: 158 + 5 x 2.3)."""
+    formula). 'wowhead': at MaxLevel, which is what Wowhead's tooltips print (Immolate rank 7: 146 + 5 x 2.3)."""
     per, top = row[-2], row[-1]
     if mode == 'scaled':
         return row[1] + per * max(0, min(lvl, top) - row[0])

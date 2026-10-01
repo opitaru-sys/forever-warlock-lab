@@ -2,7 +2,7 @@
  * Port of models/raid_model.py, the reference (tests/parity_test.js, tests/raid_options_test.js).
  * Budget: DoT/cooldown cast time + Nightfall Shadow Bolts + Life Tap time + filler time = 1 second.
  * Mana: Life Tap funds whatever mana regen (mp5) does not cover.
- * Spell values: beta client 1.60.1.69893 (SpellEffect table), max ranks.
+ * Spell values: beta client 1.60.1.69893 (SpellEffect table), max ranks unless trainerRanks is on.
  *
  * Options on o, all off by default (the reviewed numbers do not move):
  *   fireImmune  for bosses immune to Fire. Other specs drop their Fire spells. rank() keeps the two Fire
@@ -20,6 +20,9 @@
  *               Destruction's Bane of Havoc). Damage is the total over both targets.
  *   impDps      deep Demonology's Imp under 35%, damage per second before talents (default about 41:
  *               Firebolt 45 to 50 every 2 s plus Demonic Knowledge's +60 pet spell power).
+ *   trainerRanks the trainer's level-60 ranks (Shadow Bolt 9, Corruption 6, Immolate 7) instead of the book
+ *               ranks (Shadow Bolt 10, Corruption 7, Immolate 8), which only Ruins of Ahn'Qiraj taught in
+ *               Classic. The page turns it on unless the books box is ticked.
  * And three with a non-off default:
  *   shadowburn  true (default): Destruction casts Shadowburn on cooldown. false: never, because each
  *               cast costs a Soul Shard; the Fire builds then also lose Shadow and Flame's +10% Fire.
@@ -40,6 +43,14 @@
   const INCINERATE = [217, 0.714], SOUL_FIRE = [431, 1.0], SEARING_PAIN = [114, 0.429];
   const BRAND_HIT = [66.5, 0.078];          // Demonic Brand, per branded pet attack at level 60
   const doom = o => [1742, typeof o.bodCoef === 'number' ? o.bodCoef : 4.0];
+  // Shadow Bolt 10, Corruption 7 and Immolate 8 above are taught by Grimoires 21281 to 21283, whose only Classic
+  // source was Ruins of Ahn'Qiraj. The trainer's ranks at level 60, same client table: Shadow Bolt 9 (11661),
+  // Corruption 6 (11672, 57 a tick x 6), Immolate 7 (11668, 52 a tick x 5). Mana per cast goes with each rank.
+  const BOOK_RANKS = { sb: SHADOW_BOLT, sbMana: 380, corr: CORRUPTION, corrMana: 340,
+                       immHit: IMMOLATE_HIT, immDot: IMMOLATE_DOT, immMana: 380 };
+  const TRAINER_RANKS = { sb: [251, 0.857], sbMana: 370, corr: [342, 1.2], corrMana: 290,
+                          immHit: [146, 0.2], immDot: [260, 0.65], immMana: 370 };
+  const ranks = o => o.trainerRanks ? TRAINER_RANKS : BOOK_RANKS;
   const DRAINS = 1.20 * 1.36;               // Improved Drains 3/3, Soul Siphon 3/3
 
   const EXEC_SHARE = 0.35, COE = 1.10, LASH_SHARE = 0.10, HAVOC_COPY = 0.15;
@@ -195,15 +206,15 @@
     const rm = raceMods(o.race, o);
     const sp = o.sp * rm.spMult, c = o.crit + rm.crit, cs = c + 0.05;
     const sh = (keepSuccubus ? 1.0 : 1.15) * 1.05, mal = 1.05, dc = ev(cs, 1.0);
-    const fireOk = !o.fireImmune;
+    const fireOk = !o.fireImmune, rk = ranks(o);
     const dot = n => {
-      if (n === 'Corruption') return [dmg(CORRUPTION, sp) * sh * mal * 1.10 * dc, 18, GCD, 340];
+      if (n === 'Corruption') return [dmg(rk.corr, sp) * sh * mal * 1.10 * dc, 18, GCD, rk.corrMana];
       if (n === 'BoA') return [dmg(AGONY, sp) * sh * mal * 1.10 * dc, 24, GCD, 215];
       if (n === 'BoD') return [dmg(doom(o), sp) * sh * mal * dc, 60, GCD, 300];
       if (n === 'SiphonLife') return [dmg(SIPHON_LIFE, sp) * sh * mal * dc, 30, GCD, 365];
-      return [dmg(IMMOLATE_HIT, sp) * ev(c, 0.5) + dmg(IMMOLATE_DOT, sp) * mal * ev(c, 0.5), 15, 2.0, 380];
+      return [dmg(rk.immHit, sp) * ev(c, 0.5) + dmg(rk.immDot, sp) * mal * ev(c, 0.5), 15, 2.0, rk.immMana];
     };
-    const sb = dmg(SHADOW_BOLT, sp) * sh * ev(cs, 0.5);
+    const sb = dmg(rk.sb, sp) * sh * ev(cs, 0.5);
     const F = [dmg(WRACK, sp) * sh * mal * DRAINS * dc, 6.0, 200, 1.0];   // Wrack
     const lt = lifeTap(o, rm, false);
     const main = ['Corruption', bane, 'SiphonLife'].concat(fireOk ? ['Immolate'] : []);
@@ -212,7 +223,7 @@
       const P = {};
       main.forEach(n => { P[NAMES[n]] = dot(n); });
       plan.forEach(n => { P[NAMES[n] + SECOND] = dot(n); });
-      const nf = [0.04, (1 + (plan.includes('Corruption') ? 1 : 0)) / 3, sb, 380];
+      const nf = [0.04, (1 + (plan.includes('Corruption') ? 1 : 0)) / 3, sb, rk.sbMana];
       // Wrack's +10% reaches Corruption and Bane of Agony only (client class mask), on its own target.
       const res = finish(solve(P, F, lt, nf, 0.10, ['Corruption', 'Bane of Agony'], regen(o)), o.coe);
       return { res, P, nfCasts: nf[0] * nf[1] + nf[0] * F[3] * res.f };
@@ -226,20 +237,20 @@
     if (o.fireImmune && version !== 'sb') return { dps: 0, parts: {}, f: 0, viable: false, reason: FIRE_REASON };
     const rm = raceMods(o.race, o);
     const sp = o.sp * rm.spMult, c = o.crit + rm.crit;
-    const fireOk = !o.fireImmune;
+    const fireOk = !o.fireImmune, rk = ranks(o);
     const aftermath = version !== 'sb';
     const sh = (version === 'sb' ? 1.15 : 1.0) * (fireOk ? 1.10 : 1.0);   // S&F Shadow needs Conflagrate, so Immolate
     const burn = o.shadowburn !== false;                          // each Shadowburn costs a Soul Shard
     const fi = (version === 'incin' ? 1.15 : 1.0) * (burn ? 1.10 : 1.0);   // S&F Fire comes from Shadowburn
     const AF = 1.10, mal = 1.02, cat = 0.9, dstr = ev(c, 1.0), dotc = ev(c, 0.5);
     const lt = lifeTap(o, rm, true), castSb = 2.5 / rm.castSpeed;
-    const direct = dmg(IMMOLATE_HIT, sp) * (aftermath ? 1.5 : 1.0);
+    const direct = dmg(rk.immHit, sp) * (aftermath ? 1.5 : 1.0);
     const dot = (n, isb) => {
-      if (n === 'Corruption') return [dmg(CORRUPTION, sp) * sh * mal * dotc * isb, 18, 2.0, 340];
+      if (n === 'Corruption') return [dmg(rk.corr, sp) * sh * mal * dotc * isb, 18, 2.0, rk.corrMana];
       if (n === 'BoA') return [dmg(AGONY, sp) * sh * mal * dotc * isb, 24, GCD, 215];
       if (n === 'BoD') return [dmg(doom(o), sp) * sh * mal * dotc * isb, 60, GCD, 300];
       if (n === 'Havoc') return HAVOC;
-      return [(direct + dmg(IMMOLATE_DOT, sp) * mal) * fi * AF * dstr, 15, 1.5, 380 * cat];
+      return [(direct + dmg(rk.immDot, sp) * mal) * fi * AF * dstr, 15, 1.5, rk.immMana * cat];
     };
     function build(isb, plan) {
       const P = {};
@@ -252,7 +263,7 @@
       if (burn) P.Shadowburn = [dmg(SHADOWBURN, sp) * sh * AF * dstr * isb, 15, GCD, 365 * cat];
       plan.forEach(n => { P[NAMES[n] + SECOND] = dot(n, 1); });
       const F = version === 'sb'
-        ? [dmg(SHADOW_BOLT, sp) * sh * AF * dstr * isb, castSb, 380 * cat, 0]
+        ? [dmg(rk.sb, sp) * sh * AF * dstr * isb, castSb, rk.sbMana * cat, 0]
         : [dmg(INCINERATE, sp) * 1.25 * fi * AF * dstr, 2.0 / rm.castSpeed, 325 * cat, 0];
       return [P, F];
     }
@@ -274,13 +285,13 @@
   // soulFire [cast, cooldown] | null, brand [period, bonus] | null, fixed {name: periodic} | null, hitM.
   // Soul Fire and the Searing Pain brand weave are cast only when they raise damage.
   function demoPhase(o, rm, q) {
-    const dstr = ev(q.c, 1.0), dotc = ev(q.c, 0.5), castSb = 2.5 / rm.castSpeed;
+    const dstr = ev(q.c, 1.0), dotc = ev(q.c, 0.5), castSb = 2.5 / rm.castSpeed, rk = ranks(o);
     const spain = dmg(SEARING_PAIN, q.sp2) * q.fire * q.allm * dstr * q.decim;
     const dot = (n, isb) => {
-      if (n === 'Corruption') return [dmg(CORRUPTION, q.sp2) * q.sh * q.allm * dotc * isb, 18, 2.0, 340];
+      if (n === 'Corruption') return [dmg(rk.corr, q.sp2) * q.sh * q.allm * dotc * isb, 18, 2.0, rk.corrMana];
       if (n === 'BoA') return [dmg(AGONY, q.sp2) * q.sh * q.allm * dotc * isb, 24, GCD, 215];
       if (n === 'BoD') return [dmg(doom(o), q.sp2) * q.sh * q.allm * dotc * isb, 60, GCD, 300];
-      return [(dmg(IMMOLATE_HIT, q.sp2) + dmg(IMMOLATE_DOT, q.sp2)) * q.fire * q.allm * dstr, 15, 1.5, 380 * q.cat];
+      return [(dmg(rk.immHit, q.sp2) + dmg(rk.immDot, q.sp2)) * q.fire * q.allm * dstr, 15, 1.5, rk.immMana * q.cat];
     };
     function build(isb, plan, sf, br) {
       const P = {};
@@ -292,7 +303,7 @@
       if (br) P['Searing Pain (Brand)'] = [spain + br[1], br[0], GCD, 168 * q.cat];
       Object.assign(P, q.fixed || {});
       const F = q.fil === 'SB'
-        ? [dmg(SHADOW_BOLT, q.sp2) * q.sh * q.allm * dstr * isb * q.decim, castSb, 380 * q.cat, 0]
+        ? [dmg(rk.sb, q.sp2) * q.sh * q.allm * dstr * isb * q.decim, castSb, rk.sbMana * q.cat, 0]
         : [spain, 1.5, 168 * q.cat, 0];
       return [P, F];
     }
@@ -425,7 +436,7 @@
   }
 
   // Damage per second gained from +1 spell power, +1% crit, +1% hit, and their spell power equivalents.
-  // Every option on o (fireImmune, execute, coe, mp5, targets) passes through.
+  // Every option on o (fireImmune, execute, coe, mp5, targets, trainerRanks) passes through.
   function statWeights(o, id) {
     const f = p => specTotal(Object.assign({}, o, p), id);
     const sp = (f({ sp: o.sp + 10 }) - f({ sp: Math.max(0, o.sp - 10) })) / (o.sp >= 10 ? 20 : 10 + o.sp);
