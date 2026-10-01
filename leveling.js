@@ -277,7 +277,7 @@
     k.p_amp = T('AmplifyCurse') ? (policy.p_amp === undefined ? (policy.amp ? 1.0 : 0.0) : policy.p_amp) : 0.0;
     k.p_dc = policy.p_dc === undefined ? 1.0 : policy.p_dc;
     k.p_sf = policy.p_sf === undefined ? 1.0 : policy.p_sf;
-    k.lt_amt = ltHealth(k.lt, L, mode) + ch.spirit;
+    k.lt_amt = k.lt ? ltHealth(k.lt, L, mode) + ch.spirit : 0.0;    // Life Tap is learned at level 6
     k.ilt = 1 + .10 * T('ImprovedLifeTap');
     k.nf = .02 * T('Nightfall');
     k.dec = !!T('Decimation');
@@ -486,9 +486,10 @@
 
   function choose(policy, ch, dots, st, mobHpV, k) {
     const frac = st.hp / mobHpV;
+    const hasLt = !!k.lt;                     // no Life Tap before level 6: never tap, wand when out of mana
     const ltGain = k.lt_amt * k.ilt;
-    if (st.php - k.lt_amt > pol(policy, 'tap_above', 0.75) * ch.maxHp && st.mana + ltGain <= ch.maxMana) return 'LifeTap';
-    const ltOk = st.php > pol(policy, 'lt_hp_floor', 0.35) * ch.maxHp;
+    if (hasLt && st.php - k.lt_amt > pol(policy, 'tap_above', 0.75) * ch.maxHp && st.mana + ltGain <= ch.maxMana) return 'LifeTap';
+    const ltOk = hasLt && st.php > pol(policy, 'lt_hp_floor', 0.35) * ch.maxHp;
     for (const step of k.prio) {
       if (!ready(step, policy, dots, st, frac, k)) continue;
       if (step === 'Wand') return 'Wand';
@@ -512,6 +513,7 @@
     return rest;
   }
 
+  // Before level 6 there is no Life Tap, so health and mana rest apart: eat and drink together, the slower counts.
   function secondsPerKill(ch, mobHpV, policy, travel, opts) {
     travel = travel === undefined ? 8.0 : travel;
     opts = opts || {};
@@ -522,9 +524,19 @@
     const manaRegen = (8 + ch.spirit / 4) / 2;
     const regenRate = manaRegen + ch.spirit / 5 * k * 0.5;
     const s = simulate(ch, mobHpV, policy);
-    const net = s.net_mana + k * s.net_hp + regenRate * travel;
     const bonus = s.ds_kill ? SH_BONUS[ch.talents.SoulHarvesting || 0] : 0.0;
-    s.rest = restSeconds(Math.max(0.0, -net), restRate, bonus * manaRegen * Math.min(10.0, travel), opts.harvestDrink ? bonus * drink : 0.0);
+    const walk = bonus * manaRegen * Math.min(10.0, travel);
+    const boost = opts.harvestDrink ? bonus * drink : 0.0;
+    if (rank(LT, L)) {
+      const net = s.net_mana + k * s.net_hp + regenRate * travel;
+      s.rest = restSeconds(Math.max(0.0, -net), restRate, walk, boost);
+    } else {
+      // restRate and regenRate count health at k mana a point; the health side takes k back out (k >= 1)
+      const eat = (restRate - drink) / k, hpRegen = (regenRate - manaRegen) / k;
+      const mDef = Math.max(0.0, -(s.net_mana + manaRegen * travel));
+      const hDef = Math.max(0.0, -(s.net_hp + hpRegen * travel));
+      s.rest = Math.max(restSeconds(mDef, drink, walk, boost), hDef / eat);
+    }
     s.spk = s.ttk + travel + s.rest;
     return s;
   }

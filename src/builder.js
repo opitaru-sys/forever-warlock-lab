@@ -87,11 +87,14 @@
   const PT_FILL = { Wand: 'wand', DrainLife: 'Drain Life', DL: 'Drain Life', SB: 'Shadow Bolt', ShadowBolt: 'Shadow Bolt', SP: 'Searing Pain', Incin: 'Incinerate' };
   const PT_MOD = { 'Curse of the Elements': 'Curse of the Elements at the pull', 'Drain Soul finish': 'Drain Soul to finish',
     'Shadowburn finish': 'Shadowburn to finish', 'Soul Fire finish': 'Soul Fire under 35%', 'Death Coil': 'Death Coil when it is ready' };
-  function policyText(name) {
+  // The model names a rotation after the first policy that casts the same spells, so below level 4, before
+  // Corruption, 'Corr+SB' means Shadow Bolt alone: drop the step that level cannot cast.
+  function policyText(name, L) {
     const [base, ...mods] = String(name).split(' +');
-    const parts = base.split('+'), fill = PT_FILL[parts[parts.length - 1]];
+    const parts = base.split('+').filter(p => L >= 4 || p !== 'Corr'), fill = PT_FILL[parts[parts.length - 1]];
     const head = (fill ? parts.slice(0, -1) : parts).map(p => PT_STEP[p] || p).join(', ');
-    return [head + (fill ? ', then ' + fill : '')].concat(mods.map(m => PT_MOD[m] || m)).join('. ');
+    const text = head ? head + (fill ? ', then ' + fill : '') : fill.charAt(0).toUpperCase() + fill.slice(1);
+    return [text].concat(mods.map(m => PT_MOD[m] || m)).join('. ');
   }
   const PETS_B = [['voidwalker', 'Voidwalker'], ['succubus', 'Succubus'], ['felhunter', 'Felhunter'], ['imp', 'Imp'], ['none', 'No demon']];
   const SACS = [['', 'None'], ['imp', 'Imp (+15% Shadow)'], ['succubus', 'Succubus (+15% Fire)'], ['voidwalker', 'Voidwalker (mana regen)'], ['felhunter', 'Felhunter (health regen)']];
@@ -256,7 +259,7 @@
     $('bVs').textContent = same ? 'About the same as the page plan at level ' + L + '.'
       : (diff > 0 ? diff.toFixed(1) + '% faster' : (-diff).toFixed(1) + '% slower') + ' than the page plan at level ' + L + ' (' + plan.spk.toFixed(1) + ' s per kill with a Voidwalker).';
     $('bVs').className = 'bvs ' + (same ? '' : diff > 0 ? 'up' : 'down');
-    $('bRot').textContent = policyText(mine.policy);
+    $('bRot').textContent = policyText(mine.policy, L);
     const unscored = TALENTS.filter(x => B.ranks[x.k] && x.s !== 'yes').map(x => x.n);
     if (unscored.length) notes.push('Not in the score: ' + unscored.join(', ') + '.');
     if (B.aggro && $('bAggroWrap').hidden === false) notes.push('Assumes your pet holds the mob like a Voidwalker. Test 6 checks whether Demonic Brand makes that true.');

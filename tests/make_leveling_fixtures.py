@@ -67,5 +67,14 @@ for L in (15, 20, 25, 30, 35, 40, 45, 50, 55, 56, 58, 60):
     for pet in ('voidwalker', 'succubus'):
         for sp in (1.0, 2.0):
             cases.append(case(L, 'page-v8', tal, pet, sp))
+# v8.3: levels 1 to 5, before Life Tap (level 6). The builder scores whatever talents it holds at any level.
+for L in (1, 2, 3, 4, 5):
+    for bname, tal in (('empty', {}), ('aff-path-51', build(AFF_FIRST, 51)), ('5-31-0 imp sac', dict(FIVE31, _sac='imp')),
+                       ('full-destro', FULL_DESTRO)):
+        for pet in ('voidwalker', 'imp', 'succubus', 'none'):
+            for aggro in ((False, True) if pet == 'succubus' else (False,)):
+                cases.append(case(L, bname, tal, pet, 1.0, aggro))
+    for opts in (dict(hp_mults=[0.9, 1.0, 1.1]), dict(harvest_drink=True), dict(dd_mode='scaled')):
+        cases.append(case(L, 'empty', {}, 'voidwalker', 2.0, **opts))
 json.dump(cases, open('tests/leveling_fixtures.json', 'w'), indent=0)
 print(len(cases), 'cases written')

@@ -247,7 +247,7 @@ def fight_consts(ch, policy):
     k['sp'], k['prio'] = ch.total_sp(), full_prio(policy)
     k['p_amp'] = policy.get('p_amp', 1.0 if policy.get('amp') else 0.0) if T('AmplifyCurse') else 0.0
     k['p_dc'], k['p_sf'] = policy.get('p_dc', 1.0), policy.get('p_sf', 1.0)
-    k['lt_amt'] = lt_health(k['lt'], L, mode) + ch.spirit
+    k['lt_amt'] = lt_health(k['lt'], L, mode) + ch.spirit if k['lt'] else 0.0    # Life Tap is learned at level 6
     k['ilt'] = 1 + .10 * T('ImprovedLifeTap')
     k['nf'] = .02 * T('Nightfall')
     k['dec'] = bool(T('Decimation'))
@@ -546,11 +546,12 @@ def ready(step, policy, dots, st, frac, k):
 
 def choose(policy, ch, dots, st, mob_hp, k):
     frac = st['hp'] / mob_hp
+    has_lt = bool(k['lt'])                    # no Life Tap before level 6: never tap, wand when out of mana
     lt_gain = k['lt_amt'] * k['ilt']
-    if (st['php'] - k['lt_amt'] > policy.get('tap_above', 0.75) * ch.max_hp
+    if (has_lt and st['php'] - k['lt_amt'] > policy.get('tap_above', 0.75) * ch.max_hp
             and st['mana'] + lt_gain <= ch.max_mana):
         return 'LifeTap'
-    lt_ok = st['php'] > policy.get('lt_hp_floor', 0.35) * ch.max_hp
+    lt_ok = has_lt and st['php'] > policy.get('lt_hp_floor', 0.35) * ch.max_hp
     for step in k['prio']:
         if not ready(step, policy, dots, st, frac, k):
             continue
@@ -600,12 +601,21 @@ def seconds_per_kill(ch, mob_hp, policy, travel=8.0, rest_rate=None, regen_rate=
     rest_rate mana-eq per second. Natural regen during travel is regen_rate.
     Soul Harvesting (after a Drain Soul kill) raises natural mana regen for 10 sec; harvest_drink=True also
     lets it raise the drink half of rest_rate (a reader's claim, untested in game).
+    Before level 6 there is no Life Tap, so health and mana rest apart: eat and drink together, the slower counts.
     """
     k, drink, rest_rate, mana_regen, regen_rate = rest_model(ch, rest_rate, regen_rate)
     s = simulate(ch, mob_hp, policy)
-    net = s['net_mana'] + k * s['net_hp'] + regen_rate * travel
     bonus = SH_BONUS[ch.t('SoulHarvesting')] if s['ds_kill'] else 0.0
-    s['rest'] = rest_seconds(max(0.0, -net), rest_rate, bonus * mana_regen * min(10.0, travel),
-                             bonus * drink if harvest_drink else 0.0)
+    walk = bonus * mana_regen * min(10.0, travel)
+    boost = bonus * drink if harvest_drink else 0.0
+    if rank(LT, ch.level):
+        net = s['net_mana'] + k * s['net_hp'] + regen_rate * travel
+        s['rest'] = rest_seconds(max(0.0, -net), rest_rate, walk, boost)
+    else:
+        # rest_rate and regen_rate count health at k mana a point; the health side takes k back out (k >= 1)
+        eat, hp_regen = (rest_rate - drink) / k, (regen_rate - mana_regen) / k
+        m_def = max(0.0, -(s['net_mana'] + mana_regen * travel))
+        h_def = max(0.0, -(s['net_hp'] + hp_regen * travel))
+        s['rest'] = max(rest_seconds(m_def, drink, walk, boost), h_def / eat)
     s['spk'] = s['ttk'] + travel + s['rest']
     return s
