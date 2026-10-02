@@ -33,6 +33,22 @@ const missingKeys = modelKeys.filter(k => !builderKeys.includes(k));
 check('every builder key is a leveling.js talent', !unknownKeys.length, unknownKeys.join(', '));
 check('every leveling.js talent is in the builder', !missingKeys.length, missingKeys.join(', '));
 
+// #b- share links store one rank per talent by table position, and saved builds store ranks by key. Pin both, so a
+// reorder or a key rename fails here. This is the v8.4 order (4f67f88); a new talent goes at the end, on purpose.
+const KEY_ORDER = (
+  'ImprovedLifeTap Suppression ImprovedCorruption Malediction SoulHarvesting ImprovedDrains ImprovedBoA ' +
+  'FelConcentration AmplifyCurse Pandemic Malevolence Nightfall CurseOfExhaustion SiphonLife SoulSiphon ' +
+  'ShadowMastery Wrack ImprovedHealthFunnel ImprovedImp DemonicEmbrace UnholyPower DemonicAegis ' +
+  'ImprovedVoidwalker FelVitality DemonicEnergies ImprovedSayaad DemonicSacrifice MasterSummoner ' +
+  'Decimation FelDomination DemonicBrand ImprovedFelhunter SoulLink DemonicKnowledge MasterDemonologist ' +
+  'DemonicPact DestructiveReach ImprovedShadowBolt Bane MoltenSkin Cataclysm Aftermath Ruin Shadowburn ' +
+  'Intensity AgonizingFlames Conflagrate Pyroclasm BaneOfHavoc FireAndBrimstone ShadowAndFlame ' +
+  'Incinerate').split(' ');
+const firstMoved = KEY_ORDER.findIndex((k, i) => builderKeys[i] !== k);
+check('talent keys keep their share-link order', firstMoved < 0 && builderKeys.length === KEY_ORDER.length,
+  firstMoved >= 0 ? 'position ' + firstMoved + ': ' + builderKeys[firstMoved] + ' where ' + KEY_ORDER[firstMoved] + ' was'
+    : builderKeys.length + ' talents, ' + KEY_ORDER.length + ' pinned');
+
 // Share links carry one digit per talent; the decoder's length must match the table.
 const lm = builder.match(/\(\[0-5\]\{(\d+)\}\)/);
 check('share link length matches the talent table', lm && Number(lm[1]) === TALENTS.length,

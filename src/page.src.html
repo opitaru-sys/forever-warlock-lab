@@ -804,7 +804,7 @@ h2::before{content:"";display:inline-block;width:11px;height:11px;transform:rota
           <tr><th scope="row">Nightfall, Soul Harvest, Wrack</th><td class="r">0</td><td class="r">0</td><td class="r">0</td></tr>
         </tbody>
       </table></div>
-      <p class="note">Nightfall reads 0 because one leveling kill builds up less than one proc; carried over between kills it would be worth about 0.6% per point at 60. Soul Harvest only pays when the best rotation finishes with Drain Soul, which it never does in the page build. The 1 Oct beta build fixed it to give its 50/100% mana regeneration, which the model already assumed. If it also speeds up drinking, the page build still gains nothing: it rests under 2.5 s a kill.</p>
+      <p class="note">Nightfall reads 0 because one leveling kill builds up less than one proc; carried over between kills it would be worth about 0.6% per point at 60. Soul Harvest only pays when the best rotation finishes with Drain Soul, which it never does in the page build. The 1 Oct beta build fixed it to give its 50/100% mana regeneration, which the model already assumed. If it also speeds up drinking, it gains about 0.3% at level 47 (2 points) and nothing at other levels. The page build rests under 2.5 s a kill.</p>
     </div>
   </details>
 </section>
@@ -827,7 +827,7 @@ h2::before{content:"";display:inline-block;width:11px;height:11px;transform:rota
 
 <section id="method" class="wrap">
   <h2>How this was checked</h2>
-  <p class="callout"><b>Limits.</b> The beta is capped at level 30, so nobody has played a finished tree. Pet damage, mob health and damage, wand damage and rest speed are assumptions that were stress-tested, not measured. The leveling sim fights one mob at a time; a separate, rougher model covers pulls of several mobs. The Destruction leveling verdicts lean on rest speed: if food and water restore twice as fast as assumed, the Immolate build wins from level 50. The raid model counts a mana potion and a rune on cooldown, but not raid buffs. More mana regen helps every build about the same: another 100 mp5 adds 3 to 4%. Since the 1 Oct beta build, ranks far below your level get less from spell power and trigger talents less often; every rotation here uses the newest rank you can train, so its numbers should not move. Numbers will move before 4 November. Corrections are welcome.</p>
+  <p class="callout"><b>Limits.</b> The beta is capped at level 30, so nobody has played a finished tree. Pet damage, mob health and damage, wand damage and rest speed are assumptions that were stress-tested, not measured. The leveling sim fights one mob at a time; a separate, rougher model covers pulls of several mobs. The Destruction leveling verdicts lean on rest speed: if food and water restore twice as fast as assumed, the Immolate build wins from level 50. The raid model counts a mana potion and a rune on cooldown, but not raid buffs. More mana regen helps every build about the same: another 100 mp5 adds 3 to 4%. Since the 1 Oct beta build, ranks far below your level get less from spell power and trigger talents less often; every rotation here uses the newest rank you can train, so this penalty should not change its numbers. Numbers will move before 4 November. Corrections are welcome.</p>
   <details>
     <summary>Method, data and review</summary>
     <div class="dbody">
@@ -840,7 +840,7 @@ h2::before{content:"";display:inline-block;width:11px;height:11px;transform:rota
     <summary>What changed</summary>
     <div class="dbody">
       <ul class="src">
-        <li><b>v8.5, 2 Oct 2026.</b> Updates for Blizzard's 1 Oct beta notes. Gnome: Eureka! no longer boosts DoTs, so the tip now says to save it for your first Drain Life or Shadow Bolt. Saved that way it is still worth 0.8 to 1% faster leveling from level 30, but nothing while the wand is your filler; pressed on the pull it is worth about 0.3%. Its raid value does not change, because the calculator only ever applied it to filler casts. Soul Harvesting is now called Soul Harvest and gives its 50/100% mana regeneration, which the model already assumed, so the page build still gains nothing from it. Excavation Site: Wetlands is now level 26 to 31 (was 24 to 29). A line under Limits on the new penalty for spell ranks far below your level. No ranking changes.</li>
+        <li><b>v8.5, 2 Oct 2026.</b> Updates for Blizzard's 1 Oct beta notes. Gnome: Eureka! no longer boosts DoTs, so the tip now says to press it after your DoTs, for Drain Life or Shadow Bolt. Used that way it is still worth 0.6 to 1.1% faster leveling from level 30, but nothing while the wand is your filler; pressed on the pull it is worth about 0.3%. Its raid value does not change, because the calculator only ever applied it to filler casts. Soul Harvesting is now called Soul Harvest and gives its 50/100% mana regeneration, which the model already assumed, so the page build still gains nothing from it. Excavation Site: Wetlands is now level 26 to 31 (was 24 to 29). A line under Limits on the new penalty for spell ranks far below your level. No ranking changes.</li>
         <li><b>v8.4, 1 Oct 2026.</b> The raid calculator now uses the spell ranks a trainer teaches at 60. Shadow Bolt 10, Corruption 7 and Immolate 8 came only from books in Ruins of Ahn'Qiraj, which is not on Forever's roadmap, so they are now a box to tick. Every build does 1 to 2% less and no ranking changes. The level-60 leveling numbers use the trainer ranks too, and the planner now lists Shadow Bolt rank 9 at 60. Test 9 checks for the books.</li>
         <li><b>v8.3, 1 Oct 2026.</b> A Mage / Warlock switch in the header, for the new Mage page. Links between the two pages carry your race and level. A crafted race link can no longer break the page, and levels 1 to 5 no longer break it either.</li>
         <li><b>v8.2, 30 Sep 2026.</b> A threat caveat for Demonic Brand in the group spec and test 7, both raised by a reader, and the Soul Harvesting drinking trick marked as hotfixed.</li>
@@ -929,10 +929,10 @@ window.FWL_ICONS = /*ICONS*/;
                 ['Expansive Mind', '+5% max mana.'],
                 ['Escape Artist', 'Break roots and slows, immune for 3 sec. 2 min cooldown.'],
                 ['Engineering Specialization', 'Engineering gadgets fail 20% less often.']],
-      level: 'Under 1%, from level 30, if you save Eureka! for Drain Life. DoTs no longer count.', levelPct: 1,
+      level: 'About 1%, from level 30, if you save Eureka! for Drain Life. DoTs no longer count.', levelPct: 1,
       pvp: ['Escape Artist', 'frees you from roots and slows'],
       verdict: 'A solid all-round Alliance pick with no big edge anywhere.',
-      tip: 'Save Eureka! for your first Drain Life or Shadow Bolt. Since the 1 Oct beta build it no longer boosts DoTs.' },
+      tip: 'Press Eureka! after your DoTs, so the +10% lands on Drain Life or Shadow Bolt. Since the 1 Oct beta build it no longer boosts DoTs.' },
     orc: { label: 'Orc', faction: 'Horde',
       racials: [['Blood Fury', '+10% Attack Power and Spell Power for 15 sec. 2 min cooldown.'],
                 ['Hardiness', 'Stuns on you last 20% shorter.'],

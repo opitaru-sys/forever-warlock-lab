@@ -41,7 +41,7 @@ COMMUNITY_34 = rep(('ImprovedCorruption', 5), ('ImprovedShadowBolt', 5), ('Bane'
                    ('Ruin', 5), ('Shadowburn', 1), ('Cataclysm', 3), ('Conflagrate', 1), ('AgonizingFlames', 3),
                    ('ShadowAndFlame', 5), ('Intensity', 3), ('Suppression', 5), ('Malediction', 3), ('Nightfall', 2))
 # Speedrun-style: Destruction to Shadowburn (Bane 5, Cataclysm 3 and Aftermath 2 open row 3, Shadowburn at 20), then
-# Improved Corruption 5 and Soul Harvesting 2 for Drain Soul finishes (27), then the page plan's Affliction order.
+# Improved Corruption 5 and Soul Harvest 2 for Drain Soul finishes (27), then the page plan's Affliction order.
 SPEEDRUN = rep(('Bane', 5), ('Cataclysm', 3), ('Aftermath', 2), ('Shadowburn', 1), ('ImprovedCorruption', 5), ('SoulHarvesting', 2),
                ('Suppression', 3), ('ImprovedDrains', 3), ('Malediction', 5), ('ImprovedBoA', 2), ('Pandemic', 2), ('SiphonLife', 1),
                ('SoulSiphon', 3), ('Nightfall', 2), ('ShadowMastery', 5), ('Wrack', 1), ('Pandemic', 1), ('FelConcentration', 3),

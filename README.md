@@ -86,10 +86,11 @@ Run every command from the repo root.
 | Gear hit, stat weights and item comparison behave as specified | `node tests/weights_test.js` |
 | Every raid calculator option matches Python | `node tests/raid_options_test.js` (regenerate with `python tests/make_raid_fixtures.py`) |
 | leveling.js matches the Python leveling model | `node tests/leveling_parity_test.js` (regenerate with `python tests/make_leveling_fixtures.py`) |
+| Builder presets name real talents, within max rank; talent keys match the leveling model and keep their share-link order | `node tests/preset_names_test.js` |
 
 ## Changelog
 
-- **v8.5, 2 Oct 2026.** Updates for Blizzard's 1 Oct beta notes. Gnome: Eureka! no longer boosts periodic damage (channels still count), so `analysis/race_leveling.py` now saves it for the pull's first 3 non-periodic casts. Gnome leveling is 0.8 to 1% faster from level 30 and 0% at 20, a 0.72% mean over levels 20 to 60 (was 0.86%); pressed on the pull it would be 0.29%. The raid model only ever applied it to filler casts, so Gnome raid stays +0.5%. Soul Harvesting is renamed Soul Harvest and now gives its 50/100% mana regeneration, which the model already assumed; adding it to the page build still gains 0.00% at levels 20 to 60. Excavation Site: Wetlands is 26 to 31 (was 24 to 29). A Limits line on the new penalty for spell ranks far below your level. No ranking changes. `tests/preset_names_test.js` now checks that every builder preset's talent names exist, since a preset silently drops a name it cannot find.
+- **v8.5, 2 Oct 2026.** Updates for Blizzard's 1 Oct beta notes. Gnome: Eureka! no longer boosts periodic damage (channels still count), so `analysis/race_leveling.py` now saves it for the pull's first 3 non-periodic casts. Gnome leveling is 0.6 to 1.1% faster from level 30 and 0% from 20 to 29, a 0.72% mean of levels 20, 30, 40, 50 and 60 (was 0.86%); pressed on the pull it would be about 0.3%. The raid model only ever applied it to filler casts, so Gnome raid stays +0.5%. Soul Harvesting is renamed Soul Harvest and now gives its 50/100% mana regeneration, which the model already assumed; adding it to the page build still gains 0.00% at levels 20 to 60 (regen only; if it also speeds up drinking, about 0.3% at level 47 and nothing elsewhere). Excavation Site: Wetlands is 26 to 31 (was 24 to 29). A Limits line on the new penalty for spell ranks far below your level. No ranking changes. `tests/preset_names_test.js` now checks that every builder preset's talent names exist, since a preset silently drops a name it cannot find.
 - **v8.4, 1 Oct 2026.** The raid calculator now uses the spell ranks a trainer teaches at 60. Shadow Bolt 10, Corruption 7 and Immolate 8 came only from books in Ruins of Ahn'Qiraj, which is not on Forever's roadmap, so they are now a box to tick. Every build does 1 to 2% less and no ranking changes. The level-60 leveling numbers use the trainer ranks too, and the planner now lists Shadow Bolt rank 9 at 60. Test 9 checks for the books. (`trainerRanks` in `model.js`, `trainer_ranks` in `models/raid_model.py`.)
 - **v8.3, 1 Oct 2026.** Mage / Warlock switch in the header (the Mage page is new), with links that carry your race and level between the two pages. A crafted race link can no longer break the page, and levels 1 to 5 no longer break it either (no Life Tap before level 6: the leveling model now wands when out of mana and rests by eating and drinking side by side).
 - **v8.2, 30 Sep 2026.** Threat caveat for Demonic Brand (group spec and test 7), and the Soul Harvesting drinking trick marked as hotfixed, both from readers.
@@ -105,7 +106,7 @@ Run every command from the repo root.
 
 ## How to rebuild the page
 
-`index.html` is generated. Edit `src/page.src.html`, `src/builder.js`, `model.js` or `leveling.js`, then run `python src/build.py` from the repo root and rerun the three test scripts in `tests/`.
+`index.html` is generated. Edit `src/page.src.html`, `src/builder.js`, `model.js` or `leveling.js`, then run `python src/build.py` from the repo root and rerun the five test scripts in `tests/` (`node tests/<name>.js`).
 
 ## How to contribute
 

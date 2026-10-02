@@ -61,7 +61,7 @@ INCIN_SP, SOULFIRE_SP, DCOIL_SP = 0.714, 1.0, 0.214
 CATA = (0, .03, .07, .10)       # Cataclysm: Destruction spells cost less mana
 AFLAMES = (0, .03, .07, .10)    # Agonizing Flames: Destruction damage, and the same again as Searing Pain crit
 FNB = (0, .08, .17, .25)        # Fire and Brimstone: Conflagrate crit chance
-SH_BONUS = (0, .5, 1.0)         # Soul Harvesting: mana regeneration for 10 sec after a Drain Soul kill
+SH_BONUS = (0, .5, 1.0)         # Soul Harvest: mana regeneration for 10 sec after a Drain Soul kill
 BASE_HIT = {0: .96, 1: .95, 2: .94, 3: .83}
 ISB_DUR = 12.0                  # Improved Shadow Bolt debuff, sec (client 17794; no charges). A community guide says 60.
 SNF_DUR = 20.0                  # Shadow and Flame buffs, sec
@@ -497,7 +497,7 @@ def simulate(ch: Char, mob_hp: float, policy: dict, max_time=240.0):
                 a = 'NightfallSB'
             act(a, t)
         if st['hp'] <= 0:
-            S['ds_kill'] = ds_on                 # Soul Harvesting: the mob died with Drain Soul on it
+            S['ds_kill'] = ds_on                 # Soul Harvest: the mob died with Drain Soul on it
         st['t'] += DT
     S['ttk'] = st['t']
     S['end_mana'] = st['mana']
@@ -601,7 +601,7 @@ def seconds_per_kill(ch, mob_hp, policy, travel=8.0, rest_rate=None, regen_rate=
     Resource is counted in mana-equivalents: 1 health = (1 + 0.1*ILT) mana, because
     Life Tap converts it at that rate. Rest (eat + drink together) restores
     rest_rate mana-eq per second. Natural regen during travel is regen_rate.
-    Soul Harvesting (after a Drain Soul kill) raises natural mana regen for 10 sec; harvest_drink=True also
+    Soul Harvest (after a Drain Soul kill) raises natural mana regen for 10 sec; harvest_drink=True also
     lets it raise the drink half of rest_rate (a reader's claim, untested in game).
     Before level 6 there is no Life Tap, so health and mana rest apart: eat and drink together, the slower counts.
     """

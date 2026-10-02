@@ -63,7 +63,7 @@
   const TBY = Object.fromEntries(TALENTS.map(x => [x.k, x]));
   const TBYNAME = Object.fromEntries(TALENTS.map(x => [x.n, x]));
   // soft hyphens (U+00AD) give long words a clean break point inside the small talent cells
-  const SHY = { Suppression: 'Suppres­sion', Corruption: 'Corrup­tion', Malediction: 'Male­diction', Harvesting: 'Harvest­ing',
+  const SHY = { Suppression: 'Suppres­sion', Corruption: 'Corrup­tion', Malediction: 'Male­diction',
     Concentration: 'Concen­tration', Malevolence: 'Male­volence', Voidwalker: 'Void­walker', Sacrifice: 'Sacri­fice',
     Decimation: 'Deci­mation', Domination: 'Domi­nation', Felhunter: 'Fel­hunter', Knowledge: 'Know­ledge',
     Demonologist: 'Demono­logist', Destructive: 'Destruc­tive', Cataclysm: 'Cata­clysm', Aftermath: 'After­math',
@@ -138,7 +138,7 @@
     return r;
   }
   // Destruction leveling builds from the v8 tests (analysis/destro_leveling.py): a reader's Immolate build, the community
-  // 17/0/34 with its row-gating fix, and a speedrun-style Shadowburn then Soul Harvesting path
+  // 17/0/34 with its row-gating fix, and a speedrun-style Shadowburn then Soul Harvest path
   const ORDER_IMM = seq([['Improved Corruption', 5], ['Bane', 5], ['Aftermath', 5], ['Shadowburn', 1], ['Ruin', 4], ['Conflagrate', 1],
     ['Ruin', 1], ['Agonizing Flames', 3], ['Cataclysm', 3], ['Fire and Brimstone', 3], ['Shadow and Flame', 5], ['Bane of Havoc', 1],
     ['Incinerate', 1], ['Suppression', 5], ['Improved Life Tap', 2], ['Malediction', 5], ['Molten Skin', 1]]);

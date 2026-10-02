@@ -97,7 +97,7 @@ def eureka(s, L, tal, cycle):
     Since the 1 Oct 2026 beta build Eureka! no longer benefits periodic effects; channeled spells still count.
     Immolate gains on its hit only, and wand shots are not spells. The notes do not say whether a DoT cast uses
     up a charge. The other reading, pressed on the pull so the opening DoTs use the 3 charges (their damage gains
-    nothing, the 10% mana saving stays), is worth about 0.3% instead of 0.7% (mean, levels 20 to 60).
+    nothing, the 10% mana saving stays), is worth about 0.3% instead of 0.7% (mean of levels 20, 30, 40, 50, 60).
     """
     left, dmg3, mana3 = 3, 0.0, 0.0
     for a in s['k']['prio']:
