@@ -346,7 +346,7 @@ def report_pets(pool):
 
 
 def report_harvest(pool):
-    print('\n### Soul Harvesting: does harvest_drink matter? speedrun-style build, SP 1.0\n')
+    print('\n### Soul Harvest: does harvest_drink matter? speedrun-style build, SP 1.0\n')
     print('| L | best (drink not boosted) | best if Soul Harvest also boosts drinking | Drain Soul finish forced, not boosted | forced, boosted |')
     print('|---|---|---|---|---|')
     forced = {'DS': dict(policies={k + '|ds': dict(v, fin='DrainSoul') for k, v in c.POLICIES.items()}, mods=False)}
