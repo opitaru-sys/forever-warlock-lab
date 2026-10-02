@@ -65,7 +65,8 @@ class Setup:
     mob_dps: float = 1.0      # M6 multiple of the single-mob model's mob damage (0.035 x level^2 a second)
     rest: str = 'pooled'      # M7 'pooled' (seconds_per_kill's model) or 'eat' (health comes back only by eating)
     margin: float = 0.0       # M8 lowest expected health allowed, share of max health (0: survive at all)
-    aoe_crit: bool = True     # M9 Rain of Fire and Hellfire ticks crit like Immolate ticks (Ruin applies)
+    aoe_crit: bool = True     # M9 Rain of Fire and Hellfire ticks crit like Immolate ticks (Ruin applies). Hellfire
+                              # crit is confirmed by the 1 Oct 2026 beta notes; Rain of Fire's is still assumed.
 
 
 def base_health(L):

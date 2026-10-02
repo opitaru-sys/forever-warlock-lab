@@ -5,8 +5,9 @@ The page planner's build, Voidwalker, SP 1.0 x level. Stat racials change the ch
 found again (evaluate(), modifiers included, averaged over mob HP x0.8 to x1.2). Per-kill racials are expected
 values added to that rotation's simulated fights at each mob HP:
 - Human: Sword Specialization, +2% spell crit with a caster sword; The Human Spirit, +5% Spirit (Life Tap, regen).
-- Gnome: Expansive Mind, +5% max mana; Eureka!, the pull's first 3 damaging spells +10% damage and -10% mana,
-  2 min cooldown, so on (kill cycle / 120 s) of pulls.
+- Gnome: Expansive Mind, +5% max mana; Eureka!, +10% damage and -10% mana on the pull's first 3 non-periodic spell
+  casts, 2 min cooldown, so on (kill cycle / 120 s) of pulls. Since the 1 Oct 2026 beta build Eureka! no longer
+  benefits periodic effects (channels still count), so it is saved for the drains, Wrack and direct spells.
 - Orc: Blood Fury, +10% spell power for 15 s, 2 min cooldown, on the pull when ready.
 - Troll: Beast Slaying, +5% of your damage to beasts; Rapid Regeneration, 50% max health over 6 s between pulls,
   3 min cooldown, so it replaces up to 6 s of eating on (kill cycle / 180 s) of pulls.
@@ -30,6 +31,9 @@ WAND_SPEED = 1.5
 BEASTS, HUMANOIDS = 0.4, 0.4
 TRAVEL = 8.0
 FINISH = {'Drain Soul finish': 'DrainSoul', 'Shadowburn finish': 'Shadowburn', 'Soul Fire finish': 'SoulFire'}
+# Casts Eureka! still boosts since the 1 Oct 2026 beta build: channels and direct hits (only Immolate's hit part).
+NON_PERIODIC = ('DrainLife', 'DrainSoul', 'Wrack', 'ShadowBolt', 'SearingPain', 'Incinerate', 'Conflagrate',
+                'Shadowburn', 'SoulFire', 'DeathCoil', 'Immolate')
 
 
 def policy_of(name, tal, cycle):
@@ -88,10 +92,27 @@ def totg(s, L, tal):
 
 
 def eureka(s, L, tal, cycle):
-    """(fight seconds, rest seconds) with Eureka! on the first 3 damaging spells of the pull."""
-    first = [a for a in s['k']['prio'] if a in s['casts'] and a not in ('CoE', 'Wand')][:3]
-    dmg3 = sum(s['dmg'].get(a, 0.0) / s['casts'][a] for a in first)
-    mana3 = sum(s['k']['cost'][a] for a in first)
+    """(fight seconds, rest seconds) with Eureka! saved for the first 3 non-periodic spell casts of the pull.
+
+    Since the 1 Oct 2026 beta build Eureka! no longer benefits periodic effects; channeled spells still count.
+    Immolate gains on its hit only, and wand shots are not spells. The notes do not say whether a DoT cast uses
+    up a charge. The other reading, pressed on the pull so the opening DoTs use the 3 charges (their damage gains
+    nothing, the 10% mana saving stays), is worth about 0.3% instead of 0.7% (mean, levels 20 to 60).
+    """
+    left, dmg3, mana3 = 3, 0.0, 0.0
+    for a in s['k']['prio']:
+        if left <= 0:
+            break
+        if a not in NON_PERIODIC or not s['casts'].get(a):
+            continue
+        n = min(left, s['casts'][a])
+        if a == 'Immolate':
+            per = s['k']['base']['Immolate'] * s['ch'].fire_mult      # s['dmg'] merges the hit and the ticks
+        else:
+            per = s['dmg'].get(a, 0.0) / s['casts'][a]
+        dmg3 += n * per
+        mana3 += n * s['k']['cost'][a]
+        left -= n
     p = min(1.0, cycle / 120.0)
     rr = rest_rate(L, tal)
     return s['ttk'] * (1 - 0.1 * p * dmg3 / s['hp']), max(0.0, s['rest'] * rr - 0.1 * p * mana3) / rr

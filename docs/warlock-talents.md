@@ -39,7 +39,7 @@ Compiled 2026-09-28 from web research (WebSearch + WebFetch). WoW Forever beta h
 | 2 | Suppression | 1 | 5 |, | Carried | "Improves your chance to hit by 1% and reduces all threat you generate by 4%" per rank (R5: +5% hit / -20% threat) |
 | 3 | Improved Corruption | 1 | 5 |, | Carried (buffed) | "Reduces the casting time of your Corruption spell by 0.4 sec and increases the damage it deals by 2%" per rank (R5: -2.0 sec cast [effectively instant per one source], +10% dmg) |
 | 4 | Malediction | 2 | 5 |, | **NEW** | "Increases all periodic damage done by your Warlock spells by 1%" per rank (R5: 5%) |
-| 5 | Soul Harvesting | 2 | 2 |, | **NEW** | Grants "Soul Harvest" for 10 sec on a kill while target is afflicted by your Drain Soul, mana regen buff, R1: 50%, R2: 100% (one source phrases as bonus mana regen; exact wording varies by fetch, see Discrepancies) |
+| 5 | Soul Harvest (Soul Harvesting before the 1 Oct 2026 beta build) | 2 | 2 |, | **NEW** | Grants "Soul Harvest" for 10 sec on a kill while target is afflicted by your Drain Soul, mana regen buff, R1: 50%, R2: 100% (one source phrases as bonus mana regen; exact wording varies by fetch, see Discrepancies) |
 | 6 | Improved Drains | 2 | 3 |, | **NEW** | "Increases health drained or damage done by your Drain Life, Drain Soul, and Wrack spells by 7%" per rank (R3: 20%, not a clean 3×7, likely non-linear ranks) |
 | 7 | Improved Bane of Agony | 3 | 2 |, | Carried (renamed target spell) | "Increases the damage done by your Bane of Agony by 5%" per rank (R2: 10%) |
 | 8 | Fel Concentration | 3 | 3 |, | Carried | "Gives you a 23% chance to avoid interruption caused by damage while channeling or casting" per rank (R3: 70%), one source specifies this protects Drain Life/Drain Mana/Drain Soul but explicitly NOT Drain Hope/Wrack |
@@ -158,7 +158,7 @@ Two fetches gave inconsistent rank-2 values for Improved Health Funnel's threat-
 - Any Blizzard-official (first-party) source, patch notes, official talent calculator, or developer post, confirming final (non-beta) numbers. Everything above comes from third-party fan/guide sites; none carried a visible "last updated"/patch-version date next to the specific numbers quoted, except warcrafttavern.com's build tag (1.60.1.69913, level cap 20), which is too early (pre-level-60) to certify endgame tooltip numbers.
 - Exact prerequisite (points-in-tree) requirement for several mid-tree talents (e.g., Siphon Life's "~20 Affliction points," Demonic Sacrifice's "~10 Demonology points"), only approximate/rounded figures were available, sourced from single fetches each.
 - Confirmation of whether Fel Domination is genuinely gated behind Master Summoner or whether that's an artifact of row order.
-- A verbatim, complete tooltip for Soul Harvesting rank 1 and rank 2 (paraphrased differently by every source that mentioned it).
+- A verbatim, complete tooltip for Soul Harvest (formerly Soul Harvesting) rank 1 and rank 2 (paraphrased differently by every source that mentioned it).
 
 ---
 

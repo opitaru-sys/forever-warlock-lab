@@ -459,7 +459,7 @@ h2::before{content:"";display:inline-block;width:11px;height:11px;transform:rota
     <a id="classMage" href="https://opitaru-sys.github.io/forever-mage-lab/"><img class="ico s" data-icon="classicon_mage" alt="">Mage</a>
     <span aria-current="page"><img class="ico s" data-icon="classicon_warlock" alt="">Warlock</span>
   </nav>
-  <span class="eyebrow">WoW: Forever · Warlock · beta data · v8.4 · 1 Oct 2026</span>
+  <span class="eyebrow">WoW: Forever · Warlock · beta data · v8.5 · 2 Oct 2026</span>
   <div class="title-row"><img class="ico l" data-icon="classicon_warlock" alt="Warlock class icon"><h1>Forever Warlock Lab</h1></div>
   <p class="lede">What to press, which talents to take and which race to play, at every level from 1 to 60. Checked against the Forever beta's own spell data, with calculators you can play with.</p>
   <p class="trust">Built with Claude and checked by a second, adversarial Claude session. Open source. <a href="#method">How it was checked</a> · <a href="#changelog">What changed</a></p>
@@ -811,10 +811,10 @@ h2::before{content:"";display:inline-block;width:11px;height:11px;transform:rota
           <tr><th scope="row">Malediction, Shadow Mastery</th><td class="r"><span class="na">in the build</span></td><td class="r">+0.6%/pt</td><td class="r">+0.6%/pt</td></tr>
           <tr><th scope="row">Unholy Power</th><td class="r">+0.4%/pt</td><td class="r">+0.3%/pt</td><td class="r"><span class="na">in the build</span></td></tr>
           <tr><th scope="row">Bane (Destruction)</th><td class="r">+0.2%/pt</td><td class="r">0</td><td class="r">0</td></tr>
-          <tr><th scope="row">Nightfall, Soul Harvesting, Wrack</th><td class="r">0</td><td class="r">0</td><td class="r">0</td></tr>
+          <tr><th scope="row">Nightfall, Soul Harvest, Wrack</th><td class="r">0</td><td class="r">0</td><td class="r">0</td></tr>
         </tbody>
       </table></div>
-      <p class="note">Nightfall reads 0 because one leveling kill builds up less than one proc; carried over between kills it would be worth about 0.6% per point at 60. Soul Harvesting only pays when the best rotation finishes with Drain Soul, which it rarely does. A reader relayed that the Warlock Discord says its old drinking trick was hotfixed out of Forever, which is how the model already treats it.</p>
+      <p class="note">Nightfall reads 0 because one leveling kill builds up less than one proc; carried over between kills it would be worth about 0.6% per point at 60. Soul Harvest only pays when the best rotation finishes with Drain Soul, which it never does in the page build. The 1 Oct beta build fixed it to give its 50/100% mana regeneration, which the model already assumed. If it also speeds up drinking, the page build still gains nothing: it rests under 2.5 s a kill.</p>
     </div>
   </details>
 </section>
@@ -837,7 +837,7 @@ h2::before{content:"";display:inline-block;width:11px;height:11px;transform:rota
 
 <section id="method" class="wrap">
   <h2>How this was checked</h2>
-  <p class="callout"><b>Limits.</b> The beta is capped at level 30, so nobody has played a finished tree. Pet damage, mob health and damage, wand damage and rest speed are assumptions that were stress-tested, not measured. The leveling sim fights one mob at a time; a separate, rougher model covers pulls of several mobs. The Destruction leveling verdicts lean on rest speed: if food and water restore twice as fast as assumed, the Immolate build wins from level 50. The raid model counts a mana potion and a rune on cooldown, but not raid buffs. More mana regen helps every build about the same: another 100 mp5 adds 3 to 4%. Numbers will move before 4 November. Corrections are welcome.</p>
+  <p class="callout"><b>Limits.</b> The beta is capped at level 30, so nobody has played a finished tree. Pet damage, mob health and damage, wand damage and rest speed are assumptions that were stress-tested, not measured. The leveling sim fights one mob at a time; a separate, rougher model covers pulls of several mobs. The Destruction leveling verdicts lean on rest speed: if food and water restore twice as fast as assumed, the Immolate build wins from level 50. The raid model counts a mana potion and a rune on cooldown, but not raid buffs. More mana regen helps every build about the same: another 100 mp5 adds 3 to 4%. Since the 1 Oct beta build, ranks far below your level get less from spell power and trigger talents less often; every rotation here uses the newest rank you can train, so its numbers should not move. Numbers will move before 4 November. Corrections are welcome.</p>
   <details>
     <summary>Method, data and review</summary>
     <div class="dbody">
@@ -850,6 +850,7 @@ h2::before{content:"";display:inline-block;width:11px;height:11px;transform:rota
     <summary>What changed</summary>
     <div class="dbody">
       <ul class="src">
+        <li><b>v8.5, 2 Oct 2026.</b> Updates for Blizzard's 1 Oct beta notes. Gnome: Eureka! no longer boosts DoTs, so the tip now says to save it for your first Drain Life or Shadow Bolt. Saved that way it is still worth 0.8 to 1% faster leveling from level 30, but nothing while the wand is your filler; pressed on the pull it is worth about 0.3%. Its raid value does not change, because the calculator only ever applied it to filler casts. Soul Harvesting is now called Soul Harvest and gives its 50/100% mana regeneration, which the model already assumed, so the page build still gains nothing from it. Excavation Site: Wetlands is now level 26 to 31 (was 24 to 29). A line under Limits on the new penalty for spell ranks far below your level. No ranking changes.</li>
         <li><b>v8.4, 1 Oct 2026.</b> The raid calculator now uses the spell ranks a trainer teaches at 60. Shadow Bolt 10, Corruption 7 and Immolate 8 came only from books in Ruins of Ahn'Qiraj, which is not on Forever's roadmap, so they are now a box to tick. Every build does 1 to 2% less and no ranking changes. The level-60 leveling numbers use the trainer ranks too, and the planner now lists Shadow Bolt rank 9 at 60. Test 9 checks for the books.</li>
         <li><b>v8.3, 1 Oct 2026.</b> A Mage / Warlock switch in the header, for the new Mage page. Links between the two pages carry your race and level. A crafted race link can no longer break the page, and levels 1 to 5 no longer break it either.</li>
         <li><b>v8.2, 30 Sep 2026.</b> A threat caveat for Demonic Brand in the group spec and test 7, both raised by a reader, and the Soul Harvesting drinking trick marked as hotfixed.</li>
@@ -2025,10 +2026,10 @@ window.FWL_ICONS = {"ability_deathknight_hemorrhagicfever": "data:image/jpeg;bas
                 ['Expansive Mind', '+5% max mana.'],
                 ['Escape Artist', 'Break roots and slows, immune for 3 sec. 2 min cooldown.'],
                 ['Engineering Specialization', 'Engineering gadgets fail 20% less often.']],
-      level: 'About 1% from Eureka! on the pull', levelPct: 1,
+      level: 'Under 1%, from level 30, if you save Eureka! for Drain Life. DoTs no longer count.', levelPct: 1,
       pvp: ['Escape Artist', 'frees you from roots and slows'],
       verdict: 'A solid all-round Alliance pick with no big edge anywhere.',
-      tip: 'Press Eureka! on the pull so your opening DoTs get the +10%.' },
+      tip: 'Save Eureka! for your first Drain Life or Shadow Bolt. Since the 1 Oct beta build it no longer boosts DoTs.' },
     orc: { label: 'Orc', faction: 'Horde',
       racials: [['Blood Fury', '+10% Attack Power and Spell Power for 15 sec. 2 min cooldown.'],
                 ['Hardiness', 'Stuns on you last 20% shorter.'],
@@ -2082,8 +2083,8 @@ window.FWL_ICONS = {"ability_deathknight_hemorrhagicfever": "data:image/jpeg;bas
     ['Ruins of Lordaeron', 15, 20, 'Tirisfal Glades', 'Horde', true], ['The Deadmines', 16, 22, 'Westfall', 'Alliance', false],
     ['Wailing Caverns', 17, 23, 'The Barrens', 'Horde', false], ['Shadowfang Keep', 18, 24, 'Silverpine Forest', 'Horde', false],
     ['Blackfathom Deeps', 22, 28, 'Ashenvale', 'Both', false], ['Stormwind Stockade', 23, 28, 'Stormwind City', 'Alliance', false],
-    ['Razorfen Kraul', 24, 30, 'The Barrens', 'Horde', false], ['Excavation Site: Wetlands', 24, 29, 'Wetlands', 'Both', true],
-    ['Gnomeregan', 25, 31, 'Dun Morogh', 'Alliance', false], ['City of Dalaran', 28, 33, 'Alterac Mountains', 'Both', true],
+    ['Razorfen Kraul', 24, 30, 'The Barrens', 'Horde', false], ['Gnomeregan', 25, 31, 'Dun Morogh', 'Alliance', false],
+    ['Excavation Site: Wetlands', 26, 31, 'Wetlands', 'Both', true], ['City of Dalaran', 28, 33, 'Alterac Mountains', 'Both', true],
     ['Scarlet Monastery', 30, 38, 'Tirisfal Glades', 'Both', false], ['Razorfen Downs', 34, 40, 'The Barrens', 'Horde', false],
     ['Uldaman', 35, 41, 'Badlands', 'Both', false], ['The Drowned City', 35, 40, 'Stranglethorn Vale', 'Both', true],
     ["Krol'dok Stronghold", 40, 45, 'Riverglades', 'Both', true], ["Zul'Farrak", 42, 48, 'Tanaris', 'Both', false],
@@ -2520,7 +2521,7 @@ window.FWL_ICONS = {"ability_deathknight_hemorrhagicfever": "data:image/jpeg;bas
     { k: 'Suppression', n: 'Suppression', t: 0, r: 0, c: 1, m: 5, s: 'yes', d: '+{a} hit and {b} less threat.', a: ['1%', '2%', '3%', '4%', '5%'], b: ['4%', '8%', '12%', '16%', '20%'] },
     { k: 'ImprovedCorruption', n: 'Improved Corruption', t: 0, r: 0, c: 2, m: 5, s: 'yes', d: 'Corruption casts {a} sec faster and deals {b} more. Instant at 5/5.', a: ['0.4', '0.8', '1.2', '1.6', '2.0'], b: ['2%', '4%', '6%', '8%', '10%'] },
     { k: 'Malediction', n: 'Malediction', t: 0, r: 1, c: 0, m: 5, s: 'yes', d: '+{a} damage from all your periodic spells.', a: ['1%', '2%', '3%', '4%', '5%'] },
-    { k: 'SoulHarvesting', n: 'Soul Harvesting', t: 0, r: 1, c: 1, m: 2, s: 'yes', d: 'After a Drain Soul kill, +{a} mana regen for 10 sec. Scored when the best rotation finishes with Drain Soul.', a: ['50%', '100%'] },
+    { k: 'SoulHarvesting', n: 'Soul Harvest', t: 0, r: 1, c: 1, m: 2, s: 'yes', d: 'After a Drain Soul kill, +{a} mana regen for 10 sec. Scored when the best rotation finishes with Drain Soul.', a: ['50%', '100%'] },
     { k: 'ImprovedDrains', n: 'Improved Drains', t: 0, r: 1, c: 2, m: 3, s: 'yes', d: 'Drain Life, Drain Soul and Wrack deal {a} more.', a: ['7%', '14%', '20%'] },
     { k: 'ImprovedBoA', n: 'Improved Bane of Agony', t: 0, r: 2, c: 0, m: 2, s: 'yes', d: 'Bane of Agony deals {a} more.', a: ['5%', '10%'] },
     { k: 'FelConcentration', n: 'Fel Concentration', t: 0, r: 2, c: 1, m: 3, s: 'utility', d: '{a} chance to avoid pushback while draining.', a: ['23%', '47%', '70%'] },
@@ -2583,7 +2584,7 @@ window.FWL_ICONS = {"ability_deathknight_hemorrhagicfever": "data:image/jpeg;bas
     Pyroclasm: 'Pyro­clasm', Incinerate: 'Incin­erate', Nightfall: 'Night­fall', Summoner: 'Summon­er', Intensity: 'Inten­sity' };
   const short = n => n.replace('Improved ', 'Imp. ').replace('Curse of Exhaustion', 'Curse of Exhaust.').split(' ').map(w => SHY[w] || w).join(' ');
 
-  const ORDER_WFB = seq([['Improved Corruption', 5], ['Improved Life Tap', 2], ['Improved Drains', 3], ['Soul Harvesting', 2], ['Fel Concentration', 3],
+  const ORDER_WFB = seq([['Improved Corruption', 5], ['Improved Life Tap', 2], ['Improved Drains', 3], ['Soul Harvest', 2], ['Fel Concentration', 3],
     ['Suppression', 2], ['Amplify Curse', 1], ['Nightfall', 2], ['Siphon Life', 1], ['Demonic Embrace', 5], ['Improved Voidwalker', 3],
     ['Soul Siphon', 3], ['Improved Bane of Agony', 2], ['Shadow Mastery', 5], ['Wrack', 1], ['Malediction', 5], ['Curse of Exhaustion', 1],
     ['Suppression', 3], ['Fel Vitality', 2]]);
@@ -2657,7 +2658,7 @@ window.FWL_ICONS = {"ability_deathknight_hemorrhagicfever": "data:image/jpeg;bas
   const ORDER_D34 = seq([['Improved Corruption', 5], ['Improved Shadow Bolt', 5], ['Bane', 5], ['Improved Life Tap', 2], ['Molten Skin', 3],
     ['Ruin', 5], ['Shadowburn', 1], ['Cataclysm', 3], ['Conflagrate', 1], ['Agonizing Flames', 3], ['Shadow and Flame', 5], ['Intensity', 3],
     ['Suppression', 5], ['Malediction', 3], ['Nightfall', 2]]);
-  const ORDER_SPEED = seq([['Bane', 5], ['Cataclysm', 3], ['Aftermath', 2], ['Shadowburn', 1], ['Improved Corruption', 5], ['Soul Harvesting', 2],
+  const ORDER_SPEED = seq([['Bane', 5], ['Cataclysm', 3], ['Aftermath', 2], ['Shadowburn', 1], ['Improved Corruption', 5], ['Soul Harvest', 2],
     ['Suppression', 3], ['Improved Drains', 3], ['Malediction', 5], ['Improved Bane of Agony', 2], ['Pandemic', 2], ['Siphon Life', 1],
     ['Soul Siphon', 3], ['Nightfall', 2], ['Shadow Mastery', 5], ['Wrack', 1], ['Pandemic', 1], ['Fel Concentration', 3], ['Improved Life Tap', 2]]);
   function setPresetRanks(id, L) {

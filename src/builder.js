@@ -8,7 +8,7 @@
     { k: 'Suppression', n: 'Suppression', t: 0, r: 0, c: 1, m: 5, s: 'yes', d: '+{a} hit and {b} less threat.', a: ['1%', '2%', '3%', '4%', '5%'], b: ['4%', '8%', '12%', '16%', '20%'] },
     { k: 'ImprovedCorruption', n: 'Improved Corruption', t: 0, r: 0, c: 2, m: 5, s: 'yes', d: 'Corruption casts {a} sec faster and deals {b} more. Instant at 5/5.', a: ['0.4', '0.8', '1.2', '1.6', '2.0'], b: ['2%', '4%', '6%', '8%', '10%'] },
     { k: 'Malediction', n: 'Malediction', t: 0, r: 1, c: 0, m: 5, s: 'yes', d: '+{a} damage from all your periodic spells.', a: ['1%', '2%', '3%', '4%', '5%'] },
-    { k: 'SoulHarvesting', n: 'Soul Harvesting', t: 0, r: 1, c: 1, m: 2, s: 'yes', d: 'After a Drain Soul kill, +{a} mana regen for 10 sec. Scored when the best rotation finishes with Drain Soul.', a: ['50%', '100%'] },
+    { k: 'SoulHarvesting', n: 'Soul Harvest', t: 0, r: 1, c: 1, m: 2, s: 'yes', d: 'After a Drain Soul kill, +{a} mana regen for 10 sec. Scored when the best rotation finishes with Drain Soul.', a: ['50%', '100%'] },
     { k: 'ImprovedDrains', n: 'Improved Drains', t: 0, r: 1, c: 2, m: 3, s: 'yes', d: 'Drain Life, Drain Soul and Wrack deal {a} more.', a: ['7%', '14%', '20%'] },
     { k: 'ImprovedBoA', n: 'Improved Bane of Agony', t: 0, r: 2, c: 0, m: 2, s: 'yes', d: 'Bane of Agony deals {a} more.', a: ['5%', '10%'] },
     { k: 'FelConcentration', n: 'Fel Concentration', t: 0, r: 2, c: 1, m: 3, s: 'utility', d: '{a} chance to avoid pushback while draining.', a: ['23%', '47%', '70%'] },
@@ -71,7 +71,7 @@
     Pyroclasm: 'Pyro­clasm', Incinerate: 'Incin­erate', Nightfall: 'Night­fall', Summoner: 'Summon­er', Intensity: 'Inten­sity' };
   const short = n => n.replace('Improved ', 'Imp. ').replace('Curse of Exhaustion', 'Curse of Exhaust.').split(' ').map(w => SHY[w] || w).join(' ');
 
-  const ORDER_WFB = seq([['Improved Corruption', 5], ['Improved Life Tap', 2], ['Improved Drains', 3], ['Soul Harvesting', 2], ['Fel Concentration', 3],
+  const ORDER_WFB = seq([['Improved Corruption', 5], ['Improved Life Tap', 2], ['Improved Drains', 3], ['Soul Harvest', 2], ['Fel Concentration', 3],
     ['Suppression', 2], ['Amplify Curse', 1], ['Nightfall', 2], ['Siphon Life', 1], ['Demonic Embrace', 5], ['Improved Voidwalker', 3],
     ['Soul Siphon', 3], ['Improved Bane of Agony', 2], ['Shadow Mastery', 5], ['Wrack', 1], ['Malediction', 5], ['Curse of Exhaustion', 1],
     ['Suppression', 3], ['Fel Vitality', 2]]);
@@ -145,7 +145,7 @@
   const ORDER_D34 = seq([['Improved Corruption', 5], ['Improved Shadow Bolt', 5], ['Bane', 5], ['Improved Life Tap', 2], ['Molten Skin', 3],
     ['Ruin', 5], ['Shadowburn', 1], ['Cataclysm', 3], ['Conflagrate', 1], ['Agonizing Flames', 3], ['Shadow and Flame', 5], ['Intensity', 3],
     ['Suppression', 5], ['Malediction', 3], ['Nightfall', 2]]);
-  const ORDER_SPEED = seq([['Bane', 5], ['Cataclysm', 3], ['Aftermath', 2], ['Shadowburn', 1], ['Improved Corruption', 5], ['Soul Harvesting', 2],
+  const ORDER_SPEED = seq([['Bane', 5], ['Cataclysm', 3], ['Aftermath', 2], ['Shadowburn', 1], ['Improved Corruption', 5], ['Soul Harvest', 2],
     ['Suppression', 3], ['Improved Drains', 3], ['Malediction', 5], ['Improved Bane of Agony', 2], ['Pandemic', 2], ['Siphon Life', 1],
     ['Soul Siphon', 3], ['Nightfall', 2], ['Shadow Mastery', 5], ['Wrack', 1], ['Pandemic', 1], ['Fel Concentration', 3], ['Improved Life Tap', 2]]);
   function setPresetRanks(id, L) {

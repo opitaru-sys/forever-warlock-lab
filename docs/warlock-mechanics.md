@@ -83,7 +83,7 @@ Format: values shown are the **max rank** (usually the level-60 rank) unless not
 - **Bane of Havoc**, new Destruction talent (tier 4). 5% base mana, instant, 5 min duration: redirects 15% of all your damage dealt to *other* targets onto this one. Limited to 1 target; also a "Bane," so it competes with Bane of Agony/Doom for the one-Bane-per-target slot.
 - **Incinerate**, new Destruction capstone talent (tier 6/30 points). See table above.
 - **Demonic Pact**, new Demonology talent (tier 6). Your Demonic Sacrifice buff no longer cancels when you summon a *different* demon (only resummoning the sacrificed one cancels it).
-- **Pandemic, Malediction, Soul Harvesting, Improved Drains, Malevolence, Nightfall (reworked)**, new/reworked Affliction passives, see §Talents summary below.
+- **Pandemic, Malediction, Soul Harvest, Improved Drains, Malevolence, Nightfall (reworked)**, new/reworked Affliction passives, see §Talents summary below.
 - **Demonic Aegis, Demonic Energies, Decimation, Demonic Brand, Improved Felhunter, Demonic Knowledge**, new Demonology passives.
 - **Molten Skin, Fire and Brimstone, Shadow and Flame**, new Destruction passives.
 - **Summon Felguard**, **[NOT FOUND]**. Does not appear anywhere in the 53-entry Forever beta Warlock spellbook or the 52-entry talent list pulled from builds 1.60.1.69893–70009. If it exists in Forever, it has not surfaced in beta yet; treat the premise as unconfirmed/likely absent.
@@ -108,7 +108,7 @@ The beta client's own `aria-description` text on locked talent nodes gives the r
 | Suppression | Affliction T0 | +5% hit chance, -20% threat (5 ranks) | -10% chance to be resisted (5 ranks) | Completely different effect, now a hit-chance talent, not a resist-reduction talent |
 | Improved Corruption | Affliction T0 | -2 sec cast time **and** +10% damage (5 ranks) | -2 sec cast time only | Damage component added |
 | Malediction (new) | Affliction T1 | +5% periodic damage from all Warlock spells (5 ranks) | n/a | |
-| Soul Harvesting (new) | Affliction T1 | On a Drain-Soul kill: 10 sec of 50–100% faster mana regen while casting + 50–100% total regen boost | n/a | |
+| Soul Harvest (new; Soul Harvesting before the 1 Oct 2026 beta build) | Affliction T1 | On a Drain-Soul kill: 10 sec of 50–100% faster mana regen while casting + 50–100% total regen boost | n/a | |
 | Improved Drains (new) | Affliction T1 | Flat +7/13/20% to Drain Life, Drain Soul, Wrack | n/a | Confirmed by ElliotWood as a flat bonus, earlier assumptions of a scaling/speed-up effect were wrong per the client |
 | Fel Concentration | Affliction T2 | 23/47/70% pushback resist on Drain Life/Mana/Soul/**Wrack** (3 ranks) | 14/28/42/56/70% (5 ranks) | Fewer ranks, same max value |
 | Pandemic (new) | Affliction T2 | +33/67/100% crit damage bonus on Corruption, Bane of Agony, Bane of Doom, Drain Soul, Drain Life, Siphon Life, Wrack | n/a | Huge, this is what makes DoT crit (see §3) actually matter for Affliction |
