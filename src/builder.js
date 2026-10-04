@@ -225,11 +225,23 @@
     renderInfo(); renderScore();
   }
   function markSel() { document.querySelectorAll('.tal').forEach(b => b.classList.toggle('sel', b.dataset.k === B.sel)); }
+  // A tap must not move the trees. The score panel above them can change height (a note appears, a line wraps), so
+  // after a render scroll by however far the trees moved, instantly (the page otherwise scrolls smoothly for links).
+  function holdStill(node, top0) {
+    const d = node.getBoundingClientRect().top - top0;
+    if (Math.abs(d) < 0.5) return;
+    const html = document.documentElement, was = html.style.scrollBehavior;
+    html.style.scrollBehavior = 'auto';
+    window.scrollBy(0, d);
+    html.style.scrollBehavior = was;
+  }
   function step(x, dir) {
     if (dir > 0 && canAdd(x)) { B.ranks[x.k] += 1; B.preset = null; }
     else if (dir < 0 && canRemove(x)) { B.ranks[x.k] -= 1; B.preset = null; }
     else { renderInfo(); markSel(); announce(x.n + ': ' + (dir > 0 ? lockReason(x) || 'cannot add.' : 'cannot remove, other talents depend on it.')); return; }
+    const trees = document.querySelector('.btrees'), top0 = trees.getBoundingClientRect().top;
     saveB(); renderBuilder(); announce(x.n + ' ' + B.ranks[x.k] + ' of ' + x.m + '. ' + $('bSummary').textContent);
+    holdStill(trees, top0);
     const again = document.querySelector('.tal[data-k="' + x.k + '"]'); if (again) again.focus({ preventScroll: true });
   }
   function fill(x, rk) {
@@ -237,6 +249,7 @@
     const i = Math.max(0, Math.min(x.m - 1, rk - 1));
     return x.d.replace(/\{a\}/g, x.a[i]).replace(/\{b\}/g, x.b ? x.b[i] : '');
   }
+  let infoShown = null;   // the talent the box shows; long text scrolls inside it on phones
   function renderInfo() {
     const x = TBY[B.sel], rk = B.ranks[x.k];
     $('bInfoName').textContent = x.n;
@@ -249,6 +262,7 @@
     const why = lockReason(x);
     $('bInfoLock').textContent = rk < x.m && why ? why : '';
     $('bMinus').disabled = !canRemove(x); $('bPlus').disabled = !canAdd(x);
+    if (x.k !== infoShown) { infoShown = x.k; $('bInfo').scrollTop = 0; }   // another talent: back to its name and the − and +
   }
   const HP_MULTS = [0.9, 1.0, 1.1];   // mob health 90%, 100% and 110%: kill time snaps to DoT ticks otherwise
   function renderScore() {

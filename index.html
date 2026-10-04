@@ -269,6 +269,7 @@ tr.top th{font-weight:700}
 
 /* tooltip cards: the one bold element */
 .specs{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
+#spec-group{scroll-margin-top:calc(var(--nav-h) + 12px)}
 .tt{background:var(--tt-bg);color:var(--tt-white);border:1px solid var(--tt-line);border-radius:6px;padding:16px 18px;box-shadow:0 0 0 1px #000 inset,0 10px 28px rgba(8,6,24,.28);font-size:15px;line-height:1.5;display:flex;flex-direction:column;gap:6px}
 .tt .name{font-family:var(--display);color:var(--tt-gold);font-size:20px;font-weight:700;letter-spacing:.02em}
 .tt .sub{color:var(--tt-grey);font-size:13.5px}
@@ -427,12 +428,18 @@ tr.top th{font-weight:700}
 .tal.locked .icw .ico{filter:grayscale(1) brightness(.75)}
 .tal.locked{opacity:.6}
 .binfo .top .ico{width:36px;height:36px}
-/* talent details (v8.6): above the trees and the same height for every talent, so the tree never moves under a tap.
-   The − and + sit top right, where internal scrolling cannot hide them. 220px fits the longest text above 760px. */
-.binfo{grid-template-columns:minmax(0,1fr) auto;align-content:start;min-height:220px}
+/* talent details (v8.6): above the trees and the same height for every talent, so picking one never moves the trees;
+   holdStill() in builder.js keeps them still when the score panel above changes height. 220px fits the longest text
+   above 760px (Improved Sayaad rank 1 with a lock line, measured at every width from 761 to 1280px). overflow-anchor:none
+   stops scroll anchoring from picking a node inside the box and scrolling the page when its text changes. The − and +
+   sit top right, at the top of the box's own scroll: picking another talent scrolls the box back to its top. The lock
+   line comes before Next rank, so a fixed-height box on a phone scrolls the rank text away, not the reason + is off. */
+.binfo{grid-template-columns:minmax(0,1fr) auto;align-content:start;min-height:220px;overflow-anchor:none}
 .binfo>*{grid-column:1/-1}
 .binfo .top{grid-column:1}
 .binfo .btns{grid-column:2;grid-row:1;align-self:start}
+/* keyboard focus scrolls tree cells and tabs clear of the sticky section nav; phones widen this below */
+.btabs button,.tal{scroll-margin-top:calc(env(safe-area-inset-top,0px) + var(--nav-h) + 14px)}
 /* phones: pinned just under the section nav (its height plus its 2px border), at most 40% of the screen, scrolling inside
    when a text is long; tree cells and tabs keep clear of it when keyboard focus scrolls them into view */
 @media (max-width:760px){
@@ -625,17 +632,17 @@ h2::before{content:"";display:inline-block;width:11px;height:11px;transform:rota
         <span class="note" id="bSplit"></span>
         <span class="bvs" id="bVs"></span>
         <span><span class="label" style="color:var(--muted)">Best leveling rotation</span><br><span id="bRot" style="font-weight:600"></span></span>
-        <span class="note">This scores leveling, one mob at a time. For raids, see the <a href="#specs">group spec</a> and the <a href="#raid">raid calculator</a>.</span>
+        <span class="note">This scores leveling, one mob at a time. For raids, see the <a href="#spec-group">group spec</a> and the <a href="#raid">raid calculator</a>.</span>
         <ul class="bnotes" id="bNotes"></ul>
         <div class="blink"><input type="text" id="bLink" readonly aria-label="Link to this build"><button type="button" id="bCopy">Copy link</button></div>
         <span class="sr-only" id="bSummary"></span>
       </div>
     </div>
-    <div class="panel binfo">
+    <div class="panel binfo" id="bInfo">
       <div class="top"><img class="ico" id="bInfoIco" alt=""><h3 id="bInfoName"></h3><span class="note" id="bInfoRank"></span><span id="bInfoTag"></span></div>
       <p id="bInfoNow"></p>
-      <p class="note" id="bInfoNext"></p>
       <p class="note" id="bInfoLock" style="color:var(--amber)"></p>
+      <p class="note" id="bInfoNext"></p>
       <div class="btns"><button type="button" id="bMinus" aria-label="Remove a point from the selected talent">−</button><button type="button" id="bPlus" aria-label="Add a point to the selected talent">+</button></div>
     </div>
     <div class="seg compact btabs" id="bTabs" role="group" aria-label="Talent tree">
@@ -671,7 +678,7 @@ h2::before{content:"";display:inline-block;width:11px;height:11px;transform:rota
       </ul>
       <span class="grey">Pet: Voidwalker. Demonic Energies heals it off your damage and hands it your Life Tap mana.</span>
     </div>
-    <div class="tt">
+    <div class="tt" id="spec-group">
       <div class="name-row"><img class="ico" data-icon="spell_shadow_summonsuccubus" alt="Demonology"><span class="name">Grimoire of the Branded Pact</span></div>
       <span class="sub">Group spec · dungeons and raids</span>
       <span class="split">Affliction 5 · Demonology 31 · Destruction 15</span>
@@ -2756,11 +2763,23 @@ window.FWL_ICONS = {"ability_deathknight_hemorrhagicfever": "data:image/jpeg;bas
     renderInfo(); renderScore();
   }
   function markSel() { document.querySelectorAll('.tal').forEach(b => b.classList.toggle('sel', b.dataset.k === B.sel)); }
+  // A tap must not move the trees. The score panel above them can change height (a note appears, a line wraps), so
+  // after a render scroll by however far the trees moved, instantly (the page otherwise scrolls smoothly for links).
+  function holdStill(node, top0) {
+    const d = node.getBoundingClientRect().top - top0;
+    if (Math.abs(d) < 0.5) return;
+    const html = document.documentElement, was = html.style.scrollBehavior;
+    html.style.scrollBehavior = 'auto';
+    window.scrollBy(0, d);
+    html.style.scrollBehavior = was;
+  }
   function step(x, dir) {
     if (dir > 0 && canAdd(x)) { B.ranks[x.k] += 1; B.preset = null; }
     else if (dir < 0 && canRemove(x)) { B.ranks[x.k] -= 1; B.preset = null; }
     else { renderInfo(); markSel(); announce(x.n + ': ' + (dir > 0 ? lockReason(x) || 'cannot add.' : 'cannot remove, other talents depend on it.')); return; }
+    const trees = document.querySelector('.btrees'), top0 = trees.getBoundingClientRect().top;
     saveB(); renderBuilder(); announce(x.n + ' ' + B.ranks[x.k] + ' of ' + x.m + '. ' + $('bSummary').textContent);
+    holdStill(trees, top0);
     const again = document.querySelector('.tal[data-k="' + x.k + '"]'); if (again) again.focus({ preventScroll: true });
   }
   function fill(x, rk) {
@@ -2768,6 +2787,7 @@ window.FWL_ICONS = {"ability_deathknight_hemorrhagicfever": "data:image/jpeg;bas
     const i = Math.max(0, Math.min(x.m - 1, rk - 1));
     return x.d.replace(/\{a\}/g, x.a[i]).replace(/\{b\}/g, x.b ? x.b[i] : '');
   }
+  let infoShown = null;   // the talent the box shows; long text scrolls inside it on phones
   function renderInfo() {
     const x = TBY[B.sel], rk = B.ranks[x.k];
     $('bInfoName').textContent = x.n;
@@ -2780,6 +2800,7 @@ window.FWL_ICONS = {"ability_deathknight_hemorrhagicfever": "data:image/jpeg;bas
     const why = lockReason(x);
     $('bInfoLock').textContent = rk < x.m && why ? why : '';
     $('bMinus').disabled = !canRemove(x); $('bPlus').disabled = !canAdd(x);
+    if (x.k !== infoShown) { infoShown = x.k; $('bInfo').scrollTop = 0; }   // another talent: back to its name and the − and +
   }
   const HP_MULTS = [0.9, 1.0, 1.1];   // mob health 90%, 100% and 110%: kill time snaps to DoT ticks otherwise
   function renderScore() {
