@@ -79,8 +79,15 @@
     ['Demonic Sacrifice', 1], ['Master Summoner', 2], ['Improved Sayaad', 2], ['Fel Domination', 1], ['Demonic Brand', 1],
     ['Soul Link', 1], ['Demonic Knowledge', 3], ['Master Demonologist', 4], ['Demonic Pact', 1],
     ['Suppression', 3], ['Improved Drains', 3], ['Malediction', 5], ['Pandemic', 3], ['Improved Bane of Agony', 2]]);
+  // The page's group spec, 5/31/15 at 60: the spec card and demoDeep() in model.js. Below 60 it takes Demonology to Pact
+  // first (Imp sacrificed from level 40), then Suppression, then Improved Shadow Bolt, Bane and Ruin: the fastest-leveling
+  // of the legal orders tried, by the builder's own score averaged over levels 10 to 59.
+  const ORDER_GROUP = seq([['Unholy Power', 5], ['Fel Vitality', 3], ['Demonic Energies', 2], ['Improved Sayaad', 3],
+    ['Demonic Sacrifice', 1], ['Master Summoner', 2], ['Decimation', 2], ['Demonic Brand', 3], ['Soul Link', 1],
+    ['Demonic Knowledge', 3], ['Master Demonologist', 5], ['Demonic Pact', 1], ['Suppression', 5],
+    ['Improved Shadow Bolt', 5], ['Bane', 5], ['Ruin', 5]]);
   const PRESETS = [
-    ['plan', 'Page plan'], ['solo', 'Solo 28/23/0'], ['531', 'Demonology to Pact'], ['wfb', 'wowforeverbuilds drain tank'],
+    ['plan', 'Page plan'], ['solo', 'Solo 28/23/0'], ['531', 'Demonology to Pact'], ['group', 'Group 5/31/15'], ['wfb', 'wowforeverbuilds drain tank'],
     ['imm', 'Immolate build'], ['d34', '17/0/34 Destruction'], ['speed', 'Speedrun-style'], ['clear', 'Clear'],
   ];
   const PT_STEP = { Corr: 'Corruption', BoA: 'Agony', SL: 'Siphon Life', DoTs: 'Corruption, Agony, Siphon Life', Imm: 'Immolate', Wrack: 'Wrack' };
@@ -152,6 +159,7 @@
     if (id === 'plan') { B.ranks = fromOrder(L >= 56 ? SOLO56 : TAL_ORDER, L); B.pet = 'voidwalker'; B.sac = ''; B.aggro = false; }
     if (id === 'solo') { B.ranks = fromOrder(SOLO56, L); B.pet = 'voidwalker'; B.sac = ''; B.aggro = false; }
     if (id === '531') { B.ranks = fromOrder(ORDER_531, L); B.pet = 'succubus'; B.sac = B.ranks.DemonicPact ? 'imp' : ''; }
+    if (id === 'group') { B.ranks = fromOrder(ORDER_GROUP, L); B.pet = 'succubus'; B.sac = B.ranks.DemonicPact ? 'imp' : ''; }
     if (id === 'wfb') { B.ranks = fromOrder(ORDER_WFB, L); B.pet = 'voidwalker'; B.sac = ''; B.aggro = false; }
     if (id === 'imm') { B.ranks = fromOrder(ORDER_IMM, L); B.pet = 'voidwalker'; B.sac = ''; B.aggro = false; }
     if (id === 'd34') { B.ranks = fromOrder(ORDER_D34, L); B.pet = 'voidwalker'; B.sac = ''; B.aggro = false; }

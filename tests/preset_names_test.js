@@ -64,7 +64,7 @@ const used = new Set();
 for (const m of builder.matchAll(/fromOrder\(([^,]+),/g)) {
   for (const id of m[1].match(/\b(?:ORDER_\w+|TAL_ORDER|SOLO56)\b/g) || []) used.add(id);
 }
-check('preset orders found', used.size >= 7, [...used].join(', '));
+check('preset orders found', used.size >= 8, [...used].join(', '));
 used.forEach(id => check('order defined: ' + id, Array.isArray(ORDERS[id])));
 
 Object.entries(ORDERS).forEach(([id, order]) => {
@@ -75,6 +75,52 @@ Object.entries(ORDERS).forEach(([id, order]) => {
   const over = Object.entries(counts).filter(([n, c]) => byName.has(n) && c > byName.get(n).m).map(([n, c]) => n + ' ' + c);
   check('no talent past its max rank: ' + id, !over.length, over.join(', '));
 });
+
+// Every order is legal at every level (added in v8.6): each point lands in a row with 5 points per row below it in
+// its tree, after its prerequisite. Points only accumulate, so checking each point as it lands checks every level.
+// fromOrder() stops at 51 points, the level-60 total.
+const byKey = new Map(TALENTS.map(x => [x.k, x]));
+const ranksAt60 = order => {
+  const r = Object.fromEntries(TALENTS.map(x => [x.k, 0]));
+  order.slice(0, 51).forEach(n => { if (byName.has(n)) r[byName.get(n).k] += 1; });
+  return r;
+};
+Object.entries(ORDERS).forEach(([id, order]) => {
+  const r = Object.fromEntries(TALENTS.map(x => [x.k, 0])), bad = [];
+  order.slice(0, 51).forEach((n, i) => {
+    const x = byName.get(n);
+    if (!x) return;
+    const below = TALENTS.filter(y => y.t === x.t && y.r < x.r).reduce((a, y) => a + r[y.k], 0);
+    if (below < 5 * x.r) bad.push('level ' + (10 + i) + ' ' + n + ' with ' + below + ' points below its row');
+    if (x.req && r[x.req[0]] < x.req[1]) bad.push('level ' + (10 + i) + ' ' + n + ' before ' + byKey.get(x.req[0]).n);
+    r[x.k] += 1;
+  });
+  check('legal at every level: ' + id, !bad.length, bad.slice(0, 3).join('; '));
+});
+
+// The Group 5/31/15 preset (v8.6) is exactly the group spec card at 60: Succubus out, Imp sacrificed once Pact is in.
+const cm = page.match(/Group spec[^<]*<\/span>\s*<span class="split">([^<]*)<\/span>[\s\S]*?<ul>([\s\S]*?)<\/ul>/);
+check('group spec card found', !!cm);
+if (cm) {
+  const want = {}, unknown = [];
+  for (const li of cm[2].matchAll(/<li>([^<]*)<\/li>/g)) {
+    for (const item of li[1].split(', ')) {
+      const im = item.trim().match(/^(.+) (\d)$/);
+      if (im && byName.has(im[1])) want[byName.get(im[1]).k] = Number(im[2]); else unknown.push(item);
+    }
+  }
+  check('group spec card names resolve', !unknown.length, unknown.join(', '));
+  const got = ORDERS.ORDER_GROUP ? ranksAt60(ORDERS.ORDER_GROUP) : {};
+  const diff = TALENTS.filter(x => (got[x.k] || 0) !== (want[x.k] || 0)).map(x => x.n + ' ' + (got[x.k] || 0) + ' vs card ' + (want[x.k] || 0));
+  check('Group 5/31/15 at 60 equals the group spec card', !!ORDERS.ORDER_GROUP && ORDERS.ORDER_GROUP.length === 51 && !diff.length,
+    diff.length ? diff.join('; ') : (ORDERS.ORDER_GROUP ? ORDERS.ORDER_GROUP.length + ' points' : 'no ORDER_GROUP'));
+  const split = [0, 1, 2].map(t => TALENTS.filter(x => x.t === t).reduce((a, x) => a + (got[x.k] || 0), 0)).join('/');
+  const cardSplit = (cm[1].match(/\d+/g) || []).join('/');
+  check('Group preset split matches the card', split === '5/31/15' && cardSplit === split, split + ', card ' + cardSplit);
+}
+check('Group 5/31/15 preset follows Demonology to Pact', /\['531', 'Demonology to Pact'\], \['group', 'Group 5\/31\/15'\]/.test(builder));
+check('Group preset: Succubus out, Imp sacrificed with Pact',
+  builder.includes("if (id === 'group') { B.ranks = fromOrder(ORDER_GROUP, L); B.pet = 'succubus'; B.sac = B.ranks.DemonicPact ? 'imp' : ''; }"));
 
 if (failed) { console.log(`\n${failed} preset checks failed`); process.exit(1); }
 console.log('\nAll preset checks passed.');

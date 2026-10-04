@@ -427,6 +427,22 @@ tr.top th{font-weight:700}
 .tal.locked .icw .ico{filter:grayscale(1) brightness(.75)}
 .tal.locked{opacity:.6}
 .binfo .top .ico{width:36px;height:36px}
+/* talent details (v8.6): above the trees and the same height for every talent, so the tree never moves under a tap.
+   The − and + sit top right, where internal scrolling cannot hide them. 220px fits the longest text above 760px. */
+.binfo{grid-template-columns:minmax(0,1fr) auto;align-content:start;min-height:220px}
+.binfo>*{grid-column:1/-1}
+.binfo .top{grid-column:1}
+.binfo .btns{grid-column:2;grid-row:1;align-self:start}
+/* phones: pinned just under the section nav (its height plus its 2px border), at most 40% of the screen, scrolling inside
+   when a text is long; tree cells and tabs keep clear of it when keyboard focus scrolls them into view */
+@media (max-width:760px){
+  .panel.binfo{position:sticky;top:calc(env(safe-area-inset-top,0px) + var(--nav-h) + 2px);z-index:10;min-height:0;height:min(40vh,256px);height:min(40svh,256px);overflow-y:auto;padding:12px 14px;gap:4px;box-shadow:0 10px 16px -10px rgba(0,0,0,.45)}
+  .binfo h3{font-size:17px}
+  .binfo .top .ico{width:30px;height:30px}
+  #bInfoNow{font-size:15.5px;line-height:1.45}
+  .binfo .note{font-size:13.5px;line-height:1.45}
+  .btabs button,.tal{scroll-margin-top:calc(env(safe-area-inset-top,0px) + var(--nav-h) + 14px + min(40vh,256px));scroll-margin-top:calc(env(safe-area-inset-top,0px) + var(--nav-h) + 14px + min(40svh,256px))}
+}
 .credit{font-size:13px;color:var(--muted)}
 
 /* phone leader strip */
@@ -459,7 +475,7 @@ h2::before{content:"";display:inline-block;width:11px;height:11px;transform:rota
     <a id="classMage" href="https://opitaru-sys.github.io/forever-mage-lab/"><img class="ico s" data-icon="classicon_mage" alt="">Mage</a>
     <span aria-current="page"><img class="ico s" data-icon="classicon_warlock" alt="">Warlock</span>
   </nav>
-  <span class="eyebrow">WoW: Forever · Warlock · beta data · v8.5 · 2 Oct 2026</span>
+  <span class="eyebrow">WoW: Forever · Warlock · beta data · v8.6 · 4 Oct 2026</span>
   <div class="title-row"><img class="ico l" data-icon="classicon_warlock" alt="Warlock class icon"><h1>Forever Warlock Lab</h1></div>
   <p class="lede">What to press, which talents to take and which race to play, at every level from 1 to 60. Checked against the Forever beta's own spell data, with calculators you can play with.</p>
   <p class="trust">Built with Claude and checked by a second, adversarial Claude session. Open source. <a href="#method">How it was checked</a> · <a href="#changelog">What changed</a></p>
@@ -584,7 +600,7 @@ h2::before{content:"";display:inline-block;width:11px;height:11px;transform:rota
 <section id="builder" lang="en">
   <div class="wrap intro">
     <h2>Talent builder</h2>
-    <p>Build your own tree, pick a demon, and see how fast it levels next to the page plan. Click to add a point. Shift-click or right-click removes one, or use the − and + under the tree.</p>
+    <p>Build your own tree, pick a demon, and see how fast it levels next to the page plan. Click to add a point. Shift-click or right-click removes one, or use the − and + in the talent box above the trees.</p>
   </div>
   <div class="wrap wide" style="display:flex;flex-direction:column;gap:16px">
     <div class="btop">
@@ -608,11 +624,19 @@ h2::before{content:"";display:inline-block;width:11px;height:11px;transform:rota
         <div class="bspk"><b id="bSpk"></b><span id="bKph" class="note" style="font-size:15px"></span></div>
         <span class="note" id="bSplit"></span>
         <span class="bvs" id="bVs"></span>
-        <span><span class="label" style="color:var(--muted)">Best rotation</span><br><span id="bRot" style="font-weight:600"></span></span>
+        <span><span class="label" style="color:var(--muted)">Best leveling rotation</span><br><span id="bRot" style="font-weight:600"></span></span>
+        <span class="note">This scores leveling, one mob at a time. For raids, see the <a href="#specs">group spec</a> and the <a href="#raid">raid calculator</a>.</span>
         <ul class="bnotes" id="bNotes"></ul>
         <div class="blink"><input type="text" id="bLink" readonly aria-label="Link to this build"><button type="button" id="bCopy">Copy link</button></div>
         <span class="sr-only" id="bSummary"></span>
       </div>
+    </div>
+    <div class="panel binfo">
+      <div class="top"><img class="ico" id="bInfoIco" alt=""><h3 id="bInfoName"></h3><span class="note" id="bInfoRank"></span><span id="bInfoTag"></span></div>
+      <p id="bInfoNow"></p>
+      <p class="note" id="bInfoNext"></p>
+      <p class="note" id="bInfoLock" style="color:var(--amber)"></p>
+      <div class="btns"><button type="button" id="bMinus" aria-label="Remove a point from the selected talent">−</button><button type="button" id="bPlus" aria-label="Add a point to the selected talent">+</button></div>
     </div>
     <div class="seg compact btabs" id="bTabs" role="group" aria-label="Talent tree">
       <button type="button" data-t="0">Affliction</button><button type="button" data-t="1">Demonology</button><button type="button" data-t="2">Destruction</button>
@@ -621,13 +645,6 @@ h2::before{content:"";display:inline-block;width:11px;height:11px;transform:rota
       <div class="btree t0" data-t="0"><h3 id="bTreeHead0">Affliction</h3><div class="bgrid" id="bTree0" role="group" aria-label="Affliction talents"></div></div>
       <div class="btree t1" data-t="1"><h3 id="bTreeHead1">Demonology</h3><div class="bgrid" id="bTree1" role="group" aria-label="Demonology talents"></div></div>
       <div class="btree t2" data-t="2"><h3 id="bTreeHead2">Destruction</h3><div class="bgrid" id="bTree2" role="group" aria-label="Destruction talents"></div></div>
-    </div>
-    <div class="panel binfo">
-      <div class="top"><img class="ico" id="bInfoIco" alt=""><h3 id="bInfoName"></h3><span class="note" id="bInfoRank"></span><span id="bInfoTag"></span></div>
-      <p id="bInfoNow"></p>
-      <p class="note" id="bInfoNext"></p>
-      <p class="note" id="bInfoLock" style="color:var(--amber)"></p>
-      <div class="btns"><button type="button" id="bMinus" aria-label="Remove a point from the selected talent">−</button><button type="button" id="bPlus" aria-label="Add a point to the selected talent">+</button></div>
     </div>
     <div class="blegend"><span><i style="background:var(--accent)"></i>Counts in the score</span><span><i style="box-shadow:inset 0 0 0 1.5px var(--muted)"></i>Utility, not scored</span></div>
   </div>
@@ -850,6 +867,7 @@ h2::before{content:"";display:inline-block;width:11px;height:11px;transform:rota
     <summary>What changed</summary>
     <div class="dbody">
       <ul class="src">
+        <li><b>v8.6, 4 Oct 2026.</b> Talent builder fixes, thanks to readers on Reddit. The talent description now sits above the trees, and on phones it stays pinned under the section menu while you scroll the tree. The rotation line now reads "Best leveling rotation": the builder scores leveling, one mob at a time, so for raids use the group spec and the raid calculator. A new Group 5/31/15 preset loads the page's group spec at 60 and follows your level below it, taking Demonology to Pact first. No numbers changed.</li>
         <li><b>v8.5, 2 Oct 2026.</b> Updates for Blizzard's 1 Oct beta notes. Gnome: Eureka! no longer boosts DoTs, so the tip now says to press it after your DoTs, for Drain Life or Shadow Bolt. Used that way it is still worth 0.6 to 1.1% faster leveling from level 30, but nothing while the wand is your filler; pressed on the pull it is worth about 0.3%. Its raid value does not change, because the calculator only ever applied it to filler casts. Soul Harvesting is now called Soul Harvest and gives its 50/100% mana regeneration, which the model already assumed, so the page build still gains nothing from it. Excavation Site: Wetlands is now level 26 to 31 (was 24 to 29). A line under Limits on the new penalty for spell ranks far below your level. No ranking changes.</li>
         <li><b>v8.4, 1 Oct 2026.</b> The raid calculator now uses the spell ranks a trainer teaches at 60. Shadow Bolt 10, Corruption 7 and Immolate 8 came only from books in Ruins of Ahn'Qiraj, which is not on Forever's roadmap, so they are now a box to tick. Every build does 1 to 2% less and no ranking changes. The level-60 leveling numbers use the trainer ranks too, and the planner now lists Shadow Bolt rank 9 at 60. Test 9 checks for the books.</li>
         <li><b>v8.3, 1 Oct 2026.</b> A Mage / Warlock switch in the header, for the new Mage page. Links between the two pages carry your race and level. A crafted race link can no longer break the page, and levels 1 to 5 no longer break it either.</li>
@@ -2592,8 +2610,15 @@ window.FWL_ICONS = {"ability_deathknight_hemorrhagicfever": "data:image/jpeg;bas
     ['Demonic Sacrifice', 1], ['Master Summoner', 2], ['Improved Sayaad', 2], ['Fel Domination', 1], ['Demonic Brand', 1],
     ['Soul Link', 1], ['Demonic Knowledge', 3], ['Master Demonologist', 4], ['Demonic Pact', 1],
     ['Suppression', 3], ['Improved Drains', 3], ['Malediction', 5], ['Pandemic', 3], ['Improved Bane of Agony', 2]]);
+  // The page's group spec, 5/31/15 at 60: the spec card and demoDeep() in model.js. Below 60 it takes Demonology to Pact
+  // first (Imp sacrificed from level 40), then Suppression, then Improved Shadow Bolt, Bane and Ruin: the fastest-leveling
+  // of the legal orders tried, by the builder's own score averaged over levels 10 to 59.
+  const ORDER_GROUP = seq([['Unholy Power', 5], ['Fel Vitality', 3], ['Demonic Energies', 2], ['Improved Sayaad', 3],
+    ['Demonic Sacrifice', 1], ['Master Summoner', 2], ['Decimation', 2], ['Demonic Brand', 3], ['Soul Link', 1],
+    ['Demonic Knowledge', 3], ['Master Demonologist', 5], ['Demonic Pact', 1], ['Suppression', 5],
+    ['Improved Shadow Bolt', 5], ['Bane', 5], ['Ruin', 5]]);
   const PRESETS = [
-    ['plan', 'Page plan'], ['solo', 'Solo 28/23/0'], ['531', 'Demonology to Pact'], ['wfb', 'wowforeverbuilds drain tank'],
+    ['plan', 'Page plan'], ['solo', 'Solo 28/23/0'], ['531', 'Demonology to Pact'], ['group', 'Group 5/31/15'], ['wfb', 'wowforeverbuilds drain tank'],
     ['imm', 'Immolate build'], ['d34', '17/0/34 Destruction'], ['speed', 'Speedrun-style'], ['clear', 'Clear'],
   ];
   const PT_STEP = { Corr: 'Corruption', BoA: 'Agony', SL: 'Siphon Life', DoTs: 'Corruption, Agony, Siphon Life', Imm: 'Immolate', Wrack: 'Wrack' };
@@ -2665,6 +2690,7 @@ window.FWL_ICONS = {"ability_deathknight_hemorrhagicfever": "data:image/jpeg;bas
     if (id === 'plan') { B.ranks = fromOrder(L >= 56 ? SOLO56 : TAL_ORDER, L); B.pet = 'voidwalker'; B.sac = ''; B.aggro = false; }
     if (id === 'solo') { B.ranks = fromOrder(SOLO56, L); B.pet = 'voidwalker'; B.sac = ''; B.aggro = false; }
     if (id === '531') { B.ranks = fromOrder(ORDER_531, L); B.pet = 'succubus'; B.sac = B.ranks.DemonicPact ? 'imp' : ''; }
+    if (id === 'group') { B.ranks = fromOrder(ORDER_GROUP, L); B.pet = 'succubus'; B.sac = B.ranks.DemonicPact ? 'imp' : ''; }
     if (id === 'wfb') { B.ranks = fromOrder(ORDER_WFB, L); B.pet = 'voidwalker'; B.sac = ''; B.aggro = false; }
     if (id === 'imm') { B.ranks = fromOrder(ORDER_IMM, L); B.pet = 'voidwalker'; B.sac = ''; B.aggro = false; }
     if (id === 'd34') { B.ranks = fromOrder(ORDER_D34, L); B.pet = 'voidwalker'; B.sac = ''; B.aggro = false; }
